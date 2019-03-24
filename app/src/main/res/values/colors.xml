@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="layout_bg">#0E0E0E</color>
+    <color name="white">#FEFDFD</color>
+    <color name="blue_color">#5678FF</color>
+    <color name="button_bg">#5678FF</color>
+
+    <color name="hint_color">#8D8D8D</color>
+    <color name="bar_color">#1D1D1D</color>
+
+    <color name="text_hint_color">#6F6F6F</color>
+    <color name="text_white">#FEFEFE</color>
+    
+</resources>

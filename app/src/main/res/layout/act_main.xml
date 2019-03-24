@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_bg"
+    android:fitsSystemWindows="true">
+
+
+    <LinearLayout
+        android:id="@+id/buttom_tab"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bar_color"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <com.xyz.tabitem.BottmTabItem
+            android:id="@+id/main1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:xyzIcon="@drawable/main1"
+            app:xyzIconHeight="20dp"
+            app:xyzIconWidth="20dp"
+            app:xyzSelectIcon="@drawable/main1_xz"
+            app:xyzSelectState="true"
+            app:xyzTitle="任务"
+            app:xyzTitleColor="#80849C"
+            app:xyzTitleSelectColor="#4166BE"
+            app:xyzTitleSize="10sp"
+            app:xyzTitleTop="5dp" />
+
+        <com.xyz.tabitem.BottmTabItem
+            android:id="@+id/main2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:xyzIcon="@drawable/main2"
+            app:xyzIconHeight="20dp"
+            app:xyzIconWidth="20dp"
+            app:xyzSelectIcon="@drawable/main2_xz"
+            app:xyzSelectState="false"
+            app:xyzTitle="消息"
+            app:xyzTitleColor="#80849C"
+            app:xyzTitleSelectColor="#4166BE"
+            app:xyzTitleSize="10sp"
+            app:xyzTitleTop="5dp" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+
+            <com.xyz.tabitem.BottmTabItem
+                android:id="@+id/main3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:xyzIcon="@drawable/main3"
+                app:xyzIconHeight="20dp"
+                app:xyzIconWidth="20dp"
+                app:xyzSelectIcon="@drawable/main3_xz"
+                app:xyzSelectState="false"
+                app:xyzTitle="通讯录"
+                app:xyzTitleColor="#80849C"
+                app:xyzTitleSelectColor="#4166BE"
+                app:xyzTitleSize="10sp"
+                app:xyzTitleTop="5dp" />
+
+
+            <!--<TextView-->
+            <!--android:id="@+id/shop_num"-->
+            <!--android:layout_width="20dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:background="@drawable/shop_cat_flog"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:text="1"-->
+            <!--android:visibility="gone"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginRight="25dp"-->
+            <!--android:layout_marginTop="1dp"-->
+            <!--android:textSize="10sp" />-->
+
+
+        </RelativeLayout>
+
+        <com.xyz.tabitem.BottmTabItem
+            android:id="@+id/main4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:xyzIcon="@drawable/main4"
+            app:xyzIconHeight="20dp"
+            app:xyzIconWidth="20dp"
+            app:xyzSelectIcon="@drawable/main4_xz"
+            app:xyzSelectState="false"
+            app:xyzTitle="造小蜜"
+            app:xyzTitleColor="#80849C"
+            app:xyzTitleSelectColor="#4166BE"
+            app:xyzTitleSize="10sp"
+            app:xyzTitleTop="5dp" />
+
+
+        <com.xyz.tabitem.BottmTabItem
+            android:id="@+id/main5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:xyzIcon="@drawable/main5"
+            app:xyzIconHeight="20dp"
+            app:xyzIconWidth="20dp"
+            app:xyzSelectIcon="@drawable/main5_xz"
+            app:xyzSelectState="false"
+            app:xyzTitle="我的"
+            app:xyzTitleColor="#80849C"
+            app:xyzTitleSelectColor="#4166BE"
+            app:xyzTitleSize="10sp"
+            app:xyzTitleTop="5dp" />
+
+
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/buttom_tab"
+        android:fitsSystemWindows="true" />
+
+
+</RelativeLayout>
