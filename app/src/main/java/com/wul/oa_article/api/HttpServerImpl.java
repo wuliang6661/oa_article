@@ -1,9 +1,11 @@
 package com.wul.oa_article.api;
 
 import com.wul.oa_article.base.MyApplication;
+import com.wul.oa_article.bean.request.ForwordPassword;
 import com.wul.oa_article.bean.request.PhoneRequest;
 import com.wul.oa_article.bean.request.RegistUserRequest;
 import com.wul.oa_article.bean.request.TokenRequest;
+import com.wul.oa_article.util.MD5;
 import com.wul.oa_article.util.rx.RxResultHelper;
 
 import rx.Observable;
@@ -29,7 +31,7 @@ public class HttpServerImpl {
     public static Observable<String> register(String phone, String code, String password, int type) {
         RegistUserRequest request = new RegistUserRequest();
         request.setCode(code);
-        request.setPassword(password);
+        request.setPassword(MD5.strToMd5Low32(MD5.strToMd5Low32(password) + "zxq"));
         request.setPhone(phone);
         request.setType(type);
         return getService().register(request).compose(RxResultHelper.httpRusult());
@@ -62,7 +64,7 @@ public class HttpServerImpl {
     public static Observable<String> login(String phone, String password) {
         RegistUserRequest request = new RegistUserRequest();
         request.setPhone(phone);
-        request.setPassword(password);
+        request.setPassword(MD5.strToMd5Low32(MD5.strToMd5Low32(password) + "zxq"));
         return getService().login(request).compose(RxResultHelper.httpRusult());
     }
 
@@ -75,7 +77,16 @@ public class HttpServerImpl {
         return getService().getUserInfo(request).compose(RxResultHelper.httpRusult());
     }
 
-
+    /**
+     * 忘记密码
+     */
+    public static Observable<String> fordPassword(String newPassword, String confirmPassword) {
+        ForwordPassword password = new ForwordPassword();
+        password.setConfirmPassword(MD5.strToMd5Low32(MD5.strToMd5Low32(confirmPassword) + "zxq"));
+        password.setNewPassword(MD5.strToMd5Low32(MD5.strToMd5Low32(newPassword) + "zxq"));
+        password.setToken(MyApplication.token);
+        return getService().forwordPassword(password).compose(RxResultHelper.httpRusult());
+    }
 
 
 }
