@@ -1,0 +1,81 @@
+package com.wul.oa_article.api;
+
+import com.wul.oa_article.base.MyApplication;
+import com.wul.oa_article.bean.request.PhoneRequest;
+import com.wul.oa_article.bean.request.RegistUserRequest;
+import com.wul.oa_article.bean.request.TokenRequest;
+import com.wul.oa_article.util.rx.RxResultHelper;
+
+import rx.Observable;
+
+public class HttpServerImpl {
+
+    private static HttpService service;
+
+    /**
+     * 获取代理对象
+     *
+     * @return
+     */
+    public static HttpService getService() {
+        if (service == null)
+            service = ApiManager.getInstance().configRetrofit(HttpService.class, HttpService.URL);
+        return service;
+    }
+
+    /**
+     * 注册账号
+     */
+    public static Observable<String> register(String phone, String code, String password, int type) {
+        RegistUserRequest request = new RegistUserRequest();
+        request.setCode(code);
+        request.setPassword(password);
+        request.setPhone(phone);
+        request.setType(type);
+        return getService().register(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 发送短信验证码
+     */
+    public static Observable<String> sendMessage(String phone, int type) {
+        PhoneRequest request = new PhoneRequest();
+        request.phone = phone;
+        request.type = type;
+        return getService().sendMessage(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 校验验证码正确
+     */
+    public static Observable<String> checkModeMsg(String phone, String code, int type) {
+        RegistUserRequest request = new RegistUserRequest();
+        request.setCode(code);
+        request.setPhone(phone);
+        request.setType(type);
+        return getService().checkMesCode(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 登录
+     */
+    public static Observable<String> login(String phone, String password) {
+        RegistUserRequest request = new RegistUserRequest();
+        request.setPhone(phone);
+        request.setPassword(password);
+        return getService().login(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取用户信息
+     */
+    public static Observable<String> getUserinfo() {
+        TokenRequest request = new TokenRequest();
+        request.token = MyApplication.token;
+        return getService().getUserInfo(request).compose(RxResultHelper.httpRusult());
+    }
+
+
+
+
+}
