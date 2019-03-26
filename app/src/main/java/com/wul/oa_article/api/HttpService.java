@@ -1,6 +1,7 @@
 package com.wul.oa_article.api;
 
 import com.wul.oa_article.bean.BaseResult;
+import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.bean.request.ForwordPassword;
 import com.wul.oa_article.bean.request.PhoneRequest;
 import com.wul.oa_article.bean.request.RegistUserRequest;
@@ -52,7 +53,7 @@ public interface HttpService {
      * 获取用户信息
      */
     @POST("industry_webservice/app/userInfo/getUserInfo")
-    Observable<BaseResult<String>> getUserInfo(@Body TokenRequest request);
+    Observable<BaseResult<UserBo>> getUserInfo(@Body TokenRequest request);
 
     /**
      * 忘记密码

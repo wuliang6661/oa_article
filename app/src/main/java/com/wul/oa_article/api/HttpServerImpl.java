@@ -1,6 +1,7 @@
 package com.wul.oa_article.api;
 
 import com.wul.oa_article.base.MyApplication;
+import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.bean.request.ForwordPassword;
 import com.wul.oa_article.bean.request.PhoneRequest;
 import com.wul.oa_article.bean.request.RegistUserRequest;
@@ -71,7 +72,7 @@ public class HttpServerImpl {
     /**
      * 获取用户信息
      */
-    public static Observable<String> getUserinfo() {
+    public static Observable<UserBo> getUserinfo() {
         TokenRequest request = new TokenRequest();
         request.token = MyApplication.token;
         return getService().getUserInfo(request).compose(RxResultHelper.httpRusult());

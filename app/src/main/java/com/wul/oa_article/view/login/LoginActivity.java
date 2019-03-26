@@ -16,6 +16,7 @@ import com.wul.oa_article.R;
 import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
 import com.wul.oa_article.base.MyApplication;
+import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.mvp.MVPBaseActivity;
 import com.wul.oa_article.view.forword_password.Forword_passwordActivity;
 import com.wul.oa_article.view.main.MainActivity;
@@ -115,9 +116,9 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
      * 获取用户信息
      */
     private void getUserInfo() {
-        HttpServerImpl.getUserinfo().subscribe(new HttpResultSubscriber<String>() {
+        HttpServerImpl.getUserinfo().subscribe(new HttpResultSubscriber<UserBo>() {
             @Override
-            public void onSuccess(String s) {
+            public void onSuccess(UserBo s) {
                 gotoActivity(MainActivity.class, true);
             }
 

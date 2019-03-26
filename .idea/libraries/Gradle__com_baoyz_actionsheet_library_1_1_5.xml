@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.baoyz.actionsheet:library-1.1.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-1.1.5.aar/e91a6ce5d7f3299f76148cab2dcb102a/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-1.1.5.aar/e91a6ce5d7f3299f76148cab2dcb102a/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.baoyz.actionsheet/library/1.1.5/49d9469ff8b56d6386c7b7250d11913f7cf8cf9b/library-1.1.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
