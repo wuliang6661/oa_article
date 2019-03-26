@@ -6,12 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.svprogresshud.SVProgressHUD;
-import com.blankj.utilcode.util.ToastUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.wul.oa_article.R;
 import com.wul.oa_article.util.AppManager;
@@ -128,7 +127,7 @@ public abstract class BaseActivity extends SupportActivity {
 
 
     protected void showToast(String message) {
-        ToastUtils.showShort(message);
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
 

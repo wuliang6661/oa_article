@@ -3,12 +3,19 @@ package com.wul.oa_article.view.login;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.wul.oa_article.R;
+import com.wul.oa_article.api.HttpResultSubscriber;
+import com.wul.oa_article.api.HttpServerImpl;
+import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.mvp.MVPBaseActivity;
 import com.wul.oa_article.view.forword_password.Forword_passwordActivity;
 import com.wul.oa_article.view.main.MainActivity;
@@ -35,6 +42,8 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
     Button loginButton;
     @BindView(R.id.wechat_login)
     LinearLayout wechatLogin;
+    @BindView(R.id.mima_visiable)
+    CheckBox mimaVisiable;
 
     @Override
     protected int getLayout() {
@@ -47,6 +56,15 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
 
         goBack();
         setTitleText("登录");
+        mimaVisiable.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                //如果选中，显示密码
+                editPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            } else {
+                //否则隐藏密码
+                editPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+        });
     }
 
 
@@ -68,6 +86,46 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
 
     @OnClick(R.id.login_button)
     public void login(View view) {
-        gotoActivity(MainActivity.class, true);
+        String phone = editPhone.getText().toString().trim();
+        String password = editPassword.getText().toString().trim();
+        if (StringUtils.isEmpty(phone)) {
+            showToast("请输入手机号码！");
+            return;
+        }
+        if (StringUtils.isEmpty(password)) {
+            showToast("请输入密码！");
+            return;
+        }
+        HttpServerImpl.login(phone, password).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                MyApplication.token = s;
+                getUserInfo();
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
     }
+
+
+    /**
+     * 获取用户信息
+     */
+    private void getUserInfo() {
+        HttpServerImpl.getUserinfo().subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                gotoActivity(MainActivity.class, true);
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
+
 }
