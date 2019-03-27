@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.xyz.tabitem:tabitem-1.0.2">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/tabitem-1.0.2.aar/0ee1e1cb3ee200a21a590a3176207799/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/tabitem-1.0.2.aar/0ee1e1cb3ee200a21a590a3176207799/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/tabitem-1.0.2.aar/c7ee9676f829d01e18602deac801ff29/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/tabitem-1.0.2.aar/c7ee9676f829d01e18602deac801ff29/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -1,6 +1,8 @@
 package com.wul.oa_article.api;
 
 import com.wul.oa_article.base.MyApplication;
+import com.wul.oa_article.bean.ComplanOrderBo;
+import com.wul.oa_article.bean.MyOrderBO;
 import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.bean.request.ForwordPassword;
 import com.wul.oa_article.bean.request.OrderRequest;
@@ -9,6 +11,8 @@ import com.wul.oa_article.bean.request.RegistUserRequest;
 import com.wul.oa_article.bean.request.TokenRequest;
 import com.wul.oa_article.util.MD5;
 import com.wul.oa_article.util.rx.RxResultHelper;
+
+import java.util.List;
 
 import rx.Observable;
 
@@ -94,10 +98,26 @@ public class HttpServerImpl {
     /**
      * 根据任务状态查询任务列表
      */
-    public static Observable<String> getOrderByTask(OrderRequest request) {
-        request.setCompanyId(1);
-        request.setToken("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxODg5Nzk0MDgxOSIsImNyZWF0ZWQiOjE1NTA4MDgxNTY4NzcsImV4cCI6MTU1OTQ0ODE1Nn0.C2igVm-makQT38CbaN4eJzLyo9YWRJvqZ3wcDcEtaCwGjEetiC97bi7PWVP9nt1VB1Q0tv0hVopcjrBDVww8tA");
+    public static Observable<List<MyOrderBO>> getOrderByTask(OrderRequest request) {
+        request.setToken(MyApplication.token);
         return getService().getOrderByTask(request).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 查询公司订单列表
+     */
+    public static Observable<List<ComplanOrderBo>> getComplayList(OrderRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().getComplayList(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取待接受列表
+     */
+    public static Observable<String> getAsseptOrder(OrderRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().getAcceptOrder(request).compose(RxResultHelper.httpRusult());
     }
 
 
