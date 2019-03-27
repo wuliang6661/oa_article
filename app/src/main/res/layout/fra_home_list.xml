@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#161616"
@@ -19,6 +20,17 @@
         app:tabSelectedTextColor="@color/tab_select"
         app:tabTextAppearance="@style/MyTablayoutstyleText"
         app:tabTextColor="@color/tab_txt_color" />
+
+    <com.flyco.tablayout.CommonTabLayout
+        android:id="@+id/tl_4"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/tab_bg"
+        app:tl_textSelectColor="@color/tab_select"
+        app:tl_textUnselectColor="@color/tab_txt_color"
+        tl:tl_iconVisible="false"
+        tl:tl_indicator_width="68dp"
+        tl:tl_textsize="15sp" />
 
 
     <LinearLayout

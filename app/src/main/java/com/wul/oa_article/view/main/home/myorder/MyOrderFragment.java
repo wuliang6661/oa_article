@@ -14,13 +14,17 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SizeUtils;
+import com.flyco.tablayout.CommonTabLayout;
+import com.flyco.tablayout.listener.CustomTabEntity;
 import com.wul.oa_article.R;
 import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
 import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
+import com.wul.oa_article.view.main.TabEntity;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +43,10 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
     @BindView(R.id.recycle_view)
     RecyclerView recycleView;
     Unbinder unbinder;
+    @BindView(R.id.tl_4)
+    CommonTabLayout tl4;
+
+    private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     @Nullable
     @Override
@@ -68,6 +76,12 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
         tabLayout.addTab(tabLayout.newTab().setText("0\n我自己的"));
         tabLayout.addTab(tabLayout.newTab().setText("0\n我分派的"));
         tabLayout.addTab(tabLayout.newTab().setText("0\n已完成"));
+
+        mTabEntities.add(new TabEntity("0\n所有任务", 0, 0));
+        mTabEntities.add(new TabEntity("0\n我自己的", 0, 0));
+        mTabEntities.add(new TabEntity("0\n我分派的", 0, 0));
+        mTabEntities.add(new TabEntity("0\n已完成", 0, 0));
+        tl4.setTabData(mTabEntities);
     }
 
 
