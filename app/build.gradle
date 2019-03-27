@@ -98,4 +98,5 @@ dependencies {
     api(name: 'alipaySdk-15.5.9-20181123210601', ext: 'aar')
     implementation 'com.github.lovetuzitong:MultiImageSelector:1.2'
     implementation 'com.contrarywind:Android-PickerView:4.1.7'
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
 }
