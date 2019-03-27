@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wul.oa_article.R;
+import com.wul.oa_article.api.HttpResultSubscriber;
+import com.wul.oa_article.api.HttpServerImpl;
+import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 
 import butterknife.BindView;
@@ -18,8 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * MVPPlugin
- * 邮箱 784787081@qq.com
+ * 我的订单
  */
 
 public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrderPresenter>
@@ -47,6 +49,7 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
         super.onViewCreated(view, savedInstanceState);
 
         initView();
+        getOrderByTask();
     }
 
 
@@ -58,6 +61,28 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
         tabLayout.addTab(tabLayout.newTab().setText("0\n我自己的"));
         tabLayout.addTab(tabLayout.newTab().setText("0\n我分派的"));
         tabLayout.addTab(tabLayout.newTab().setText("0\n已完成"));
+    }
+
+
+    /**
+     * 获取我的任务
+     */
+    private void getOrderByTask() {
+        OrderRequest request = new OrderRequest();
+        request.setPageNum(1);
+        request.setPageSize(1000);
+        request.setUserId(1);
+        HttpServerImpl.getOrderByTask(request).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+
+            }
+
+            @Override
+            public void onFiled(String message) {
+
+            }
+        });
     }
 
 

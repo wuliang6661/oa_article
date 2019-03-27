@@ -11,11 +11,15 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         app:tabBackground="@color/tab_bg"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/tab_select"
         app:tabIndicatorHeight="2dp"
+        app:tabMode="fixed"
         app:tabSelectedTextColor="@color/tab_select"
+        app:tabTextAppearance="@style/MyTablayoutstyleText"
         app:tabTextColor="@color/tab_txt_color" />
 
 

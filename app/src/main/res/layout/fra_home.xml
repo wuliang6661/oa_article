@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#090909"
@@ -44,12 +45,14 @@
 
 
         <ImageView
+            android:id="@+id/shaixuan_img"
             android:layout_width="45dp"
             android:layout_height="19dp"
             android:src="@drawable/shaixuan" />
 
 
         <ImageView
+            android:id="@+id/add_img"
             android:layout_width="40dp"
             android:layout_height="20dp"
             android:layout_marginRight="10dp"
@@ -57,6 +60,7 @@
 
 
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,16 +72,18 @@
 
 
         <TextView
+            android:id="@+id/my_order"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:text="我的任务"
-            android:textColor="#656565"
+            android:textColor="#4166BE"
             android:textSize="16sp" />
 
 
         <TextView
+            android:id="@+id/gongsi_order"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -87,6 +93,7 @@
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/unknow_order"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -103,7 +110,6 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 
 
 </LinearLayout>

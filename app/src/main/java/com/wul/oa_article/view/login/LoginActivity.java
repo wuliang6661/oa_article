@@ -97,6 +97,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
             showToast("请输入密码！");
             return;
         }
+        showProgress();
         HttpServerImpl.login(phone, password).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
@@ -106,6 +107,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
 
             @Override
             public void onFiled(String message) {
+                stopProgress();
                 showToast(message);
             }
         });
@@ -119,11 +121,13 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         HttpServerImpl.getUserinfo().subscribe(new HttpResultSubscriber<UserBo>() {
             @Override
             public void onSuccess(UserBo s) {
+                stopProgress();
                 gotoActivity(MainActivity.class, true);
             }
 
             @Override
             public void onFiled(String message) {
+                stopProgress();
                 showToast(message);
             }
         });

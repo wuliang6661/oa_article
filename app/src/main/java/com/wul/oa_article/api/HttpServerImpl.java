@@ -3,6 +3,7 @@ package com.wul.oa_article.api;
 import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.bean.request.ForwordPassword;
+import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.PhoneRequest;
 import com.wul.oa_article.bean.request.RegistUserRequest;
 import com.wul.oa_article.bean.request.TokenRequest;
@@ -87,6 +88,16 @@ public class HttpServerImpl {
         password.setNewPassword(MD5.strToMd5Low32(MD5.strToMd5Low32(newPassword) + "zxq"));
         password.setToken(MyApplication.token);
         return getService().forwordPassword(password).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 根据任务状态查询任务列表
+     */
+    public static Observable<String> getOrderByTask(OrderRequest request) {
+        request.setCompanyId(1);
+        request.setToken("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxODg5Nzk0MDgxOSIsImNyZWF0ZWQiOjE1NTA4MDgxNTY4NzcsImV4cCI6MTU1OTQ0ODE1Nn0.C2igVm-makQT38CbaN4eJzLyo9YWRJvqZ3wcDcEtaCwGjEetiC97bi7PWVP9nt1VB1Q0tv0hVopcjrBDVww8tA");
+        return getService().getOrderByTask(request).compose(RxResultHelper.httpRusult());
     }
 
 

@@ -9,13 +9,17 @@
     </style>
 
 
-    <!--<style name="MyTablayoutstyle" parent="Base.Widget.Design.TabLayout">-->
-        <!--<item name="tabBackground">@color/white</item>-->
-        <!--<item name="tabIndicatorColor">@color/green</item>-->
-        <!--<item name="tabIndicatorHeight">2dp</item>-->
-        <!--<item name="tabSelectedTextColor">@color/green</item>-->
-        <!--<item name="android:textSize">15sp</item>-->
-        <!--<item name="android:textColor">@color/text</item>-->
-    <!--</style>-->
+    <style name="MyTablayoutstyle" parent="Base.Widget.Design.TabLayout">
+        <item name="tabBackground">@color/tab_bg</item>
+        <item name="tabIndicatorColor">@color/tab_select</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabSelectedTextColor">@color/tab_select</item>
 
+    </style>
+
+
+    <style name="MyTablayoutstyleText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/tab_txt_color</item>
+    </style>
 </resources>

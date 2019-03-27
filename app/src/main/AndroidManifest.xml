@@ -57,6 +57,7 @@
         <!--主页-->
         <activity
             android:name=".view.main.MainActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
     </application>
 

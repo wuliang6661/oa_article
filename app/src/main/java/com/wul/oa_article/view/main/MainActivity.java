@@ -1,17 +1,42 @@
 package com.wul.oa_article.view.main;
 
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.FrameLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.view.TimePickerView;
+import com.blankj.utilcode.util.TimeUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.mvp.MVPBaseActivity;
 import com.wul.oa_article.util.AppManager;
+import com.wul.oa_article.view.main.home.none.NoneFragment1;
+import com.wul.oa_article.view.main.home.none.NoneFragment2;
+import com.wul.oa_article.view.main.home.none.NoneFragment3;
+import com.wul.oa_article.view.main.home.none.NoneFragment4;
+import com.wul.oa_article.view.main.home.none.NoneFragment5;
 import com.xyz.tabitem.BottmTabItem;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import butterknife.BindView;
+import butterknife.OnClick;
 import me.yokeyword.fragmentation.SupportFragment;
 
 
@@ -33,14 +58,38 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     BottmTabItem main4;
     @BindView(R.id.main5)
     BottmTabItem main5;
+    @BindView(R.id.create_time_start)
+    TextView createTimeStart;
+    @BindView(R.id.create_time_end)
+    TextView createTimeEnd;
+    @BindView(R.id.stop_time_start)
+    TextView stopTimeStart;
+    @BindView(R.id.stop_time_end)
+    TextView stopTimeEnd;
+    @BindView(R.id.task_unfinish)
+    RadioButton taskUnfinish;
+    @BindView(R.id.task_way)
+    RadioButton taskWay;
+    @BindView(R.id.task_off)
+    RadioButton taskOff;
+    @BindView(R.id.radio_group_task)
+    RadioGroup radioGroupTask;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
 
     private int selectPosition = 0;
     private BottmTabItem[] buttms;
     private SupportFragment[] mFragments = new SupportFragment[5];
 
+    TimePickerView pvTime;
+
+    @SuppressLint("SimpleDateFormat")
+    DateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+
+
     @Override
     protected int getLayout() {
-        return R.layout.act_main;
+        return R.layout.act_main_all;
     }
 
 
@@ -55,6 +104,9 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         main3.setOnClickListener(this);
         main4.setOnClickListener(this);
         main5.setOnClickListener(this);
+
+        //禁止手势滑出侧滑菜单
+//        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
 
@@ -131,6 +183,85 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                 buttms[i].setSelectState(false);
             }
         }
+    }
+
+    @OnClick({R.id.create_time_start, R.id.create_time_end, R.id.stop_time_start, R.id.stop_time_end})
+    public void timeClick(View view) {
+        switch (view.getId()) {
+            case R.id.create_time_start:
+                initTimePicker(0);
+                break;
+            case R.id.create_time_end:
+                initTimePicker(1);
+                break;
+            case R.id.stop_time_start:
+                initTimePicker(2);
+                break;
+            case R.id.stop_time_end:
+                initTimePicker(3);
+                break;
+        }
+    }
+
+
+    /**
+     * 时间选择器
+     *
+     * @param timeType 0:创建开始时间  1：创建结束时间  2：截止开始时间 3：截止结束时间
+     */
+    @SuppressLint("SimpleDateFormat")
+    private void initTimePicker(int timeType) {
+        Calendar startDate = Calendar.getInstance();
+//        Calendar endDate = Calendar.getInstance();
+//        endDate.set(Calendar.DAY_OF_YEAR, endDate.get(Calendar.DAY_OF_YEAR) + (10 * 365));   //默认设置可选择一年，可配置
+        pvTime = new TimePickerBuilder(this, (date, v) -> {
+            switch (timeType) {
+                case 0:
+                    setTimeSelect(createTimeStart, date);
+                    break;
+                case 1:
+                    setTimeSelect(createTimeEnd, date);
+                    break;
+                case 2:
+                    setTimeSelect(stopTimeStart, date);
+                    break;
+                case 3:
+                    setTimeSelect(stopTimeEnd, date);
+                    break;
+            }
+        })
+                .setType(new boolean[]{true, true, true, false, false, false})
+                .isDialog(true) //默认设置false ，内部实现将DecorView 作为它的父控件。
+                .setDate(startDate)
+                .setLineSpacingMultiplier(1.8f)
+                .build();
+        Dialog mDialog = pvTime.getDialog();
+        if (mDialog != null) {
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    Gravity.BOTTOM);
+            params.leftMargin = 0;
+            params.rightMargin = 0;
+            pvTime.getDialogContainerLayout().setLayoutParams(params);
+            Window dialogWindow = mDialog.getWindow();
+            if (dialogWindow != null) {
+                dialogWindow.setWindowAnimations(com.bigkoo.pickerview.R.style.picker_view_slide_anim);//修改动画样式
+                dialogWindow.setGravity(Gravity.BOTTOM);//改成Bottom,底部显示
+                dialogWindow.setDimAmount(0.1f);
+            }
+        }
+        pvTime.show();
+    }
+
+
+    /**
+     * 设置时间按钮选中之后的样式
+     */
+    private void setTimeSelect(TextView view, Date date) {
+        view.setText(TimeUtils.date2String(date, format));
+        view.setTextColor(Color.parseColor("#5678FF"));
+        view.setBackgroundResource(R.drawable.menu_item_select);
     }
 
 
