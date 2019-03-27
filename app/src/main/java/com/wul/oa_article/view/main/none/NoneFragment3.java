@@ -1,4 +1,4 @@
-package com.wul.oa_article.view.main.home.none;
+package com.wul.oa_article.view.main.none;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,25 +8,15 @@ import android.view.ViewGroup;
 
 
 import com.wul.oa_article.R;
-import com.wul.oa_article.view.main.home.HomeFragment;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
- * Created by wuliang on 2018/12/29.
- * <p>
- * 容器Fragment
+ * Created by dell on 2018/12/29.
  */
 
-public class NoneFragment1 extends SupportFragment {
+public class NoneFragment3 extends SupportFragment {
 
-
-    public static NoneFragment1 newInstance() {
-        Bundle args = new Bundle();
-        NoneFragment1 fragment = new NoneFragment1();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Nullable
     @Override
@@ -39,14 +29,15 @@ public class NoneFragment1 extends SupportFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (findChildFragment(HomeFragment.class) == null) {
-            loadRootFragment(R.id.fl_first_container, new HomeFragment());
-        }
+//        if (findChildFragment(ShopCarFragment.class) == null) {
+//            loadRootFragment(R.id.fl_first_container, new ShopCarFragment());
+//        }
     }
 
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
+
 
     }
 }

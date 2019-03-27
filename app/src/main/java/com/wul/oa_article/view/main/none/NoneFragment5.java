@@ -1,4 +1,4 @@
-package com.wul.oa_article.view.main.home.none;
+package com.wul.oa_article.view.main.none;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,16 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.wul.oa_article.R;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
-/**
- * Created by dell on 2018/12/29.
- */
-
-public class NoneFragment3 extends SupportFragment {
+public class NoneFragment5 extends SupportFragment {
 
 
     @Nullable
@@ -30,7 +25,7 @@ public class NoneFragment3 extends SupportFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 //        if (findChildFragment(ShopCarFragment.class) == null) {
-//            loadRootFragment(R.id.fl_first_container, new ShopCarFragment());
+//            loadRootFragment(R.id.fl_first_container, new MineFragment());
 //        }
     }
 

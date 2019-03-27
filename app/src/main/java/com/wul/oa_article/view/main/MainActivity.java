@@ -23,11 +23,11 @@ import com.blankj.utilcode.util.TimeUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.mvp.MVPBaseActivity;
 import com.wul.oa_article.util.AppManager;
-import com.wul.oa_article.view.main.home.none.NoneFragment1;
-import com.wul.oa_article.view.main.home.none.NoneFragment2;
-import com.wul.oa_article.view.main.home.none.NoneFragment3;
-import com.wul.oa_article.view.main.home.none.NoneFragment4;
-import com.wul.oa_article.view.main.home.none.NoneFragment5;
+import com.wul.oa_article.view.main.none.NoneFragment1;
+import com.wul.oa_article.view.main.none.NoneFragment2;
+import com.wul.oa_article.view.main.none.NoneFragment3;
+import com.wul.oa_article.view.main.none.NoneFragment4;
+import com.wul.oa_article.view.main.none.NoneFragment5;
 import com.xyz.tabitem.BottmTabItem;
 
 import java.text.DateFormat;
