@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#1F1F20"
@@ -25,9 +26,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:text="商品名称"
                 android:textColor="#E6E5E5"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                tools:text="商品名称" />
 
             <TextView
                 android:id="@+id/order_num"
@@ -35,9 +36,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:singleLine="true"
-                android:text="订单编号"
                 android:textColor="#8D8C91"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                tools:text="订单编号" />
 
 
         </LinearLayout>
@@ -55,18 +56,18 @@
                 android:id="@+id/order_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="采购方式"
                 android:textColor="#E6E5E5"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                tools:text="采购方式" />
 
             <TextView
                 android:id="@+id/order_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="已完成"
                 android:textColor="#8D8C91"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                tools:text="已完成" />
 
 
         </LinearLayout>
@@ -90,18 +91,19 @@
                     android:id="@+id/order_nick_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="执行人"
                     android:textColor="#E6E5E5"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:text="执行人" />
 
 
                 <TextView
+                    android:id="@+id/task_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="-0天"
                     android:textColor="#E32A2A"
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                    tools:text="-0天" />
 
             </LinearLayout>
 
@@ -129,9 +131,9 @@
                 android:id="@+id/surplus_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2019/2/16"
                 android:textColor="#8D8C91"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                tools:text="2019/2/16" />
 
             <TextView
                 android:id="@+id/task_time"
@@ -139,9 +141,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/surplus_time"
                 android:layout_marginTop="8dp"
-                android:text="2019/2/16"
                 android:textColor="#8D8C91"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                tools:text="2019/2/16" />
 
 
             <ImageView

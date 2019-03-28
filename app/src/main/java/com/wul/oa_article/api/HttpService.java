@@ -1,5 +1,6 @@
 package com.wul.oa_article.api;
 
+import com.wul.oa_article.bean.AcceptedOrderBo;
 import com.wul.oa_article.bean.BaseResult;
 import com.wul.oa_article.bean.ComplanOrderBo;
 import com.wul.oa_article.bean.MyOrderBO;
@@ -8,6 +9,7 @@ import com.wul.oa_article.bean.request.ForwordPassword;
 import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.PhoneRequest;
 import com.wul.oa_article.bean.request.RegistUserRequest;
+import com.wul.oa_article.bean.request.SelectRequest;
 import com.wul.oa_article.bean.request.TokenRequest;
 
 import java.util.List;
@@ -82,7 +84,31 @@ public interface HttpService {
      * 获取待接受列表
      */
     @POST("industry_webservice/app/orderTask/getAcceptOrderList")
-    Observable<BaseResult<String>> getAcceptOrder(@Body OrderRequest request);
+    Observable<BaseResult<List<AcceptedOrderBo>>> getAcceptOrder(@Body OrderRequest request);
+
+    /**
+     * 获取历史搜索记录
+     */
+    @POST("industry_webservice/app/userSearch/getUserSearchHistory")
+    Observable<BaseResult<String>> getSearchHistory(@Body SelectRequest request);
+
+    /**
+     * 清除历史搜索记录
+     */
+    @POST("industry_webservice/app/userSearch/deleteSerachHistory")
+    Observable<BaseResult<String>> clearSerachHistory(@Body SelectRequest request);
+
+    /**
+     * 获取常用搜索记录
+     */
+    @POST("industry_webservice/app/userSearch/getCommonlySerachHistory")
+    Observable<BaseResult<String>> getCommonLyHistory(@Body SelectRequest request);
+
+    /**
+     * 清空常用搜索记录
+     */
+    @POST("industry_webservice/app/userSearch/deleteCommonlySerachHistory")
+    Observable<BaseResult<String>> clearCommonlyHistory(@Body SelectRequest request);
 
 
 }

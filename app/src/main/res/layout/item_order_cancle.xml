@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#1F1F20"
@@ -21,19 +22,21 @@
             android:paddingLeft="16dp">
 
             <TextView
+                android:id="@+id/order_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="商品名称"
                 android:textColor="#E6E5E5"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                tools:text="商品名称" />
 
             <TextView
+                android:id="@+id/order_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="订单编号"
                 android:textColor="#8D8C91"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                tools:text="订单编号" />
 
 
         </LinearLayout>
@@ -48,19 +51,21 @@
             android:paddingLeft="16dp">
 
             <TextView
+                android:id="@+id/create_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="采购方式"
                 android:textColor="#E6E5E5"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                tools:text="采购方式" />
 
             <TextView
+                android:id="@+id/create_nick_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="已完成"
                 android:textColor="#8D8C91"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                tools:text="已完成" />
 
 
         </LinearLayout>
@@ -75,11 +80,12 @@
             android:paddingLeft="16dp">
 
             <TextView
+                android:id="@+id/order_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2018/12/30"
                 android:textColor="#E6E5E5"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                tools:text="2018/12/30" />
 
 
         </LinearLayout>

@@ -10,10 +10,12 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
             minifyEnabled false
+            debuggable true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
@@ -99,4 +101,5 @@ dependencies {
     implementation 'com.github.lovetuzitong:MultiImageSelector:1.2'
     implementation 'com.contrarywind:Android-PickerView:4.1.7'
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
 }

@@ -24,4 +24,15 @@
     <color name="tab_select">#4166BE</color>
     <color name="tab_txt_color">#8D8C91</color>
 
+
+    <color name="car_button">#64BD3A</color>
+
+    <color name="black">#000000</color>
+    <color name="line_default_color">@color/layout_bg</color>
+
+    <color name="list_view_item_org">#f8f8f8</color>
+    <color name="list_view_item_white">#ffffff</color>
+    <color name="background_tab_pressed">#e5e5e5</color>
+    <color name="action_sheet_blue">@color/layout_bg</color>
+
 </resources>

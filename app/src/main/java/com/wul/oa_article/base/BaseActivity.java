@@ -1,16 +1,20 @@
 package com.wul.oa_article.base;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.svprogresshud.SVProgressHUD;
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.wul.oa_article.R;
 import com.wul.oa_article.util.AppManager;
@@ -54,6 +58,7 @@ public abstract class BaseActivity extends SupportActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        KeyboardUtils.hideSoftInput(this);
         ImmersionBar.with(this).destroy();
         AppManager.getAppManager().removeActivity(this);
     }
@@ -131,12 +136,19 @@ public abstract class BaseActivity extends SupportActivity {
     }
 
 
-//    protected void showToastView(String message) {
-//        View view = LayoutInflater.from(this).inflate(R.layout.toast_layout, null);
-//        TextView msg = view.findViewById(R.id.message);
-//        msg.setText(message);
-//        ToastUtils.showLong();
-//    }
+    //调用隐藏系统默认的输入法
+    public static void showOrHide(Context context, Activity activity) {
+        ((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE))
+                .hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+
+    //获取输入法打开的状态
+    public static boolean isShowing(Context context) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        return imm.isActive();//isOpen若返回true，则表示输入法打开
+    }
 
 
     protected abstract int getLayout();

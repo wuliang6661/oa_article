@@ -16,6 +16,7 @@
 
 
         <LinearLayout
+            android:id="@+id/select_layout"
             android:layout_width="0dp"
             android:layout_height="33dp"
             android:layout_marginLeft="11dp"

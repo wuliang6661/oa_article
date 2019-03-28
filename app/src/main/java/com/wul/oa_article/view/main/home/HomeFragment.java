@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.wul.oa_article.R;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.view.FragmentPaerAdapter;
+import com.wul.oa_article.view.SelectActivity;
 import com.wul.oa_article.view.main.home.accepted.AcceptedFragment;
 import com.wul.oa_article.view.main.home.compony.ComponyFragment;
 import com.wul.oa_article.view.main.home.myorder.MyOrderFragment;
@@ -126,8 +127,14 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
             case R.id.unknow_order:
                 setTextStyle(2);
                 viewPager.setCurrentItem(2);
+
                 break;
         }
+    }
+
+    @OnClick(R.id.select_layout)
+    public void goSelect() {
+        gotoActivity(SelectActivity.class, false);
     }
 
 

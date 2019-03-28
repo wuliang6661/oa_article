@@ -59,6 +59,12 @@
             android:name=".view.main.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
+        <!--搜索页面-->
+        <activity
+            android:name=".view.SelectActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

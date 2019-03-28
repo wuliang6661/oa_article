@@ -12,6 +12,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.StringUtils;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.wul.oa_article.Config;
 import com.wul.oa_article.R;
 import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
@@ -132,6 +136,20 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                 showToast(message);
             }
         });
+    }
+
+
+    /**
+     * 微信登录
+     */
+    @OnClick(R.id.wechat_login)
+    public void wxLogin(View view) {
+        IWXAPI WXapi = WXAPIFactory.createWXAPI(this, Config.WX_APP_ID, true);
+        WXapi.registerApp(Config.WX_APP_ID);
+        SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = "wechat_sdk_demo";
+        WXapi.sendReq(req);
     }
 
 }

@@ -14,27 +14,32 @@
 
 
         <TextView
+            android:id="@+id/order_name"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:paddingLeft="14dp"
+            android:singleLine="true"
             android:textColor="@color/f_white"
             android:textSize="15sp"
             tools:text="hhhhhh" />
 
 
         <TextView
+            android:id="@+id/task_name"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:paddingLeft="14dp"
+            android:singleLine="true"
             android:textColor="@color/f_white"
             android:textSize="15sp"
             tools:text="hhhhhh" />
 
         <TextView
+            android:id="@+id/task_time"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -60,6 +65,7 @@
 
 
     <ImageView
+        android:id="@+id/waibu_img"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/waibu_img" />

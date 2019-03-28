@@ -21,6 +21,7 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.blankj.utilcode.util.TimeUtils;
 import com.wul.oa_article.R;
+import com.wul.oa_article.bean.event.OpenDrawableEvent;
 import com.wul.oa_article.mvp.MVPBaseActivity;
 import com.wul.oa_article.util.AppManager;
 import com.wul.oa_article.view.main.none.NoneFragment1;
@@ -29,6 +30,10 @@ import com.wul.oa_article.view.main.none.NoneFragment3;
 import com.wul.oa_article.view.main.none.NoneFragment4;
 import com.wul.oa_article.view.main.none.NoneFragment5;
 import com.xyz.tabitem.BottmTabItem;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -97,6 +102,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        EventBus.getDefault().register(this);
         buttms = new BottmTabItem[]{main1, main2, main3, main4, main5};
         initFragment();
         main1.setOnClickListener(this);
@@ -106,9 +112,14 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         main5.setOnClickListener(this);
 
         //禁止手势滑出侧滑菜单
-//        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     /**
      * 初始化fragment
@@ -199,6 +210,40 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                 break;
             case R.id.stop_time_end:
                 initTimePicker(3);
+                break;
+        }
+    }
+
+
+    /**
+     * 接受调用筛选的页面
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(OpenDrawableEvent event) {
+
+
+    }
+
+
+    /**
+     * 根据不同类型显示不同侧滑菜单
+     */
+    private void showDrawableType(int type) {
+        switch (type) {
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+            case 4:
+
+                break;
+            case 5:
+
                 break;
         }
     }

@@ -1,6 +1,7 @@
 package com.wul.oa_article.api;
 
 import com.wul.oa_article.base.MyApplication;
+import com.wul.oa_article.bean.AcceptedOrderBo;
 import com.wul.oa_article.bean.ComplanOrderBo;
 import com.wul.oa_article.bean.MyOrderBO;
 import com.wul.oa_article.bean.UserBo;
@@ -8,6 +9,7 @@ import com.wul.oa_article.bean.request.ForwordPassword;
 import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.PhoneRequest;
 import com.wul.oa_article.bean.request.RegistUserRequest;
+import com.wul.oa_article.bean.request.SelectRequest;
 import com.wul.oa_article.bean.request.TokenRequest;
 import com.wul.oa_article.util.MD5;
 import com.wul.oa_article.util.rx.RxResultHelper;
@@ -115,9 +117,41 @@ public class HttpServerImpl {
     /**
      * 获取待接受列表
      */
-    public static Observable<String> getAsseptOrder(OrderRequest request) {
+    public static Observable<List<AcceptedOrderBo>> getAsseptOrder(OrderRequest request) {
         request.setToken(MyApplication.token);
         return getService().getAcceptOrder(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取历史搜索记录
+     */
+    public static Observable<String> selectHistory(SelectRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().getSearchHistory(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 清空历史搜索记录
+     */
+    public static Observable<String> clearHistory(SelectRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().clearSerachHistory(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取常用搜索记录
+     */
+    public static Observable<String> getCommonLyHistory(SelectRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().getCommonLyHistory(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 清空常用搜索记录
+     */
+    public static Observable<String> clearCommonLyHistory(SelectRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().clearCommonlyHistory(request).compose(RxResultHelper.httpRusult());
     }
 
 
