@@ -19,7 +19,7 @@ public class OrderRequest {
      * userId : 0
      */
 
-    private int companyId;
+    private String companyId;
     private String creatEndDate;
     private String creatStartDate;
     private String days;
@@ -31,8 +31,16 @@ public class OrderRequest {
     private String taskType;
     private String token;
     private String type;
-    private int userId;
+    private String userId;
+    private String id;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getDays() {
         return days;
@@ -58,11 +66,11 @@ public class OrderRequest {
         this.type = type;
     }
 
-    public int getCompanyId() {
+    public String getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(int companyId) {
+    public void setCompanyId(String companyId) {
         this.companyId = companyId;
     }
 
@@ -133,11 +141,11 @@ public class OrderRequest {
     }
 
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 }

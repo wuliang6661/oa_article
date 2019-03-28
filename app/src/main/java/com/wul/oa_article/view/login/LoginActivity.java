@@ -122,6 +122,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
             @Override
             public void onSuccess(UserBo s) {
                 stopProgress();
+                MyApplication.userBo = s;
                 gotoActivity(MainActivity.class, true);
             }
 

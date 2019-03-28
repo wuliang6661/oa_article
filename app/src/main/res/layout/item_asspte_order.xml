@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="62dp"
+    android:background="#1F1F20">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="14dp"
+            android:textColor="@color/f_white"
+            android:textSize="15sp"
+            tools:text="hhhhhh" />
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="14dp"
+            android:textColor="@color/f_white"
+            android:textSize="15sp"
+            tools:text="hhhhhh" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="14dp"
+            android:textColor="@color/f_white"
+            android:textSize="15sp"
+            tools:text="hhhhhh" />
+
+
+        <TextView
+            android:layout_width="44dp"
+            android:layout_height="21dp"
+            android:layout_marginRight="13dp"
+            android:background="@drawable/button_list"
+            android:gravity="center"
+            android:text="查看"
+            android:textColor="#F9FAFB"
+            android:textSize="13sp" />
+
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/waibu_img" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="#2B2B2B" />
+
+
+</RelativeLayout>

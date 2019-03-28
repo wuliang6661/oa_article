@@ -1,12 +1,16 @@
 package com.wul.oa_article.api;
 
 import com.wul.oa_article.bean.BaseResult;
+import com.wul.oa_article.bean.ComplanOrderBo;
+import com.wul.oa_article.bean.MyOrderBO;
 import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.bean.request.ForwordPassword;
 import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.PhoneRequest;
 import com.wul.oa_article.bean.request.RegistUserRequest;
 import com.wul.oa_article.bean.request.TokenRequest;
+
+import java.util.List;
 
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -66,7 +70,19 @@ public interface HttpService {
      * 根据任务状态查询任务列表
      */
     @POST("industry_webservice/app/orderTask/getOrderTaskList")
-    Observable<BaseResult<String>> getOrderByTask(@Body OrderRequest request);
+    Observable<BaseResult<List<MyOrderBO>>> getOrderByTask(@Body OrderRequest request);
+
+    /**
+     * 获取公司订单
+     */
+    @POST("industry_webservice/app/orderInfo/getOrderList")
+    Observable<BaseResult<List<ComplanOrderBo>>> getComplayList(@Body OrderRequest request);
+
+    /**
+     * 获取待接受列表
+     */
+    @POST("industry_webservice/app/orderTask/getAcceptOrderList")
+    Observable<BaseResult<String>> getAcceptOrder(@Body OrderRequest request);
 
 
 }

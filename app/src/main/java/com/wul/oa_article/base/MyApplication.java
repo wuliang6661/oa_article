@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
+import com.wul.oa_article.bean.UserBo;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 
@@ -22,6 +23,8 @@ public class MyApplication extends Application {
     public static SPUtils spUtils;
 
     public static String token;
+
+    public static UserBo userBo;
 
 
     @Override
