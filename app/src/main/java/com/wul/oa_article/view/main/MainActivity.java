@@ -3,7 +3,6 @@ package com.wul.oa_article.view.main;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.GravityCompat;
@@ -13,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -20,10 +20,15 @@ import android.widget.TextView;
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.base.MyApplication;
+import com.wul.oa_article.bean.SalesBo;
 import com.wul.oa_article.bean.event.OpenDrawableEvent;
+import com.wul.oa_article.bean.request.AsseptRequest;
+import com.wul.oa_article.bean.request.ComplayRequest;
+import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.SelectRequest;
 import com.wul.oa_article.mvp.MVPBaseActivity;
 import com.wul.oa_article.util.AppManager;
@@ -33,6 +38,9 @@ import com.wul.oa_article.view.main.none.NoneFragment3;
 import com.wul.oa_article.view.main.none.NoneFragment4;
 import com.wul.oa_article.view.main.none.NoneFragment5;
 import com.xyz.tabitem.BottmTabItem;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagAdapter;
+import com.zhy.view.flowlayout.TagFlowLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,6 +50,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -84,6 +93,26 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     RadioGroup radioGroupTask;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
+    @BindView(R.id.stop_time_text)
+    TextView stopTimeText;
+    @BindView(R.id.three_text)
+    TextView threeText;
+    @BindView(R.id.four_text)
+    TextView fourText;
+    @BindView(R.id.four_radio_bt1)
+    RadioButton fourRadioBt1;
+    @BindView(R.id.four_radio_bt2)
+    RadioButton fourRadioBt2;
+    @BindView(R.id.four_radio_layout)
+    RadioGroup fourRadioLayout;
+    @BindView(R.id.edit_keybord)
+    EditText editKeybord;
+    @BindView(R.id.id_flowlayout)
+    TagFlowLayout idFlowlayout;
+    @BindView(R.id.menu_reset)
+    TextView menuReset;
+    @BindView(R.id.menu_commit)
+    TextView menuCommit;
 
     private int selectPosition = 0;
     private BottmTabItem[] buttms;
@@ -209,6 +238,29 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         }
     }
 
+
+    //记录用户首次点击返回键的时间
+    private long firstTime = 0;
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                long secondTime = System.currentTimeMillis();
+                if (secondTime - firstTime > 2000) {
+                    showToast("再按一次退出程序");
+                    firstTime = secondTime;
+                    return true;
+                } else {
+                    AppManager.getAppManager().finishAllActivity();
+                    System.exit(0);
+                }
+                break;
+        }
+        return super.onKeyUp(keyCode, event);
+    }
+
+
     @OnClick({R.id.create_time_start, R.id.create_time_end, R.id.stop_time_start, R.id.stop_time_end})
     public void timeClick(View view) {
         switch (view.getId()) {
@@ -227,16 +279,56 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         }
     }
 
+    String taskRadio;
+    String fourSelector;
+
+    private void setGroupListener() {
+        radioGroupTask.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.task_unfinish:
+                    taskRadio = "0";
+                    break;
+                case R.id.task_way:
+                    taskRadio = "1";
+                    break;
+                case R.id.task_off:
+                    taskRadio = "2";
+                    break;
+                case -1:
+                    taskUnfinish.setChecked(false);
+                    taskWay.setChecked(false);
+                    taskOff.setChecked(false);
+                    taskRadio = null;
+                    break;
+            }
+        });
+        fourRadioLayout.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.four_radio_bt1:
+                    fourSelector = "0";
+                    break;
+                case R.id.four_radio_bt2:
+                    fourSelector = "1";
+                    break;
+                case -1:
+                    fourRadioBt1.setChecked(false);
+                    fourRadioBt1.setChecked(false);
+                    fourSelector = null;
+                    break;
+            }
+        });
+    }
+
+
+    OpenDrawableEvent event;
 
     /**
      * 接受调用筛选的页面
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(OpenDrawableEvent event) {
-
-        if (!drawerLayout.isDrawerOpen(GravityCompat.END)) {
-            drawerLayout.openDrawer(GravityCompat.END);
-        }
+        this.event = event;
+        showDrawableType(event.type);
     }
 
 
@@ -244,26 +336,307 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
      * 根据不同类型显示不同侧滑菜单
      */
     private void showDrawableType(int type) {
+        setGroupListener();
+        stopTimeText.setText("截止日期");
+        threeText.setText("任务状态");
+        fourText.setText("完成状态");
+        fourRadioBt1.setText("已逾期");
+        fourRadioBt2.setText("今日到期");
+        threeText.setVisibility(View.VISIBLE);
+        radioGroupTask.setVisibility(View.VISIBLE);
+        fourText.setVisibility(View.VISIBLE);
+        fourRadioLayout.setVisibility(View.VISIBLE);
         switch (type) {
             case 0:// 我的任务（全部）
-
+                taskUnfinish.setText("已分派");
+                taskWay.setText("未分派");
+                taskOff.setText("已完成");
+                setMenu(all);
                 break;
             case 1:   // 我的任务（我自己的）
-
+                taskUnfinish.setText("未接受");
+                taskWay.setText("进行中");
+                taskOff.setText("已完成");
+                setMenu(myziji);
+                if (!StringUtils.isEmpty(myziji.getTaskType())) {
+                    switch (myziji.getTaskType()) {
+                        case "3":
+                            taskUnfinish.setChecked(true);
+                            break;
+                        case "4":
+                            taskWay.setChecked(true);
+                            break;
+                        case "2":
+                            taskOff.setChecked(true);
+                            break;
+                    }
+                }
                 break;
             case 2:    //我的任务（我分派的）
-
+                taskUnfinish.setText("已分派");
+                taskWay.setText("未分派");
+                taskOff.setText("已完成");
+                setMenu(myfenpai);
                 break;
             case 3:    //我的任务 （已完成）
-
+                threeText.setVisibility(View.GONE);
+                radioGroupTask.setVisibility(View.GONE);
+                setMenu(wancheng);
                 break;
             case 4:    // 公司订单
-
+                stopTimeText.setText("交货日期");
+                fourText.setVisibility(View.GONE);
+                fourRadioLayout.setVisibility(View.GONE);
+                threeText.setText("订单状态");
+                taskUnfinish.setText("已逾期");
+                taskWay.setText("今日到期");
+                taskOff.setText("已完成");
+                editKeybord.setText(complay.getKeyWord());
+                createTimeStart.setText(complay.getCreatStartDate());
+                createTimeEnd.setText(complay.getCreatEndDate());
+                stopTimeStart.setText(complay.getStartDate());
+                stopTimeEnd.setText(complay.getEndDate());
+                radioGroupTask.clearCheck();
+                fourRadioLayout.clearCheck();
+                idFlowlayout.onChanged();
+                if (!StringUtils.isEmpty(complay.getTaskType())) {
+                    switch (complay.getTaskType()) {
+                        case "0":
+                            taskUnfinish.setChecked(true);
+                            break;
+                        case "1":
+                            taskWay.setChecked(true);
+                            break;
+                        case "2":
+                            taskOff.setChecked(true);
+                            break;
+                    }
+                }
                 break;
             case 5:    // 待接单
-
+                threeText.setVisibility(View.GONE);
+                radioGroupTask.setVisibility(View.GONE);
+                fourRadioBt1.setText("公司内部");
+                fourRadioBt2.setText("公司外部");
+                editKeybord.setText(assept.getKeyWord());
+                createTimeStart.setText(assept.getCreatStartDate());
+                createTimeEnd.setText(assept.getCreatEndDate());
+                stopTimeStart.setText(assept.getStartDate());
+                stopTimeEnd.setText(assept.getEndDate());
+                radioGroupTask.clearCheck();
+                fourRadioLayout.clearCheck();
+                idFlowlayout.onChanged();
+                if (!StringUtils.isEmpty(assept.getTaskType())) {
+                    switch (assept.getTaskType()) {
+                        case "0":
+                            fourRadioBt1.setChecked(true);
+                            break;
+                        case "1":
+                            fourRadioBt2.setChecked(true);
+                            break;
+                    }
+                }
                 break;
         }
+        if (!drawerLayout.isDrawerOpen(GravityCompat.END)) {
+            drawerLayout.openDrawer(GravityCompat.END);
+        } else {
+            drawerLayout.closeDrawer(GravityCompat.END);
+        }
+    }
+
+
+    private void setMenu(OrderRequest request) {
+        editKeybord.setText(request.getKeyWord());
+        createTimeStart.setText(request.getCreatStartDate());
+        createTimeEnd.setText(request.getCreatEndDate());
+        stopTimeStart.setText(request.getStartDate());
+        stopTimeEnd.setText(request.getEndDate());
+        radioGroupTask.clearCheck();
+        fourRadioLayout.clearCheck();
+        idFlowlayout.onChanged();
+        if (!StringUtils.isEmpty(request.getTaskType())) {
+            switch (request.getTaskType()) {
+                case "0":
+                    taskUnfinish.setChecked(true);
+                    break;
+                case "1":
+                    taskWay.setChecked(true);
+                    break;
+                case "2":
+                    taskOff.setChecked(true);
+                    break;
+            }
+        }
+        if (!StringUtils.isEmpty(request.getDays())) {
+            switch (request.getDays()) {
+                case "0":
+                    fourRadioBt1.setChecked(true);
+                    break;
+                case "1":
+                    fourRadioBt2.setChecked(true);
+                    break;
+            }
+        }
+    }
+
+
+    @OnClick(R.id.menu_reset)
+    public void reset(View view) {
+        switch (event.type) {
+            case 0:
+                all = new OrderRequest();
+                all.menuType = "0";
+                resetOrder(all);
+                break;
+            case 1:
+                myziji = new OrderRequest();
+                myziji.menuType = "1";
+                resetOrder(myziji);
+                break;
+            case 2:
+                myfenpai = new OrderRequest();
+                myfenpai.menuType = "2";
+                resetOrder(myfenpai);
+                break;
+            case 3:
+                wancheng = new OrderRequest();
+                wancheng.menuType = "3";
+                resetOrder(wancheng);
+                break;
+            case 4:
+                complay = new ComplayRequest();
+                initComplay(complay);
+                EventBus.getDefault().post(complay);
+                break;
+            case 5:
+                assept = new AsseptRequest();
+                initAsset(assept);
+                EventBus.getDefault().post(assept);
+                break;
+        }
+        showDrawableType(event.type);
+    }
+
+
+    /**
+     * 重置订单
+     */
+    private void resetOrder(OrderRequest request) {
+        initOrder(request);
+        EventBus.getDefault().post(request);
+    }
+
+
+    OrderRequest all = new OrderRequest();
+    OrderRequest myziji = new OrderRequest();
+    OrderRequest myfenpai = new OrderRequest();
+    OrderRequest wancheng = new OrderRequest();
+    AsseptRequest assept = new AsseptRequest();
+    ComplayRequest complay = new ComplayRequest();
+
+    /**
+     * 侧滑菜单确定
+     */
+    @OnClick(R.id.menu_commit)
+    public void commit(View view) {
+        switch (event.type) {
+            case 0:
+                setOrderBean(all, 0);
+                all.menuType = "0";
+                EventBus.getDefault().post(all);
+                break;
+            case 1:
+                setOrderBean(myziji, 1);
+                myziji.menuType = "1";
+                EventBus.getDefault().post(myziji);
+                break;
+            case 2:
+                setOrderBean(myfenpai, 2);
+                myfenpai.menuType = "2";
+                EventBus.getDefault().post(myfenpai);
+                break;
+            case 3:
+                setOrderBean(wancheng, 3);
+                wancheng.menuType = "3";
+                EventBus.getDefault().post(wancheng);
+                break;
+            case 4:
+                initComplay(complay);
+                complay.setCreatStartDate(createTimeStart.getText().toString().replaceAll("/", "-"));
+                complay.setCreatEndDate(createTimeEnd.getText().toString().replaceAll("/", "-"));
+                complay.setStartDate(stopTimeStart.getText().toString().replaceAll("/", "-"));
+                complay.setEndDate(stopTimeEnd.getText().toString().replaceAll("/", "-"));
+                complay.setKeyWord(editKeybord.getText().toString().trim());
+                complay.setTaskType(taskRadio);
+                EventBus.getDefault().post(complay);
+                break;
+            case 5:
+                initAsset(assept);
+                assept.setCreatStartDate(createTimeStart.getText().toString().replaceAll("/", "-"));
+                assept.setCreatEndDate(createTimeEnd.getText().toString().replaceAll("/", "-"));
+                assept.setStartDate(stopTimeStart.getText().toString().replaceAll("/", "-"));
+                assept.setEndDate(stopTimeEnd.getText().toString().replaceAll("/", "-"));
+                assept.setKeyWord(editKeybord.getText().toString().trim());
+                assept.setTaskType(fourSelector);
+                EventBus.getDefault().post(assept);
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.END);
+    }
+
+
+    private void setOrderBean(OrderRequest request, int position) {
+        request.setCreatStartDate(createTimeStart.getText().toString().replaceAll("/", "-"));
+        request.setCreatEndDate(createTimeEnd.getText().toString().replaceAll("/", "-"));
+        request.setStartDate(stopTimeStart.getText().toString().replaceAll("/", "-"));
+        request.setEndDate(stopTimeEnd.getText().toString().replaceAll("/", "-"));
+        request.setKeyWord(editKeybord.getText().toString().trim());
+        if (event.type == 1 && "0".equals(taskRadio)) {
+            request.setTaskType("3");
+        } else if (event.type == 1 && "1".equals(taskRadio)) {
+            request.setTaskType("4");
+        } else {
+            request.setTaskType(taskRadio);
+        }
+        request.setDays(fourSelector);
+        request.setType(position + "");
+        initOrder(request);
+    }
+
+
+    private void initOrder(OrderRequest request) {
+        request.setPageNum(1);
+        request.setPageSize(1000);
+        request.setUserId(MyApplication.userBo.getId() + "");
+        if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
+            showToast("当前用户没有公司！");
+            return;
+        }
+        request.setCompanyId(MyApplication.userBo.getCompanys().get(0).getId() + "");
+    }
+
+
+    private void initComplay(ComplayRequest request) {
+        request.setPageNum(1);
+        request.setPageSize(1000);
+        request.setUserId(MyApplication.userBo.getId() + "");
+        if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
+            showToast("当前用户没有公司！");
+            return;
+        }
+        request.setCompanyId(MyApplication.userBo.getCompanys().get(0).getId() + "");
+    }
+
+
+    private void initAsset(AsseptRequest request) {
+        request.setPageNum(1);
+        request.setPageSize(1000);
+        if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
+            showToast("当前用户没有公司！");
+            return;
+        }
+        request.setId(MyApplication.userBo.getCompanys().get(0).getId() + "");
     }
 
 
@@ -323,31 +696,10 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
      */
     private void setTimeSelect(TextView view, Date date) {
         view.setText(TimeUtils.date2String(date, format));
-        view.setTextColor(Color.parseColor("#5678FF"));
-        view.setBackgroundResource(R.drawable.menu_item_select);
+//        view.setTextColor(Color.parseColor("#5678FF"));
+//        view.setBackgroundResource(R.drawable.menu_item_select);
     }
 
-
-    //记录用户首次点击返回键的时间
-    private long firstTime = 0;
-
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_BACK:
-                long secondTime = System.currentTimeMillis();
-                if (secondTime - firstTime > 2000) {
-                    showToast("再按一次退出程序");
-                    firstTime = secondTime;
-                    return true;
-                } else {
-                    AppManager.getAppManager().finishAllActivity();
-                    System.exit(0);
-                }
-                break;
-        }
-        return super.onKeyUp(keyCode, event);
-    }
 
     @Override
     public void onRequestError(String msg) {
@@ -355,4 +707,20 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     }
 
 
+    @Override
+    public void getSales(List<SalesBo> salesBos) {
+        idFlowlayout.setAdapter(new TagAdapter<SalesBo>(salesBos) {
+            @Override
+            public View getView(FlowLayout parent, int position, SalesBo o) {
+                TextView tv = (TextView) getLayoutInflater().inflate(R.layout.item_tag_fllow,
+                        idFlowlayout, false);
+                tv.setText(o.getContent());
+                return tv;
+            }
+        });
+        idFlowlayout.setOnTagClickListener((view, position, parent) -> {
+            editKeybord.setText(salesBos.get(position).getContent());
+            return true;
+        });
+    }
 }

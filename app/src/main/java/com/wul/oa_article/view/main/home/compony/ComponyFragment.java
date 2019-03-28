@@ -20,10 +20,14 @@ import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
 import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.ComplanOrderBo;
-import com.wul.oa_article.bean.request.OrderRequest;
+import com.wul.oa_article.bean.request.ComplayRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -62,6 +66,9 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
     @BindView(R.id.renwu_time)
     TextView renwuTime;
 
+    ComplayRequest request;
+    private int selePosition;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -76,11 +83,26 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        EventBus.getDefault().register(this);
         initView();
         setBarStyleByTab(false);
-        getOrderByTask(0);
+        request = new ComplayRequest();
+        request.setPageNum(1);
+        request.setPageSize(1000);
+        request.setUserId(MyApplication.userBo.getId() + "");
+        if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
+            showToast("当前用户没有公司！");
+        } else {
+            request.setCompanyId(MyApplication.userBo.getCompanys().get(0).getId() + "");
+            getOrderByTask(0);
+        }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     /**
      * 初始化布局
@@ -97,6 +119,7 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                selePosition = tab.getPosition();
                 getOrderByTask(tab.getPosition());
                 if (tab.getPosition() == 3) {
                     setBarStyleByTab(true);
@@ -140,16 +163,7 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
      * 获取公司订单
      */
     private void getOrderByTask(int position) {
-        OrderRequest request = new OrderRequest();
-        request.setPageNum(1);
-        request.setPageSize(1000);
-        request.setUserId(MyApplication.userBo.getId() + "");
         request.setType(position + "");
-        if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
-            showToast("当前用户没有公司！");
-            return;
-        }
-        request.setCompanyId(MyApplication.userBo.getCompanys().get(0).getId() + "");
         HttpServerImpl.getComplayList(request).subscribe(new HttpResultSubscriber<List<ComplanOrderBo>>() {
             @Override
             public void onSuccess(List<ComplanOrderBo> s) {
@@ -165,6 +179,12 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
                 showToast(message);
             }
         });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void event(ComplayRequest request) {
+        this.request = request;
+        getOrderByTask(selePosition);
     }
 
 

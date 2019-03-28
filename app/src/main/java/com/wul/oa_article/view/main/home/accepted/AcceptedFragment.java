@@ -15,10 +15,14 @@ import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
 import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.AcceptedOrderBo;
-import com.wul.oa_article.bean.request.OrderRequest;
+import com.wul.oa_article.bean.request.AsseptRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -46,23 +50,18 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
 
     }
 
+    AsseptRequest request;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        EventBus.getDefault().register(this);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recycleView.setLayoutManager(manager);
-        getAsseptOrder();
-    }
 
-
-    /**
-     * 获取待接受的订单列表
-     */
-    private void getAsseptOrder() {
-        OrderRequest request = new OrderRequest();
+        request = new AsseptRequest();
         request.setPageNum(1);
         request.setPageSize(1000);
         if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
@@ -70,6 +69,19 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
             return;
         }
         request.setId(MyApplication.userBo.getCompanys().get(0).getId() + "");
+        getAsseptOrder();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * 获取待接受的订单列表
+     */
+    private void getAsseptOrder() {
         HttpServerImpl.getAsseptOrder(request).subscribe(new HttpResultSubscriber<List<AcceptedOrderBo>>() {
             @Override
             public void onSuccess(List<AcceptedOrderBo> s) {
@@ -81,6 +93,12 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
                 showToast(message);
             }
         });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(AsseptRequest request) {
+        this.request = request;
+        getAsseptOrder();
     }
 
 

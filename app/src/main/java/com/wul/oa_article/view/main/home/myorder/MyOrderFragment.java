@@ -24,6 +24,10 @@ import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -57,13 +61,40 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
 
     }
 
+    OrderRequest all = new OrderRequest();
+    OrderRequest myziji = new OrderRequest();
+    OrderRequest myfenpai = new OrderRequest();
+    OrderRequest wancheng = new OrderRequest();
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        EventBus.getDefault().register(this);
         initView();
-        getOrderByTask(0);
+
+        initBean(all);
+        initBean(myziji);
+        initBean(myfenpai);
+        initBean(wancheng);
+        getOrderByTask(all, 0);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    private void initBean(OrderRequest request) {
+        request.setPageNum(1);
+        request.setPageSize(1000);
+        request.setUserId(MyApplication.userBo.getId() + "");
+        if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
+            showToast("当前用户没有公司！");
+            return;
+        }
+        request.setCompanyId(MyApplication.userBo.getCompanys().get(0).getId() + "");
     }
 
 
@@ -83,7 +114,20 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 position = tab.getPosition();
-                getOrderByTask(tab.getPosition());
+                switch (tab.getPosition()) {
+                    case 0:
+                        getOrderByTask(all, tab.getPosition());
+                        break;
+                    case 1:
+                        getOrderByTask(myziji, tab.getPosition());
+                        break;
+                    case 2:
+                        getOrderByTask(myfenpai, tab.getPosition());
+                        break;
+                    case 3:
+                        getOrderByTask(wancheng, tab.getPosition());
+                        break;
+                }
                 if (tab.getPosition() == 3) {
                     shengyuTime.setText("完成时间");
                 } else {
@@ -114,18 +158,9 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
     /**
      * 获取我的任务
      */
-    private void getOrderByTask(int position) {
-        OrderRequest request = new OrderRequest();
-        request.setPageNum(1);
-        request.setPageSize(1000);
-        request.setUserId(MyApplication.userBo.getId() + "");
-        request.setType(position + "");
-        if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
-            showToast("当前用户没有公司！");
-            return;
-        }
-        request.setCompanyId(MyApplication.userBo.getCompanys().get(0).getId() + "");
+    private void getOrderByTask(OrderRequest request, int position) {
         showProgress();
+        request.setType(position + "");
         HttpServerImpl.getOrderByTask(request).subscribe(new HttpResultSubscriber<List<MyOrderBO>>() {
             @Override
             public void onSuccess(List<MyOrderBO> s) {
@@ -139,6 +174,29 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                 showToast(message);
             }
         });
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(OrderRequest request) {
+        switch (request.menuType) {
+            case "0":
+                all = request;
+                getOrderByTask(all, 0);
+                break;
+            case "1":
+                myziji = request;
+                getOrderByTask(myziji, 1);
+                break;
+            case "2":
+                myfenpai = request;
+                getOrderByTask(myfenpai, 2);
+                break;
+            case "3":
+                wancheng = request;
+                getOrderByTask(wancheng, 3);
+                break;
+        }
     }
 
 

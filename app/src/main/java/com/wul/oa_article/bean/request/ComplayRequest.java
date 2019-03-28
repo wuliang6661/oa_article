@@ -1,29 +1,25 @@
 package com.wul.oa_article.bean.request;
 
-public class OrderRequest {
+public class ComplayRequest {
 
-    public String menuType;
 
     /**
      * companyId : 0
-     * creatEndDate : 2019-03-27T04:46:17.320Z
-     * creatStartDate : 2019-03-27T04:46:17.320Z
-     * days : 0
-     * endDate : 2019-03-27T04:46:17.320Z
+     * creatEndDate : 2019-03-28T12:09:02.117Z
+     * creatStartDate : 2019-03-28T12:09:02.117Z
+     * endDate : 2019-03-28T12:09:02.117Z
      * keyWord : string
      * pageNum : 0
      * pageSize : 0
-     * startDate : 2019-03-27T04:46:17.320Z
+     * startDate : 2019-03-28T12:09:02.117Z
      * taskType : 0
      * token : string
      * type : 0
-     * userId : 0
      */
 
     private String companyId;
     private String creatEndDate;
     private String creatStartDate;
-    private String days;
     private String endDate;
     private String keyWord;
     private int pageNum;
@@ -33,38 +29,13 @@ public class OrderRequest {
     private String token;
     private String type;
     private String userId;
-    private String id;
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getDays() {
-        return days;
-    }
-
-    public void setDays(String days) {
-        this.days = days;
-    }
-
-    public String getTaskType() {
-        return taskType;
-    }
-
-    public void setTaskType(String taskType) {
-        this.taskType = taskType;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getCompanyId() {
@@ -90,7 +61,6 @@ public class OrderRequest {
     public void setCreatStartDate(String creatStartDate) {
         this.creatStartDate = creatStartDate;
     }
-
 
     public String getEndDate() {
         return endDate;
@@ -132,6 +102,13 @@ public class OrderRequest {
         this.startDate = startDate;
     }
 
+    public String getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(String taskType) {
+        this.taskType = taskType;
+    }
 
     public String getToken() {
         return token;
@@ -141,12 +118,11 @@ public class OrderRequest {
         this.token = token;
     }
 
-
-    public String getUserId() {
-        return userId;
+    public String getType() {
+        return type;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setType(String type) {
+        this.type = type;
     }
 }

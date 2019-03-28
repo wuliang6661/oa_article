@@ -4,7 +4,10 @@ import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.AcceptedOrderBo;
 import com.wul.oa_article.bean.ComplanOrderBo;
 import com.wul.oa_article.bean.MyOrderBO;
+import com.wul.oa_article.bean.SalesBo;
 import com.wul.oa_article.bean.UserBo;
+import com.wul.oa_article.bean.request.AsseptRequest;
+import com.wul.oa_article.bean.request.ComplayRequest;
 import com.wul.oa_article.bean.request.ForwordPassword;
 import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.PhoneRequest;
@@ -109,7 +112,7 @@ public class HttpServerImpl {
     /**
      * 查询公司订单列表
      */
-    public static Observable<List<ComplanOrderBo>> getComplayList(OrderRequest request) {
+    public static Observable<List<ComplanOrderBo>> getComplayList(ComplayRequest request) {
         request.setToken(MyApplication.token);
         return getService().getComplayList(request).compose(RxResultHelper.httpRusult());
     }
@@ -117,7 +120,7 @@ public class HttpServerImpl {
     /**
      * 获取待接受列表
      */
-    public static Observable<List<AcceptedOrderBo>> getAsseptOrder(OrderRequest request) {
+    public static Observable<List<AcceptedOrderBo>> getAsseptOrder(AsseptRequest request) {
         request.setToken(MyApplication.token);
         return getService().getAcceptOrder(request).compose(RxResultHelper.httpRusult());
     }
@@ -141,7 +144,7 @@ public class HttpServerImpl {
     /**
      * 获取常用搜索记录
      */
-    public static Observable<String> getCommonLyHistory(SelectRequest request) {
+    public static Observable<List<SalesBo>> getCommonLyHistory(SelectRequest request) {
         request.setToken(MyApplication.token);
         return getService().getCommonLyHistory(request).compose(RxResultHelper.httpRusult());
     }

@@ -4,7 +4,10 @@ import com.wul.oa_article.bean.AcceptedOrderBo;
 import com.wul.oa_article.bean.BaseResult;
 import com.wul.oa_article.bean.ComplanOrderBo;
 import com.wul.oa_article.bean.MyOrderBO;
+import com.wul.oa_article.bean.SalesBo;
 import com.wul.oa_article.bean.UserBo;
+import com.wul.oa_article.bean.request.AsseptRequest;
+import com.wul.oa_article.bean.request.ComplayRequest;
 import com.wul.oa_article.bean.request.ForwordPassword;
 import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.PhoneRequest;
@@ -78,13 +81,13 @@ public interface HttpService {
      * 获取公司订单
      */
     @POST("industry_webservice/app/orderInfo/getOrderList")
-    Observable<BaseResult<List<ComplanOrderBo>>> getComplayList(@Body OrderRequest request);
+    Observable<BaseResult<List<ComplanOrderBo>>> getComplayList(@Body ComplayRequest request);
 
     /**
      * 获取待接受列表
      */
     @POST("industry_webservice/app/orderTask/getAcceptOrderList")
-    Observable<BaseResult<List<AcceptedOrderBo>>> getAcceptOrder(@Body OrderRequest request);
+    Observable<BaseResult<List<AcceptedOrderBo>>> getAcceptOrder(@Body AsseptRequest request);
 
     /**
      * 获取历史搜索记录
@@ -102,7 +105,7 @@ public interface HttpService {
      * 获取常用搜索记录
      */
     @POST("industry_webservice/app/userSearch/getCommonlySerachHistory")
-    Observable<BaseResult<String>> getCommonLyHistory(@Body SelectRequest request);
+    Observable<BaseResult<List<SalesBo>>> getCommonLyHistory(@Body SelectRequest request);
 
     /**
      * 清空常用搜索记录

@@ -110,6 +110,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
 
             }
         });
+        viewPager.setOffscreenPageLimit(3);
     }
 
 
