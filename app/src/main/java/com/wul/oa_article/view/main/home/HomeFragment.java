@@ -145,8 +145,6 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     }
 
 
-//    if (!drawerLayout.isDrawerOpen(GravityCompat.END)) {
-//        drawerLayout.openDrawer(GravityCompat.END);
-//    }
+
 
 }

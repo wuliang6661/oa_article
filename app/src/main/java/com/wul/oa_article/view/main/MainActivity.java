@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -21,7 +22,9 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.blankj.utilcode.util.TimeUtils;
 import com.wul.oa_article.R;
+import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.event.OpenDrawableEvent;
+import com.wul.oa_article.bean.request.SelectRequest;
 import com.wul.oa_article.mvp.MVPBaseActivity;
 import com.wul.oa_article.util.AppManager;
 import com.wul.oa_article.view.main.none.NoneFragment1;
@@ -113,6 +116,15 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
         //禁止手势滑出侧滑菜单
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        SelectRequest request = new SelectRequest();
+        request.setPageNum(1 + "");
+        request.setPageSize(1000 + "");
+        if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
+            showToast("当前用户没有公司！");
+            return;
+        }
+        request.setCompanyId(MyApplication.userBo.getCompanys().get(0).getId());
+        mPresenter.getCommplayList(request);
     }
 
     @Override
@@ -221,7 +233,9 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(OpenDrawableEvent event) {
 
-
+        if (!drawerLayout.isDrawerOpen(GravityCompat.END)) {
+            drawerLayout.openDrawer(GravityCompat.END);
+        }
     }
 
 
@@ -330,4 +344,11 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         }
         return super.onKeyUp(keyCode, event);
     }
+
+    @Override
+    public void onRequestError(String msg) {
+        showToast(msg);
+    }
+
+
 }

@@ -152,4 +152,8 @@ public abstract class BaseActivity extends SupportActivity {
 
 
     protected abstract int getLayout();
+
+    public void onRequestEnd() {
+
+    }
 }

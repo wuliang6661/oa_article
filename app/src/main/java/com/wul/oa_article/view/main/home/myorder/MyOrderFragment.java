@@ -46,6 +46,8 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
     @BindView(R.id.shengyu_time)
     TextView shengyuTime;
 
+    private int position = 0; //当前选中状态，默认全部
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -80,6 +82,7 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                position = tab.getPosition();
                 getOrderByTask(tab.getPosition());
                 if (tab.getPosition() == 3) {
                     shengyuTime.setText("完成时间");
