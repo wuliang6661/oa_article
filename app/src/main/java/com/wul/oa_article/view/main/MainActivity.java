@@ -124,6 +124,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             return;
         }
         request.setCompanyId(MyApplication.userBo.getCompanys().get(0).getId());
+        request.setType("1");
         mPresenter.getCommplayList(request);
     }
 
@@ -244,19 +245,22 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
      */
     private void showDrawableType(int type) {
         switch (type) {
-            case 1:
+            case 0:// 我的任务（全部）
 
                 break;
-            case 2:
+            case 1:   // 我的任务（我自己的）
 
                 break;
-            case 3:
+            case 2:    //我的任务（我分派的）
 
                 break;
-            case 4:
+            case 3:    //我的任务 （已完成）
 
                 break;
-            case 5:
+            case 4:    // 公司订单
+
+                break;
+            case 5:    // 待接单
 
                 break;
         }

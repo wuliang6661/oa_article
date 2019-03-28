@@ -103,6 +103,13 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
         });
     }
 
+    /**
+     * 获取当前选中项
+     */
+    public int getPosition() {
+        return position;
+    }
+
 
     /**
      * 获取我的任务

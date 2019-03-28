@@ -14,12 +14,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wul.oa_article.R;
+import com.wul.oa_article.bean.event.OpenDrawableEvent;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.view.FragmentPaerAdapter;
 import com.wul.oa_article.view.SelectActivity;
 import com.wul.oa_article.view.main.home.accepted.AcceptedFragment;
 import com.wul.oa_article.view.main.home.compony.ComponyFragment;
 import com.wul.oa_article.view.main.home.myorder.MyOrderFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +59,11 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
 
     TextView[] texts;
 
+    MyOrderFragment myOrderFragment;
+    ComponyFragment componyFragment;
+    AcceptedFragment acceptedFragment;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,9 +78,12 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
         super.onViewCreated(view, savedInstanceState);
 
         fragments = new ArrayList<>();
-        fragments.add(new MyOrderFragment());
-        fragments.add(new ComponyFragment());
-        fragments.add(new AcceptedFragment());
+        myOrderFragment = new MyOrderFragment();
+        componyFragment = new ComponyFragment();
+        acceptedFragment = new AcceptedFragment();
+        fragments.add(myOrderFragment);
+        fragments.add(componyFragment);
+        fragments.add(acceptedFragment);
         viewPager.setAdapter(new FragmentPaerAdapter(getFragmentManager(), fragments));
 
         texts = new TextView[]{myOrder, gongsiOrder, unknowOrder};
@@ -138,13 +149,31 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     }
 
 
+    @OnClick(R.id.shaixuan_img)
+    public void shaixuan() {
+        OpenDrawableEvent event = new OpenDrawableEvent();
+        switch (viewPager.getCurrentItem()) {
+            case 0:
+                event.type = myOrderFragment.getPosition();
+                EventBus.getDefault().post(event);
+                break;
+            case 1:    //公司订单
+                event.type = 4;
+                EventBus.getDefault().post(event);
+                break;
+            case 2:    //待接受
+                event.type = 5;
+                EventBus.getDefault().post(event);
+                break;
+        }
+    }
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
-
-
 
 
 }
