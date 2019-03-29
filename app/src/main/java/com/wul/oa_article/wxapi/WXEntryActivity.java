@@ -76,10 +76,9 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
                             @Override
                             public void onFiled(String message) {
-
+                                Toast.makeText(WXEntryActivity.this, message, Toast.LENGTH_SHORT).show();
                             }
                         });
-                finish();
                 break;
             case BaseResp.ErrCode.ERR_USER_CANCEL:
                 result = "发送取消";
@@ -121,7 +120,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
             @Override
             public void onFiled(String message) {
-
+                Toast.makeText(WXEntryActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
     }

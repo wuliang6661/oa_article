@@ -53,11 +53,11 @@
                     android:hint="请输入手机号码"
                     android:inputType="phone"
                     android:maxLength="11"
-                    android:text="18897940819"
                     android:textColor="@color/white"
                     android:textColorHint="@color/hint_color"
                     android:textSize="14sp" />
 
+                <!--android:text="18897940819"-->
 
             </LinearLayout>
 
@@ -91,10 +91,11 @@
                     android:hint="请输入密码"
                     android:maxLength="6"
                     android:password="true"
-                    android:text="123456"
                     android:textColor="@color/white"
                     android:textColorHint="@color/hint_color"
                     android:textSize="14sp" />
+
+                <!--android:text="123456"-->
 
                 <CheckBox
                     android:id="@+id/mima_visiable"
