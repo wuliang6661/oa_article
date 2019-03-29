@@ -14,6 +14,7 @@ import com.wul.oa_article.R;
 import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
 import com.wul.oa_article.base.MyApplication;
+import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.mvp.MVPBaseActivity;
 import com.wul.oa_article.util.AppManager;
 import com.wul.oa_article.view.login.LoginActivity;
@@ -87,16 +88,39 @@ public class VerificationLoginActivity extends MVPBaseActivity<VerificationLogin
             showToast("请输入验证码！");
             return;
         }
+        stopProgress();
         HttpServerImpl.checkModeMsg(phone, code, 1).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
                 MyApplication.token = s;
+                getUserInfo();
+            }
+
+            @Override
+            public void onFiled(String message) {
+                stopProgress();
+                showToast(message);
+            }
+        });
+    }
+
+
+    /**
+     * 获取用户信息
+     */
+    private void getUserInfo() {
+        HttpServerImpl.getUserinfo().subscribe(new HttpResultSubscriber<UserBo>() {
+            @Override
+            public void onSuccess(UserBo s) {
+                stopProgress();
+                MyApplication.userBo = s;
                 gotoActivity(MainActivity.class, true);
                 AppManager.getAppManager().goHome();
             }
 
             @Override
             public void onFiled(String message) {
+                stopProgress();
                 showToast(message);
             }
         });
