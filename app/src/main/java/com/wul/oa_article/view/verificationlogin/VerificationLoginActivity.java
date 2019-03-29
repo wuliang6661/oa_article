@@ -90,7 +90,7 @@ public class VerificationLoginActivity extends MVPBaseActivity<VerificationLogin
             showToast("请输入验证码！");
             return;
         }
-        stopProgress();
+        showProgress();
         HttpServerImpl.checkModeMsg(phone, code, 1).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {

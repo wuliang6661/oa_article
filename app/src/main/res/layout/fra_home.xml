@@ -119,6 +119,7 @@
                 android:gravity="center"
                 android:textColor="#FDFDFB"
                 android:textSize="11sp"
+                android:visibility="gone"
                 tools:text="15" />
 
 

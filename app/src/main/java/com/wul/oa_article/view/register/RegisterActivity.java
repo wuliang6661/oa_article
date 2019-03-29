@@ -98,15 +98,18 @@ public class RegisterActivity extends MVPBaseActivity<RegisterContract.View, Reg
             showToast("请输入手机号码！");
             return;
         }
+        showProgress();
         HttpServerImpl.sendMessage(phone, 0).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
                 timer.start();
+                stopProgress();
                 showToast("验证码发送成功！");
             }
 
             @Override
             public void onFiled(String message) {
+                stopProgress();
                 showToast(message);
             }
         });
@@ -145,15 +148,18 @@ public class RegisterActivity extends MVPBaseActivity<RegisterContract.View, Reg
      * 手机号注册
      */
     private void phoneRegister(String phone, String code, String password) {
+        showProgress();
         HttpServerImpl.register(phone, code, password, 0).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
+                stopProgress();
                 showToast("注册成功！");
                 finish();
             }
 
             @Override
             public void onFiled(String message) {
+                stopProgress();
                 showToast(message);
             }
         });
@@ -182,6 +188,7 @@ public class RegisterActivity extends MVPBaseActivity<RegisterContract.View, Reg
 
             @Override
             public void onFiled(String message) {
+                stopProgress();
                 showToast(message);
             }
         });
@@ -197,7 +204,7 @@ public class RegisterActivity extends MVPBaseActivity<RegisterContract.View, Reg
             public void onSuccess(UserBo s) {
                 stopProgress();
                 MyApplication.userBo = s;
-                gotoActivity(MainActivity.class, true);
+                gotoActivity(MainActivity.class, false);
                 AppManager.getAppManager().goHome();
             }
 

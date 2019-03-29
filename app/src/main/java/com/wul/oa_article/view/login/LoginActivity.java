@@ -1,8 +1,12 @@
 package com.wul.oa_article.view.login;
 
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -13,7 +17,6 @@ import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wul.oa_article.Config;
 import com.wul.oa_article.R;
@@ -70,8 +73,28 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                 editPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
         });
+        requestPermission();
     }
 
+
+    private void requestPermission() {
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{
+                            Manifest.permission.READ_PHONE_STATE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.CALL_PHONE
+                    }, 1);
+
+        }
+    }
 
     @OnClick(R.id.regis_text)
     public void click(View view) {
@@ -144,12 +167,15 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
      */
     @OnClick(R.id.wechat_login)
     public void wxLogin(View view) {
-        IWXAPI WXapi = WXAPIFactory.createWXAPI(this, Config.WX_APP_ID, true);
-        WXapi.registerApp(Config.WX_APP_ID);
+        requestPermission();
+        if (MyApplication.WXapi == null) {
+            MyApplication.WXapi = WXAPIFactory.createWXAPI(this, Config.WX_APP_ID, true);
+            MyApplication.WXapi.registerApp(Config.WX_APP_ID);
+        }
         SendAuth.Req req = new SendAuth.Req();
         req.scope = "snsapi_userinfo";
         req.state = "wechat_sdk_demo";
-        WXapi.sendReq(req);
+        MyApplication.WXapi.sendReq(req);
     }
 
 }

@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -75,15 +74,18 @@ public class Forword_passwordActivity extends MVPBaseActivity<Forword_passwordCo
             showToast("请输入手机号码！");
             return;
         }
+        showProgress();
         HttpServerImpl.sendMessage(phone, 2).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
+                stopProgress();
                 timer.start();
                 showToast("验证码发送成功！");
             }
 
             @Override
             public void onFiled(String message) {
+                stopProgress();
                 showToast(message);
             }
         });
@@ -131,15 +133,18 @@ public class Forword_passwordActivity extends MVPBaseActivity<Forword_passwordCo
             showToast("请再次输入密码！");
             return;
         }
+        showProgress();
         HttpServerImpl.fordPassword(newPassword, comfimPassword).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
+                stopProgress();
                 showToast("修改成功！");
                 finish();
             }
 
             @Override
             public void onFiled(String message) {
+                stopProgress();
                 showToast(message);
             }
         });

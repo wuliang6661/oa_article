@@ -6,6 +6,9 @@ import android.support.multidex.MultiDex;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.wul.oa_article.Config;
 import com.wul.oa_article.bean.UserBo;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
@@ -26,6 +29,8 @@ public class MyApplication extends Application {
 
     public static UserBo userBo;
 
+    public static IWXAPI WXapi;
+
 
     @Override
     public void onCreate() {
@@ -36,6 +41,8 @@ public class MyApplication extends Application {
         Utils.init(this);
         spUtils = SPUtils.getInstance(TAG);
 //        Fragmentation.getDefault().setMode(Fragmentation.BUBBLE);
+        WXapi = WXAPIFactory.createWXAPI(this, Config.WX_APP_ID, true);
+        WXapi.registerApp(Config.WX_APP_ID);
     }
 
     @Override

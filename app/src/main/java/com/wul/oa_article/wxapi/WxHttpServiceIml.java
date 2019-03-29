@@ -2,9 +2,9 @@ package com.wul.oa_article.wxapi;
 
 import com.wul.oa_article.api.ApiManager;
 
-import org.json.JSONObject;
-
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class WxHttpServiceIml {
 
@@ -32,15 +32,17 @@ public class WxHttpServiceIml {
      * @param grant_type
      * @return
      */
-    public static Observable<JSONObject> getWxMesage(String appid, String sercret, String code, String grant_type) {
-        return getService().getWxMessage(appid, sercret, code, grant_type);
+    public static Observable<WeChatBean> getWxMesage(String appid, String sercret, String code, String grant_type) {
+        return getService().getWxMessage(appid, sercret, code, grant_type).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     /**
      * 获取微信用户数据
      */
-    public static Observable<JSONObject> getUserMessage(String access_token, String openid) {
-        return getService().getUserMessage(access_token, openid);
+    public static Observable<WeChatUserBean> getUserMessage(String access_token, String openid) {
+        return getService().getUserMessage(access_token, openid).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
 }
