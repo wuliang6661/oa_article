@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.SizeUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.bean.event.MsgNumEvent;
 import com.wul.oa_article.bean.event.OpenDrawableEvent;
@@ -181,7 +180,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
 
 
     @OnClick(R.id.add_img)
-    public void add(View view) {
+    public void add() {
         HomeAddPopWindow popWindow = new HomeAddPopWindow(getActivity());
         popWindow.showPop(addImg, 0, 20);
     }
