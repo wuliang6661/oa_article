@@ -15,6 +15,7 @@ import com.wul.oa_article.bean.request.PhoneRequest;
 import com.wul.oa_article.bean.request.RegistUserRequest;
 import com.wul.oa_article.bean.request.SelectRequest;
 import com.wul.oa_article.bean.request.TokenRequest;
+import com.wul.oa_article.bean.request.WechatRegisterRequest;
 
 import java.util.List;
 
@@ -59,6 +60,19 @@ public interface HttpService {
      */
     @POST("industry_webservice/app/userInfo/userLogin")
     Observable<BaseResult<String>> login(@Body RegistUserRequest regist);
+
+    /**
+     * 微信登录
+     */
+    @POST("industry_webservice/app/userInfo/weixinLogin")
+    Observable<BaseResult<String>> wechatLogin(@Body WechatRegisterRequest registerRequest);
+
+    /**
+     * 微信注册
+     */
+    @POST("industry_webservice/app/userInfo/weixinRegister")
+    Observable<BaseResult<String>> weChatRegister(@Body WechatRegisterRequest request);
+
 
     /**
      * 获取用户信息

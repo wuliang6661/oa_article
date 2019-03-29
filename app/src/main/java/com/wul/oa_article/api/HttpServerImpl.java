@@ -15,6 +15,7 @@ import com.wul.oa_article.bean.request.PhoneRequest;
 import com.wul.oa_article.bean.request.RegistUserRequest;
 import com.wul.oa_article.bean.request.SelectRequest;
 import com.wul.oa_article.bean.request.TokenRequest;
+import com.wul.oa_article.bean.request.WechatRegisterRequest;
 import com.wul.oa_article.util.MD5;
 import com.wul.oa_article.util.rx.RxResultHelper;
 
@@ -79,6 +80,22 @@ public class HttpServerImpl {
         request.setPassword(MD5.strToMd5Low32(MD5.strToMd5Low32(password) + "zxq"));
         return getService().login(request).compose(RxResultHelper.httpRusult());
     }
+
+    /**
+     * 微信注册
+     */
+    public static Observable<String> registerWeChat(WechatRegisterRequest registerRequest) {
+        return getService().weChatRegister(registerRequest).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 微信登录
+     */
+    public static Observable<String> loginWeChat(WechatRegisterRequest registerRequest) {
+        return getService().wechatLogin(registerRequest).compose(RxResultHelper.httpRusult());
+    }
+
 
     /**
      * 获取用户信息

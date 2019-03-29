@@ -17,7 +17,6 @@ import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.mvp.MVPBaseActivity;
 import com.wul.oa_article.util.AppManager;
-import com.wul.oa_article.view.login.LoginActivity;
 import com.wul.oa_article.view.main.MainActivity;
 
 import butterknife.BindView;
@@ -61,15 +60,18 @@ public class VerificationLoginActivity extends MVPBaseActivity<VerificationLogin
             showToast("请输入手机号码！");
             return;
         }
-        timer.start();
+        showProgress();
         HttpServerImpl.sendMessage(phone, 1).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
+                stopProgress();
+                timer.start();
                 showToast("验证码发送成功！");
             }
 
             @Override
             public void onFiled(String message) {
+                stopProgress();
                 showToast(message);
             }
         });

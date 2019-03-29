@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
@@ -13,6 +15,13 @@ import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wul.oa_article.Config;
 import com.wul.oa_article.api.HttpResultSubscriber;
+import com.wul.oa_article.api.HttpServerImpl;
+import com.wul.oa_article.base.MyApplication;
+import com.wul.oa_article.bean.UserBo;
+import com.wul.oa_article.bean.request.WechatRegisterRequest;
+import com.wul.oa_article.util.AppManager;
+import com.wul.oa_article.view.main.MainActivity;
+import com.wul.oa_article.view.register.RegisterActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -111,6 +120,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                         String openid = response.getString("openid");
                         String nickname = response.getString("nickname");
                         String headimgurl = response.getString("headimgurl");
+                        weChatLogin(openid, nickname, headimgurl);
                     }
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
@@ -124,6 +134,58 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             }
         });
     }
+
+    /**
+     * 微信登录
+     */
+    private void weChatLogin(String openId, String nickName, String nickImg) {
+        WechatRegisterRequest registerRequest = new WechatRegisterRequest();
+        registerRequest.setOpenId(openId);
+        HttpServerImpl.loginWeChat(registerRequest).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if (StringUtils.isEmpty(s)) {
+                    Intent intent = new Intent(WXEntryActivity.this, RegisterActivity.class);
+                    intent.putExtra("isWeChat", true);
+                    intent.putExtra("openId", openId);
+                    intent.putExtra("nickName", nickName);
+                    intent.putExtra("nickImg", nickImg);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    MyApplication.token = s;
+                    getUserInfo();
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                ToastUtils.showShort(message);
+            }
+        });
+    }
+
+
+    /**
+     * 获取用户信息
+     */
+    private void getUserInfo() {
+        HttpServerImpl.getUserinfo().subscribe(new HttpResultSubscriber<UserBo>() {
+            @Override
+            public void onSuccess(UserBo s) {
+                MyApplication.userBo = s;
+                Intent intent = new Intent(WXEntryActivity.this, MainActivity.class);
+                startActivity(intent);
+                AppManager.getAppManager().goHome();
+            }
+
+            @Override
+            public void onFiled(String message) {
+                ToastUtils.showShort(message);
+            }
+        });
+    }
+
 
     @Override
     protected void onNewIntent(Intent intent) {

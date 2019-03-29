@@ -16,7 +16,13 @@ import com.blankj.utilcode.util.StringUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
+import com.wul.oa_article.base.MyApplication;
+import com.wul.oa_article.bean.UserBo;
+import com.wul.oa_article.bean.request.WechatRegisterRequest;
 import com.wul.oa_article.mvp.MVPBaseActivity;
+import com.wul.oa_article.util.AppManager;
+import com.wul.oa_article.util.MD5;
+import com.wul.oa_article.view.main.MainActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -48,6 +54,10 @@ public class RegisterActivity extends MVPBaseActivity<RegisterContract.View, Reg
     @BindView(R.id.mima_visiable)
     CheckBox mimaVisiable;
 
+    private boolean isWeChat;
+    private String openId;
+    private String nickName;
+    private String nikeImg;
 
     @Override
     protected int getLayout() {
@@ -60,7 +70,15 @@ public class RegisterActivity extends MVPBaseActivity<RegisterContract.View, Reg
         super.onCreate(savedInstanceState);
 
         goBack();
-        setTitleText("注册新用户");
+        isWeChat = getIntent().getBooleanExtra("isWeChat", false);
+        if (isWeChat) {
+            setTitleText("绑定手机号");
+            openId = getIntent().getStringExtra("openId");
+            nickName = getIntent().getStringExtra("nickName");
+            nikeImg = getIntent().getStringExtra("nickImg");
+        } else {
+            setTitleText("注册新用户");
+        }
 
         mimaVisiable.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -80,10 +98,10 @@ public class RegisterActivity extends MVPBaseActivity<RegisterContract.View, Reg
             showToast("请输入手机号码！");
             return;
         }
-        timer.start();
         HttpServerImpl.sendMessage(phone, 0).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
+                timer.start();
                 showToast("验证码发送成功！");
             }
 
@@ -115,6 +133,18 @@ public class RegisterActivity extends MVPBaseActivity<RegisterContract.View, Reg
             showToast("请先同意用户服务协议！");
             return;
         }
+        if (isWeChat) {
+            weChatRegister(phone, code, password);
+        } else {
+            phoneRegister(phone, code, password);
+        }
+    }
+
+
+    /**
+     * 手机号注册
+     */
+    private void phoneRegister(String phone, String code, String password) {
         HttpServerImpl.register(phone, code, password, 0).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
@@ -124,6 +154,56 @@ public class RegisterActivity extends MVPBaseActivity<RegisterContract.View, Reg
 
             @Override
             public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
+
+
+    /**
+     * 微信注册
+     */
+    private void weChatRegister(String phone, String code, String password) {
+        WechatRegisterRequest request = new WechatRegisterRequest();
+        request.setOpenId(openId);
+        request.setCode(code);
+        request.setType("0");
+        request.setImg(nikeImg);
+        request.setNicName(nickName);
+        request.setPhone(phone);
+        request.setPassword(MD5.strToMd5Low32(MD5.strToMd5Low32(password) + "zxq"));
+        showProgress();
+        HttpServerImpl.registerWeChat(request).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                MyApplication.token = s;
+                getUserInfo();
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
+
+
+    /**
+     * 获取用户信息
+     */
+    private void getUserInfo() {
+        HttpServerImpl.getUserinfo().subscribe(new HttpResultSubscriber<UserBo>() {
+            @Override
+            public void onSuccess(UserBo s) {
+                stopProgress();
+                MyApplication.userBo = s;
+                gotoActivity(MainActivity.class, true);
+                AppManager.getAppManager().goHome();
+            }
+
+            @Override
+            public void onFiled(String message) {
+                stopProgress();
                 showToast(message);
             }
         });

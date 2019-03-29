@@ -75,10 +75,10 @@ public class Forword_passwordActivity extends MVPBaseActivity<Forword_passwordCo
             showToast("请输入手机号码！");
             return;
         }
-        timer.start();
         HttpServerImpl.sendMessage(phone, 2).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
+                timer.start();
                 showToast("验证码发送成功！");
             }
 
