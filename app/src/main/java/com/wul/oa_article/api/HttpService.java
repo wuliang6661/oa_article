@@ -3,6 +3,7 @@ package com.wul.oa_article.api;
 import com.wul.oa_article.bean.AcceptedOrderBo;
 import com.wul.oa_article.bean.BaseResult;
 import com.wul.oa_article.bean.ComplanOrderBo;
+import com.wul.oa_article.bean.HistoryBO;
 import com.wul.oa_article.bean.MyOrderBO;
 import com.wul.oa_article.bean.SalesBo;
 import com.wul.oa_article.bean.UserBo;
@@ -93,7 +94,7 @@ public interface HttpService {
      * 获取历史搜索记录
      */
     @POST("industry_webservice/app/userSearch/getUserSearchHistory")
-    Observable<BaseResult<String>> getSearchHistory(@Body SelectRequest request);
+    Observable<BaseResult<List<HistoryBO>>> getSearchHistory(@Body SelectRequest request);
 
     /**
      * 清除历史搜索记录

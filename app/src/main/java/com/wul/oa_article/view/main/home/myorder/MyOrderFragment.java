@@ -98,14 +98,20 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
     }
 
 
+    private TabLayout.Tab tab1, tab2, tab3, tab4;
+
     /**
      * 初始化布局
      */
     private void initView() {
-        tabLayout.addTab(tabLayout.newTab().setText("0\n所有任务"));
-        tabLayout.addTab(tabLayout.newTab().setText("0\n我自己的"));
-        tabLayout.addTab(tabLayout.newTab().setText("0\n我分派的"));
-        tabLayout.addTab(tabLayout.newTab().setText("0\n已完成"));
+        tab1 = tabLayout.newTab().setText("--\n所有任务");
+        tab2 = tabLayout.newTab().setText("--\n我自己的");
+        tab3 = tabLayout.newTab().setText("--\n我分派的");
+        tab4 = tabLayout.newTab().setText("--\n已完成");
+        tabLayout.addTab(tab1);
+        tabLayout.addTab(tab2);
+        tabLayout.addTab(tab3);
+        tabLayout.addTab(tab4);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recycleView.setLayoutManager(manager);
@@ -165,6 +171,20 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
             @Override
             public void onSuccess(List<MyOrderBO> s) {
                 stopProgress();
+                switch (position) {
+                    case 0:
+                        tab1.setText(s.size() + "\n所有任务");
+                        break;
+                    case 1:
+                        tab2.setText(s.size() + "\n我自己的");
+                        break;
+                    case 2:
+                        tab3.setText(s.size() + "\n我分派的");
+                        break;
+                    case 3:
+                        tab4.setText(s.size() + "\n已完成");
+                        break;
+                }
                 setAdapter(s);
             }
 

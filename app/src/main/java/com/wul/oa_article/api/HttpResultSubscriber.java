@@ -3,6 +3,7 @@ package com.wul.oa_article.api;
 import android.content.Context;
 
 import com.bigkoo.svprogresshud.SVProgressHUD;
+import com.wul.oa_article.bean.PageBO;
 
 import rx.Subscriber;
 
@@ -38,6 +39,7 @@ public abstract class HttpResultSubscriber<T> extends Subscriber<T> {
         }
     }
 
+
     @Override
     public void onError(Throwable e) {
         e.printStackTrace();
@@ -48,11 +50,25 @@ public abstract class HttpResultSubscriber<T> extends Subscriber<T> {
         onFiled(e.getMessage());
     }
 
+    private PageBO pageBO;
+
+    public void setPageInfo(PageBO pageInfo) {
+        this.pageBO = pageInfo;
+    }
+
+    public PageBO getPageBO() {
+        if (pageBO == null) {
+            pageBO = new PageBO();
+        }
+        return pageBO;
+    }
+
 
     @Override
     public void onCompleted() {
 
     }
+
 
     public abstract void onSuccess(T t);
 

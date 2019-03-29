@@ -104,14 +104,20 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
         EventBus.getDefault().unregister(this);
     }
 
+    private TabLayout.Tab tab1, tab2, tab3, tab4;
+
     /**
      * 初始化布局
      */
     private void initView() {
-        tabLayout.addTab(tabLayout.newTab().setText("0\n全部"));
-        tabLayout.addTab(tabLayout.newTab().setText("0\n进行中"));
-        tabLayout.addTab(tabLayout.newTab().setText("0\n已完成"));
-        tabLayout.addTab(tabLayout.newTab().setText("0\n已取消"));
+        tab1 = tabLayout.newTab().setText("--\n全部");
+        tab2 = tabLayout.newTab().setText("--\n进行中");
+        tab3 = tabLayout.newTab().setText("--\n已完成");
+        tab4 = tabLayout.newTab().setText("--\n已取消");
+        tabLayout.addTab(tab1);
+        tabLayout.addTab(tab2);
+        tabLayout.addTab(tab3);
+        tabLayout.addTab(tab4);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recycleView.setLayoutManager(manager);
@@ -171,6 +177,20 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
                     setCancleAdapter(s);
                 } else {
                     setAdapter(s);
+                }
+                switch (position) {
+                    case 0:
+                        tab1.setText(s.size() + "\n全部");
+                        break;
+                    case 1:
+                        tab2.setText(s.size() + "\n进行中");
+                        break;
+                    case 2:
+                        tab3.setText(s.size() + "\n已完成");
+                        break;
+                    case 3:
+                        tab4.setText(s.size() + "\n已取消");
+                        break;
                 }
             }
 

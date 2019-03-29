@@ -49,7 +49,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -109,10 +108,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     EditText editKeybord;
     @BindView(R.id.id_flowlayout)
     TagFlowLayout idFlowlayout;
-    @BindView(R.id.menu_reset)
-    TextView menuReset;
-    @BindView(R.id.menu_commit)
-    TextView menuCommit;
 
     private int selectPosition = 0;
     private BottmTabItem[] buttms;
@@ -152,7 +147,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             showToast("当前用户没有公司！");
             return;
         }
-        request.setCompanyId(MyApplication.userBo.getCompanys().get(0).getId());
+        request.setCompanyId(MyApplication.userBo.getCompanys().get(0).getId() + "");
         request.setType("1");
         mPresenter.getCommplayList(request);
     }
@@ -653,16 +648,16 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         pvTime = new TimePickerBuilder(this, (date, v) -> {
             switch (timeType) {
                 case 0:
-                    setTimeSelect(createTimeStart, date);
+                    createTimeStart.setText(TimeUtils.date2String(date, format));
                     break;
                 case 1:
-                    setTimeSelect(createTimeEnd, date);
+                    createTimeEnd.setText(TimeUtils.date2String(date, format));
                     break;
                 case 2:
-                    setTimeSelect(stopTimeStart, date);
+                    stopTimeStart.setText(TimeUtils.date2String(date, format));
                     break;
                 case 3:
-                    setTimeSelect(stopTimeEnd, date);
+                    stopTimeEnd.setText(TimeUtils.date2String(date, format));
                     break;
             }
         })
@@ -688,16 +683,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             }
         }
         pvTime.show();
-    }
-
-
-    /**
-     * 设置时间按钮选中之后的样式
-     */
-    private void setTimeSelect(TextView view, Date date) {
-        view.setText(TimeUtils.date2String(date, format));
-//        view.setTextColor(Color.parseColor("#5678FF"));
-//        view.setBackgroundResource(R.drawable.menu_item_select);
     }
 
 

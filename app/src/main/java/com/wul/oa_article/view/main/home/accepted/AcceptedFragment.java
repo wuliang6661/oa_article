@@ -15,6 +15,7 @@ import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
 import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.AcceptedOrderBo;
+import com.wul.oa_article.bean.event.MsgNumEvent;
 import com.wul.oa_article.bean.request.AsseptRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
@@ -85,6 +86,9 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
         HttpServerImpl.getAsseptOrder(request).subscribe(new HttpResultSubscriber<List<AcceptedOrderBo>>() {
             @Override
             public void onSuccess(List<AcceptedOrderBo> s) {
+                MsgNumEvent event = new MsgNumEvent();
+                event.num = s.size();
+                EventBus.getDefault().post(event);
                 setAdapter(s);
             }
 

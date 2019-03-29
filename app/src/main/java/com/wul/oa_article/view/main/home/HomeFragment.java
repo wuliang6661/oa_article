@@ -11,9 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wul.oa_article.R;
+import com.wul.oa_article.bean.event.MsgNumEvent;
 import com.wul.oa_article.bean.event.OpenDrawableEvent;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.view.FragmentPaerAdapter;
@@ -23,6 +25,8 @@ import com.wul.oa_article.view.main.home.compony.ComponyFragment;
 import com.wul.oa_article.view.main.home.myorder.MyOrderFragment;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +66,10 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     MyOrderFragment myOrderFragment;
     ComponyFragment componyFragment;
     AcceptedFragment acceptedFragment;
+    @BindView(R.id.unknow_order_layout)
+    RelativeLayout unknowOrderLayout;
+    @BindView(R.id.msg_text)
+    TextView msgText;
 
 
     @Nullable
@@ -77,6 +85,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        EventBus.getDefault().register(this);
         fragments = new ArrayList<>();
         myOrderFragment = new MyOrderFragment();
         componyFragment = new ComponyFragment();
@@ -125,7 +134,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     }
 
 
-    @OnClick({R.id.my_order, R.id.gongsi_order, R.id.unknow_order})
+    @OnClick({R.id.my_order, R.id.gongsi_order, R.id.unknow_order_layout})
     public void orderClick(View view) {
         switch (view.getId()) {
             case R.id.my_order:
@@ -136,10 +145,9 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
                 setTextStyle(1);
                 viewPager.setCurrentItem(1);
                 break;
-            case R.id.unknow_order:
+            case R.id.unknow_order_layout:
                 setTextStyle(2);
                 viewPager.setCurrentItem(2);
-
                 break;
         }
     }
@@ -170,11 +178,28 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     }
 
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(MsgNumEvent event) {
+        if (event.num > 0) {
+            msgText.setVisibility(View.VISIBLE);
+            msgText.setText(event.num + "");
+        } else {
+            msgText.setVisibility(View.GONE);
+            msgText.setText("");
+        }
+    }
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
 
+    }
 }

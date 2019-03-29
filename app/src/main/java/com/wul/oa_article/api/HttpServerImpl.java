@@ -3,6 +3,7 @@ package com.wul.oa_article.api;
 import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.AcceptedOrderBo;
 import com.wul.oa_article.bean.ComplanOrderBo;
+import com.wul.oa_article.bean.HistoryBO;
 import com.wul.oa_article.bean.MyOrderBO;
 import com.wul.oa_article.bean.SalesBo;
 import com.wul.oa_article.bean.UserBo;
@@ -128,7 +129,7 @@ public class HttpServerImpl {
     /**
      * 获取历史搜索记录
      */
-    public static Observable<String> selectHistory(SelectRequest request) {
+    public static Observable<List<HistoryBO>> selectHistory(SelectRequest request) {
         request.setToken(MyApplication.token);
         return getService().getSearchHistory(request).compose(RxResultHelper.httpRusult());
     }

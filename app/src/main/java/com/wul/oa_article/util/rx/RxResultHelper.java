@@ -6,7 +6,9 @@ import android.util.Log;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.wul.oa_article.api.DialogCallException;
+import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.bean.BaseResult;
+import com.wul.oa_article.bean.PageBO;
 import com.wul.oa_article.util.AppManager;
 import com.wul.oa_article.view.login.LoginActivity;
 
@@ -47,15 +49,13 @@ public class RxResultHelper {
 
 
     private static <T> Observable<T> createData(final T t) {
-        return Observable.create(new Observable.OnSubscribe<T>() {
-            @Override
-            public void call(Subscriber<? super T> subscriber) {
-                try {
-                    subscriber.onNext(t);
-                    subscriber.onCompleted();
-                } catch (Exception e) {
-                    subscriber.onError(e);
-                }
+        return Observable.create(subscriber -> {
+            try {
+//                subscriber.setPageInfo(pageBO);
+                subscriber.onNext(t);
+                subscriber.onCompleted();
+            } catch (Exception e) {
+                subscriber.onError(e);
             }
         });
     }

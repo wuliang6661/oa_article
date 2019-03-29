@@ -22,6 +22,16 @@ public class BaseResult<T> {
 
     private T data;
 
+    private PageBO pageInfo;
+
+    public PageBO getPageInfo() {
+        return pageInfo;
+    }
+
+    public void setPageInfo(PageBO pageInfo) {
+        this.pageInfo = pageInfo;
+    }
+
     public boolean surcess() {
         return code == 200;
     }
@@ -60,4 +70,6 @@ public class BaseResult<T> {
     public void setCode(int code) {
         this.code = code;
     }
+
+
 }

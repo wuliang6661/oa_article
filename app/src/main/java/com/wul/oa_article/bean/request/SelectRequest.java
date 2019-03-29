@@ -11,17 +11,26 @@ public class SelectRequest {
      * type : 0
      */
 
-    private int companyId;
+    private String companyId;
     private String pageNum;
     private String pageSize;
     private String token;
     private String type;
+    private String userId;
 
-    public int getCompanyId() {
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(int companyId) {
+    public void setCompanyId(String companyId) {
         this.companyId = companyId;
     }
 
