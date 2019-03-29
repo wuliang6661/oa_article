@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SizeUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.bean.event.MsgNumEvent;
 import com.wul.oa_article.bean.event.OpenDrawableEvent;
@@ -23,6 +24,7 @@ import com.wul.oa_article.view.SelectActivity;
 import com.wul.oa_article.view.main.home.accepted.AcceptedFragment;
 import com.wul.oa_article.view.main.home.compony.ComponyFragment;
 import com.wul.oa_article.view.main.home.myorder.MyOrderFragment;
+import com.wul.oa_article.widget.HomeAddPopWindow;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -175,6 +177,13 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
                 EventBus.getDefault().post(event);
                 break;
         }
+    }
+
+
+    @OnClick(R.id.add_img)
+    public void add(View view) {
+        HomeAddPopWindow popWindow = new HomeAddPopWindow(getActivity());
+        popWindow.showPop(addImg, 0, 20);
     }
 
 
