@@ -15,9 +15,11 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.wul.oa_article.BuildConfig;
 import com.wul.oa_article.Config;
 import com.wul.oa_article.R;
 import com.wul.oa_article.api.HttpResultSubscriber;
@@ -74,6 +76,10 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
             }
         });
         requestPermission();
+        if (BuildConfig.DEBUG) {
+            editPhone.setText("18897940819");
+            editPassword.setText("123456");
+        }
     }
 
 
@@ -94,6 +100,13 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                     }, 1);
 
         }
+    }
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @OnClick(R.id.regis_text)
@@ -118,6 +131,10 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         String password = editPassword.getText().toString().trim();
         if (StringUtils.isEmpty(phone)) {
             showToast("请输入手机号码！");
+            return;
+        }
+        if (!RegexUtils.isMobileExact(phone)) {
+            showToast("请输入正确手机号！");
             return;
         }
         if (StringUtils.isEmpty(password)) {

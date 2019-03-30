@@ -32,7 +32,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="9dp"
             android:background="@null"
-            android:hint="订单编号"
+            android:hint="关键字"
             android:textColor="@color/f_white"
             android:textColorHint="#8D8C91"
             android:textSize="13sp" />

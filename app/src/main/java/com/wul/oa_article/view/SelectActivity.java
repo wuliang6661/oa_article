@@ -26,6 +26,7 @@ import com.wul.oa_article.widget.AlertDialog;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -121,7 +122,15 @@ public class SelectActivity extends BaseActivity {
      * 显示搜索记录
      */
     private void showAdapter(List<HistoryBO> s) {
-        LGRecycleViewAdapter<HistoryBO> adapter = new LGRecycleViewAdapter<HistoryBO>(s) {
+        List<HistoryBO> list = new ArrayList<>();
+        if (s.size() > 5) {
+            for (int i = 0; i < 5; i++) {
+                list.add(s.get(i));
+            }
+        } else {
+            list = s;
+        }
+        LGRecycleViewAdapter<HistoryBO> adapter = new LGRecycleViewAdapter<HistoryBO>(list) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.item_select_history;

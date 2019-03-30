@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.api.HttpResultSubscriber;
@@ -60,6 +61,10 @@ public class VerificationLoginActivity extends MVPBaseActivity<VerificationLogin
             showToast("请输入手机号码！");
             return;
         }
+        if (!RegexUtils.isMobileExact(phone)) {
+            showToast("请输入正确手机号！");
+            return;
+        }
         showProgress();
         HttpServerImpl.sendMessage(phone, 1).subscribe(new HttpResultSubscriber<String>() {
             @Override
@@ -84,6 +89,10 @@ public class VerificationLoginActivity extends MVPBaseActivity<VerificationLogin
         String code = editVersition.getText().toString().trim();
         if (StringUtils.isEmpty(phone)) {
             showToast("请输入手机号码！");
+            return;
+        }
+        if (!RegexUtils.isMobileExact(phone)) {
+            showToast("请输入正确手机号！");
             return;
         }
         if (StringUtils.isEmpty(code)) {

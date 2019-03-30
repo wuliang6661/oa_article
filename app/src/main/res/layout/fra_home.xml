@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="9dp"
-                android:text="订单编号"
+                android:text="关键字"
                 android:textColor="#8D8C91"
                 android:textSize="13sp" />
 

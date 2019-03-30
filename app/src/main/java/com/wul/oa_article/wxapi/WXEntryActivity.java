@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -23,10 +24,10 @@ import com.wul.oa_article.util.AppManager;
 import com.wul.oa_article.view.main.MainActivity;
 import com.wul.oa_article.view.register.RegisterActivity;
 
-import java.net.URLEncoder;
-
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
+
+    private SVProgressHUD svProgressHUD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             MyApplication.WXapi = WXAPIFactory.createWXAPI(this, Config.WX_APP_ID, true);
             MyApplication.WXapi.registerApp(Config.WX_APP_ID);
         }
+        svProgressHUD = new SVProgressHUD(this);
         MyApplication.WXapi.handleIntent(getIntent(), this);
     }
 
@@ -55,6 +57,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         switch (resp.errCode) {
             case BaseResp.ErrCode.ERR_OK:
                 String code = ((SendAuth.Resp) resp).code;
+                showProgress();
                 /*
                  * 将你前面得到的AppID、AppSecret、code，拼接成URL 获取access_token等等的信息(微信)
                  */
@@ -69,6 +72,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
                             @Override
                             public void onFiled(String message) {
+                                stopProgress();
                                 Toast.makeText(WXEntryActivity.this, message, Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -89,6 +93,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                 finish();
                 break;
         }
+        finish();
     }
 
     /**
@@ -106,6 +111,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
             @Override
             public void onFiled(String message) {
+                stopProgress();
                 Toast.makeText(WXEntryActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
@@ -121,6 +127,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             @Override
             public void onSuccess(String s) {
                 if (StringUtils.isEmpty(s)) {
+                    stopProgress();
                     Intent intent = new Intent(WXEntryActivity.this, RegisterActivity.class);
                     intent.putExtra("isWeChat", true);
                     intent.putExtra("openId", openId);
@@ -136,6 +143,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
             @Override
             public void onFiled(String message) {
+                stopProgress();
                 ToastUtils.showShort(message);
             }
         });
@@ -149,6 +157,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         HttpServerImpl.getUserinfo().subscribe(new HttpResultSubscriber<UserBo>() {
             @Override
             public void onSuccess(UserBo s) {
+                stopProgress();
                 MyApplication.userBo = s;
                 Intent intent = new Intent(WXEntryActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -157,6 +166,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
             @Override
             public void onFiled(String message) {
+                stopProgress();
                 ToastUtils.showShort(message);
             }
         });
@@ -168,17 +178,24 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         super.onNewIntent(intent);
         setIntent(intent);
         MyApplication.WXapi.handleIntent(intent, this);
+        finish();
     }
 
 
-    private String urlEnodeUTF8(String str) {
-        String result = str;
-        try {
-            result = URLEncoder.encode(str, "UTF-8");
-        } catch (Exception e) {
-            e.printStackTrace();
+    /**
+     * 显示加载进度弹窗
+     */
+    protected void showProgress() {
+        svProgressHUD.showWithStatus("加载中...", SVProgressHUD.SVProgressHUDMaskType.GradientCancel);
+    }
+
+    /**
+     * 停止弹窗
+     */
+    protected void stopProgress() {
+        if (svProgressHUD.isShowing()) {
+            svProgressHUD.dismiss();
         }
-        return result;
     }
 
 }

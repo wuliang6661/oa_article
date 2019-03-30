@@ -48,6 +48,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -349,8 +350,8 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                 setMenu(all);
                 break;
             case 1:   // 我的任务（我自己的）
-                taskUnfinish.setText("未接受");
-                taskWay.setText("进行中");
+                taskUnfinish.setText("已分派");
+                taskWay.setText("未分派");
                 taskOff.setText("已完成");
                 setMenu(myziji);
                 if (!StringUtils.isEmpty(myziji.getTaskType())) {
@@ -368,8 +369,8 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                 }
                 break;
             case 2:    //我的任务（我分派的）
-                taskUnfinish.setText("已分派");
-                taskWay.setText("未分派");
+                taskUnfinish.setText("未接受");
+                taskWay.setText("进行中");
                 taskOff.setText("已完成");
                 setMenu(myfenpai);
                 break;
@@ -453,9 +454,11 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         if (!StringUtils.isEmpty(request.getTaskType())) {
             switch (request.getTaskType()) {
                 case "0":
+                case "3":
                     taskUnfinish.setChecked(true);
                     break;
                 case "1":
+                case "4":
                     taskWay.setChecked(true);
                     break;
                 case "2":
@@ -587,9 +590,9 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         request.setStartDate(stopTimeStart.getText().toString().replaceAll("/", "-"));
         request.setEndDate(stopTimeEnd.getText().toString().replaceAll("/", "-"));
         request.setKeyWord(editKeybord.getText().toString().trim());
-        if (event.type == 1 && "0".equals(taskRadio)) {
+        if (event.type == 2 && "0".equals(taskRadio)) {
             request.setTaskType("3");
-        } else if (event.type == 1 && "1".equals(taskRadio)) {
+        } else if (event.type == 2 && "1".equals(taskRadio)) {
             request.setTaskType("4");
         } else {
             request.setTaskType(taskRadio);
@@ -692,9 +695,19 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     }
 
 
+    List<SalesBo> list;
+
     @Override
-    public void getSales(List<SalesBo> salesBos) {
-        idFlowlayout.setAdapter(new TagAdapter<SalesBo>(salesBos) {
+    public void getSales(List<SalesBo> s) {
+        list = new ArrayList<>();
+        if (s.size() > 5) {
+            for (int i = 0; i < 5; i++) {
+                list.add(s.get(i));
+            }
+        } else {
+            list = s;
+        }
+        idFlowlayout.setAdapter(new TagAdapter<SalesBo>(list) {
             @Override
             public View getView(FlowLayout parent, int position, SalesBo o) {
                 TextView tv = (TextView) getLayoutInflater().inflate(R.layout.item_tag_fllow,
@@ -704,7 +717,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             }
         });
         idFlowlayout.setOnTagClickListener((view, position, parent) -> {
-            editKeybord.setText(salesBos.get(position).getContent());
+            editKeybord.setText(list.get(position).getContent());
             return true;
         });
     }
