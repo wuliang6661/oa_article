@@ -61,6 +61,17 @@ public class HttpServerImpl {
     }
 
     /**
+     * 微信注册获取短信验证码
+     */
+    public static Observable<String> sendWxMessage(String phone, int type) {
+        PhoneRequest request = new PhoneRequest();
+        request.phone = phone;
+        request.type = type;
+        return getService().sendWxMessage(request).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
      * 校验验证码正确
      */
     public static Observable<String> checkModeMsg(String phone, String code, int type) {

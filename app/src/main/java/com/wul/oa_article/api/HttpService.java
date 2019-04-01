@@ -50,6 +50,13 @@ public interface HttpService {
     Observable<BaseResult<String>> sendMessage(@Body PhoneRequest request);
 
     /**
+     * 微信注册获取短信验证码
+     */
+    @POST("industry_webservice/app/userInfo/sendWXCode")
+    Observable<BaseResult<String>> sendWxMessage(@Body PhoneRequest request);
+
+
+    /**
      * 校验验证码正确
      */
     @POST("industry_webservice/app/userInfo/checkMesCode")

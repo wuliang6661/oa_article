@@ -106,20 +106,37 @@ public class RegisterActivity extends MVPBaseActivity<RegisterContract.View, Reg
             return;
         }
         showProgress();
-        HttpServerImpl.sendMessage(phone, 0).subscribe(new HttpResultSubscriber<String>() {
-            @Override
-            public void onSuccess(String s) {
-                timer.start();
-                stopProgress();
-                showToast("验证码发送成功！");
-            }
+        if (isWeChat) {
+            HttpServerImpl.sendWxMessage(phone, 0).subscribe(new HttpResultSubscriber<String>() {
+                @Override
+                public void onSuccess(String s) {
+                    timer.start();
+                    stopProgress();
+                    showToast("验证码发送成功！");
+                }
 
-            @Override
-            public void onFiled(String message) {
-                stopProgress();
-                showToast(message);
-            }
-        });
+                @Override
+                public void onFiled(String message) {
+                    stopProgress();
+                    showToast(message);
+                }
+            });
+        } else {
+            HttpServerImpl.sendMessage(phone, 0).subscribe(new HttpResultSubscriber<String>() {
+                @Override
+                public void onSuccess(String s) {
+                    timer.start();
+                    stopProgress();
+                    showToast("验证码发送成功！");
+                }
+
+                @Override
+                public void onFiled(String message) {
+                    stopProgress();
+                    showToast(message);
+                }
+            });
+        }
     }
 
     @OnClick(R.id.register_button)
