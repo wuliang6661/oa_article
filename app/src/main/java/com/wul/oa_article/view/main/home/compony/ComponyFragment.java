@@ -90,12 +90,14 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
         request.setPageNum(1);
         request.setPageSize(1000);
         request.setUserId(MyApplication.userBo.getId() + "");
+        String commonId;
         if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
-            showToast("当前用户没有公司！");
+            commonId = "0";
         } else {
-            request.setCompanyId(MyApplication.userBo.getCompanys().get(0).getId() + "");
-            getOrderByTask(0);
+            commonId = MyApplication.userBo.getCompanys().get(0).getId() + "";
         }
+        request.setCompanyId(commonId);
+        getOrderByTask(0);
     }
 
     @Override

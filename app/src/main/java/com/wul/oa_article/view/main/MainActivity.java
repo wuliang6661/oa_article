@@ -144,11 +144,13 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         SelectRequest request = new SelectRequest();
         request.setPageNum(1 + "");
         request.setPageSize(1000 + "");
+        String commonId;
         if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
-            showToast("当前用户没有公司！");
-            return;
+            commonId = "0";
+        } else {
+            commonId = MyApplication.userBo.getCompanys().get(0).getId() + "";
         }
-        request.setCompanyId(MyApplication.userBo.getCompanys().get(0).getId() + "");
+        request.setCompanyId(commonId);
         request.setType("1");
         mPresenter.getCommplayList(request);
     }
@@ -607,11 +609,13 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         request.setPageNum(1);
         request.setPageSize(1000);
         request.setUserId(MyApplication.userBo.getId() + "");
+        String commonId;
         if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
-            showToast("当前用户没有公司！");
-            return;
+            commonId = "0";
+        } else {
+            commonId = MyApplication.userBo.getCompanys().get(0).getId() + "";
         }
-        request.setCompanyId(MyApplication.userBo.getCompanys().get(0).getId() + "");
+        request.setCompanyId(commonId);
     }
 
 
@@ -619,22 +623,26 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         request.setPageNum(1);
         request.setPageSize(1000);
         request.setUserId(MyApplication.userBo.getId() + "");
+        String commonId;
         if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
-            showToast("当前用户没有公司！");
-            return;
+            commonId = "0";
+        } else {
+            commonId = MyApplication.userBo.getCompanys().get(0).getId() + "";
         }
-        request.setCompanyId(MyApplication.userBo.getCompanys().get(0).getId() + "");
+        request.setCompanyId(commonId);
     }
 
 
     private void initAsset(AsseptRequest request) {
         request.setPageNum(1);
         request.setPageSize(1000);
+        String commonId;
         if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
-            showToast("当前用户没有公司！");
-            return;
+            commonId = "0";
+        } else {
+            commonId = MyApplication.userBo.getCompanys().get(0).getId() + "";
         }
-        request.setId(MyApplication.userBo.getCompanys().get(0).getId() + "");
+        request.setId(commonId);
     }
 
 

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_bg"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/layout_bar" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用户服务协议"
+                android:textColor="#FDFBFB"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/xiyi_msg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:text="@string/xieyi"
+                android:textColor="#FDFBFB"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

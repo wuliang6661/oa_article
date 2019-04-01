@@ -70,6 +70,12 @@
             android:name=".view.SelectActivity"
             android:screenOrientation="portrait" />
 
+        <!--用户协议-->
+        <activity
+            android:name=".view.register.PersonXieyIAct"
+            android:screenOrientation="portrait" />
+
+
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"

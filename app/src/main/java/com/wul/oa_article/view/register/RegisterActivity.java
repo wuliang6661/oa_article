@@ -151,6 +151,12 @@ public class RegisterActivity extends MVPBaseActivity<RegisterContract.View, Reg
     }
 
 
+    @OnClick(R.id.person_xieyi)
+    public void xieyi() {
+        gotoActivity(PersonXieyIAct.class, false);
+    }
+
+
     /**
      * 手机号注册
      */

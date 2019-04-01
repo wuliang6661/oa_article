@@ -98,11 +98,13 @@ public class SelectActivity extends BaseActivity {
         SelectRequest request = new SelectRequest();
         request.setPageNum(1 + "");
         request.setPageSize(1000 + "");
+        String commonId;
         if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
-            showToast("当前用户没有公司！");
-            return;
+            commonId = "0";
+        } else {
+            commonId = MyApplication.userBo.getCompanys().get(0).getId() + "";
         }
-        request.setCompanyId(MyApplication.userBo.getCompanys().get(0).getId() + "");
+        request.setCompanyId(commonId);
         request.setUserId(MyApplication.userBo.getId() + "");
         request.setType(1 + "");
         HttpServerImpl.selectHistory(request).subscribe(new HttpResultSubscriber<List<HistoryBO>>() {
@@ -165,11 +167,13 @@ public class SelectActivity extends BaseActivity {
      */
     private void clearHistory() {
         SelectRequest request = new SelectRequest();
+        String commonId;
         if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
-            showToast("当前用户没有公司！");
-            return;
+            commonId = "0";
+        } else {
+            commonId = MyApplication.userBo.getCompanys().get(0).getId() + "";
         }
-        request.setCompanyId(MyApplication.userBo.getCompanys().get(0).getId() + "");
+        request.setCompanyId(commonId);
         request.setType(1 + "");
         HttpServerImpl.clearHistory(request).subscribe(new HttpResultSubscriber<String>() {
             @Override
@@ -194,11 +198,13 @@ public class SelectActivity extends BaseActivity {
         request.setPageNum(1);
         request.setPageSize(1000);
         request.setUserId(MyApplication.userBo.getId() + "");
+        String commonId;
         if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
-            showToast("当前用户没有公司！");
-            return;
+            commonId = "0";
+        } else {
+            commonId = MyApplication.userBo.getCompanys().get(0).getId() + "";
         }
-        request.setCompanyId(MyApplication.userBo.getCompanys().get(0).getId() + "");
+        request.setCompanyId(commonId);
         request.setKeyWord(editSelect.getText().toString().trim());
         getOrderByTask(request);
 
