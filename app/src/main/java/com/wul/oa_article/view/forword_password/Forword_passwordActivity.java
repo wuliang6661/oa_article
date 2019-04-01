@@ -75,6 +75,10 @@ public class Forword_passwordActivity extends MVPBaseActivity<Forword_passwordCo
             showToast("请输入手机号码！");
             return;
         }
+        if (!RegexUtils.isMobileExact(phone)) {
+            showToast("请输入正确手机号！");
+            return;
+        }
         showProgress();
         HttpServerImpl.sendMessage(phone, 2).subscribe(new HttpResultSubscriber<String>() {
             @Override

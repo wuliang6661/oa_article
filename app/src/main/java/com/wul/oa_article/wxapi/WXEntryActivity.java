@@ -37,7 +37,15 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             MyApplication.WXapi.registerApp(Config.WX_APP_ID);
         }
         svProgressHUD = new SVProgressHUD(this);
+        AppManager.getAppManager().addActivity(this);
         MyApplication.WXapi.handleIntent(getIntent(), this);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppManager.getAppManager().removeActivity(this);
     }
 
     // 微信发送请求到第三方应用时，会回调到该方法
@@ -74,6 +82,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                             public void onFiled(String message) {
                                 stopProgress();
                                 Toast.makeText(WXEntryActivity.this, message, Toast.LENGTH_SHORT).show();
+                                finish();
                             }
                         });
                 break;
@@ -93,7 +102,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                 finish();
                 break;
         }
-        finish();
+
     }
 
     /**
@@ -113,6 +122,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             public void onFiled(String message) {
                 stopProgress();
                 Toast.makeText(WXEntryActivity.this, message, Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }
@@ -145,6 +155,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             public void onFiled(String message) {
                 stopProgress();
                 ToastUtils.showShort(message);
+                finish();
             }
         });
     }
@@ -168,6 +179,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             public void onFiled(String message) {
                 stopProgress();
                 ToastUtils.showShort(message);
+                finish();
             }
         });
     }
