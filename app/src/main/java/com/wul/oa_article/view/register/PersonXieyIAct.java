@@ -27,6 +27,6 @@ public class PersonXieyIAct extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         goBack();
-        setTitleText("用户协议");
+        setTitleText("用户服务协议");
     }
 }
