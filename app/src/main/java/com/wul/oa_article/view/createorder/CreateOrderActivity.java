@@ -1,27 +1,40 @@
 package com.wul.oa_article.view.createorder;
 
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.StringUtils;
+import com.guoqi.actionsheet.ActionSheet;
 import com.wul.oa_article.R;
 import com.wul.oa_article.mvp.MVPBaseActivity;
+import com.wul.oa_article.util.PhotoUtils;
 import com.wul.oa_article.widget.ExpandLayout;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.wul.oa_article.util.PhotoUtils.bitmapToBase64;
 
 
 /**
@@ -30,7 +43,7 @@ import butterknife.OnClick;
  */
 
 public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.View, CreateOrderPresenter>
-        implements CreateOrderContract.View {
+        implements CreateOrderContract.View, ActionSheet.OnActionSheetSelected {
 
     @BindView(R.id.edit_kehu_jiancheng)
     EditText editKehuJiancheng;
@@ -101,7 +114,7 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
     /**
      * 品类添加
      */
-    @OnClick(R.id.add_img)
+    @OnClick(R.id.add_pinglei)
     public void addPingLei() {
         String pingName = editPingleiName.getText().toString().trim();
         String pingGuige = editPingleiGuige.getText().toString().trim();
@@ -156,7 +169,17 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
      */
     private void setImageAdapter() {
         ImageAddAdapter addAdapter = new ImageAddAdapter(this, imageBOS);
+        addAdapter.setListener(new ImageAddAdapter.onAddImageAdapterListener() {
+            @Override
+            public void addImage() {
+                ActionSheet.showSheet(CreateOrderActivity.this, CreateOrderActivity.this, null);
+            }
 
+            @Override
+            public void deleteImage(int position, ImageBO imageBO) {
+
+            }
+        });
         imageRecycle.setAdapter(addAdapter);
     }
 
@@ -185,4 +208,95 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
                 break;
         }
     }
+
+    @Override
+    public void onClick(int whichButton) {
+        switch (whichButton) {
+            case ActionSheet.CHOOSE_PICTURE:
+                //相册
+                choosePic();
+                break;
+            case ActionSheet.TAKE_PICTURE:
+                //拍照
+                takePic();
+                break;
+            case ActionSheet.CANCEL:
+                //取消
+                break;
+        }
+    }
+
+
+    //加入自己的逻辑
+    public void takePic() {
+        String state = Environment.getExternalStorageState();
+        if (state.equals(Environment.MEDIA_MOUNTED)) {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            File outDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            if (!outDir.exists()) {
+                outDir.mkdirs();
+            }
+            File outFile = new File(outDir, System.currentTimeMillis() + ".jpg");
+            String picPath = outFile.getAbsolutePath();
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outFile));
+            intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+            startActivityForResult(intent, ActionSheet.TAKE_PICTURE);
+        } else {
+            Toast.makeText(this, "请确认已经插入SD卡", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    //加入自己的逻辑
+    public void choosePic() {
+        Intent openAlbumIntent = new Intent(Intent.ACTION_PICK);
+        openAlbumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(openAlbumIntent, ActionSheet.CHOOSE_PICTURE);
+    }
+
+    private static int GET_PICTURE_BY_PIC = 1;
+    private static int GET_PICTURE_BY_CAMRA = 2;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            if (requestCode == GET_PICTURE_BY_PIC) {//从图库选取的回调方法
+                Uri uri = data.getData();//content://media/external/images/media/72876
+                Bitmap bitmap1 = null;
+                if (uri != null) {
+                    String path =PhotoUtils.getUriPath(this,uri);//上边获取的uri不是真实路径，通过此方法转换
+                    try {
+                        bitmap1 = BitmapFactory.decodeFile(path);
+//                        ivPhoto.setImageBitmap(bitmap1);//在预览框显示选择的图片，问题就在这里，有时候显示，有时候不显示
+//                        ivPhotoStr = PhotoUtils.bitmapToBase64(bitmap1);//往服务器上传照片，将照片转换成base64
+//                        tvGot.setVisibility(View.VISIBLE);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            if (requestCode == GET_PICTURE_BY_CAMRA) {//通过相机选取的回调
+                Uri uri = data.getData();
+                if (uri == null) {
+                    Bundle pBundle = data.getExtras(); //从intent对象中获取数据，
+                    if (pBundle != null) {
+                        Bitmap mBitmap = (Bitmap) pBundle.get("data"); //get bitmap
+//                        ivPhoto.setImageBitmap(mBitmap);//在预览框显示选择的图片，问题就在这里，有时候显示，有时候不显示
+//                        ivPhotoStr = bitmapToBase64(mBitmap);//往服务器上传照片，将照片转换成base64
+//                        tvGot.setVisibility(View.VISIBLE);
+//                        Log.i("", "onActivityResult: bitmap" + ivPhotoStr);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                } else {
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

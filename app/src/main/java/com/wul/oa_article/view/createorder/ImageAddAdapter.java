@@ -44,6 +44,13 @@ public class ImageAddAdapter extends RecyclerView.Adapter<ImageAddAdapter.ViewHo
             viewHodler.imageName.setText(imageBOS.get(i).imageName);
             viewHodler.imageView.setImageBitmap(BitmapFactory.decodeFile(imageBOS.get(i).path));
         }
+        viewHodler.imageView.setOnClickListener(v -> {
+            if (imageBOS.size() == 0 || i == imageBOS.size()) {
+                if (listener != null) {
+                    listener.addImage();
+                }
+            }
+        });
     }
 
     @Override
@@ -73,11 +80,18 @@ public class ImageAddAdapter extends RecyclerView.Adapter<ImageAddAdapter.ViewHo
         }
     }
 
+    private onAddImageAdapterListener listener;
+
+    public void setListener(onAddImageAdapterListener listener) {
+        this.listener = listener;
+    }
 
 
-    public interface onAddImageAdapter {
+    public interface onAddImageAdapterListener {
 
         void addImage();
+
+        void deleteImage(int position, ImageBO imageBO);
 
     }
 
