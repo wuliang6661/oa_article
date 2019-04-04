@@ -75,6 +75,11 @@
             android:name=".view.register.PersonXieyIAct"
             android:screenOrientation="portrait" />
 
+        <!--创建订单-->
+        <activity
+            android:name=".view.createorder.CreateOrderActivity"
+            android:screenOrientation="portrait" />
+
 
         <activity
             android:name=".wxapi.WXEntryActivity"

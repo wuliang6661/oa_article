@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -20,6 +21,7 @@
 
 
             <LinearLayout
+                android:id="@+id/kehu_msg_bar"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
                 android:layout_marginTop="2dp"
@@ -51,6 +53,7 @@
 
 
             <com.wul.oa_article.widget.ExpandLayout
+                android:id="@+id/kehu_expand_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -79,6 +82,7 @@
                         android:background="#939495" />
 
                     <EditText
+                        android:id="@+id/edit_kehu_jiancheng"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
@@ -126,11 +130,12 @@
                         android:background="#939495" />
 
                     <EditText
+                        android:id="@+id/edit_kehu_ordername"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:hint="请输入客户订单名称"
-                        android:maxLength="4"
+                        android:maxLength="20"
                         android:singleLine="true"
                         android:textColor="@color/f_white"
                         android:textColorHint="@color/hint_color"
@@ -173,11 +178,12 @@
                         android:background="#939495" />
 
                     <EditText
+                        android:id="@+id/edit_kehu_ordernum"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:hint="请输入客户订单编号"
-                        android:maxLength="4"
+                        android:maxLength="20"
                         android:singleLine="true"
                         android:textColor="@color/f_white"
                         android:textColorHint="@color/hint_color"
@@ -189,6 +195,7 @@
 
 
             <LinearLayout
+                android:id="@+id/bengongsi_msg_bar"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
                 android:layout_marginTop="2dp"
@@ -240,6 +247,7 @@
 
 
             <com.wul.oa_article.widget.ExpandLayout
+                android:id="@+id/ben_expand_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -280,7 +288,7 @@
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:hint="请输入本公司订单名称"
-                        android:maxLength="4"
+                        android:maxLength="20"
                         android:singleLine="true"
                         android:textColor="@color/f_white"
                         android:textColorHint="@color/hint_color"
@@ -334,7 +342,7 @@
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:hint="请输入本公司订单编号"
-                        android:maxLength="4"
+                        android:maxLength="20"
                         android:singleLine="true"
                         android:textColor="@color/f_white"
                         android:textColorHint="@color/hint_color"
@@ -389,7 +397,8 @@
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:hint="请输入数量"
-                        android:maxLength="4"
+                        android:inputType="number"
+                        android:maxLength="10"
                         android:singleLine="true"
                         android:textColor="@color/f_white"
                         android:textColorHint="@color/hint_color"
@@ -511,6 +520,7 @@
 
 
             <LinearLayout
+                android:id="@+id/pinglei_bar"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
                 android:layout_marginTop="2dp"
@@ -542,6 +552,7 @@
 
 
             <com.wul.oa_article.widget.ExpandLayout
+                android:id="@+id/pinglei_expand_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -553,16 +564,18 @@
 
 
                 <LinearLayout
+                    android:id="@+id/add_layout"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_below="@+id/recycle_view"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingRight="18dp"
-                    android:paddingLeft="18dp">
+                    android:paddingLeft="18dp"
+                    android:paddingRight="18dp">
 
 
                     <EditText
+                        android:id="@+id/edit_pinglei_name"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1.8"
@@ -584,6 +597,7 @@
                         android:background="#939495" />
 
                     <EditText
+                        android:id="@+id/edit_pinglei_guige"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -605,13 +619,15 @@
                         android:background="#939495" />
 
                     <EditText
+                        android:id="@+id/edit_pinglei_num"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@null"
                         android:gravity="center"
                         android:hint="数量"
-                        android:maxLength="4"
+                        android:inputType="number"
+                        android:maxLength="10"
                         android:singleLine="true"
                         android:textColor="@color/f_white"
                         android:textColorHint="@color/hint_color"
@@ -626,6 +642,7 @@
                         android:background="#939495" />
 
                     <EditText
+                        android:id="@+id/edit_pinglei_danwei"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -641,10 +658,154 @@
 
                 </LinearLayout>
 
+                <View
+                    android:id="@+id/ben_line5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_below="@+id/add_layout"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="18dp"
+                    android:background="#2b2b2b" />
 
+                <LinearLayout
+                    android:id="@+id/add_pinglei"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_below="@+id/ben_line5"
+                    android:layout_marginLeft="16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="19dp"
+                        android:layout_height="19dp"
+                        android:src="@drawable/add_img" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="继续添加"
+                        android:textColor="@color/blue_color"
+                        android:textSize="15sp" />
+
+
+                </LinearLayout>
 
 
             </com.wul.oa_article.widget.ExpandLayout>
+
+            <LinearLayout
+                android:id="@+id/update_img_bar"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/bar_color"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:layout_marginLeft="18dp"
+                    android:src="@drawable/tupian_update" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:text="上传图片"
+                    android:textColor="#b8b8b8"
+                    android:textSize="15sp" />
+
+
+                <ImageView
+                    android:layout_width="19dp"
+                    android:layout_height="19dp" />
+
+
+            </LinearLayout>
+
+
+            <com.wul.oa_article.widget.ExpandLayout
+                android:id="@+id/update_img_expand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/image_recycle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginRight="13dp" />
+
+
+            </com.wul.oa_article.widget.ExpandLayout>
+
+
+            <LinearLayout
+                android:id="@+id/beizhu_bar"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/bar_color"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:layout_marginLeft="18dp"
+                    android:src="@drawable/add_beizhu" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:text="添加备注"
+                    android:textColor="#b8b8b8"
+                    android:textSize="15sp" />
+
+
+                <ImageView
+                    android:layout_width="19dp"
+                    android:layout_height="19dp" />
+
+
+            </LinearLayout>
+
+            <com.wul.oa_article.widget.ExpandLayout
+                android:id="@+id/beizhu_expandlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/beizhu_edit_bg"
+                    android:gravity="left"
+                    android:hint="请输入您要备注的信息"
+                    android:minLines="4"
+                    android:padding="13dp"
+                    android:textColor="@color/f_white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="13sp" />
+
+
+            </com.wul.oa_article.widget.ExpandLayout>
+
+
+            <Button
+                android:id="@+id/next_button"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/button_bg"
+                android:text="创建"
+                android:textColor="@color/text_white"
+                android:textSize="18sp" />
 
 
         </LinearLayout>

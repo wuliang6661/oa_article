@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/add_layout"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_below="@+id/recycle_view"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="18dp"
+    android:paddingRight="18dp">
+
+
+    <TextView
+        android:id="@+id/pinglei_name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.8"
+        android:background="@null"
+        android:gravity="right|center_vertical"
+        android:hint="自定义名称"
+        android:maxLength="4"
+        android:singleLine="true"
+        android:textColor="@color/f_white"
+        android:textColorHint="@color/hint_color"
+        android:textSize="13sp" />
+
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:background="#939495" />
+
+    <TextView
+        android:id="@+id/pinglei_guige"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="规格"
+        android:maxLength="4"
+        android:singleLine="true"
+        android:textColor="@color/f_white"
+        android:textColorHint="@color/hint_color"
+        android:textSize="13sp" />
+
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:background="#939495" />
+
+    <TextView
+        android:id="@+id/pinglei_num"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="数量"
+        android:inputType="number"
+        android:maxLength="10"
+        android:singleLine="true"
+        android:textColor="@color/f_white"
+        android:textColorHint="@color/hint_color"
+        android:textSize="13sp" />
+
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:background="#939495" />
+
+    <TextView
+        android:id="@+id/pinglei_danwei"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="单位"
+        android:maxLength="4"
+        android:singleLine="true"
+        android:textColor="@color/f_white"
+        android:textColorHint="@color/hint_color"
+        android:textSize="13sp" />
+
+
+</LinearLayout>
+
