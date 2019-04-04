@@ -20,6 +20,7 @@ import com.wul.oa_article.bean.event.OpenDrawableEvent;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.view.FragmentPaerAdapter;
 import com.wul.oa_article.view.SelectActivity;
+import com.wul.oa_article.view.createorder.CreateOrderActivity;
 import com.wul.oa_article.view.main.home.accepted.AcceptedFragment;
 import com.wul.oa_article.view.main.home.compony.ComponyFragment;
 import com.wul.oa_article.view.main.home.myorder.MyOrderFragment;
@@ -182,6 +183,17 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     @OnClick(R.id.add_img)
     public void add() {
         HomeAddPopWindow popWindow = new HomeAddPopWindow(getActivity());
+        popWindow.setListener(new HomeAddPopWindow.OnClickListener() {
+            @Override
+            public void clickCreateOrder() {
+                gotoActivity(CreateOrderActivity.class, false);
+            }
+
+            @Override
+            public void clickCreateMoBan() {
+
+            }
+        });
         popWindow.showPop(addImg, 0, 20);
     }
 
