@@ -117,6 +117,8 @@ public class HttpServerImpl {
         return getService().getUserInfo(request).compose(RxResultHelper.httpRusult());
     }
 
+
+
     /**
      * 忘记密码
      */
