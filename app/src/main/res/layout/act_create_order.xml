@@ -11,7 +11,8 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/layout_bg">
+        android:background="@color/layout_bg"
+        android:fillViewport="true">
 
 
         <LinearLayout
@@ -52,13 +53,13 @@
             </LinearLayout>
 
 
-            <com.wul.oa_article.widget.ExpandLayout
+            <LinearLayout
                 android:id="@+id/kehu_expand_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/layout1"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:gravity="center_vertical"
@@ -96,10 +97,8 @@
                 </LinearLayout>
 
                 <View
-                    android:id="@+id/line1"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_below="@+id/layout1"
                     android:layout_marginLeft="18dp"
                     android:layout_marginRight="18dp"
                     android:background="#2b2b2b" />
@@ -108,7 +107,6 @@
                     android:id="@+id/layout2"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_below="@+id/line1"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="41dp"
@@ -144,19 +142,15 @@
                 </LinearLayout>
 
                 <View
-                    android:id="@+id/line2"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_below="@+id/layout2"
                     android:layout_marginLeft="18dp"
                     android:layout_marginRight="18dp"
                     android:background="#2b2b2b" />
 
                 <LinearLayout
-                    android:id="@+id/layout3"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_below="@+id/line2"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="41dp"
@@ -191,7 +185,7 @@
 
                 </LinearLayout>
 
-            </com.wul.oa_article.widget.ExpandLayout>
+            </LinearLayout>
 
 
             <LinearLayout
@@ -246,13 +240,13 @@
             </LinearLayout>
 
 
-            <com.wul.oa_article.widget.ExpandLayout
+            <LinearLayout
                 android:id="@+id/ben_expand_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/ben_layout1"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:gravity="center_vertical"
@@ -284,6 +278,7 @@
                         android:background="#939495" />
 
                     <EditText
+                        android:id="@+id/edit_ben_orderName"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
@@ -297,19 +292,15 @@
                 </LinearLayout>
 
                 <View
-                    android:id="@+id/ben_line1"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_below="@+id/ben_layout1"
                     android:layout_marginLeft="18dp"
                     android:layout_marginRight="18dp"
                     android:background="#2b2b2b" />
 
                 <LinearLayout
-                    android:id="@+id/ben_layout2"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_below="@+id/ben_line1"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="40dp"
@@ -338,6 +329,7 @@
                         android:background="#939495" />
 
                     <EditText
+                        android:id="@+id/edit_ben_orderNum"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
@@ -351,19 +343,15 @@
                 </LinearLayout>
 
                 <View
-                    android:id="@+id/ben_line2"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_below="@+id/ben_layout2"
                     android:layout_marginLeft="18dp"
                     android:layout_marginRight="18dp"
                     android:background="#2b2b2b" />
 
                 <LinearLayout
-                    android:id="@+id/ben_layout3"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_below="@+id/ben_line2"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="41dp"
@@ -393,6 +381,7 @@
                         android:background="#939495" />
 
                     <EditText
+                        android:id="@+id/edit_ben_num"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
@@ -408,19 +397,15 @@
 
 
                 <View
-                    android:id="@+id/ben_line3"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_below="@+id/ben_layout3"
                     android:layout_marginLeft="18dp"
                     android:layout_marginRight="18dp"
                     android:background="#2b2b2b" />
 
                 <LinearLayout
-                    android:id="@+id/ben_layout4"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_below="@+id/ben_line3"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="41dp"
@@ -450,6 +435,7 @@
                         android:background="#939495" />
 
                     <EditText
+                        android:id="@+id/edit_ben_danwei"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
@@ -464,19 +450,15 @@
 
 
                 <View
-                    android:id="@+id/ben_line4"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_below="@+id/ben_layout4"
                     android:layout_marginLeft="18dp"
                     android:layout_marginRight="18dp"
                     android:background="#2b2b2b" />
 
                 <LinearLayout
-                    android:id="@+id/ben_layout5"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_below="@+id/ben_line4"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="41dp"
@@ -506,6 +488,7 @@
                         android:background="#939495" />
 
                     <TextView
+                        android:id="@+id/date_order"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -516,7 +499,7 @@
 
                 </LinearLayout>
 
-            </com.wul.oa_article.widget.ExpandLayout>
+            </LinearLayout>
 
 
             <LinearLayout
@@ -551,10 +534,11 @@
             </LinearLayout>
 
 
-            <com.wul.oa_article.widget.ExpandLayout
+            <LinearLayout
                 android:id="@+id/pinglei_expand_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
 
                 <android.support.v7.widget.RecyclerView
@@ -564,10 +548,8 @@
 
 
                 <LinearLayout
-                    android:id="@+id/add_layout"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_below="@+id/recycle_view"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="18dp"
@@ -659,10 +641,8 @@
                 </LinearLayout>
 
                 <View
-                    android:id="@+id/ben_line5"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_below="@+id/add_layout"
                     android:layout_marginLeft="18dp"
                     android:layout_marginRight="18dp"
                     android:background="#2b2b2b" />
@@ -671,7 +651,6 @@
                     android:id="@+id/add_pinglei"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
-                    android:layout_below="@+id/ben_line5"
                     android:layout_marginLeft="16dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -693,7 +672,7 @@
                 </LinearLayout>
 
 
-            </com.wul.oa_article.widget.ExpandLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/update_img_bar"
@@ -727,20 +706,12 @@
             </LinearLayout>
 
 
-            <com.wul.oa_article.widget.ExpandLayout
-                android:id="@+id/update_img_expand"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/image_recycle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/image_recycle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginRight="13dp" />
-
-
-            </com.wul.oa_article.widget.ExpandLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp" />
 
 
             <LinearLayout
@@ -774,26 +745,22 @@
 
             </LinearLayout>
 
-            <com.wul.oa_article.widget.ExpandLayout
-                android:id="@+id/beizhu_expandlayout"
+
+            <EditText
+                android:id="@+id/edit_beizhu"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="@drawable/beizhu_edit_bg"
-                    android:gravity="left"
-                    android:hint="请输入您要备注的信息"
-                    android:minLines="4"
-                    android:padding="13dp"
-                    android:textColor="@color/f_white"
-                    android:textColorHint="@color/hint_color"
-                    android:textSize="13sp" />
-
-
-            </com.wul.oa_article.widget.ExpandLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/beizhu_edit_bg"
+                android:gravity="start"
+                android:hint="请输入您要备注的信息"
+                android:minLines="4"
+                android:padding="13dp"
+                android:textColor="@color/f_white"
+                android:textColorHint="@color/hint_color"
+                android:textSize="13sp" />
 
 
             <Button
@@ -801,6 +768,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="43dp"
                 android:layout_marginLeft="3dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="3dp"
                 android:background="@drawable/button_bg"
                 android:text="创建"

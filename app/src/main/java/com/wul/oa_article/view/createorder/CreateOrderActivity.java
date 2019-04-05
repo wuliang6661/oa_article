@@ -1,40 +1,55 @@
 package com.wul.oa_article.view.createorder;
 
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.view.TimePickerView;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.guoqi.actionsheet.ActionSheet;
 import com.wul.oa_article.R;
 import com.wul.oa_article.mvp.MVPBaseActivity;
-import com.wul.oa_article.util.PhotoUtils;
-import com.wul.oa_article.widget.ExpandLayout;
+import com.wul.oa_article.util.PhotoFromPhotoAlbum;
+import com.wul.oa_article.widget.AlertDialog;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
-import static com.wul.oa_article.util.PhotoUtils.bitmapToBase64;
+import pub.devrel.easypermissions.EasyPermissions;
 
 
 /**
@@ -52,21 +67,17 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
     @BindView(R.id.edit_kehu_ordernum)
     EditText editKehuOrdernum;
     @BindView(R.id.ben_expand_layout)
-    ExpandLayout benExpandLayout;
+    LinearLayout benExpandLayout;
     @BindView(R.id.recycle_view)
     RecyclerView recycleView;
     @BindView(R.id.pinglei_expand_layout)
-    ExpandLayout pingleiExpandLayout;
+    LinearLayout pingleiExpandLayout;
     @BindView(R.id.image_recycle)
     RecyclerView imageRecycle;
-    @BindView(R.id.update_img_expand)
-    ExpandLayout updateImgExpand;
-    @BindView(R.id.beizhu_expandlayout)
-    ExpandLayout beizhuExpandlayout;
     @BindView(R.id.next_button)
     Button nextButton;
     @BindView(R.id.kehu_expand_layout)
-    ExpandLayout kehuExpandLayout;
+    LinearLayout kehuExpandLayout;
     @BindView(R.id.edit_pinglei_name)
     EditText editPingleiName;
     @BindView(R.id.edit_pinglei_guige)
@@ -75,10 +86,32 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
     EditText editPingleiNum;
     @BindView(R.id.edit_pinglei_danwei)
     EditText editPingleiDanwei;
+    @BindView(R.id.edit_beizhu)
+    EditText editBeizhu;
+    @BindView(R.id.edit_ben_orderName)
+    EditText editBenOrderName;
+    @BindView(R.id.edit_ben_orderNum)
+    EditText editBenOrderNum;
+    @BindView(R.id.edit_ben_num)
+    EditText editBenNum;
+    @BindView(R.id.edit_ben_danwei)
+    EditText editBenDanwei;
+    @BindView(R.id.date_order)
+    TextView dateOrder;
 
 
     List<PingLeiBO> pingLeiBOS;   //添加的品类列表
     List<ImageBO> imageBOS;      //添加的图片列表
+
+    private File cameraSavePath;//拍照照片路径
+    private Uri uri;
+    private String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+    TimePickerView pvTime;
+
+    @SuppressLint("SimpleDateFormat")
+    DateFormat format = new SimpleDateFormat("yyyy年 MM月 dd日");
+
 
     @Override
     protected int getLayout() {
@@ -91,6 +124,9 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
         goBack();
         setTitleText("创建订单");
 
+        getPermission();
+        cameraSavePath = new File(Environment.getExternalStorageDirectory().getPath() + "/" +
+                System.currentTimeMillis() + ".jpg");
         pingLeiBOS = new ArrayList<>();
         imageBOS = new ArrayList<>();
         initView();
@@ -100,14 +136,25 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
     private void initView() {
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
+        manager.setSmoothScrollbarEnabled(true);
+        recycleView.setHasFixedSize(true);
         recycleView.setLayoutManager(manager);
         recycleView.setNestedScrollingEnabled(false);
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+        gridLayoutManager.setSmoothScrollbarEnabled(true);
+        imageRecycle.setHasFixedSize(true);
         imageRecycle.setLayoutManager(gridLayoutManager);
         imageRecycle.setNestedScrollingEnabled(false);
 
         setPingLeiAdapter();
         setImageAdapter();
+    }
+
+
+    @OnClick(R.id.date_order)
+    public void selectDate() {
+        initTimePicker();
     }
 
 
@@ -136,6 +183,10 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
             showToast("请输入单位！");
             return;
         }
+        editPingleiName.setText("");
+        editPingleiGuige.setText("");
+        editPingleiNum.setText("");
+        editPingleiDanwei.setText("");
         PingLeiBO pingLeiBO = new PingLeiBO(pingName, pingGuige, pingNum, pingDanWei);
         pingLeiBOS.add(pingLeiBO);
         setPingLeiAdapter();
@@ -177,7 +228,9 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
 
             @Override
             public void deleteImage(int position, ImageBO imageBO) {
-
+                new AlertDialog(CreateOrderActivity.this).builder().setGone().setMsg("是否删除照片？")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确定", v -> removeImage(position)).show();
             }
         });
         imageRecycle.setAdapter(addAdapter);
@@ -192,19 +245,39 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
     public void barClick(View view) {
         switch (view.getId()) {
             case R.id.kehu_msg_bar:
-                kehuExpandLayout.toggleExpand();
+                if (kehuExpandLayout.getVisibility() == View.VISIBLE) {
+                    kehuExpandLayout.setVisibility(View.GONE);
+                } else {
+                    kehuExpandLayout.setVisibility(View.VISIBLE);
+                }
                 break;
             case R.id.bengongsi_msg_bar:
-                benExpandLayout.toggleExpand();
+                if (benExpandLayout.getVisibility() == View.VISIBLE) {
+                    benExpandLayout.setVisibility(View.GONE);
+                } else {
+                    benExpandLayout.setVisibility(View.VISIBLE);
+                }
                 break;
             case R.id.pinglei_bar:
-                pingleiExpandLayout.toggleExpand();
+                if (pingleiExpandLayout.getVisibility() == View.VISIBLE) {
+                    pingleiExpandLayout.setVisibility(View.GONE);
+                } else {
+                    pingleiExpandLayout.setVisibility(View.VISIBLE);
+                }
                 break;
             case R.id.update_img_bar:
-                updateImgExpand.toggleExpand();
+                if (imageRecycle.getVisibility() == View.VISIBLE) {
+                    imageRecycle.setVisibility(View.GONE);
+                } else {
+                    imageRecycle.setVisibility(View.VISIBLE);
+                }
                 break;
             case R.id.beizhu_bar:
-                beizhuExpandlayout.toggleExpand();
+                if (editBeizhu.getVisibility() == View.VISIBLE) {
+                    editBeizhu.setVisibility(View.GONE);
+                } else {
+                    editBeizhu.setVisibility(View.VISIBLE);
+                }
                 break;
         }
     }
@@ -214,11 +287,11 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
         switch (whichButton) {
             case ActionSheet.CHOOSE_PICTURE:
                 //相册
-                choosePic();
+                goPhotoAlbum();
                 break;
             case ActionSheet.TAKE_PICTURE:
                 //拍照
-                takePic();
+                goCamera();
                 break;
             case ActionSheet.CANCEL:
                 //取消
@@ -226,76 +299,121 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
         }
     }
 
+    /**
+     * 获取到新的照片
+     */
+    private void addImage(String imagePath) {
+        File file = new File(imagePath);
+        ImageBO imageBO = new ImageBO();
+        imageBO.imageName = file.getName();
+        imageBO.path = imagePath;
+        imageBOS.add(imageBO);
+        setImageAdapter();
+    }
 
-    //加入自己的逻辑
-    public void takePic() {
-        String state = Environment.getExternalStorageState();
-        if (state.equals(Environment.MEDIA_MOUNTED)) {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            File outDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-            if (!outDir.exists()) {
-                outDir.mkdirs();
-            }
-            File outFile = new File(outDir, System.currentTimeMillis() + ".jpg");
-            String picPath = outFile.getAbsolutePath();
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outFile));
-            intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-            startActivityForResult(intent, ActionSheet.TAKE_PICTURE);
+    /**
+     * 删除照片
+     */
+    private void removeImage(int position) {
+        imageBOS.remove(position);
+        setImageAdapter();
+    }
+
+
+    //获取权限
+    private void getPermission() {
+        if (EasyPermissions.hasPermissions(this, permissions)) {
+            //已经打开权限
+            LogUtils.d("已经申请相关权限");
         } else {
-            Toast.makeText(this, "请确认已经插入SD卡", Toast.LENGTH_SHORT).show();
+            //没有打开相关权限、申请权限
+            EasyPermissions.requestPermissions(this, "需要获取您的相册、照相使用权限", 1, permissions);
         }
     }
 
 
-    //加入自己的逻辑
-    public void choosePic() {
-        Intent openAlbumIntent = new Intent(Intent.ACTION_PICK);
-        openAlbumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-        startActivityForResult(openAlbumIntent, ActionSheet.CHOOSE_PICTURE);
+    //激活相册操作
+    private void goPhotoAlbum() {
+        getPermission();
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, 2);
     }
 
-    private static int GET_PICTURE_BY_PIC = 1;
-    private static int GET_PICTURE_BY_CAMRA = 2;
+    //激活相机操作
+    private void goCamera() {
+        getPermission();
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            uri = FileProvider.getUriForFile(this, "com.wul.oa_article.fileprovider", cameraSavePath);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        } else {
+            uri = Uri.fromFile(cameraSavePath);
+        }
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        startActivityForResult(intent, 1);
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //框架要求必须这么写
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        try {
-            if (requestCode == GET_PICTURE_BY_PIC) {//从图库选取的回调方法
-                Uri uri = data.getData();//content://media/external/images/media/72876
-                Bitmap bitmap1 = null;
-                if (uri != null) {
-                    String path =PhotoUtils.getUriPath(this,uri);//上边获取的uri不是真实路径，通过此方法转换
-                    try {
-                        bitmap1 = BitmapFactory.decodeFile(path);
-//                        ivPhoto.setImageBitmap(bitmap1);//在预览框显示选择的图片，问题就在这里，有时候显示，有时候不显示
-//                        ivPhotoStr = PhotoUtils.bitmapToBase64(bitmap1);//往服务器上传照片，将照片转换成base64
-//                        tvGot.setVisibility(View.VISIBLE);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+        String photoPath;
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                photoPath = String.valueOf(cameraSavePath);
+            } else {
+                photoPath = uri.getEncodedPath();
             }
-            if (requestCode == GET_PICTURE_BY_CAMRA) {//通过相机选取的回调
-                Uri uri = data.getData();
-                if (uri == null) {
-                    Bundle pBundle = data.getExtras(); //从intent对象中获取数据，
-                    if (pBundle != null) {
-                        Bitmap mBitmap = (Bitmap) pBundle.get("data"); //get bitmap
-//                        ivPhoto.setImageBitmap(mBitmap);//在预览框显示选择的图片，问题就在这里，有时候显示，有时候不显示
-//                        ivPhotoStr = bitmapToBase64(mBitmap);//往服务器上传照片，将照片转换成base64
-//                        tvGot.setVisibility(View.VISIBLE);
-//                        Log.i("", "onActivityResult: bitmap" + ivPhotoStr);
-                    } else {
-                        Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                } else {
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("拍照返回图片路径:", photoPath);
+            addImage(photoPath);
+        } else if (requestCode == 2 && resultCode == RESULT_OK) {
+            photoPath = PhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
+            addImage(photoPath);
         }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    /**
+     * 时间选择器
+     */
+    @SuppressLint("SimpleDateFormat")
+    private void initTimePicker() {
+        Calendar startDate = Calendar.getInstance();
+        pvTime = new TimePickerBuilder(this, (date, v) -> {
+            dateOrder.setText(TimeUtils.date2String(date, format));
+        })
+                .setType(new boolean[]{true, true, true, false, false, false})
+                .isDialog(true) //默认设置false ，内部实现将DecorView 作为它的父控件。
+                .setDate(startDate)
+                .setLineSpacingMultiplier(1.8f)
+                .build();
+        Dialog mDialog = pvTime.getDialog();
+        if (mDialog != null) {
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    Gravity.BOTTOM);
+            params.leftMargin = 0;
+            params.rightMargin = 0;
+            pvTime.getDialogContainerLayout().setLayoutParams(params);
+            Window dialogWindow = mDialog.getWindow();
+            if (dialogWindow != null) {
+                dialogWindow.setWindowAnimations(com.bigkoo.pickerview.R.style.picker_view_slide_anim);//修改动画样式
+                dialogWindow.setGravity(Gravity.BOTTOM);//改成Bottom,底部显示
+                dialogWindow.setDimAmount(0.1f);
+            }
+        }
+        pvTime.show();
     }
 
 

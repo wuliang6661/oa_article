@@ -27,6 +27,7 @@ import com.wul.oa_article.api.HttpServerImpl;
 import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.mvp.MVPBaseActivity;
+import com.wul.oa_article.view.createorder.CreateOrderActivity;
 import com.wul.oa_article.view.forword_password.Forword_passwordActivity;
 import com.wul.oa_article.view.main.MainActivity;
 import com.wul.oa_article.view.register.RegisterActivity;
@@ -141,20 +142,21 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
             showToast("请输入密码！");
             return;
         }
-        showProgress();
-        HttpServerImpl.login(phone, password).subscribe(new HttpResultSubscriber<String>() {
-            @Override
-            public void onSuccess(String s) {
-                MyApplication.token = s;
-                getUserInfo();
-            }
-
-            @Override
-            public void onFiled(String message) {
-                stopProgress();
-                showToast(message);
-            }
-        });
+        gotoActivity(CreateOrderActivity.class, true);
+//        showProgress();
+//        HttpServerImpl.login(phone, password).subscribe(new HttpResultSubscriber<String>() {
+//            @Override
+//            public void onSuccess(String s) {
+//                MyApplication.token = s;
+//                getUserInfo();
+//            }
+//
+//            @Override
+//            public void onFiled(String message) {
+//                stopProgress();
+//                showToast(message);
+//            }
+//        });
     }
 
 

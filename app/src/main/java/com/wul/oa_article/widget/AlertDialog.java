@@ -150,10 +150,10 @@ public class AlertDialog {
         } else {
             btn_pos.setText(text);
         }
-        if (color == -1) {
-            color = R.color.action_sheet_blue;
-        }
-        btn_pos.setTextColor(ContextCompat.getColor(context, color));
+//        if (color == -1) {
+//            color = R.color.action_sheet_blue;
+//        }
+//        btn_pos.setTextColor(ContextCompat.getColor(context, color));
         btn_pos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,10 +187,10 @@ public class AlertDialog {
         } else {
             btn_neg.setText(text);
         }
-        if (color == -1) {
-            color = R.color.action_sheet_blue;
-        }
-        btn_neg.setTextColor(ContextCompat.getColor(context, color));
+//        if (color == -1) {
+//            color = R.color.action_sheet_blue;
+//        }
+//        btn_neg.setTextColor(ContextCompat.getColor(context, color));
 
         btn_neg.setOnClickListener(new View.OnClickListener() {
             @Override

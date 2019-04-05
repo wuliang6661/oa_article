@@ -1,7 +1,6 @@
 package com.wul.oa_article.view.createorder;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.wul.oa_article.R;
 
@@ -20,7 +20,7 @@ public class ImageAddAdapter extends RecyclerView.Adapter<ImageAddAdapter.ViewHo
     private List<ImageBO> imageBOS;
     private Context context;
 
-    public ImageAddAdapter(Context context, List<ImageBO> imageBOS) {
+    ImageAddAdapter(Context context, List<ImageBO> imageBOS) {
         this.context = context;
         this.imageBOS = imageBOS;
     }
@@ -42,12 +42,20 @@ public class ImageAddAdapter extends RecyclerView.Adapter<ImageAddAdapter.ViewHo
         } else {
             viewHodler.deleteImg.setVisibility(View.VISIBLE);
             viewHodler.imageName.setText(imageBOS.get(i).imageName);
-            viewHodler.imageView.setImageBitmap(BitmapFactory.decodeFile(imageBOS.get(i).path));
+            Glide.with(context).load(imageBOS.get(i).path).into(viewHodler.imageView);
+//            viewHodler.imageView.setImageBitmap(BitmapFactory.decodeFile(imageBOS.get(i).path));
         }
         viewHodler.imageView.setOnClickListener(v -> {
             if (imageBOS.size() == 0 || i == imageBOS.size()) {
                 if (listener != null) {
                     listener.addImage();
+                }
+            }
+        });
+        viewHodler.deleteImg.setOnClickListener(v -> {
+            if (imageBOS.size() != 0 && i != imageBOS.size()) {
+                if (listener != null) {
+                    listener.deleteImage(i, imageBOS.get(i));
                 }
             }
         });
@@ -82,7 +90,7 @@ public class ImageAddAdapter extends RecyclerView.Adapter<ImageAddAdapter.ViewHo
 
     private onAddImageAdapterListener listener;
 
-    public void setListener(onAddImageAdapterListener listener) {
+    void setListener(onAddImageAdapterListener listener) {
         this.listener = listener;
     }
 
