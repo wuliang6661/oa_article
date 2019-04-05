@@ -21,7 +21,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -74,8 +73,6 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
     LinearLayout pingleiExpandLayout;
     @BindView(R.id.image_recycle)
     RecyclerView imageRecycle;
-    @BindView(R.id.next_button)
-    Button nextButton;
     @BindView(R.id.kehu_expand_layout)
     LinearLayout kehuExpandLayout;
     @BindView(R.id.edit_pinglei_name)
@@ -155,6 +152,20 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
     @OnClick(R.id.date_order)
     public void selectDate() {
         initTimePicker();
+    }
+
+
+    @OnClick(R.id.next_button)
+    public void commit() {
+        String kehuName = editKehuJiancheng.getText().toString().trim();
+        String kehuOrderName = editKehuOrdername.getText().toString().trim();
+        String kehuOrderNum = editKehuOrdernum.getText().toString().trim();
+        String benOrderName = editBenOrderName.getText().toString().trim();
+        String benOrderNum = editBenOrderNum.getText().toString().trim();
+        String benNum = editBenNum.getText().toString().trim();
+        String benDanwei = editBenDanwei.getText().toString().trim();
+
+
     }
 
 
