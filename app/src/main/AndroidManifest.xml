@@ -82,6 +82,10 @@
             android:name=".view.createorder.CreateOrderActivity"
             android:screenOrientation="portrait" />
 
+        <!--订单详情-->
+        <activity
+            android:name=".view.orderdetails.OrderDetailsActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".wxapi.WXEntryActivity"
