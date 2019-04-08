@@ -50,6 +50,10 @@ public class ImageAddAdapter extends RecyclerView.Adapter<ImageAddAdapter.ViewHo
                 if (listener != null) {
                     listener.addImage();
                 }
+            } else {
+                if (listener != null) {
+                    listener.editName();
+                }
             }
         });
         viewHodler.deleteImg.setOnClickListener(v -> {
@@ -57,6 +61,11 @@ public class ImageAddAdapter extends RecyclerView.Adapter<ImageAddAdapter.ViewHo
                 if (listener != null) {
                     listener.deleteImage(i, imageBOS.get(i));
                 }
+            }
+        });
+        viewHodler.imageName.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.editName();
             }
         });
     }
@@ -100,6 +109,8 @@ public class ImageAddAdapter extends RecyclerView.Adapter<ImageAddAdapter.ViewHo
         void addImage();
 
         void deleteImage(int position, ImageBO imageBO);
+
+        void editName();
 
     }
 

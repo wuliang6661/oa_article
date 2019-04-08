@@ -84,6 +84,7 @@
                 android:id="@+id/order_nick_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:text="执行人"
                 android:textColor="#E6E5E5"
                 android:textSize="14sp" />

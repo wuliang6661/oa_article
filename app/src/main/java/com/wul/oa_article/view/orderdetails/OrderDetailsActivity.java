@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -77,6 +78,12 @@ public class OrderDetailsActivity extends MVPBaseActivity<OrderDetailsContract.V
     RecyclerView taskRecycleView;
     @BindView(R.id.task_list_layout)
     LinearLayout taskListLayout;
+    @BindView(R.id.kehu_order_check)
+    CheckBox kehuOrderCheck;
+    @BindView(R.id.shangji_task_check)
+    CheckBox shangjiTaskCheck;
+    @BindView(R.id.task_check)
+    CheckBox taskCheck;
 
     @Override
     protected int getLayout() {
@@ -119,22 +126,28 @@ public class OrderDetailsActivity extends MVPBaseActivity<OrderDetailsContract.V
             case R.id.kehu_msg_bar:
                 if (kehuOrderLayout.getVisibility() == View.VISIBLE) {
                     kehuOrderLayout.setVisibility(View.GONE);
+                    kehuOrderCheck.setChecked(true);
                 } else {
                     kehuOrderLayout.setVisibility(View.VISIBLE);
+                    kehuOrderCheck.setChecked(false);
                 }
                 break;
             case R.id.shangji_task_bar:
                 if (shangjiLayout.getVisibility() == View.VISIBLE) {
                     shangjiLayout.setVisibility(View.GONE);
+                    shangjiTaskCheck.setChecked(true);
                 } else {
                     shangjiLayout.setVisibility(View.VISIBLE);
+                    shangjiTaskCheck.setChecked(false);
                 }
                 break;
             case R.id.task_bar:
                 if (taskListLayout.getVisibility() == View.VISIBLE) {
                     taskListLayout.setVisibility(View.GONE);
+                    taskCheck.setChecked(true);
                 } else {
                     taskListLayout.setVisibility(View.VISIBLE);
+                    taskCheck.setChecked(false);
                 }
                 break;
         }

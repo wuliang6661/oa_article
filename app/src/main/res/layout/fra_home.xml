@@ -49,14 +49,14 @@
         <ImageView
             android:id="@+id/shaixuan_img"
             android:layout_width="45dp"
-            android:layout_height="19dp"
+            android:layout_height="23dp"
             android:src="@drawable/shaixuan" />
 
 
         <ImageView
             android:id="@+id/add_img"
             android:layout_width="40dp"
-            android:layout_height="20dp"
+            android:layout_height="23dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/add_circle" />
 
@@ -66,7 +66,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:background="#161616"
         android:orientation="horizontal"
         android:paddingLeft="10dp"

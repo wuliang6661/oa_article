@@ -21,6 +21,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -35,6 +36,7 @@ import com.guoqi.actionsheet.ActionSheet;
 import com.wul.oa_article.R;
 import com.wul.oa_article.mvp.MVPBaseActivity;
 import com.wul.oa_article.util.PhotoFromPhotoAlbum;
+import com.wul.oa_article.view.EditPhotoNamePop;
 import com.wul.oa_article.view.orderdetails.OrderDetailsActivity;
 import com.wul.oa_article.widget.AlertDialog;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
@@ -96,10 +98,22 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
     EditText editBenDanwei;
     @BindView(R.id.date_order)
     TextView dateOrder;
+    @BindView(R.id.mianview)
+    LinearLayout mainView;
 
 
     List<PingLeiBO> pingLeiBOS;   //添加的品类列表
     List<ImageBO> imageBOS;      //添加的图片列表
+    @BindView(R.id.kehu_order_check)
+    CheckBox kehuOrderCheck;
+    @BindView(R.id.ben_check)
+    CheckBox benCheck;
+    @BindView(R.id.pinglei_check)
+    CheckBox pingleiCheck;
+    @BindView(R.id.image_check)
+    CheckBox imageCheck;
+    @BindView(R.id.beizhu_check)
+    CheckBox beizhuCheck;
 
     private File cameraSavePath;//拍照照片路径
     private Uri uri;
@@ -245,6 +259,15 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
                         .setNegativeButton("取消", null)
                         .setPositiveButton("确定", v -> removeImage(position)).show();
             }
+
+            @Override
+            public void editName() {
+                EditPhotoNamePop pop = new EditPhotoNamePop(CreateOrderActivity.this);
+                pop.setListener(text -> {
+
+                });
+                pop.showAtLocation(mainView, Gravity.BOTTOM, 0, 0);
+            }
         });
         imageRecycle.setAdapter(addAdapter);
     }
@@ -260,36 +283,46 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
             case R.id.kehu_msg_bar:
                 if (kehuExpandLayout.getVisibility() == View.VISIBLE) {
                     kehuExpandLayout.setVisibility(View.GONE);
+                    kehuOrderCheck.setChecked(true);
                 } else {
                     kehuExpandLayout.setVisibility(View.VISIBLE);
+                    kehuOrderCheck.setChecked(false);
                 }
                 break;
             case R.id.bengongsi_msg_bar:
                 if (benExpandLayout.getVisibility() == View.VISIBLE) {
                     benExpandLayout.setVisibility(View.GONE);
+                    benCheck.setChecked(true);
                 } else {
                     benExpandLayout.setVisibility(View.VISIBLE);
+                    benCheck.setChecked(false);
                 }
                 break;
             case R.id.pinglei_bar:
                 if (pingleiExpandLayout.getVisibility() == View.VISIBLE) {
                     pingleiExpandLayout.setVisibility(View.GONE);
+                    pingleiCheck.setChecked(true);
                 } else {
                     pingleiExpandLayout.setVisibility(View.VISIBLE);
+                    pingleiCheck.setChecked(false);
                 }
                 break;
             case R.id.update_img_bar:
                 if (imageRecycle.getVisibility() == View.VISIBLE) {
                     imageRecycle.setVisibility(View.GONE);
+                    imageCheck.setChecked(true);
                 } else {
                     imageRecycle.setVisibility(View.VISIBLE);
+                    imageCheck.setChecked(false);
                 }
                 break;
             case R.id.beizhu_bar:
                 if (editBeizhu.getVisibility() == View.VISIBLE) {
                     editBeizhu.setVisibility(View.GONE);
+                    beizhuCheck.setChecked(true);
                 } else {
                     editBeizhu.setVisibility(View.VISIBLE);
+                    kehuOrderCheck.setChecked(false);
                 }
                 break;
         }

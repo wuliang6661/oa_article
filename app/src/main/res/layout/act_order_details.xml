@@ -36,7 +36,7 @@
                     android:layout_width="19dp"
                     android:layout_height="19dp"
                     android:layout_marginLeft="18dp"
-                    android:src="@drawable/kehu" />
+                    android:src="@drawable/shangji_task" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -47,9 +47,14 @@
                     android:textSize="15sp" />
 
 
-                <ImageView
-                    android:layout_width="19dp"
-                    android:layout_height="19dp" />
+                <CheckBox
+                    android:id="@+id/shangji_task_check"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/bar_check_box"
+                    android:button="@null"
+                    android:enabled="false" />
 
 
             </LinearLayout>
@@ -174,7 +179,7 @@
                     android:layout_width="19dp"
                     android:layout_height="19dp"
                     android:layout_marginLeft="18dp"
-                    android:src="@drawable/kehu" />
+                    android:src="@drawable/task_fenpai" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -185,9 +190,14 @@
                     android:textSize="15sp" />
 
 
-                <ImageView
-                    android:layout_width="19dp"
-                    android:layout_height="19dp" />
+                <CheckBox
+                    android:id="@+id/task_check"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/bar_check_box"
+                    android:button="@null"
+                    android:enabled="false" />
 
 
             </LinearLayout>
