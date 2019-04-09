@@ -37,7 +37,7 @@ import com.wul.oa_article.R;
 import com.wul.oa_article.mvp.MVPBaseActivity;
 import com.wul.oa_article.util.PhotoFromPhotoAlbum;
 import com.wul.oa_article.view.EditPhotoNamePop;
-import com.wul.oa_article.view.orderdetails.OrderDetailsActivity;
+import com.wul.oa_article.view.PcUpdateAct;
 import com.wul.oa_article.widget.AlertDialog;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
@@ -181,7 +181,8 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
         String benDanwei = editBenDanwei.getText().toString().trim();
 
 
-        gotoActivity(OrderDetailsActivity.class, false);
+//        gotoActivity(OrderDetailsActivity.class, false);
+        gotoActivity(PcUpdateAct.class, false);
     }
 
 

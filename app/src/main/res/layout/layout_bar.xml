@@ -43,6 +43,18 @@
             android:textSize="18dp" />
 
 
+        <Button
+            android:id="@+id/btn_album"
+            android:layout_width="40dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:background="?attr/selectableItemBackground"
+            android:text="相册"
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
+
     </RelativeLayout>
 
 

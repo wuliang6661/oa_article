@@ -22,6 +22,9 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 震动权限 -->
+    <uses-feature android:name="android.hardware.camera.autofocus" /> <!-- 自动聚焦权限 -->
+
 
     <application
         android:name=".base.MyApplication"
@@ -86,6 +89,14 @@
         <activity
             android:name=".view.orderdetails.OrderDetailsActivity"
             android:screenOrientation="portrait" />
+
+        <!--扫码上传-->
+        <activity
+            android:name=".view.PcUpdateAct"
+            android:screenOrientation="portrait" />
+
+        <!--扫一扫-->
+        <activity android:name=".zxing.activity.CaptureActivity" />
 
         <activity
             android:name=".wxapi.WXEntryActivity"
