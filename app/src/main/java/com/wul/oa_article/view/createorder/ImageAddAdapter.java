@@ -43,7 +43,6 @@ public class ImageAddAdapter extends RecyclerView.Adapter<ImageAddAdapter.ViewHo
             viewHodler.deleteImg.setVisibility(View.VISIBLE);
             viewHodler.imageName.setText(imageBOS.get(i).imageName);
             Glide.with(context).load(imageBOS.get(i).path).into(viewHodler.imageView);
-//            viewHodler.imageView.setImageBitmap(BitmapFactory.decodeFile(imageBOS.get(i).path));
         }
         viewHodler.imageView.setOnClickListener(v -> {
             if (imageBOS.size() == 0 || i == imageBOS.size()) {

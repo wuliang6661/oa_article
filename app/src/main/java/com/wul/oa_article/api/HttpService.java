@@ -9,6 +9,7 @@ import com.wul.oa_article.bean.SalesBo;
 import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.bean.request.AsseptRequest;
 import com.wul.oa_article.bean.request.ComplayRequest;
+import com.wul.oa_article.bean.request.CreateOrderBO;
 import com.wul.oa_article.bean.request.ForwordPassword;
 import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.PhoneRequest;
@@ -19,8 +20,11 @@ import com.wul.oa_article.bean.request.WechatRegisterRequest;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import retrofit2.http.Body;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import rx.Observable;
 
 /**
@@ -135,5 +139,17 @@ public interface HttpService {
     @POST("industry_webservice/app/userSearch/deleteCommonlySerachHistory")
     Observable<BaseResult<String>> clearCommonlyHistory(@Body SelectRequest request);
 
+    /**
+     * 创建订单
+     */
+    @POST("industry_webservice/app/orderInfo/addOrder")
+    Observable<BaseResult<String>> addOrder(@Body CreateOrderBO createOrderBO);
+
+    /**
+     * 上传图片
+     */
+    @Multipart
+    @POST("industry_webservice/app/file/fileUploadOss")
+    Observable<BaseResult<String>> updateFile(@Part MultipartBody.Part file);
 
 }

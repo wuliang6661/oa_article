@@ -37,7 +37,6 @@ import com.wul.oa_article.R;
 import com.wul.oa_article.mvp.MVPBaseActivity;
 import com.wul.oa_article.util.PhotoFromPhotoAlbum;
 import com.wul.oa_article.view.EditPhotoNamePop;
-import com.wul.oa_article.view.PcUpdateAct;
 import com.wul.oa_article.widget.AlertDialog;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
@@ -180,9 +179,8 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
         String benNum = editBenNum.getText().toString().trim();
         String benDanwei = editBenDanwei.getText().toString().trim();
 
-
 //        gotoActivity(OrderDetailsActivity.class, false);
-        gotoActivity(PcUpdateAct.class, false);
+//        gotoActivity(PcUpdateAct.class, false);
     }
 
 
@@ -349,10 +347,9 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
     /**
      * 获取到新的照片
      */
-    private void addImage(String imagePath) {
-        File file = new File(imagePath);
+    private void addImage(String name,String imagePath) {
         ImageBO imageBO = new ImageBO();
-        imageBO.imageName = file.getName();
+        imageBO.imageName = name;
         imageBO.path = imagePath;
         imageBOS.add(imageBO);
         setImageAdapter();
@@ -421,10 +418,12 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
                 photoPath = uri.getEncodedPath();
             }
             Log.d("拍照返回图片路径:", photoPath);
-            addImage(photoPath);
+            showProgress();
+            mPresenter.updateImage(new File(photoPath));
         } else if (requestCode == 2 && resultCode == RESULT_OK) {
             photoPath = PhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
-            addImage(photoPath);
+            showProgress();
+            mPresenter.updateImage(new File(photoPath));
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -464,4 +463,15 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
     }
 
 
+    @Override
+    public void onRequestError(String msg) {
+        stopProgress();
+        showToast(msg);
+    }
+
+    @Override
+    public void updateSourss(String name, String imageUrl) {
+        stopProgress();
+        addImage(name, imageUrl);
+    }
 }

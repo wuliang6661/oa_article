@@ -1,5 +1,10 @@
 package com.wul.oa_article.api;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import com.blankj.utilcode.util.ImageUtils;
+import com.blankj.utilcode.util.Utils;
 import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.AcceptedOrderBo;
 import com.wul.oa_article.bean.ComplanOrderBo;
@@ -9,6 +14,7 @@ import com.wul.oa_article.bean.SalesBo;
 import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.bean.request.AsseptRequest;
 import com.wul.oa_article.bean.request.ComplayRequest;
+import com.wul.oa_article.bean.request.CreateOrderBO;
 import com.wul.oa_article.bean.request.ForwordPassword;
 import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.PhoneRequest;
@@ -19,8 +25,14 @@ import com.wul.oa_article.bean.request.WechatRegisterRequest;
 import com.wul.oa_article.util.MD5;
 import com.wul.oa_article.util.rx.RxResultHelper;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import id.zelory.compressor.Compressor;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import rx.Observable;
 
 public class HttpServerImpl {
@@ -118,7 +130,6 @@ public class HttpServerImpl {
     }
 
 
-
     /**
      * 忘记密码
      */
@@ -188,5 +199,28 @@ public class HttpServerImpl {
         return getService().clearCommonlyHistory(request).compose(RxResultHelper.httpRusult());
     }
 
+    /**
+     * 创建订单
+     */
+    public static Observable<String> createOrder(CreateOrderBO createOrderBO) {
+        createOrderBO.setToken(MyApplication.token);
+        return getService().addOrder(createOrderBO).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 提交图片
+     */
+    public static Observable<String> updateFile(File file) {
+        File compressedImageFile;
+        try {
+            compressedImageFile = new Compressor(Utils.getApp()).setQuality(30).compressToFile(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            compressedImageFile = file;
+        }
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), compressedImageFile);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("fileName", file.getName(), requestFile);
+        return getService().updateFile(body).compose(RxResultHelper.httpRusult());
+    }
 
 }
