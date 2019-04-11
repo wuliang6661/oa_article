@@ -40,6 +40,7 @@ public class EditPhotoNamePop extends PopupWindow {
                 if (listener != null) {
                     listener.commit(name);
                 }
+                dismiss();
             }
         });
         cancle.setOnClickListener(v -> dismiss());

@@ -53,6 +53,20 @@
                     android:enabled="false" />
 
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="15dp"
+                    android:gravity="center_vertical"
+                    android:text="编辑"
+                    android:textColor="@color/blue_color"
+                    android:textSize="15sp" />
+
             </LinearLayout>
 
 
@@ -62,8 +76,165 @@
                 android:layout_height="wrap_content" />
 
 
+            <LinearLayout
+                android:id="@+id/task_bar"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/bar_color"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="18dp"
+                    android:src="@drawable/task_fenpai" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:text="任务分派"
+                    android:textColor="#b8b8b8"
+                    android:textSize="15sp" />
 
 
+                <CheckBox
+                    android:id="@+id/task_check"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/bar_check_box"
+                    android:button="@null"
+                    android:enabled="false" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="15dp"
+                    android:gravity="center_vertical"
+                    android:text="一键顺延"
+                    android:textColor="@color/blue_color"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/task_list_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_marginTop="1dp"
+                    android:background="#1F1F20"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:paddingLeft="17dp">
+
+                        <TextView
+                            android:id="@+id/bar_order_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="任务名称"
+                            android:textColor="@color/f_white"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/bar_order_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="执行人"
+                            android:textColor="#8D8C91"
+                            android:textSize="9sp" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:paddingLeft="16dp">
+
+                        <TextView
+                            android:id="@+id/bar_order_message"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="实际数量"
+                            android:textColor="@color/f_white"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/bar_order_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="计划数量/单位"
+                            android:textColor="#8D8C91"
+                            android:textSize="9sp" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="17dp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/shengyu_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="剩余时间"
+                            android:textColor="@color/f_white"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/renwu_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="任务时限"
+                            android:textColor="#8D8C91"
+                            android:textSize="9sp" />
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/task_recycle_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
 
         </LinearLayout>

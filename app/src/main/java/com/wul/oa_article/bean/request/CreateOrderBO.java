@@ -32,16 +32,16 @@ public class CreateOrderBO {
 
     private String clientCompleteDate;
     private String clientName;
-    private String clientNum;
+    private int clientNum;
     private String clientOrderName;
     private String clientOrderNum;
     private String clientUnit;
-    private String companyId;
+    private int companyId;
     private String companyOrderName;
     private String companyOrderNum;
     private String fileUrl;
     private int id;
-    private String orderNum;
+    private long orderNum;
     private String orderUnit;
     private int parentOrderTaskId;
     private String planCompleteDate;
@@ -66,11 +66,11 @@ public class CreateOrderBO {
         this.clientName = clientName;
     }
 
-    public String getClientNum() {
+    public int getClientNum() {
         return clientNum;
     }
 
-    public void setClientNum(String clientNum) {
+    public void setClientNum(int clientNum) {
         this.clientNum = clientNum;
     }
 
@@ -98,11 +98,11 @@ public class CreateOrderBO {
         this.clientUnit = clientUnit;
     }
 
-    public String getCompanyId() {
+    public int getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(String companyId) {
+    public void setCompanyId(int companyId) {
         this.companyId = companyId;
     }
 
@@ -138,11 +138,11 @@ public class CreateOrderBO {
         this.id = id;
     }
 
-    public String getOrderNum() {
+    public long getOrderNum() {
         return orderNum;
     }
 
-    public void setOrderNum(String orderNum) {
+    public void setOrderNum(long orderNum) {
         this.orderNum = orderNum;
     }
 

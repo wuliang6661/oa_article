@@ -85,6 +85,11 @@
             android:name=".view.createorder.CreateActivity"
             android:screenOrientation="portrait" />
 
+        <!--创建任务-->
+        <activity
+            android:name=".view.createtask.CreateTaskActivity"
+            android:screenOrientation="portrait" />
+
         <!--订单详情-->
         <activity
             android:name=".view.orderdetails.OrderDetailsActivity"

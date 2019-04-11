@@ -195,19 +195,20 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
         String orderDate = dateOrder.getText().toString().trim();
 
         CreateOrderBO orderBO = new CreateOrderBO();
-        orderBO.setCompanyId(MyApplication.getCommonId());
+        orderBO.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
         orderBO.setClientName(kehuName);
         orderBO.setClientOrderName(kehuOrderName);
-        orderBO.setClientNum(kehuOrderNum);
+        orderBO.setClientOrderNum(kehuOrderNum);
 
         orderBO.setClientOrderName(benOrderName);
         orderBO.setCompanyOrderNum(benOrderNum);
-        orderBO.setOrderNum(benNum);
+        orderBO.setOrderNum(Long.parseLong(benNum));
         orderBO.setOrderUnit(benDanwei);
         orderBO.setImages(imageBOS);
         orderBO.setOrderSpecifications(pingLeiBOS);
         orderBO.setRemark(beizhu);
-        orderBO.setPlanCompleteDate(orderDate);
+        orderBO.setPlanCompleteDate(orderDate.replace("年 ", "-")
+                .replace("月 ", "-").replace("日", ""));
         mPresenter.createOrder(orderBO);
 //        gotoActivity(OrderDetailsActivity.class, false);
 //        gotoActivity(PcUpdateAct.class, false);
@@ -290,10 +291,13 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
             }
 
             @Override
-            public void editName() {
+            public void editName(int position) {
                 EditPhotoNamePop pop = new EditPhotoNamePop(getActivity());
                 pop.setListener(text -> {
-
+                    ImageBO imageBO = imageBOS.get(position);
+                    imageBO.name = text;
+                    imageBOS.set(position, imageBO);
+                    addAdapter.notifyDataSetChanged();
                 });
                 pop.showAtLocation(mainView, Gravity.BOTTOM, 0, 0);
             }

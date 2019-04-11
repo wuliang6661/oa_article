@@ -51,7 +51,7 @@ public class ImageAddAdapter extends RecyclerView.Adapter<ImageAddAdapter.ViewHo
                 }
             } else {
                 if (listener != null) {
-                    listener.editName();
+                    listener.editName(i);
                 }
             }
         });
@@ -64,7 +64,7 @@ public class ImageAddAdapter extends RecyclerView.Adapter<ImageAddAdapter.ViewHo
         });
         viewHodler.imageName.setOnClickListener(v -> {
             if (listener != null) {
-                listener.editName();
+                listener.editName(i);
             }
         });
     }
@@ -109,7 +109,7 @@ public class ImageAddAdapter extends RecyclerView.Adapter<ImageAddAdapter.ViewHo
 
         void deleteImage(int position, ImageBO imageBO);
 
-        void editName();
+        void editName(int position);
 
     }
 
