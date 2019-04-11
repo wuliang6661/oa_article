@@ -15,9 +15,10 @@ import com.wul.oa_article.mvp.MVPBaseActivity;
 public class CreateTaskActivity extends MVPBaseActivity<CreateTaskContract.View, CreateTaskPresenter>
         implements CreateTaskContract.View {
 
+
     @Override
     protected int getLayout() {
-        return R.layout.act_order_details;
+        return R.layout.act_create_task;
     }
 
     @Override
