@@ -40,6 +40,7 @@ import com.wul.oa_article.bean.request.CreateOrderBO;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.util.PhotoFromPhotoAlbum;
 import com.wul.oa_article.view.EditPhotoNamePop;
+import com.wul.oa_article.view.createtask.CreateTaskActivity;
 import com.wul.oa_article.widget.AlertDialog;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
@@ -212,6 +213,7 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
         mPresenter.createOrder(orderBO);
 //        gotoActivity(OrderDetailsActivity.class, false);
 //        gotoActivity(PcUpdateAct.class, false);
+        gotoActivity(CreateTaskActivity.class, false);
     }
 
 
