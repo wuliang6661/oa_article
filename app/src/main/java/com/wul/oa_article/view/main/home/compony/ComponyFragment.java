@@ -120,6 +120,7 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
         tabLayout.addTab(tab2);
         tabLayout.addTab(tab3);
         tabLayout.addTab(tab4);
+        tabLayout.getTabAt(0).select();
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recycleView.setLayoutManager(manager);

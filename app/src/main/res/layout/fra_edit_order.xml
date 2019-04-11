@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mianview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:id="@+id/kehu_msg_bar"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_marginTop="2dp"
+            android:background="@color/bar_color"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="18dp"
+                android:src="@drawable/kehu" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="客户订单信息"
+                android:textColor="#b8b8b8"
+                android:textSize="15sp" />
+
+
+            <CheckBox
+                android:id="@+id/kehu_order_check"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/bar_check_box"
+                android:button="@null"
+                android:enabled="false" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/kehu_expand_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="41dp"
+                android:paddingRight="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="客户简称"
+                    android:textColor="@color/f_white"
+                    android:textSize="13sp" />
+
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="13dp"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+                    android:background="#939495" />
+
+                <EditText
+                    android:id="@+id/edit_kehu_jiancheng"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="请输入客户简称（不多于4个字）"
+                    android:maxLength="4"
+                    android:singleLine="true"
+                    android:textColor="@color/f_white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:background="#2b2b2b" />
+
+            <LinearLayout
+                android:id="@+id/layout2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="41dp"
+                android:paddingRight="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="客户订单名称"
+                    android:textColor="@color/f_white"
+                    android:textSize="13sp" />
+
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="13dp"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+                    android:background="#939495" />
+
+                <EditText
+                    android:id="@+id/edit_kehu_ordername"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="请输入客户订单名称"
+                    android:maxLength="20"
+                    android:singleLine="true"
+                    android:textColor="@color/f_white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:background="#2b2b2b" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="41dp"
+                android:paddingRight="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="客户订单编号"
+                    android:textColor="@color/f_white"
+                    android:textSize="13sp" />
+
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="13dp"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+                    android:background="#939495" />
+
+                <EditText
+                    android:id="@+id/edit_kehu_ordernum"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="请输入客户订单编号"
+                    android:maxLength="20"
+                    android:singleLine="true"
+                    android:textColor="@color/f_white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/bengongsi_msg_bar"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_marginTop="2dp"
+            android:background="@color/bar_color"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="18dp"
+                android:src="@drawable/pop_order" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="本公司订单信息"
+                android:textColor="#b8b8b8"
+                android:textSize="15sp" />
+
+
+            <CheckBox
+                android:id="@+id/ben_check"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/bar_check_box"
+                android:button="@null"
+                android:enabled="false" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="*"
+                android:textColor="#DB2E2E"
+                android:textSize="12sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="16dp"
+                android:text="为必填"
+                android:textColor="@color/hint_color"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ben_expand_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="40dp"
+                android:paddingRight="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#DB2E2E"
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="本公司订单名称"
+                    android:textColor="@color/f_white"
+                    android:textSize="13sp" />
+
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="13dp"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+                    android:background="#939495" />
+
+                <EditText
+                    android:id="@+id/edit_ben_orderName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="请输入本公司订单名称"
+                    android:maxLength="20"
+                    android:singleLine="true"
+                    android:textColor="@color/f_white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:background="#2b2b2b" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="40dp"
+                android:paddingRight="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#DB2E2E"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="本公司订单编号"
+                    android:textColor="@color/f_white"
+                    android:textSize="13sp" />
+
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="13dp"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+                    android:background="#939495" />
+
+                <EditText
+                    android:id="@+id/edit_ben_orderNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="请输入本公司订单编号"
+                    android:maxLength="20"
+                    android:singleLine="true"
+                    android:textColor="@color/f_white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:background="#2b2b2b" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="41dp"
+                android:paddingRight="18dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#DB2E2E"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="数量"
+                    android:textColor="@color/f_white"
+                    android:textSize="13sp" />
+
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="13dp"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+                    android:background="#939495" />
+
+                <EditText
+                    android:id="@+id/edit_ben_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="请输入数量"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:textColor="@color/f_white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:background="#2b2b2b" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="41dp"
+                android:paddingRight="18dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#DB2E2E"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="单位"
+                    android:textColor="@color/f_white"
+                    android:textSize="13sp" />
+
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="13dp"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+                    android:background="#939495" />
+
+                <EditText
+                    android:id="@+id/edit_ben_danwei"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="请输入单位"
+                    android:maxLength="4"
+                    android:singleLine="true"
+                    android:textColor="@color/f_white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:background="#2b2b2b" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="41dp"
+                android:paddingRight="18dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#DB2E2E"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="订单交期"
+                    android:textColor="@color/f_white"
+                    android:textSize="13sp" />
+
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="13dp"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+                    android:background="#939495" />
+
+                <TextView
+                    android:id="@+id/date_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="2019年 01月 23日"
+                    android:textColor="@color/f_white"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/pinglei_bar"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_marginTop="2dp"
+            android:background="@color/bar_color"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="18dp"
+                android:src="@drawable/pinglei_img" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="品类详情"
+                android:textColor="#b8b8b8"
+                android:textSize="15sp" />
+
+
+            <CheckBox
+                android:id="@+id/pinglei_check"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/bar_check_box"
+                android:button="@null"
+                android:enabled="false" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/pinglei_expand_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycle_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="18dp"
+                android:paddingRight="18dp">
+
+
+                <EditText
+                    android:id="@+id/edit_pinglei_name"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.8"
+                    android:background="@null"
+                    android:gravity="right|center_vertical"
+                    android:hint="自定义名称"
+                    android:maxLength="4"
+                    android:singleLine="true"
+                    android:textColor="@color/f_white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="13sp" />
+
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="13dp"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginRight="13dp"
+                    android:background="#939495" />
+
+                <EditText
+                    android:id="@+id/edit_pinglei_guige"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint="规格"
+                    android:maxLength="4"
+                    android:singleLine="true"
+                    android:textColor="@color/f_white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="13sp" />
+
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="13dp"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginRight="13dp"
+                    android:background="#939495" />
+
+                <EditText
+                    android:id="@+id/edit_pinglei_num"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint="数量"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:textColor="@color/f_white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="13sp" />
+
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="13dp"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginRight="13dp"
+                    android:background="#939495" />
+
+                <EditText
+                    android:id="@+id/edit_pinglei_danwei"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint="单位"
+                    android:maxLength="4"
+                    android:singleLine="true"
+                    android:textColor="@color/f_white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="13sp" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:background="#2b2b2b" />
+
+            <LinearLayout
+                android:id="@+id/add_pinglei"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginLeft="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/add_img" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="继续添加"
+                    android:textColor="@color/blue_color"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/update_img_bar"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_marginTop="2dp"
+            android:background="@color/bar_color"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="18dp"
+                android:src="@drawable/tupian_update" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="上传图片"
+                android:textColor="#b8b8b8"
+                android:textSize="15sp" />
+
+
+            <CheckBox
+                android:id="@+id/image_check"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/bar_check_box"
+                android:button="@null"
+                android:enabled="false" />
+
+
+        </LinearLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/image_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp" />
+
+
+        <LinearLayout
+            android:id="@+id/beizhu_bar"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_marginTop="2dp"
+            android:background="@color/bar_color"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="18dp"
+                android:src="@drawable/add_beizhu" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="添加备注"
+                android:textColor="#b8b8b8"
+                android:textSize="15sp" />
+
+
+            <CheckBox
+                android:id="@+id/beizhu_check"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/bar_check_box"
+                android:button="@null"
+                android:enabled="false" />
+
+
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/edit_beizhu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/beizhu_edit_bg"
+            android:gravity="start"
+            android:hint="请输入您要备注的信息"
+            android:minLines="4"
+            android:padding="13dp"
+            android:textColor="@color/f_white"
+            android:textColorHint="@color/hint_color"
+            android:textSize="13sp" />
+
+
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/button_bg"
+            android:text="创建"
+            android:textColor="@color/text_white"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

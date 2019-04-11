@@ -18,6 +18,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -34,7 +35,9 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.guoqi.actionsheet.ActionSheet;
 import com.wul.oa_article.R;
-import com.wul.oa_article.mvp.MVPBaseActivity;
+import com.wul.oa_article.base.MyApplication;
+import com.wul.oa_article.bean.request.CreateOrderBO;
+import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.util.PhotoFromPhotoAlbum;
 import com.wul.oa_article.view.EditPhotoNamePop;
 import com.wul.oa_article.widget.AlertDialog;
@@ -47,9 +50,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import pub.devrel.easypermissions.EasyPermissions;
 
 
@@ -58,7 +64,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  * 邮箱 784787081@qq.com
  */
 
-public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.View, CreateOrderPresenter>
+public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.View, CreateOrderPresenter>
         implements CreateOrderContract.View, ActionSheet.OnActionSheetSelected {
 
     @BindView(R.id.edit_kehu_jiancheng)
@@ -123,18 +129,12 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
     @SuppressLint("SimpleDateFormat")
     DateFormat format = new SimpleDateFormat("yyyy年 MM月 dd日");
 
+    Unbinder unbinder;
+
 
     @Override
-    protected int getLayout() {
-        return R.layout.act_create_order;
-    }
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        goBack();
-        setTitleText("创建订单");
-
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         getPermission();
         cameraSavePath = new File(Environment.getExternalStorageDirectory().getPath() + "/" +
                 System.currentTimeMillis() + ".jpg");
@@ -144,15 +144,23 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
     }
 
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fra_edit_order, null);
+        unbinder = ButterKnife.bind(this, view);
+        return view;
+    }
+
     private void initView() {
-        LinearLayoutManager manager = new LinearLayoutManager(this);
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         manager.setSmoothScrollbarEnabled(true);
         recycleView.setHasFixedSize(true);
         recycleView.setLayoutManager(manager);
         recycleView.setNestedScrollingEnabled(false);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         gridLayoutManager.setSmoothScrollbarEnabled(true);
         imageRecycle.setHasFixedSize(true);
         imageRecycle.setLayoutManager(gridLayoutManager);
@@ -162,6 +170,11 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
         setImageAdapter();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 
     @OnClick(R.id.date_order)
     public void selectDate() {
@@ -178,7 +191,24 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
         String benOrderNum = editBenOrderNum.getText().toString().trim();
         String benNum = editBenNum.getText().toString().trim();
         String benDanwei = editBenDanwei.getText().toString().trim();
+        String beizhu = editBeizhu.getText().toString().trim();
+        String orderDate = dateOrder.getText().toString().trim();
 
+        CreateOrderBO orderBO = new CreateOrderBO();
+        orderBO.setCompanyId(MyApplication.getCommonId());
+        orderBO.setClientName(kehuName);
+        orderBO.setClientOrderName(kehuOrderName);
+        orderBO.setClientNum(kehuOrderNum);
+
+        orderBO.setClientOrderName(benOrderName);
+        orderBO.setCompanyOrderNum(benOrderNum);
+        orderBO.setOrderNum(benNum);
+        orderBO.setOrderUnit(benDanwei);
+        orderBO.setImages(imageBOS);
+        orderBO.setOrderSpecifications(pingLeiBOS);
+        orderBO.setRemark(beizhu);
+        orderBO.setPlanCompleteDate(orderDate);
+        mPresenter.createOrder(orderBO);
 //        gotoActivity(OrderDetailsActivity.class, false);
 //        gotoActivity(PcUpdateAct.class, false);
     }
@@ -232,9 +262,9 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
             @Override
             public void convert(LGViewHolder holder, PingLeiBO pingLeiBO, int position) {
                 holder.setText(R.id.pinglei_name, pingLeiBO.name);
-                holder.setText(R.id.pinglei_guige, pingLeiBO.guige);
+                holder.setText(R.id.pinglei_guige, pingLeiBO.size);
                 holder.setText(R.id.pinglei_num, pingLeiBO.num);
-                holder.setText(R.id.pinglei_danwei, pingLeiBO.danwei);
+                holder.setText(R.id.pinglei_danwei, pingLeiBO.unit);
             }
         };
         recycleView.setAdapter(adapter);
@@ -245,23 +275,23 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
      * 设置添加图片的适配器
      */
     private void setImageAdapter() {
-        ImageAddAdapter addAdapter = new ImageAddAdapter(this, imageBOS);
+        ImageAddAdapter addAdapter = new ImageAddAdapter(getActivity(), imageBOS);
         addAdapter.setListener(new ImageAddAdapter.onAddImageAdapterListener() {
             @Override
             public void addImage() {
-                ActionSheet.showSheet(CreateOrderActivity.this, CreateOrderActivity.this, null);
+                ActionSheet.showSheet(Objects.requireNonNull(getActivity()), CreateOrderFragment.this, null);
             }
 
             @Override
             public void deleteImage(int position, ImageBO imageBO) {
-                new AlertDialog(CreateOrderActivity.this).builder().setGone().setMsg("是否删除照片？")
+                new AlertDialog(Objects.requireNonNull(getActivity())).builder().setGone().setMsg("是否删除照片？")
                         .setNegativeButton("取消", null)
                         .setPositiveButton("确定", v -> removeImage(position)).show();
             }
 
             @Override
             public void editName() {
-                EditPhotoNamePop pop = new EditPhotoNamePop(CreateOrderActivity.this);
+                EditPhotoNamePop pop = new EditPhotoNamePop(getActivity());
                 pop.setListener(text -> {
 
                 });
@@ -347,10 +377,10 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
     /**
      * 获取到新的照片
      */
-    private void addImage(String name,String imagePath) {
+    private void addImage(String name, String imagePath) {
         ImageBO imageBO = new ImageBO();
-        imageBO.imageName = name;
-        imageBO.path = imagePath;
+        imageBO.name = name;
+        imageBO.url = imagePath;
         imageBOS.add(imageBO);
         setImageAdapter();
     }
@@ -366,7 +396,7 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
 
     //获取权限
     private void getPermission() {
-        if (EasyPermissions.hasPermissions(this, permissions)) {
+        if (EasyPermissions.hasPermissions(Objects.requireNonNull(getActivity()), permissions)) {
             //已经打开权限
             LogUtils.d("已经申请相关权限");
         } else {
@@ -390,7 +420,7 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
         getPermission();
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            uri = FileProvider.getUriForFile(this, "com.wul.oa_article.fileprovider", cameraSavePath);
+            uri = FileProvider.getUriForFile(Objects.requireNonNull(getActivity()), "com.wul.oa_article.fileprovider", cameraSavePath);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         } else {
             uri = Uri.fromFile(cameraSavePath);
@@ -409,7 +439,7 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         String photoPath;
         if (requestCode == 1 && resultCode == RESULT_OK) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -421,7 +451,7 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
             showProgress();
             mPresenter.updateImage(new File(photoPath));
         } else if (requestCode == 2 && resultCode == RESULT_OK) {
-            photoPath = PhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
+            photoPath = PhotoFromPhotoAlbum.getRealPathFromUri(getActivity(), data.getData());
             showProgress();
             mPresenter.updateImage(new File(photoPath));
         }
@@ -435,7 +465,7 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
     @SuppressLint("SimpleDateFormat")
     private void initTimePicker() {
         Calendar startDate = Calendar.getInstance();
-        pvTime = new TimePickerBuilder(this, (date, v) -> {
+        pvTime = new TimePickerBuilder(getActivity(), (date, v) -> {
             dateOrder.setText(TimeUtils.date2String(date, format));
         })
                 .setType(new boolean[]{true, true, true, false, false, false})
@@ -467,6 +497,11 @@ public class CreateOrderActivity extends MVPBaseActivity<CreateOrderContract.Vie
     public void onRequestError(String msg) {
         stopProgress();
         showToast(msg);
+    }
+
+    @Override
+    public void onRequestEnd() {
+
     }
 
     @Override

@@ -1,12 +1,15 @@
 package com.wul.oa_article.bean.request;
 
+import com.wul.oa_article.view.createorder.ImageBO;
+import com.wul.oa_article.view.createorder.PingLeiBO;
+
 import java.util.List;
 
 public class CreateOrderBO {
 
 
     /**
-     * clientCompleteDate : 2019-04-10T13:11:09.468Z
+     * clientCompleteDate : 2019-04-11T04:21:04.458Z
      * clientName : string
      * clientNum : 0
      * clientOrderName : string
@@ -17,35 +20,35 @@ public class CreateOrderBO {
      * companyOrderNum : string
      * fileUrl : string
      * id : 0
-     * imageUrl : string
+     * images : [{"name":"string","url":"string"}]
      * orderNum : 0
-     * orderSpecifications : [{"createDate":"2019-04-10T13:11:09.468Z","id":0,"name":"string","num":0,"orderId":0,"remark":"string","size":"string","unit":"string","updateDate":"2019-04-10T13:11:09.468Z"}]
+     * orderSpecifications : [{"createDate":"2019-04-11T04:21:04.458Z","id":0,"name":"string","num":0,"orderId":0,"remark":"string","size":"string","unit":"string","updateDate":"2019-04-11T04:21:04.459Z"}]
      * orderUnit : string
      * parentOrderTaskId : 0
-     * planCompleteDate : 2019-04-10T13:11:09.468Z
+     * planCompleteDate : 2019-04-11T04:21:04.459Z
      * remark : string
      * token : string
      */
 
     private String clientCompleteDate;
     private String clientName;
-    private int clientNum;
+    private String clientNum;
     private String clientOrderName;
     private String clientOrderNum;
     private String clientUnit;
-    private int companyId;
+    private String companyId;
     private String companyOrderName;
     private String companyOrderNum;
     private String fileUrl;
     private int id;
-    private String imageUrl;
-    private int orderNum;
+    private String orderNum;
     private String orderUnit;
     private int parentOrderTaskId;
     private String planCompleteDate;
     private String remark;
     private String token;
-    private List<OrderSpecificationsBean> orderSpecifications;
+    private List<ImageBO> images;
+    private List<PingLeiBO> orderSpecifications;
 
     public String getClientCompleteDate() {
         return clientCompleteDate;
@@ -63,11 +66,11 @@ public class CreateOrderBO {
         this.clientName = clientName;
     }
 
-    public int getClientNum() {
+    public String getClientNum() {
         return clientNum;
     }
 
-    public void setClientNum(int clientNum) {
+    public void setClientNum(String clientNum) {
         this.clientNum = clientNum;
     }
 
@@ -95,11 +98,11 @@ public class CreateOrderBO {
         this.clientUnit = clientUnit;
     }
 
-    public int getCompanyId() {
+    public String getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(int companyId) {
+    public void setCompanyId(String companyId) {
         this.companyId = companyId;
     }
 
@@ -135,19 +138,11 @@ public class CreateOrderBO {
         this.id = id;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public int getOrderNum() {
+    public String getOrderNum() {
         return orderNum;
     }
 
-    public void setOrderNum(int orderNum) {
+    public void setOrderNum(String orderNum) {
         this.orderNum = orderNum;
     }
 
@@ -191,107 +186,21 @@ public class CreateOrderBO {
         this.token = token;
     }
 
-    public List<OrderSpecificationsBean> getOrderSpecifications() {
+    public List<ImageBO> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ImageBO> images) {
+        this.images = images;
+    }
+
+    public List<PingLeiBO> getOrderSpecifications() {
         return orderSpecifications;
     }
 
-    public void setOrderSpecifications(List<OrderSpecificationsBean> orderSpecifications) {
+    public void setOrderSpecifications(List<PingLeiBO> orderSpecifications) {
         this.orderSpecifications = orderSpecifications;
     }
 
-    public static class OrderSpecificationsBean {
-        /**
-         * createDate : 2019-04-10T13:11:09.468Z
-         * id : 0
-         * name : string
-         * num : 0
-         * orderId : 0
-         * remark : string
-         * size : string
-         * unit : string
-         * updateDate : 2019-04-10T13:11:09.468Z
-         */
 
-        private String createDate;
-        private int id;
-        private String name;
-        private int num;
-        private int orderId;
-        private String remark;
-        private String size;
-        private String unit;
-        private String updateDate;
-
-        public String getCreateDate() {
-            return createDate;
-        }
-
-        public void setCreateDate(String createDate) {
-            this.createDate = createDate;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public int getNum() {
-            return num;
-        }
-
-        public void setNum(int num) {
-            this.num = num;
-        }
-
-        public int getOrderId() {
-            return orderId;
-        }
-
-        public void setOrderId(int orderId) {
-            this.orderId = orderId;
-        }
-
-        public String getRemark() {
-            return remark;
-        }
-
-        public void setRemark(String remark) {
-            this.remark = remark;
-        }
-
-        public String getSize() {
-            return size;
-        }
-
-        public void setSize(String size) {
-            this.size = size;
-        }
-
-        public String getUnit() {
-            return unit;
-        }
-
-        public void setUnit(String unit) {
-            this.unit = unit;
-        }
-
-        public String getUpdateDate() {
-            return updateDate;
-        }
-
-        public void setUpdateDate(String updateDate) {
-            this.updateDate = updateDate;
-        }
-    }
 }

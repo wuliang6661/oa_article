@@ -45,6 +45,16 @@ public class MyApplication extends Application {
         WXapi.registerApp(Config.WX_APP_ID);
     }
 
+
+    public static String getCommonId() {
+        if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
+            return "0";
+        } else {
+            return MyApplication.userBo.getCompanys().get(0).getId() + "";
+        }
+    }
+
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);

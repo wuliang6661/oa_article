@@ -82,7 +82,7 @@
 
         <!--创建订单-->
         <activity
-            android:name=".view.createorder.CreateOrderActivity"
+            android:name=".view.createorder.CreateActivity"
             android:screenOrientation="portrait" />
 
         <!--订单详情-->

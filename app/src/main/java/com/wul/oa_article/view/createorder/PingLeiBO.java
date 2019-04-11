@@ -4,14 +4,21 @@ public class PingLeiBO {
 
     public PingLeiBO(String name, String guige, String num, String danwei) {
         this.name = name;
-        this.guige = guige;
+        this.size = guige;
         this.num = num;
-        this.danwei = danwei;
+        this.unit = danwei;
     }
 
+
+    public String createDate;
+    public int id;
     public String name;
-    public String guige;
     public String num;
-    public String danwei;
+    public int orderId;
+    public String remark;
+    public String size;
+    public String unit;
+    public String updateDate;
+
 
 }
