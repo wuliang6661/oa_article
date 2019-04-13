@@ -1,4 +1,4 @@
-package com.wul.oa_article.view.createtask;
+package com.wul.oa_article.module.order_details;
 
 import android.content.Context;
 
@@ -10,7 +10,7 @@ import com.wul.oa_article.mvp.BaseView;
  *  邮箱 784787081@qq.com
  */
 
-public class CreateTaskContract {
+public class Order_detailsContract {
     interface View extends BaseView {
         
     }

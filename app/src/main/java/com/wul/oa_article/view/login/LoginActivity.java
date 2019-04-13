@@ -103,7 +103,6 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
     }
 
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -141,7 +140,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
             showToast("请输入密码！");
             return;
         }
-//        gotoActivity(CreateOrderFragment.class, true);
+//        gotoActivity(CreateActivity.class, true);
         showProgress();
         HttpServerImpl.login(phone, password).subscribe(new HttpResultSubscriber<String>() {
             @Override

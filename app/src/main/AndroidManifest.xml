@@ -82,17 +82,17 @@
 
         <!--创建订单-->
         <activity
-            android:name=".view.createorder.CreateActivity"
+            android:name=".view.CreateActivity"
             android:screenOrientation="portrait" />
 
         <!--创建任务-->
         <activity
-            android:name=".view.createtask.CreateTaskActivity"
+            android:name=".view.CreateTaskActivity"
             android:screenOrientation="portrait" />
 
         <!--订单详情-->
         <activity
-            android:name=".view.orderdetails.OrderDetailsActivity"
+            android:name=".view.OrderDetailsActivity"
             android:screenOrientation="portrait" />
 
         <!--扫码上传-->

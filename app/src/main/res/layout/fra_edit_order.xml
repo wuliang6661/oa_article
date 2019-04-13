@@ -787,7 +787,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="3dp"
             android:background="@drawable/button_bg"
-            android:text="创建"
+            android:text="保存"
             android:textColor="@color/text_white"
             android:textSize="18sp" />
 

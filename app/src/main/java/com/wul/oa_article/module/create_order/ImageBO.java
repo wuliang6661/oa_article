@@ -1,4 +1,4 @@
-package com.wul.oa_article.view.createorder;
+package com.wul.oa_article.module.create_order;
 
 public class ImageBO {
 

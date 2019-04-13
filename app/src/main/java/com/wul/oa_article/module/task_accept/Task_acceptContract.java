@@ -1,4 +1,4 @@
-package com.wul.oa_article.view.myorder;
+package com.wul.oa_article.module.task_accept;
 
 import android.content.Context;
 
@@ -10,7 +10,7 @@ import com.wul.oa_article.mvp.BaseView;
  *  邮箱 784787081@qq.com
  */
 
-public class MyOrderContract {
+public class Task_acceptContract {
     interface View extends BaseView {
         
     }

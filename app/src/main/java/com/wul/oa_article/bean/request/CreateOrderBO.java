@@ -1,7 +1,7 @@
 package com.wul.oa_article.bean.request;
 
-import com.wul.oa_article.view.createorder.ImageBO;
-import com.wul.oa_article.view.createorder.PingLeiBO;
+import com.wul.oa_article.module.create_order.ImageBO;
+import com.wul.oa_article.module.create_order.PingLeiBO;
 
 import java.util.List;
 

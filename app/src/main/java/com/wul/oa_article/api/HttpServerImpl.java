@@ -1,9 +1,5 @@
 package com.wul.oa_article.api;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
-import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.Utils;
 import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.AcceptedOrderBo;

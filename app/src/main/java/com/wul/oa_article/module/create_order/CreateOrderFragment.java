@@ -1,4 +1,4 @@
-package com.wul.oa_article.view.createorder;
+package com.wul.oa_article.module.create_order;
 
 
 import android.Manifest;
@@ -35,12 +35,11 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.guoqi.actionsheet.ActionSheet;
 import com.wul.oa_article.R;
-import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.request.CreateOrderBO;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.util.PhotoFromPhotoAlbum;
 import com.wul.oa_article.view.EditPhotoNamePop;
-import com.wul.oa_article.view.createtask.CreateTaskActivity;
+import com.wul.oa_article.view.CreateTaskActivity;
 import com.wul.oa_article.widget.AlertDialog;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
@@ -196,7 +195,7 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
         String orderDate = dateOrder.getText().toString().trim();
 
         CreateOrderBO orderBO = new CreateOrderBO();
-        orderBO.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+//        orderBO.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
         orderBO.setClientName(kehuName);
         orderBO.setClientOrderName(kehuOrderName);
         orderBO.setClientOrderNum(kehuOrderNum);

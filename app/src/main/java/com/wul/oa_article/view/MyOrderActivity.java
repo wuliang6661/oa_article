@@ -1,10 +1,11 @@
-package com.wul.oa_article.view.myorder;
+package com.wul.oa_article.view;
 
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.wul.oa_article.R;
+import com.wul.oa_article.base.BaseActivity;
 import com.wul.oa_article.mvp.MVPBaseActivity;
 
 
@@ -13,8 +14,7 @@ import com.wul.oa_article.mvp.MVPBaseActivity;
  * 邮箱 784787081@qq.com
  */
 
-public class MyOrderActivity extends MVPBaseActivity<MyOrderContract.View, MyOrderPresenter>
-        implements MyOrderContract.View {
+public class MyOrderActivity extends BaseActivity {
 
     @Override
     protected int getLayout() {

@@ -1,4 +1,4 @@
-package com.wul.oa_article.view.orderdetails;
+package com.wul.oa_article.module.task_allot;
 
 import android.content.Context;
 
@@ -10,7 +10,7 @@ import com.wul.oa_article.mvp.BaseView;
  *  邮箱 784787081@qq.com
  */
 
-public class OrderDetailsContract {
+public class Task_allotContract {
     interface View extends BaseView {
         
     }
