@@ -6,17 +6,20 @@ import com.wul.oa_article.bean.AcceptedOrderBo;
 import com.wul.oa_article.bean.ComplanOrderBo;
 import com.wul.oa_article.bean.HistoryBO;
 import com.wul.oa_article.bean.MyOrderBO;
+import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.SalesBo;
 import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.bean.request.AsseptRequest;
 import com.wul.oa_article.bean.request.ComplayRequest;
 import com.wul.oa_article.bean.request.CreateOrderBO;
 import com.wul.oa_article.bean.request.ForwordPassword;
+import com.wul.oa_article.bean.request.OrderQueryRequest;
 import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.PhoneRequest;
 import com.wul.oa_article.bean.request.RegistUserRequest;
 import com.wul.oa_article.bean.request.SelectRequest;
 import com.wul.oa_article.bean.request.TokenRequest;
+import com.wul.oa_article.bean.request.UpdateOrderRequest;
 import com.wul.oa_article.bean.request.WechatRegisterRequest;
 import com.wul.oa_article.util.MD5;
 import com.wul.oa_article.util.rx.RxResultHelper;
@@ -198,7 +201,7 @@ public class HttpServerImpl {
     /**
      * 创建订单
      */
-    public static Observable<String> createOrder(CreateOrderBO createOrderBO) {
+    public static Observable<OrderQueryRequest> createOrder(CreateOrderBO createOrderBO) {
         createOrderBO.setToken(MyApplication.token);
         return getService().addOrder(createOrderBO).compose(RxResultHelper.httpRusult());
     }
@@ -217,6 +220,24 @@ public class HttpServerImpl {
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), compressedImageFile);
         MultipartBody.Part body = MultipartBody.Part.createFormData("fileName", file.getName(), requestFile);
         return getService().updateFile(body).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 编辑订单
+     */
+    public static Observable<String> updateOrder(UpdateOrderRequest orderBO) {
+        orderBO.setToken(MyApplication.token);
+        return getService().updateOrder(orderBO).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 获取订单基础信息
+     */
+    public static Observable<OrderInfoBo> getOrderInfo(OrderQueryRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().getOrderInfo(request).compose(RxResultHelper.httpRusult());
     }
 
 }

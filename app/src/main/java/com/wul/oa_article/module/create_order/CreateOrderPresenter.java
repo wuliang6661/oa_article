@@ -2,7 +2,10 @@ package com.wul.oa_article.module.create_order;
 
 import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
+import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.request.CreateOrderBO;
+import com.wul.oa_article.bean.request.OrderQueryRequest;
+import com.wul.oa_article.bean.request.UpdateOrderRequest;
 import com.wul.oa_article.mvp.BasePresenterImpl;
 
 import java.io.File;
@@ -39,7 +42,29 @@ public class CreateOrderPresenter extends BasePresenterImpl<CreateOrderContract.
      * 创建订单
      */
     public void createOrder(CreateOrderBO createOrderBO) {
-        HttpServerImpl.createOrder(createOrderBO).subscribe(new HttpResultSubscriber<String>() {
+        HttpServerImpl.createOrder(createOrderBO).subscribe(new HttpResultSubscriber<OrderQueryRequest>() {
+            @Override
+            public void onSuccess(OrderQueryRequest s) {
+                if (mView != null) {
+                    mView.addSuress(s);
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
+
+
+    /**
+     * 编辑订单
+     */
+    public void updateOrder(UpdateOrderRequest orderBO) {
+        HttpServerImpl.updateOrder(orderBO).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
 
@@ -54,5 +79,28 @@ public class CreateOrderPresenter extends BasePresenterImpl<CreateOrderContract.
         });
     }
 
+
+    /**
+     * 获取订单基本信息
+     */
+    public void getOrderInfo(int id) {
+        OrderQueryRequest request = new OrderQueryRequest();
+        request.setId(id);
+        HttpServerImpl.getOrderInfo(request).subscribe(new HttpResultSubscriber<OrderInfoBo>() {
+            @Override
+            public void onSuccess(OrderInfoBo s) {
+                if (mView != null) {
+                    mView.getOrderInfo(s);
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
 
 }

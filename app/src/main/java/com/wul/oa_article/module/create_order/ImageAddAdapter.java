@@ -38,7 +38,7 @@ public class ImageAddAdapter extends RecyclerView.Adapter<ImageAddAdapter.ViewHo
         if (imageBOS.size() == 0 || i == imageBOS.size()) {
             viewHodler.deleteImg.setVisibility(View.GONE);
             viewHodler.imageName.setText("");
-            viewHodler.imageView.setImageResource(R.drawable.add_img);
+            viewHodler.imageView.setImageResource(R.drawable.image_update_add);
         } else {
             viewHodler.deleteImg.setVisibility(View.VISIBLE);
             viewHodler.imageName.setText(imageBOS.get(i).name);

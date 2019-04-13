@@ -35,11 +35,15 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.guoqi.actionsheet.ActionSheet;
 import com.wul.oa_article.R;
+import com.wul.oa_article.base.MyApplication;
+import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.request.CreateOrderBO;
+import com.wul.oa_article.bean.request.OrderQueryRequest;
+import com.wul.oa_article.bean.request.UpdateOrderRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.util.PhotoFromPhotoAlbum;
-import com.wul.oa_article.view.EditPhotoNamePop;
 import com.wul.oa_article.view.CreateTaskActivity;
+import com.wul.oa_article.view.EditPhotoNamePop;
 import com.wul.oa_article.widget.AlertDialog;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
@@ -49,6 +53,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -127,15 +132,43 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     TimePickerView pvTime;
 
     @SuppressLint("SimpleDateFormat")
-    DateFormat format = new SimpleDateFormat("yyyy年 MM月 dd日");
+    DateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 
     Unbinder unbinder;
+
+    private int type = 1;    //1为创建订单   2为编辑订单
+    private OrderInfoBo orderInfoBo;
+
+
+    private String kehuName;
+    private String kehuOrderName;
+    private String kehuOrderNum;
+    private String benOrderName;
+    private String benOrderNum;
+    private String benNum;
+    private String benDanwei;
+    private String beizhu;
+    private String orderDate;
+
+    public static CreateOrderFragment newInstance(int type, int orderId) {
+        CreateOrderFragment fragment = new CreateOrderFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("type", type);
+        bundle.putInt("orderId", orderId);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getPermission();
+        type = Objects.requireNonNull(getArguments()).getInt("type", 1);
+        if (type == 2) {
+            int orderId = getArguments().getInt("orderId", 0);
+            mPresenter.getOrderInfo(orderId);
+        }
         cameraSavePath = new File(Environment.getExternalStorageDirectory().getPath() + "/" +
                 System.currentTimeMillis() + ".jpg");
         pingLeiBOS = new ArrayList<>();
@@ -166,6 +199,8 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
         imageRecycle.setLayoutManager(gridLayoutManager);
         imageRecycle.setNestedScrollingEnabled(false);
 
+        dateOrder.setText(TimeUtils.date2String(new Date(), format));
+
         setPingLeiAdapter();
         setImageAdapter();
     }
@@ -176,7 +211,7 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
         unbinder.unbind();
     }
 
-    @OnClick(R.id.date_order)
+    @OnClick(R.id.date_layout)
     public void selectDate() {
         initTimePicker();
     }
@@ -184,35 +219,82 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
 
     @OnClick(R.id.next_button)
     public void commit() {
-        String kehuName = editKehuJiancheng.getText().toString().trim();
-        String kehuOrderName = editKehuOrdername.getText().toString().trim();
-        String kehuOrderNum = editKehuOrdernum.getText().toString().trim();
-        String benOrderName = editBenOrderName.getText().toString().trim();
-        String benOrderNum = editBenOrderNum.getText().toString().trim();
-        String benNum = editBenNum.getText().toString().trim();
-        String benDanwei = editBenDanwei.getText().toString().trim();
-        String beizhu = editBeizhu.getText().toString().trim();
-        String orderDate = dateOrder.getText().toString().trim();
+        kehuName = editKehuJiancheng.getText().toString().trim();
+        kehuOrderName = editKehuOrdername.getText().toString().trim();
+        kehuOrderNum = editKehuOrdernum.getText().toString().trim();
+        benOrderName = editBenOrderName.getText().toString().trim();
+        benOrderNum = editBenOrderNum.getText().toString().trim();
+        benNum = editBenNum.getText().toString().trim();
+        benDanwei = editBenDanwei.getText().toString().trim();
+        beizhu = editBeizhu.getText().toString().trim();
+        orderDate = dateOrder.getText().toString().trim();
 
+        if (StringUtils.isEmpty(benOrderName)) {
+            showToast("请输入本公司订单名称！");
+            return;
+        }
+        if (StringUtils.isEmpty(benOrderNum)) {
+            showToast("请输入本公司订单编号！");
+            return;
+        }
+        if (StringUtils.isEmpty(benNum)) {
+            showToast("请输入数量！");
+            return;
+        }
+        if (StringUtils.isEmpty(benDanwei)) {
+            showToast("请输入单位！");
+            return;
+        }
+        if (type == 1) {
+            createOrder();
+        } else {
+            updateOrder();
+        }
+    }
+
+
+    /**
+     * 创建订单
+     */
+    private void createOrder() {
         CreateOrderBO orderBO = new CreateOrderBO();
-//        orderBO.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+        orderBO.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
         orderBO.setClientName(kehuName);
         orderBO.setClientOrderName(kehuOrderName);
         orderBO.setClientOrderNum(kehuOrderNum);
 
-        orderBO.setClientOrderName(benOrderName);
+        orderBO.setCompanyOrderName(benOrderName);
         orderBO.setCompanyOrderNum(benOrderNum);
         orderBO.setOrderNum(Long.parseLong(benNum));
         orderBO.setOrderUnit(benDanwei);
         orderBO.setImages(imageBOS);
         orderBO.setOrderSpecifications(pingLeiBOS);
         orderBO.setRemark(beizhu);
-        orderBO.setPlanCompleteDate(orderDate.replace("年 ", "-")
-                .replace("月 ", "-").replace("日", ""));
+        orderBO.setPlanCompleteDate(orderDate.replaceAll("/", "-"));
         mPresenter.createOrder(orderBO);
-//        gotoActivity(OrderDetailsActivity.class, false);
-//        gotoActivity(PcUpdateAct.class, false);
-        gotoActivity(CreateTaskActivity.class, false);
+    }
+
+
+    /**
+     * 编辑订单
+     */
+    private void updateOrder() {
+        UpdateOrderRequest orderBO = new UpdateOrderRequest();
+        orderBO.setCompanyId(orderInfoBo.getOrderInfo().getCompanyId());
+        orderBO.setId(orderInfoBo.getOrderInfo().getId());
+        orderBO.setClientName(kehuName);
+        orderBO.setClientOrderName(kehuOrderName);
+        orderBO.setClientOrderNum(kehuOrderNum);
+
+        orderBO.setCompanyOrderName(benOrderName);
+        orderBO.setCompanyOrderNum(benOrderNum);
+        orderBO.setOrderNum(Integer.parseInt(benNum));
+        orderBO.setOrderUnit(benDanwei);
+        orderBO.setImageUrl(imageBOS);
+        orderBO.setOrderSpecifications(pingLeiBOS);
+        orderBO.setRemark(beizhu);
+        orderBO.setPlanCompleteDate(orderDate.replaceAll("/", "-"));
+        mPresenter.updateOrder(orderBO);
     }
 
 
@@ -454,7 +536,7 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
             }
             Log.d("拍照返回图片路径:", photoPath);
             showProgress();
-            mPresenter.updateImage(new File(photoPath));
+            mPresenter.updateImage(new File(Objects.requireNonNull(photoPath)));
         } else if (requestCode == 2 && resultCode == RESULT_OK) {
             photoPath = PhotoFromPhotoAlbum.getRealPathFromUri(getActivity(), data.getData());
             showProgress();
@@ -470,9 +552,7 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     @SuppressLint("SimpleDateFormat")
     private void initTimePicker() {
         Calendar startDate = Calendar.getInstance();
-        pvTime = new TimePickerBuilder(getActivity(), (date, v) -> {
-            dateOrder.setText(TimeUtils.date2String(date, format));
-        })
+        pvTime = new TimePickerBuilder(getActivity(), (date, v) -> dateOrder.setText(TimeUtils.date2String(date, format)))
                 .setType(new boolean[]{true, true, true, false, false, false})
                 .isDialog(true) //默认设置false ，内部实现将DecorView 作为它的父控件。
                 .setDate(startDate)
@@ -513,5 +593,29 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     public void updateSourss(String name, String imageUrl) {
         stopProgress();
         addImage(name, imageUrl);
+    }
+
+    @Override
+    public void addSuress(OrderQueryRequest request) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", request.getId());
+        gotoActivity(CreateTaskActivity.class, bundle, true);
+    }
+
+    @Override
+    public void getOrderInfo(OrderInfoBo orderInfoBo) {
+        this.orderInfoBo = orderInfoBo;
+        editKehuJiancheng.setText(orderInfoBo.getOrderInfo().getClientName());
+        editKehuOrdername.setText(orderInfoBo.getOrderInfo().getClientOrderName());
+        editKehuOrdernum.setText(orderInfoBo.getOrderInfo().getClientOrderNum());
+        editBeizhu.setText(orderInfoBo.getOrderInfo().getRemark());
+        editBenDanwei.setText(orderInfoBo.getOrderInfo().getUnit());
+        editBenNum.setText(orderInfoBo.getOrderInfo().getNum());
+        editBenOrderName.setText(orderInfoBo.getOrderInfo().getCompanyOrderName());
+        editBenOrderNum.setText(orderInfoBo.getOrderInfo().getCompanyOrderNum());
+        imageBOS = orderInfoBo.getOrderInfo().getImage();
+        setImageAdapter();
+        pingLeiBOS = orderInfoBo.getOrderSpecifications();
+        setPingLeiAdapter();
     }
 }

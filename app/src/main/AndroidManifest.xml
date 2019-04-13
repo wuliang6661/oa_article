@@ -95,6 +95,16 @@
             android:name=".view.OrderDetailsActivity"
             android:screenOrientation="portrait" />
 
+        <!--接受任务-->
+        <activity
+            android:name=".view.AcceptedTaskActivity"
+            android:screenOrientation="portrait" />
+
+        <!--自己完成-->
+        <activity
+            android:name=".view.MyOrderActivity"
+            android:screenOrientation="portrait" />
+
         <!--扫码上传-->
         <activity
             android:name=".view.PcUpdateAct"

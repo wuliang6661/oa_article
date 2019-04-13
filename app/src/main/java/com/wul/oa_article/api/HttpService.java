@@ -5,17 +5,20 @@ import com.wul.oa_article.bean.BaseResult;
 import com.wul.oa_article.bean.ComplanOrderBo;
 import com.wul.oa_article.bean.HistoryBO;
 import com.wul.oa_article.bean.MyOrderBO;
+import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.SalesBo;
 import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.bean.request.AsseptRequest;
 import com.wul.oa_article.bean.request.ComplayRequest;
 import com.wul.oa_article.bean.request.CreateOrderBO;
 import com.wul.oa_article.bean.request.ForwordPassword;
+import com.wul.oa_article.bean.request.OrderQueryRequest;
 import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.PhoneRequest;
 import com.wul.oa_article.bean.request.RegistUserRequest;
 import com.wul.oa_article.bean.request.SelectRequest;
 import com.wul.oa_article.bean.request.TokenRequest;
+import com.wul.oa_article.bean.request.UpdateOrderRequest;
 import com.wul.oa_article.bean.request.WechatRegisterRequest;
 
 import java.util.List;
@@ -143,7 +146,7 @@ public interface HttpService {
      * 创建订单
      */
     @POST("industry_webservice/app/orderInfo/addOrder")
-    Observable<BaseResult<String>> addOrder(@Body CreateOrderBO createOrderBO);
+    Observable<BaseResult<OrderQueryRequest>> addOrder(@Body CreateOrderBO createOrderBO);
 
     /**
      * 上传图片
@@ -151,5 +154,19 @@ public interface HttpService {
     @Multipart
     @POST("industry_webservice/app/file/fileUploadOss")
     Observable<BaseResult<String>> updateFile(@Part MultipartBody.Part file);
+
+    /**
+     * 编辑订单信息
+     */
+    @POST("industry_webservice/app/orderInfo/updateOrderInfo")
+    Observable<BaseResult<String>> updateOrder(@Body UpdateOrderRequest createOrderBO);
+
+
+    /**
+     * 获取订单基础信息
+     */
+    @POST("industry_webservice/app/orderInfo/getOrderInfo")
+    Observable<BaseResult<OrderInfoBo>> getOrderInfo(@Body OrderQueryRequest request);
+
 
 }

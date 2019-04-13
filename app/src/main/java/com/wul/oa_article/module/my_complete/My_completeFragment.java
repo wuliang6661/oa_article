@@ -1,4 +1,4 @@
-package com.wul.oa_article.module.task_accept;
+package com.wul.oa_article.module.my_complete;
 
 
 import android.os.Bundle;
@@ -12,17 +12,17 @@ import com.wul.oa_article.R;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 
 /**
- * 接受任务
+ * 自己完成模块
  */
 
-public class Task_acceptFragment extends MVPBaseFragment<Task_acceptContract.View, Task_acceptPresenter>
-        implements Task_acceptContract.View {
+public class My_completeFragment extends MVPBaseFragment<My_completeContract.View, My_completePresenter>
+        implements My_completeContract.View {
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fra_accept_task, null);
+        return inflater.inflate(R.layout.fra_my_complete, null);
     }
 
 

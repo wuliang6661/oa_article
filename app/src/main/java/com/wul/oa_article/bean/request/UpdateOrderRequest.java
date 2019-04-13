@@ -1,0 +1,206 @@
+package com.wul.oa_article.bean.request;
+
+import com.wul.oa_article.module.create_order.ImageBO;
+import com.wul.oa_article.module.create_order.PingLeiBO;
+
+import java.util.List;
+
+public class UpdateOrderRequest {
+
+
+    /**
+     * clientCompleteDate : 2019-04-10T13:11:09.496Z
+     * clientName : string
+     * clientNum : 0
+     * clientOrderName : string
+     * clientOrderNum : string
+     * clientUnit : string
+     * companyId : 0
+     * companyOrderName : string
+     * companyOrderNum : string
+     * fileUrl : string
+     * id : 0
+     * imageUrl : string
+     * orderNum : 0
+     * orderSpecifications : [{"createDate":"2019-04-10T13:11:09.496Z","id":0,"name":"string","num":0,"orderId":0,"remark":"string","size":"string","unit":"string","updateDate":"2019-04-10T13:11:09.496Z"}]
+     * orderUnit : string
+     * parentOrderTaskId : 0
+     * planCompleteDate : 2019-04-10T13:11:09.497Z
+     * remark : string
+     * token : string
+     */
+
+    private String clientCompleteDate;
+    private String clientName;
+    private int clientNum;
+    private String clientOrderName;
+    private String clientOrderNum;
+    private String clientUnit;
+    private int companyId;
+    private String companyOrderName;
+    private String companyOrderNum;
+    private String fileUrl;
+    private int id;
+    private List<ImageBO> imageUrl;
+    private int orderNum;
+    private String orderUnit;
+    private int parentOrderTaskId;
+    private String planCompleteDate;
+    private String remark;
+    private String token;
+    private List<PingLeiBO> orderSpecifications;
+
+    public List<PingLeiBO> getOrderSpecifications() {
+        return orderSpecifications;
+    }
+
+    public void setOrderSpecifications(List<PingLeiBO> orderSpecifications) {
+        this.orderSpecifications = orderSpecifications;
+    }
+
+    public String getClientCompleteDate() {
+        return clientCompleteDate;
+    }
+
+    public void setClientCompleteDate(String clientCompleteDate) {
+        this.clientCompleteDate = clientCompleteDate;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    public int getClientNum() {
+        return clientNum;
+    }
+
+    public void setClientNum(int clientNum) {
+        this.clientNum = clientNum;
+    }
+
+    public String getClientOrderName() {
+        return clientOrderName;
+    }
+
+    public void setClientOrderName(String clientOrderName) {
+        this.clientOrderName = clientOrderName;
+    }
+
+    public String getClientOrderNum() {
+        return clientOrderNum;
+    }
+
+    public void setClientOrderNum(String clientOrderNum) {
+        this.clientOrderNum = clientOrderNum;
+    }
+
+    public String getClientUnit() {
+        return clientUnit;
+    }
+
+    public void setClientUnit(String clientUnit) {
+        this.clientUnit = clientUnit;
+    }
+
+    public int getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
+    }
+
+    public String getCompanyOrderName() {
+        return companyOrderName;
+    }
+
+    public void setCompanyOrderName(String companyOrderName) {
+        this.companyOrderName = companyOrderName;
+    }
+
+    public String getCompanyOrderNum() {
+        return companyOrderNum;
+    }
+
+    public void setCompanyOrderNum(String companyOrderNum) {
+        this.companyOrderNum = companyOrderNum;
+    }
+
+    public String getFileUrl() {
+        return fileUrl;
+    }
+
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<ImageBO> getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(List<ImageBO> imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public int getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(int orderNum) {
+        this.orderNum = orderNum;
+    }
+
+    public String getOrderUnit() {
+        return orderUnit;
+    }
+
+    public void setOrderUnit(String orderUnit) {
+        this.orderUnit = orderUnit;
+    }
+
+    public int getParentOrderTaskId() {
+        return parentOrderTaskId;
+    }
+
+    public void setParentOrderTaskId(int parentOrderTaskId) {
+        this.parentOrderTaskId = parentOrderTaskId;
+    }
+
+    public String getPlanCompleteDate() {
+        return planCompleteDate;
+    }
+
+    public void setPlanCompleteDate(String planCompleteDate) {
+        this.planCompleteDate = planCompleteDate;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+
+}

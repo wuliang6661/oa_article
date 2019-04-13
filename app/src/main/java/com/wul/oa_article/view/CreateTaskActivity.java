@@ -35,6 +35,7 @@ public class CreateTaskActivity extends BaseActivity {
     @BindView(R.id.fragment_container)
     FrameLayout fragmentContainer;
 
+    int orderId;
 
     @Override
     protected int getLayout() {
@@ -47,6 +48,7 @@ public class CreateTaskActivity extends BaseActivity {
 
         goBack();
         setTitleText("订单详情");
+        orderId = getIntent().getExtras().getInt("id");
 
         FragmentUtils.replace(getSupportFragmentManager(), new Task_allotFragment(), R.id.task_allot);
     }
@@ -56,7 +58,7 @@ public class CreateTaskActivity extends BaseActivity {
         fragmentContainer.setVisibility(View.VISIBLE);
         kehuMsgBar.setVisibility(View.GONE);
 //        goToFragment(new CreateOrderFragment());
-        FragmentUtils.replace(getSupportFragmentManager(), new CreateOrderFragment(), R.id.fragment_container);
+        FragmentUtils.replace(getSupportFragmentManager(), CreateOrderFragment.newInstance(2, orderId), R.id.fragment_container);
     }
 
 }

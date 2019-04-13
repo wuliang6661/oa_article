@@ -23,7 +23,7 @@ public class CreateActivity extends BaseActivity {
 
         goBack();
         setTitleText("创建订单");
-        FragmentUtils.replace(getSupportFragmentManager(), new CreateOrderFragment(), R.id.fragment_container);
+        FragmentUtils.replace(getSupportFragmentManager(), CreateOrderFragment.newInstance(1, 0), R.id.fragment_container);
     }
 
 }
