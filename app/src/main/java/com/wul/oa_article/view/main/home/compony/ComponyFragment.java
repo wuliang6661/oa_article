@@ -22,6 +22,8 @@ import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.ComplanOrderBo;
 import com.wul.oa_article.bean.request.ComplayRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
+import com.wul.oa_article.view.CreateTaskActivity;
+import com.wul.oa_article.view.OrderDetailsActivity;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
@@ -266,6 +268,16 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
                 }
             }
         };
+        adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", s.get(position).getOrderId());
+            if (s.get(position).getCreateId().equals(MyApplication.userBo.getId())
+                    && s.get(position).getStatus() == 1) {  //如果是当前用户创建,且进行中
+            } else {
+
+            }
+            gotoActivity(CreateTaskActivity.class, bundle, false);
+        });
         recycleView.setAdapter(adapter);
     }
 
@@ -289,6 +301,11 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
                 holder.setText(R.id.order_time, complanOrderBo.getOrderPlanDate());
             }
         };
+        adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", s.get(position).getOrderId());
+            gotoActivity(OrderDetailsActivity.class, bundle, false);
+        });
         recycleView.setAdapter(adapter);
     }
 

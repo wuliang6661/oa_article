@@ -94,22 +94,31 @@
             android:textSize="15sp" />
 
 
-        <TextView
-            android:id="@+id/edit_person_name"
+        <RelativeLayout
+            android:id="@+id/select_person"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:background="@null"
-            android:gravity="center_vertical"
-            android:hint="请选择执行人"
-            android:textColor="@color/white"
-            android:textColorHint="@color/hint_color"
-            android:textSize="15sp" />
+            android:layout_weight="2">
 
-        <ImageView
-            android:layout_width="8dp"
-            android:layout_height="15dp"
-            android:src="@drawable/next_right" />
+
+            <TextView
+                android:id="@+id/person_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="请选择执行人"
+                android:textColor="@color/white"
+                android:textColorHint="@color/hint_color"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/next_right" />
+        </RelativeLayout>
 
 
     </LinearLayout>
@@ -148,6 +157,8 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="请输入分派数量"
+            android:inputType="number"
+            android:maxLength="9"
             android:textColor="@color/white"
             android:textColorHint="@color/hint_color"
             android:textSize="15sp" />
@@ -222,23 +233,31 @@
             android:textSize="15sp" />
 
 
-        <TextView
-            android:id="@+id/edit_date"
+        <RelativeLayout
+            android:id="@+id/select_date"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:background="@null"
-            android:gravity="center_vertical"
-            android:hint="请选择任务时限"
-            android:textColor="@color/white"
-            android:textColorHint="@color/hint_color"
-            android:textSize="15sp" />
+            android:layout_weight="2">
 
 
-        <ImageView
-            android:layout_width="8dp"
-            android:layout_height="15dp"
-            android:src="@drawable/next_right" />
+            <TextView
+                android:id="@+id/date_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="请选择任务时限"
+                android:textColor="@color/white"
+                android:textColorHint="@color/hint_color"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/next_right" />
+        </RelativeLayout>
 
     </LinearLayout>
 

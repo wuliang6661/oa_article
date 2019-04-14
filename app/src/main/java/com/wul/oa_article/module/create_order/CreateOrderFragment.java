@@ -110,10 +110,6 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     TextView dateOrder;
     @BindView(R.id.mianview)
     LinearLayout mainView;
-
-
-    List<PingLeiBO> pingLeiBOS;   //添加的品类列表
-    List<ImageBO> imageBOS;      //添加的图片列表
     @BindView(R.id.kehu_order_check)
     CheckBox kehuOrderCheck;
     @BindView(R.id.ben_check)
@@ -124,21 +120,19 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     CheckBox imageCheck;
     @BindView(R.id.beizhu_check)
     CheckBox beizhuCheck;
+    Unbinder unbinder;
 
     private File cameraSavePath;//拍照照片路径
     private Uri uri;
     private String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     TimePickerView pvTime;
-
     @SuppressLint("SimpleDateFormat")
     DateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-
-    Unbinder unbinder;
-
+    List<PingLeiBO> pingLeiBOS;   //添加的品类列表
+    List<ImageBO> imageBOS;      //添加的图片列表
     private int type = 1;    //1为创建订单   2为编辑订单
     private OrderInfoBo orderInfoBo;
-
 
     private String kehuName;
     private String kehuOrderName;
@@ -290,7 +284,7 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
         orderBO.setCompanyOrderNum(benOrderNum);
         orderBO.setOrderNum(Integer.parseInt(benNum));
         orderBO.setOrderUnit(benDanwei);
-        orderBO.setImageUrl(imageBOS);
+        orderBO.setImages(imageBOS);
         orderBO.setOrderSpecifications(pingLeiBOS);
         orderBO.setRemark(beizhu);
         orderBO.setPlanCompleteDate(orderDate.replaceAll("/", "-"));
@@ -585,11 +579,6 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     }
 
     @Override
-    public void onRequestEnd() {
-
-    }
-
-    @Override
     public void updateSourss(String name, String imageUrl) {
         stopProgress();
         addImage(name, imageUrl);
@@ -602,6 +591,7 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
         gotoActivity(CreateTaskActivity.class, bundle, true);
     }
 
+    @SuppressLint("SimpleDateFormat")
     @Override
     public void getOrderInfo(OrderInfoBo orderInfoBo) {
         this.orderInfoBo = orderInfoBo;
@@ -610,12 +600,18 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
         editKehuOrdernum.setText(orderInfoBo.getOrderInfo().getClientOrderNum());
         editBeizhu.setText(orderInfoBo.getOrderInfo().getRemark());
         editBenDanwei.setText(orderInfoBo.getOrderInfo().getUnit());
-        editBenNum.setText(orderInfoBo.getOrderInfo().getNum());
+        editBenNum.setText(orderInfoBo.getOrderInfo().getNum() + "");
         editBenOrderName.setText(orderInfoBo.getOrderInfo().getCompanyOrderName());
         editBenOrderNum.setText(orderInfoBo.getOrderInfo().getCompanyOrderNum());
         imageBOS = orderInfoBo.getOrderInfo().getImage();
+        dateOrder.setText(TimeUtils.millis2String(orderInfoBo.getOrderInfo().getPlanCompleteDate(), new SimpleDateFormat("yyyy/MM/dd")));
         setImageAdapter();
         pingLeiBOS = orderInfoBo.getOrderSpecifications();
         setPingLeiAdapter();
+    }
+
+    @Override
+    public void updateSuress() {
+        showToast("修改成功！");
     }
 }

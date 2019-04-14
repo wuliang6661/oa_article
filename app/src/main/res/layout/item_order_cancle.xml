@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#1F1F20"
@@ -26,6 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#E6E5E5"
+                android:singleLine="true"
                 android:textSize="14sp"
                 tools:text="商品名称" />
 
@@ -35,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textColor="#8D8C91"
+                android:singleLine="true"
                 android:textSize="11sp"
                 tools:text="订单编号" />
 
@@ -56,6 +59,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#E6E5E5"
                 android:textSize="14sp"
+                android:singleLine="true"
                 tools:text="采购方式" />
 
             <TextView
@@ -65,6 +69,7 @@
                 android:layout_marginTop="8dp"
                 android:textColor="#8D8C91"
                 android:textSize="11sp"
+                android:singleLine="true"
                 tools:text="已完成" />
 
 

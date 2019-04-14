@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                android:text="待接单"
+                android:text="待接受"
                 android:textColor="#656565"
                 android:textSize="16sp" />
 

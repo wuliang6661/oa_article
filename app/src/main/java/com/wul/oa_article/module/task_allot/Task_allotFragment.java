@@ -17,12 +17,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wul.oa_article.R;
+import com.wul.oa_article.bean.request.AddTaskRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.widget.SlideRecyclerView;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -62,6 +62,16 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     Unbinder unbinder;
 
     private boolean isShunYan = true;  //默认是一键顺延
+    private List<AddTaskRequest.OrderTasksBean> tasks;
+
+
+    public static Task_allotFragment newInstance(List<AddTaskRequest.OrderTasksBean> tasks) {
+        Task_allotFragment fragment = new Task_allotFragment();
+        Bundle bundle = new Bundle();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
 
     @Nullable
     @Override
@@ -140,21 +150,19 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
      * 设置任务列表布局
      */
     private void setTaskAdapter() {
-        List<String> list = new ArrayList<>();
-        list.add("1");
-        list.add("1");
-        list.add("1");
-        list.add("1");
-        LGRecycleViewAdapter<String> adapter = new LGRecycleViewAdapter<String>(list) {
-            @Override
-            public int getLayoutId(int viewType) {
-                return R.layout.item_task_layout;
-            }
+        LGRecycleViewAdapter<AddTaskRequest.OrderTasksBean> adapter =
+                new LGRecycleViewAdapter<AddTaskRequest.OrderTasksBean>(tasks) {
+                    @Override
+                    public int getLayoutId(int viewType) {
+                        return R.layout.item_task_layout;
+                    }
 
-            @Override
-            public void convert(LGViewHolder holder, String s, int position) {
-            }
-        };
+                    @Override
+                    public void convert(LGViewHolder holder, AddTaskRequest.OrderTasksBean s, int position) {
+
+
+                    }
+                };
         adapter.setOnItemClickListener(R.id.tv_delete, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {

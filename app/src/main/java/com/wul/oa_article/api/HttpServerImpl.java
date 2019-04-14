@@ -240,4 +240,11 @@ public class HttpServerImpl {
         return getService().getOrderInfo(request).compose(RxResultHelper.httpRusult());
     }
 
+    /**
+     * 取消订单
+     */
+    public static Observable<String> cancleOrder(OrderQueryRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().cancleOrder(request).compose(RxResultHelper.httpRusult());
+    }
 }

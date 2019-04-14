@@ -2,6 +2,11 @@ package com.wul.oa_article.api.http;
 
 import com.wul.oa_article.api.ApiManager;
 import com.wul.oa_article.api.HttpService;
+import com.wul.oa_article.base.MyApplication;
+import com.wul.oa_article.bean.request.AddTaskRequest;
+import com.wul.oa_article.util.rx.RxResultHelper;
+
+import rx.Observable;
 
 
 /**
@@ -21,8 +26,13 @@ public class TaskServiceImpl {
     }
 
 
-
-
+    /**
+     * 分派任务
+     */
+    public static Observable<String> addTaskByOrder(AddTaskRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().addTaskByOrder(request).compose(RxResultHelper.httpRusult());
+    }
 
 
 }

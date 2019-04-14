@@ -265,19 +265,29 @@
                 android:textSize="15sp" />
 
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:gravity="center_vertical"
-                android:textColor="#F3F1F1"
-                android:textSize="15sp"
-                tools:text="这个单子很重要哦！" />
+                android:layout_weight="3">
 
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/edit_task_num" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textColor="#F3F1F1"
+                    android:textSize="15sp"
+                    tools:text="这个单子很重要哦！" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/edit_task_num" />
+
+
+            </RelativeLayout>
 
 
         </LinearLayout>

@@ -20,6 +20,8 @@ public class CreateOrderContract {
 
         void getOrderInfo(OrderInfoBo orderInfoBo);
 
+        void updateSuress();
+
     }
 
     interface Presenter extends BasePresenter<View> {

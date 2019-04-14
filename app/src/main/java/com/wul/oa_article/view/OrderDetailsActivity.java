@@ -13,7 +13,6 @@ import com.wul.oa_article.R;
 import com.wul.oa_article.base.BaseActivity;
 import com.wul.oa_article.module.order_details.Order_detailsFragment;
 import com.wul.oa_article.module.task_allot.Task_allotFragment;
-import com.wul.oa_article.mvp.MVPBaseActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -42,6 +41,9 @@ public class OrderDetailsActivity extends BaseActivity {
     @BindView(R.id.shangji_layout)
     LinearLayout shangjiLayout;
 
+    boolean isCreate = false;   //默认当前订单不是当前用户创建
+    int orderId;
+
     @Override
     protected int getLayout() {
         return R.layout.act_order_details;
@@ -52,8 +54,12 @@ public class OrderDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         goBack();
         setTitleText("订单详情");
-
-        FragmentUtils.replace(getSupportFragmentManager(), new Order_detailsFragment(), R.id.order_details);
+//        isCreate = getIntent().getExtras().getBoolean("isCreate", false);
+        orderId = getIntent().getExtras().getInt("id");
+//        if (isCreate) {
+//            FragmentUtils.replace(getSupportFragmentManager(), CreateOrderFragment.newInstance(2, orderId), R.id.order_details);
+//        }
+        FragmentUtils.replace(getSupportFragmentManager(), Order_detailsFragment.newInstance(orderId), R.id.order_details);
         FragmentUtils.replace(getSupportFragmentManager(), new Task_allotFragment(), R.id.task_allot);
     }
 

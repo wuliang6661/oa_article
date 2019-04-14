@@ -110,6 +110,11 @@
             android:name=".view.PcUpdateAct"
             android:screenOrientation="portrait" />
 
+        <!--人员列表-->
+        <activity
+            android:name=".view.SelectPersonAct"
+            android:screenOrientation="portrait" />
+
         <!--扫一扫-->
         <activity android:name=".zxing.activity.CaptureActivity" />
 

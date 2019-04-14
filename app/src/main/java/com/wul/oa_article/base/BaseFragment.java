@@ -91,4 +91,7 @@ public abstract class BaseFragment extends SupportFragment {
         ToastUtils.showShort(message);
     }
 
+    public void onRequestEnd() {
+
+    }
 }

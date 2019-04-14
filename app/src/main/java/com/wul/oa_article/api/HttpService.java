@@ -168,5 +168,11 @@ public interface HttpService {
     @POST("industry_webservice/app/orderInfo/getOrderInfo")
     Observable<BaseResult<OrderInfoBo>> getOrderInfo(@Body OrderQueryRequest request);
 
+    /**
+     * 取消订单
+     */
+    @POST("industry_webservice/app/orderInfo/deleteOrderInfo")
+    Observable<BaseResult<String>> cancleOrder(@Body OrderQueryRequest request);
+
 
 }

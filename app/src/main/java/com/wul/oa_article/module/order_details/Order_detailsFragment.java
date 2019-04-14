@@ -11,11 +11,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wul.oa_article.R;
+import com.wul.oa_article.bean.OrderInfoBo;
+import com.wul.oa_article.module.create_order.ImageBO;
+import com.wul.oa_article.module.create_order.PingLeiBO;
 import com.wul.oa_article.mvp.MVPBaseFragment;
+import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
+import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
+
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,6 +66,21 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
     @BindView(R.id.kehu_order_layout)
     LinearLayout kehuOrderLayout;
     Unbinder unbinder;
+    @BindView(R.id.order_status_img)
+    ImageView orderStatusImg;
+
+    List<PingLeiBO> pingLeiBOS;   //添加的品类列表
+    List<ImageBO> imageBOS;      //添加的图片列表
+    private int orderId;
+
+    public static Order_detailsFragment newInstance(int orderId) {
+        Order_detailsFragment fragment = new Order_detailsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("orderId", orderId);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
 
     @Nullable
     @Override
@@ -71,6 +95,10 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
+
+        orderId = getArguments().getInt("orderId");
+        showProgress();
+        mPresenter.getOrderInfo(orderId);
     }
 
 
@@ -105,5 +133,81 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+
+    /**
+     * 设置品类列表显示
+     */
+    private void setPingLeiAdapter() {
+        LGRecycleViewAdapter<PingLeiBO> adapter = new LGRecycleViewAdapter<PingLeiBO>(pingLeiBOS) {
+            @Override
+            public int getLayoutId(int viewType) {
+                return R.layout.item_orderdetails_chicun;
+            }
+
+            @Override
+            public void convert(LGViewHolder holder, PingLeiBO pingLeiBO, int position) {
+                holder.setText(R.id.name, pingLeiBO.name);
+                holder.setText(R.id.guige, pingLeiBO.size);
+                holder.setText(R.id.num, pingLeiBO.num);
+                holder.setText(R.id.danwei, pingLeiBO.unit);
+            }
+        };
+        chicunRecycleView.setAdapter(adapter);
+    }
+
+    /**
+     * 设置图片显示
+     */
+    private void setImageAdapter() {
+        LGRecycleViewAdapter<ImageBO> adapter = new LGRecycleViewAdapter<ImageBO>(imageBOS) {
+            @Override
+            public int getLayoutId(int viewType) {
+                return R.layout.item_add_image;
+            }
+
+            @Override
+            public void convert(LGViewHolder holder, ImageBO imageBO, int position) {
+                holder.getView(R.id.delete_img).setVisibility(View.GONE);
+                holder.setImageUrl(getActivity(), R.id.image, imageBO.url);
+                holder.setText(R.id.edit_image_name, imageBO.name);
+            }
+        };
+        imageRecycle.setAdapter(adapter);
+    }
+
+
+    @Override
+    public void getOrderInfo(OrderInfoBo infoBo) {
+        stopProgress();
+        createName.setText(infoBo.getOrderInfo().getNickName());
+        kehuName.setText(infoBo.getOrderInfo().getClientName());
+        kehuOrderName.setText(infoBo.getOrderInfo().getClientOrderName());
+        kehuOrderNum.setText(infoBo.getOrderInfo().getClientOrderNum());
+        orderDanwei.setText(infoBo.getOrderInfo().getUnit());
+        orderNum.setText(infoBo.getOrderInfo().getNum() + "");
+        orderDate.setText(com.blankj.utilcode.util.TimeUtils.millis2String(infoBo.getOrderInfo()
+                .getPlanCompleteDate(), new SimpleDateFormat("yyyy/MM/dd")));
+        beizhu.setText(infoBo.getOrderInfo().getRemark());
+        this.pingLeiBOS = infoBo.getOrderSpecifications();
+        this.imageBOS = infoBo.getOrderInfo().getImage();
+        if (infoBo.getOrderInfo().getStatus() == 1) {
+            orderStatusImg.setVisibility(View.GONE);
+        } else if (infoBo.getOrderInfo().getStatus() == 2) {
+            orderStatusImg.setVisibility(View.VISIBLE);
+            orderStatusImg.setImageResource(R.drawable.order_suress_bigimg);
+        } else if (infoBo.getOrderInfo().getStatus() == 3) {
+            orderStatusImg.setVisibility(View.VISIBLE);
+            orderStatusImg.setImageResource(R.drawable.order_cancle_bigimg);
+        }
+        setPingLeiAdapter();
+        setImageAdapter();
+    }
+
+    @Override
+    public void onRequestError(String msg) {
+        stopProgress();
+        showToast(msg);
     }
 }

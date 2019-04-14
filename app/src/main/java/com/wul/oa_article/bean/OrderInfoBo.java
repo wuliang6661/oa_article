@@ -66,6 +66,15 @@ public class OrderInfoBo {
         private String unit;
         private int userId;
         private List<ImageBO> image;
+        private String nickName;
+
+        public String getNickName() {
+            return nickName;
+        }
+
+        public void setNickName(String nickName) {
+            this.nickName = nickName;
+        }
 
         public String getClientName() {
             return clientName;

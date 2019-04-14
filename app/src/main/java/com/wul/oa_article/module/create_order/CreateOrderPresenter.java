@@ -67,7 +67,9 @@ public class CreateOrderPresenter extends BasePresenterImpl<CreateOrderContract.
         HttpServerImpl.updateOrder(orderBO).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
-
+                if (mView != null) {
+                    mView.updateSuress();
+                }
             }
 
             @Override

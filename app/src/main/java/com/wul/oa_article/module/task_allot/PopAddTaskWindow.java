@@ -1,44 +1,49 @@
 package com.wul.oa_article.module.task_allot;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.view.EditPhotoNamePop;
+import com.wul.oa_article.view.SelectPersonAct;
+import com.wul.oa_article.widget.DateDialog;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class PopAddTaskWindow extends PopupWindow {
 
     private Activity activity;
+    View dialogView;
 
     private Button commit;
     private TextView cancle;
 
+    private EditText taskName;
+    private RelativeLayout selectPerson;
+    private EditText fenpaiNum;
+    private EditText danwei;
+    private RelativeLayout selectDate;
+    private EditText remark;
+    private TextView dateText;
+    private TextView personName;
+
     public PopAddTaskWindow(Activity activity) {
         super(activity);
 
+        EventBus.getDefault().register(this);
         this.activity = activity;
-        View dialogView = activity.getLayoutInflater().inflate(R.layout.pop_add_task, null);
-        commit = dialogView.findViewById(R.id.next_button);
-        cancle = dialogView.findViewById(R.id.cancle);
-        commit.setOnClickListener(v -> {
-            String name = "";
-            if (StringUtils.isEmpty(name)) {
-                ToastUtils.showShort("请输入图片名称!");
-            } else {
-                if (listener != null) {
-                    listener.commit(name);
-                }
-                dismiss();
-            }
-        });
-        cancle.setOnClickListener(v -> dismiss());
+        dialogView = activity.getLayoutInflater().inflate(R.layout.pop_add_task, null);
+        initView();
 
         this.setBackgroundDrawable(new ColorDrawable(0));
         this.setContentView(dialogView);
@@ -55,7 +60,71 @@ public class PopAddTaskWindow extends PopupWindow {
         // ColorDrawable dw = new ColorDrawable(0x808080);
         //设置SelectPicPopupWindow弹出窗体的背景
         // this.setBackgroundDrawable(dw);
-        this.setOnDismissListener(() -> backgroundAlpha(1f));
+        this.setOnDismissListener(() -> {
+            backgroundAlpha(1f);
+            EventBus.getDefault().unregister(this);
+        });
+    }
+
+
+    /**
+     * 初始化布局
+     */
+    private void initView() {
+        commit = dialogView.findViewById(R.id.next_button);
+        cancle = dialogView.findViewById(R.id.cancle);
+        taskName = dialogView.findViewById(R.id.edit_task_name);
+        selectPerson = dialogView.findViewById(R.id.select_person);
+        selectDate = dialogView.findViewById(R.id.select_date);
+        fenpaiNum = dialogView.findViewById(R.id.edit_fenpai_num);
+        danwei = dialogView.findViewById(R.id.edit_danwei);
+        remark = dialogView.findViewById(R.id.edit_beizhu);
+        dateText = dialogView.findViewById(R.id.date_text);
+        personName = dialogView.findViewById(R.id.person_name);
+
+        commit.setOnClickListener(clickListener);
+        cancle.setOnClickListener(clickListener);
+        selectPerson.setOnClickListener(clickListener);
+        selectDate.setOnClickListener(clickListener);
+    }
+
+
+    View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.next_button:
+                    String strTaskName = taskName.getText().toString().trim();
+                    String strDate = dateText.getText().toString().trim();
+                    String num= fenpaiNum.getText().toString().trim();
+
+//                    if (StringUtils.isEmpty(name)) {
+//                        ToastUtils.showShort("请输入图片名称!");
+//                    } else {
+//                        if (listener != null) {
+//                            listener.commit(name);
+//                        }
+//                        dismiss();
+//                    }
+                    break;
+                case R.id.cancle:
+                    dismiss();
+                    break;
+                case R.id.select_person:
+                    Intent intent = new Intent(activity, SelectPersonAct.class);
+                    activity.startActivity(intent);
+                    break;
+                case R.id.select_date:
+                    DateDialog.show(activity, dateText);
+                    break;
+            }
+        }
+    };
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(String a) {
+
     }
 
 

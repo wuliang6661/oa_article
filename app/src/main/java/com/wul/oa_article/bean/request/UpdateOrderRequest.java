@@ -41,7 +41,7 @@ public class UpdateOrderRequest {
     private String companyOrderNum;
     private String fileUrl;
     private int id;
-    private List<ImageBO> imageUrl;
+    private List<ImageBO> images;
     private int orderNum;
     private String orderUnit;
     private int parentOrderTaskId;
@@ -146,12 +146,12 @@ public class UpdateOrderRequest {
         this.id = id;
     }
 
-    public List<ImageBO> getImageUrl() {
-        return imageUrl;
+    public List<ImageBO> getImages() {
+        return images;
     }
 
-    public void setImageUrl(List<ImageBO> imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImages(List<ImageBO> imageUrl) {
+        this.images = imageUrl;
     }
 
     public int getOrderNum() {
