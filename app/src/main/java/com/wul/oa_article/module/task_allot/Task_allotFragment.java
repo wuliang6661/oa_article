@@ -17,12 +17,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wul.oa_article.R;
+import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.request.AddTaskRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.widget.SlideRecyclerView;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -63,11 +65,14 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
 
     private boolean isShunYan = true;  //默认是一键顺延
     private List<AddTaskRequest.OrderTasksBean> tasks;
+    private int orderId;
+    private int type = 0;   //默认可编辑
 
-
-    public static Task_allotFragment newInstance(List<AddTaskRequest.OrderTasksBean> tasks) {
+    public static Task_allotFragment newInstance(int type, int orderId) {
         Task_allotFragment fragment = new Task_allotFragment();
         Bundle bundle = new Bundle();
+        bundle.putInt("orderId", orderId);
+        bundle.putInt("type", type);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -86,6 +91,8 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        orderId = getArguments().getInt("orderId");
+        tasks = new ArrayList<>();
         initView();
     }
 
@@ -135,12 +142,30 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 break;
             case R.id.continue_add:    //添加任务(显示添加任务弹窗)
                 PopAddTaskWindow window = new PopAddTaskWindow(getActivity());
+                window.setListener((name, num, danwei, personId, date, remark) -> {
+                    AddTaskRequest.OrderTasksBean bean = new AddTaskRequest.OrderTasksBean();
+                    bean.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+                    bean.setPlanCompleteDate(date.replaceAll("/", "-"));
+                    bean.setPlanNum(Integer.parseInt(num));
+                    bean.setRemark(remark);
+                    bean.setTaskName(name);
+                    bean.setUnit(danwei);
+                    bean.setTaskType(0);
+                    tasks.add(bean);
+                    setTaskAdapter();
+                });
                 window.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.task_suress:   //完成
+
                 isShunYan = false;
                 taskRightButton.setText("任务编辑");
                 addTaskLayout.setVisibility(View.GONE);
+                AddTaskRequest request = new AddTaskRequest();
+                request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+                request.setObjectId(orderId);
+                request.setOrderTasks(tasks);
+                mPresenter.addTaskByOrder(request);
                 break;
         }
     }
@@ -159,8 +184,11 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
 
                     @Override
                     public void convert(LGViewHolder holder, AddTaskRequest.OrderTasksBean s, int position) {
-
-
+                        holder.setText(R.id.task_name, s.getTaskName());
+//                        holder.setText(R.id.task_person_name,);
+                        holder.setText(R.id.task_shiji_num, "--");
+                        holder.setText(R.id.task_jihua_num, s.getPlanNum() + "/" + s.getUnit());
+                        holder.setText(R.id.task_date, s.getPlanCompleteDate().replaceAll("-", "/"));
                     }
                 };
         adapter.setOnItemClickListener(R.id.tv_delete, new LGRecycleViewAdapter.ItemClickListener() {
@@ -176,5 +204,10 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onRequestError(String msg) {
+        showToast(msg);
     }
 }

@@ -61,7 +61,7 @@ public class CreateTaskActivity extends BaseActivity {
         orderId = getIntent().getExtras().getInt("id");
         btnAlbum.setText("取消订单");
         btnAlbum.setVisibility(View.VISIBLE);
-        FragmentUtils.replace(getSupportFragmentManager(), new Task_allotFragment(), R.id.task_allot);
+        FragmentUtils.replace(getSupportFragmentManager(), Task_allotFragment.newInstance(0, orderId), R.id.task_allot);
     }
 
     @OnClick(R.id.kehu_msg_bar)

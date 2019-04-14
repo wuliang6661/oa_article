@@ -1,21 +1,20 @@
 package com.wul.oa_article.module.task_allot;
 
-import android.content.Context;
-
 import com.wul.oa_article.mvp.BasePresenter;
-import com.wul.oa_article.mvp.BaseView;
+import com.wul.oa_article.mvp.BaseRequestView;
 
 /**
  * MVPPlugin
- *  邮箱 784787081@qq.com
+ * 邮箱 784787081@qq.com
  */
 
 public class Task_allotContract {
-    interface View extends BaseView {
-        
+    interface View extends BaseRequestView {
+
+
     }
 
-    interface  Presenter extends BasePresenter<View> {
-        
+    interface Presenter extends BasePresenter<View> {
+
     }
 }

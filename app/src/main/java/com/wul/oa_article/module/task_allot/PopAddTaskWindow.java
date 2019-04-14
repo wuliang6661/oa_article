@@ -11,8 +11,10 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.wul.oa_article.R;
-import com.wul.oa_article.view.EditPhotoNamePop;
+import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.view.SelectPersonAct;
 import com.wul.oa_article.widget.DateDialog;
 
@@ -96,16 +98,33 @@ public class PopAddTaskWindow extends PopupWindow {
                 case R.id.next_button:
                     String strTaskName = taskName.getText().toString().trim();
                     String strDate = dateText.getText().toString().trim();
-                    String num= fenpaiNum.getText().toString().trim();
-
-//                    if (StringUtils.isEmpty(name)) {
-//                        ToastUtils.showShort("请输入图片名称!");
-//                    } else {
-//                        if (listener != null) {
-//                            listener.commit(name);
-//                        }
-//                        dismiss();
-//                    }
+                    String num = fenpaiNum.getText().toString().trim();
+                    String strDanwei = danwei.getText().toString().trim();
+                    String strRemark = remark.getText().toString().trim();
+                    if (StringUtils.isEmpty(strTaskName)) {
+                        ToastUtils.showShort("请输入任务名称!");
+                        return;
+                    }
+                    if (StringUtils.isEmpty(num)) {
+                        ToastUtils.showShort("请输入分派数量!");
+                        return;
+                    }
+                    if (StringUtils.isEmpty(strDanwei)) {
+                        ToastUtils.showShort("请输入单位!");
+                        return;
+                    }
+                    if (StringUtils.isEmpty(strDate)) {
+                        ToastUtils.showShort("请选择任务时限!");
+                        return;
+                    }
+                    if (StringUtils.isEmpty(strDate)) {
+                        ToastUtils.showShort("请选择任务时限!");
+                        return;
+                    }
+                    if (listener != null) {
+                        listener.commit(strTaskName, num, strDanwei, MyApplication.userBo.getId() + "", strDate, strRemark);
+                    }
+                    dismiss();
                     break;
                 case R.id.cancle:
                     dismiss();
@@ -148,15 +167,15 @@ public class PopAddTaskWindow extends PopupWindow {
     }
 
 
-    private EditPhotoNamePop.onCommitListener listener;
+    private onCommitListener listener;
 
-    public void setListener(EditPhotoNamePop.onCommitListener listener) {
+    public void setListener(onCommitListener listener) {
         this.listener = listener;
     }
 
     public interface onCommitListener {
 
-        void commit(String text);
+        void commit(String name, String num, String danwei, String personId, String date, String remark);
     }
 
 }
