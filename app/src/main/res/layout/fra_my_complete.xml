@@ -96,7 +96,7 @@
 
 
             <TextView
-                android:id="@+id/task_date"
+                android:id="@+id/task_person"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -130,7 +130,7 @@
 
 
             <TextView
-                android:id="@+id/task_person_name"
+                android:id="@+id/task_num"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -165,6 +165,7 @@
 
 
             <TextView
+                android:id="@+id/task_danwei"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -198,6 +199,7 @@
 
 
             <TextView
+                android:id="@+id/task_date"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -231,6 +233,7 @@
 
 
             <TextView
+                android:id="@+id/task_remart"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -272,6 +275,7 @@
 
 
                 <TextView
+                    android:id="@+id/task_all_num"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
@@ -280,6 +284,7 @@
                     tools:text="这个单子很重要哦！" />
 
                 <ImageView
+                    android:id="@+id/task_num_edit"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_alignParentRight="true"

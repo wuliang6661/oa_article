@@ -12,7 +12,9 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -187,6 +189,10 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
         recycleView.setLayoutManager(manager);
         recycleView.setNestedScrollingEnabled(false);
 
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+        itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.divider_inset));
+        recycleView.addItemDecoration(itemDecoration);
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         gridLayoutManager.setSmoothScrollbarEnabled(true);
         imageRecycle.setHasFixedSize(true);
@@ -297,33 +303,37 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
      */
     @OnClick(R.id.add_pinglei)
     public void addPingLei() {
-        String pingName = editPingleiName.getText().toString().trim();
-        String pingGuige = editPingleiGuige.getText().toString().trim();
-        String pingNum = editPingleiNum.getText().toString().trim();
-        String pingDanWei = editPingleiDanwei.getText().toString().trim();
-        if (StringUtils.isEmpty(pingName)) {
-            showToast("请输入自定义名称！");
-            return;
-        }
-        if (StringUtils.isEmpty(pingGuige)) {
-            showToast("请输入规格！");
-            return;
-        }
-        if (StringUtils.isEmpty(pingNum)) {
-            showToast("请输入数量！");
-            return;
-        }
-        if (StringUtils.isEmpty(pingDanWei)) {
-            showToast("请输入单位！");
-            return;
-        }
-        editPingleiName.setText("");
-        editPingleiGuige.setText("");
-        editPingleiNum.setText("");
-        editPingleiDanwei.setText("");
-        PingLeiBO pingLeiBO = new PingLeiBO(pingName, pingGuige, pingNum, pingDanWei);
-        pingLeiBOS.add(pingLeiBO);
-        setPingLeiAdapter();
+//        String pingName = editPingleiName.getText().toString().trim();
+//        String pingGuige = editPingleiGuige.getText().toString().trim();
+//        String pingNum = editPingleiNum.getText().toString().trim();
+//        String pingDanWei = editPingleiDanwei.getText().toString().trim();
+//        if (StringUtils.isEmpty(pingName)) {
+//            showToast("请输入自定义名称！");
+//            return;
+//        }
+//        if (StringUtils.isEmpty(pingGuige)) {
+//            showToast("请输入规格！");
+//            return;
+//        }
+//        if (StringUtils.isEmpty(pingNum)) {
+//            showToast("请输入数量！");
+//            return;
+//        }
+//        if (StringUtils.isEmpty(pingDanWei)) {
+//            showToast("请输入单位！");
+//            return;
+//        }
+//        editPingleiName.setText("");
+//        editPingleiGuige.setText("");
+//        editPingleiNum.setText("");
+//        editPingleiDanwei.setText("");
+        PopAddPinleiWindow window = new PopAddPinleiWindow(getActivity(), null, null, null, null);
+        window.setListener((name, num, guige, danwei) -> {
+            PingLeiBO pingLeiBO = new PingLeiBO(name, guige, num, danwei);
+            pingLeiBOS.add(pingLeiBO);
+            setPingLeiAdapter();
+        });
+        window.showAtLocation(Objects.requireNonNull(getActivity()).getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
     }
 
 
@@ -345,6 +355,17 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
                 holder.setText(R.id.pinglei_danwei, pingLeiBO.unit);
             }
         };
+        adapter.setOnItemClickListener(R.id.add_layout, (view, position) -> {
+            PingLeiBO pingLeiBO = pingLeiBOS.get(position);
+            PopAddPinleiWindow window = new PopAddPinleiWindow(getActivity(), pingLeiBO.name, pingLeiBO.num, pingLeiBO.size, pingLeiBO.unit);
+            window.setListener((name, num, guige, danwei) -> {
+                PingLeiBO pingLeiBO1 = new PingLeiBO(name, guige, num, danwei);
+                pingLeiBOS.set(position, pingLeiBO1);
+                setPingLeiAdapter();
+            });
+            window.showAtLocation(Objects.requireNonNull(getActivity()).getWindow().getDecorView(),
+                    Gravity.BOTTOM, 0, 0);
+        });
         recycleView.setAdapter(adapter);
     }
 

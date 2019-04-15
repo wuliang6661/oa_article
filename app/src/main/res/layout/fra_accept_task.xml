@@ -32,6 +32,7 @@
 
 
         <CheckBox
+            android:id="@+id/task_check"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginLeft="5dp"
@@ -49,6 +50,7 @@
 
 
     <LinearLayout
+        android:id="@+id/task_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/task_bar"
@@ -73,6 +75,7 @@
 
 
             <TextView
+                android:id="@+id/task_name"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -106,6 +109,7 @@
 
 
             <TextView
+                android:id="@+id/task_person"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -139,6 +143,7 @@
 
 
             <TextView
+                android:id="@+id/task_num"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -173,6 +178,7 @@
 
 
             <TextView
+                android:id="@+id/task_danwei"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -206,6 +212,7 @@
 
 
             <TextView
+                android:id="@+id/task_date"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -239,6 +246,7 @@
 
 
             <TextView
+                android:id="@+id/task_remart"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -262,6 +270,43 @@
         android:background="@drawable/button_bg"
         android:text="接受任务"
         android:textColor="@color/text_white"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:visibility="visible" />
+
+
+    <LinearLayout
+        android:id="@+id/buttom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/my_suress"
+            android:layout_width="0dp"
+            android:layout_height="43dp"
+            android:layout_marginRight="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_bg"
+            android:text="自己完成"
+            android:textColor="@color/text_white"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/task_fenpai"
+            android:layout_width="0dp"
+            android:layout_height="43dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_bg"
+            android:text="分派任务"
+            android:textColor="@color/text_white"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
 
 </RelativeLayout>

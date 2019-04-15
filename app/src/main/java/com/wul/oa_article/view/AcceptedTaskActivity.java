@@ -42,6 +42,8 @@ public class AcceptedTaskActivity extends BaseActivity {
     @BindView(R.id.accept_task)
     FrameLayout acceptTask;
 
+    private int taskId;
+
     @Override
     protected int getLayout() {
         return R.layout.act_accepted_task;
@@ -54,6 +56,8 @@ public class AcceptedTaskActivity extends BaseActivity {
 
         goBack();
         setTitleText("接受任务");
+
+        taskId = getIntent().getExtras().getInt("taskId");
 
         FragmentUtils.replace(getSupportFragmentManager(), new Order_detailsFragment(), R.id.order_details);
         FragmentUtils.replace(getSupportFragmentManager(), new Task_acceptFragment(), R.id.accept_task);

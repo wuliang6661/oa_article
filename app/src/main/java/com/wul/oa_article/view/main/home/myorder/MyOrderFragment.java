@@ -273,6 +273,14 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                 }
             }
         };
+        adapter.setOnItemClickListener(R.id.item_layout, new LGRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClicked(View view, int i) {
+//                if (position == 2&& s.get(i).getUserId()) {   //我分派的，则需要跳入
+//
+//                }
+            }
+        });
         recycleView.setAdapter(adapter);
     }
 

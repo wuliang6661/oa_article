@@ -580,7 +580,8 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="18dp"
-                android:paddingRight="18dp">
+                android:paddingRight="18dp"
+                android:visibility="gone">
 
 
                 <EditText
@@ -672,7 +673,8 @@
                 android:layout_height="1px"
                 android:layout_marginLeft="18dp"
                 android:layout_marginRight="18dp"
-                android:background="#2b2b2b" />
+                android:background="#2b2b2b"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/add_pinglei"

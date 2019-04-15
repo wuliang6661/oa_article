@@ -273,10 +273,10 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
             bundle.putInt("id", s.get(position).getOrderId());
             if (s.get(position).getCreateId().equals(MyApplication.userBo.getId())
                     && s.get(position).getStatus() == 1) {  //如果是当前用户创建,且进行中
+                gotoActivity(CreateTaskActivity.class, bundle, false);
             } else {
-
+                gotoActivity(OrderDetailsActivity.class, bundle, false);
             }
-            gotoActivity(CreateTaskActivity.class, bundle, false);
         });
         recycleView.setAdapter(adapter);
     }

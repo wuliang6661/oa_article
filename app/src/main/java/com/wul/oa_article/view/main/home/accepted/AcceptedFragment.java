@@ -18,6 +18,7 @@ import com.wul.oa_article.bean.AcceptedOrderBo;
 import com.wul.oa_article.bean.event.MsgNumEvent;
 import com.wul.oa_article.bean.request.AsseptRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
+import com.wul.oa_article.view.AcceptedTaskActivity;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
@@ -130,6 +131,18 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
                 holder.setText(R.id.task_time, acceptedOrderBo.getPlanCompleteDate().replaceAll("-", "/"));
             }
         };
+        adapter.setOnItemClickListener(R.id.item_layout, new LGRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                if (s.get(position).getTaskType() == 1) {   //外部订单
+
+                } else {   //内部订单，跳转至接受订单页
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("taskId", s.get(position).getTaskId());
+                    gotoActivity(AcceptedTaskActivity.class, bundle, false);
+                }
+            }
+        });
         recycleView.setAdapter(adapter);
     }
 
