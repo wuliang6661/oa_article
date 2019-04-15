@@ -2,6 +2,7 @@ package com.wul.oa_article.api.http;
 
 import com.wul.oa_article.bean.BaseResult;
 import com.wul.oa_article.bean.request.AddTaskRequest;
+import com.wul.oa_article.bean.request.TaskModeRequest;
 
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -16,6 +17,11 @@ public interface TaskService {
     Observable<BaseResult<String>> addTaskByOrder(@Body AddTaskRequest request);
 
 
+    /**
+     * 任务是自己完成还是向下分配
+     */
+    @POST("industry_webservice/app/orderTask/addOrderTaskByAcceptToTask")
+    Observable<BaseResult<String>> setTaskMode(@Body TaskModeRequest request);
 
 
 }

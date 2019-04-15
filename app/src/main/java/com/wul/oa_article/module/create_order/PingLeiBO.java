@@ -1,6 +1,8 @@
 package com.wul.oa_article.module.create_order;
 
-public class PingLeiBO {
+import java.io.Serializable;
+
+public class PingLeiBO implements Serializable {
 
     public PingLeiBO(String name, String guige, String num, String danwei) {
         this.name = name;

@@ -59,7 +59,7 @@ public class OrderDetailsActivity extends BaseActivity {
 //        if (isCreate) {
 //            FragmentUtils.replace(getSupportFragmentManager(), CreateOrderFragment.newInstance(2, orderId), R.id.order_details);
 //        }
-        FragmentUtils.replace(getSupportFragmentManager(), Order_detailsFragment.newInstance(orderId), R.id.order_details);
+        FragmentUtils.replace(getSupportFragmentManager(), Order_detailsFragment.newInstance(0, orderId), R.id.order_details);
         FragmentUtils.replace(getSupportFragmentManager(), new Task_allotFragment(), R.id.task_allot);
     }
 

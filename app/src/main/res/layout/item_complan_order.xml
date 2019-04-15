@@ -57,6 +57,7 @@
                 android:id="@+id/order_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:textColor="#E6E5E5"
                 android:textSize="14sp"
                 tools:text="采购方式" />
@@ -66,6 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:singleLine="true"
                 android:textColor="#8D8C91"
                 android:textSize="11sp"
                 tools:text="已完成" />

@@ -12,8 +12,16 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.TimeUtils;
 import com.wul.oa_article.R;
+import com.wul.oa_article.bean.TaskBO;
 import com.wul.oa_article.mvp.MVPBaseFragment;
+import com.wul.oa_article.view.AcceptedTaskActivity;
+import com.wul.oa_article.view.MyOrderActivity;
+import com.wul.oa_article.widget.AlertDialog;
+
+import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,6 +64,8 @@ public class Task_acceptFragment extends MVPBaseFragment<Task_acceptContract.Vie
     @BindView(R.id.task_check)
     CheckBox taskCheck;
 
+    TaskBO.TaskBean taskBean;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -83,9 +93,66 @@ public class Task_acceptFragment extends MVPBaseFragment<Task_acceptContract.Vie
     }
 
 
+    /**
+     * 接受任务
+     */
+    @OnClick(R.id.next_button)
+    public void acceptTask() {
+        nextButton.setVisibility(View.GONE);
+        buttomLayout.setVisibility(View.VISIBLE);
+    }
+
+
+    @OnClick({R.id.my_suress, R.id.task_fenpai})
+    public void buttonClick(View view) {
+        switch (view.getId()) {
+            case R.id.my_suress:   //自己完成
+                new AlertDialog(Objects.requireNonNull(getActivity())).builder().setGone().setMsg("选择自己完成后无法分派任务\n是否继续？")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确定", v -> mPresenter.setTaskMode(taskBean.getId(), 0)).show();
+                break;
+            case R.id.task_fenpai:   //分派任务
+                new AlertDialog(Objects.requireNonNull(getActivity())).builder().setGone().setMsg("是否确定分派任务？")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确定", v -> mPresenter.setTaskMode(taskBean.getId(), 1)).show();
+                break;
+        }
+    }
+
+
+    /**
+     * 设置数据
+     */
+    public void setTask(TaskBO task) {
+        this.taskBean = task.getTask();
+        taskName.setText(taskBean.getTaskName());
+//        taskPerson.setText(taskBean.get);   //执行人
+        taskNum.setText(taskBean.getPlanNum() + "");
+//        taskDanwei.setText(taskBean.get);   //单位
+        taskDate.setText(TimeUtils.millis2String(taskBean.getPlanCompleteDate(), new SimpleDateFormat("yyyy/MM/dd")));
+//        taskRemart.setText(taskBean.);
+    }
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onRequestError(String msg) {
+        showToast(msg);
+    }
+
+    @Override
+    public void sourss(int type) {
+        if (type == 0) {   //自己完成
+            Bundle bundle = new Bundle();
+            bundle.putInt("taskId", taskBean.getId());
+            gotoActivity(MyOrderActivity.class, bundle, false);
+        } else {
+
+        }
     }
 }

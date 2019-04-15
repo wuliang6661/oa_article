@@ -3,9 +3,10 @@ package com.wul.oa_article.bean;
 import com.wul.oa_article.module.create_order.ImageBO;
 import com.wul.oa_article.module.create_order.PingLeiBO;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class OrderInfoBo {
+public class OrderInfoBo implements Serializable {
 
 
     /**
@@ -32,7 +33,7 @@ public class OrderInfoBo {
         this.orderSpecifications = orderSpecifications;
     }
 
-    public static class OrderInfoBean {
+    public static class OrderInfoBean implements Serializable{
         /**
          * clientName : zhan
          * clientNum : 0

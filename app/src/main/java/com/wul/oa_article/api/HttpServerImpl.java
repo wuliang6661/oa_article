@@ -8,6 +8,7 @@ import com.wul.oa_article.bean.HistoryBO;
 import com.wul.oa_article.bean.MyOrderBO;
 import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.SalesBo;
+import com.wul.oa_article.bean.TaskBO;
 import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.bean.request.AsseptRequest;
 import com.wul.oa_article.bean.request.ComplayRequest;
@@ -246,5 +247,13 @@ public class HttpServerImpl {
     public static Observable<String> cancleOrder(OrderQueryRequest request) {
         request.setToken(MyApplication.token);
         return getService().cancleOrder(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 根据任务id获取订单信息
+     */
+    public static Observable<TaskBO> getOrderByTaskId(OrderQueryRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().getOrderByTaskId(request).compose(RxResultHelper.httpRusult());
     }
 }

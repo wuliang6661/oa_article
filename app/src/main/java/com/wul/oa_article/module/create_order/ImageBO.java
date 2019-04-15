@@ -1,6 +1,8 @@
 package com.wul.oa_article.module.create_order;
 
-public class ImageBO {
+import java.io.Serializable;
+
+public class ImageBO implements Serializable {
 
 
     public String url;

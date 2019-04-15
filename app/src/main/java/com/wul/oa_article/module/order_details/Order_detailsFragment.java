@@ -73,14 +73,27 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
     List<ImageBO> imageBOS;      //添加的图片列表
     private int orderId;
 
-    public static Order_detailsFragment newInstance(int orderId) {
+    private int type = 2;   //根据任务获取订单数据
+
+    private OrderInfoBo infoBo;
+
+    public static Order_detailsFragment newInstance(int type, int orderId) {
         Order_detailsFragment fragment = new Order_detailsFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("orderId", orderId);
+        bundle.putInt("type", type);
         fragment.setArguments(bundle);
         return fragment;
     }
 
+    public static Order_detailsFragment newInstance(int type, OrderInfoBo infoBo) {
+        Order_detailsFragment fragment = new Order_detailsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("order", infoBo);
+        bundle.putInt("type", type);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Nullable
     @Override
@@ -97,8 +110,17 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
         initView();
 
         orderId = getArguments().getInt("orderId");
+        type = getArguments().getInt("type", 0);
         showProgress();
-        mPresenter.getOrderInfo(orderId);
+        if (type == 2) {
+//            mPresenter.getOrderByTaskId(orderId);
+        } else if (type == 3) {
+            infoBo = (OrderInfoBo) getArguments().getSerializable("order");
+            getOrderInfo(infoBo);
+        } else {
+            mPresenter.getOrderInfo(orderId);
+        }
+
     }
 
 
@@ -175,6 +197,14 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
             }
         };
         imageRecycle.setAdapter(adapter);
+    }
+
+
+    /**
+     * 设置数据
+     */
+    public void setOrderInfo(OrderInfoBo info) {
+        getOrderInfo(info);
     }
 
 

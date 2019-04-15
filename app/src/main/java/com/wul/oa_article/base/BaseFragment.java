@@ -62,7 +62,7 @@ public abstract class BaseFragment extends SupportFragment {
      * 停止弹窗
      */
     protected void stopProgress() {
-        if (svProgressHUD.isShowing()) {
+        if (svProgressHUD != null && svProgressHUD.isShowing()) {
             svProgressHUD.dismiss();
         }
     }

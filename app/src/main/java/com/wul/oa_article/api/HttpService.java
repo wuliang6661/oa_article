@@ -7,6 +7,7 @@ import com.wul.oa_article.bean.HistoryBO;
 import com.wul.oa_article.bean.MyOrderBO;
 import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.SalesBo;
+import com.wul.oa_article.bean.TaskBO;
 import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.bean.request.AsseptRequest;
 import com.wul.oa_article.bean.request.ComplayRequest;
@@ -173,6 +174,12 @@ public interface HttpService {
      */
     @POST("industry_webservice/app/orderInfo/deleteOrderInfo")
     Observable<BaseResult<String>> cancleOrder(@Body OrderQueryRequest request);
+
+    /**
+     * 根据任务ID查询订单信息
+     */
+    @POST("industry_webservice/app/orderTask/getOrderAndTaskInfoByTaskId")
+    Observable<BaseResult<TaskBO>> getOrderByTaskId(@Body OrderQueryRequest request);
 
 
 }
