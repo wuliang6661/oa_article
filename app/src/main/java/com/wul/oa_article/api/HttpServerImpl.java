@@ -9,6 +9,7 @@ import com.wul.oa_article.bean.MyOrderBO;
 import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.SalesBo;
 import com.wul.oa_article.bean.TaskBO;
+import com.wul.oa_article.bean.TempleteBO;
 import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.bean.request.AsseptRequest;
 import com.wul.oa_article.bean.request.ComplayRequest;
@@ -19,6 +20,7 @@ import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.PhoneRequest;
 import com.wul.oa_article.bean.request.RegistUserRequest;
 import com.wul.oa_article.bean.request.SelectRequest;
+import com.wul.oa_article.bean.request.TempleteRequest;
 import com.wul.oa_article.bean.request.TokenRequest;
 import com.wul.oa_article.bean.request.UpdateOrderRequest;
 import com.wul.oa_article.bean.request.WechatRegisterRequest;
@@ -255,5 +257,14 @@ public class HttpServerImpl {
     public static Observable<TaskBO> getOrderByTaskId(OrderQueryRequest request) {
         request.setToken(MyApplication.token);
         return getService().getOrderByTaskId(request).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 模糊查询模板列表
+     */
+    public static Observable<List<TempleteBO>> getTempleteList(TempleteRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().getTemplateList(request).compose(RxResultHelper.httpRusult());
     }
 }

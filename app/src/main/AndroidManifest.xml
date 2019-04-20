@@ -115,6 +115,16 @@
             android:name=".view.SelectPersonAct"
             android:screenOrientation="portrait" />
 
+        <!--模板管理-->
+        <activity
+            android:name=".view.mobanmanager.MobanManagerActivity"
+            android:screenOrientation="portrait" />
+
+        <!--新增模板-->
+        <activity
+            android:name=".view.createmoban.CreateMoBanActivity"
+            android:screenOrientation="portrait" />
+
         <!--扫一扫-->
         <activity android:name=".zxing.activity.CaptureActivity" />
 

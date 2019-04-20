@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wul.oa_article.R;
@@ -64,7 +65,7 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
     @BindView(R.id.image_recycle)
     RecyclerView imageRecycle;
     @BindView(R.id.kehu_order_layout)
-    LinearLayout kehuOrderLayout;
+    RelativeLayout kehuOrderLayout;
     Unbinder unbinder;
     @BindView(R.id.order_status_img)
     ImageView orderStatusImg;

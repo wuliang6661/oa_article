@@ -45,11 +45,11 @@
 
 
     <RelativeLayout
+        android:id="@+id/kehu_order_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/kehu_order_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"

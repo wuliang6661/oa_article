@@ -24,6 +24,7 @@ import com.wul.oa_article.view.CreateActivity;
 import com.wul.oa_article.view.main.home.accepted.AcceptedFragment;
 import com.wul.oa_article.view.main.home.compony.ComponyFragment;
 import com.wul.oa_article.view.main.home.myorder.MyOrderFragment;
+import com.wul.oa_article.view.mobanmanager.MobanManagerActivity;
 import com.wul.oa_article.widget.HomeAddPopWindow;
 
 import org.greenrobot.eventbus.EventBus;
@@ -191,7 +192,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
 
             @Override
             public void clickCreateMoBan() {
-
+                gotoActivity(MobanManagerActivity.class, false);
             }
         });
         popWindow.showPop(addImg, 0, 20);

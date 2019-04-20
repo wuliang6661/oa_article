@@ -8,6 +8,7 @@ import com.wul.oa_article.bean.MyOrderBO;
 import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.SalesBo;
 import com.wul.oa_article.bean.TaskBO;
+import com.wul.oa_article.bean.TempleteBO;
 import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.bean.request.AsseptRequest;
 import com.wul.oa_article.bean.request.ComplayRequest;
@@ -18,6 +19,7 @@ import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.PhoneRequest;
 import com.wul.oa_article.bean.request.RegistUserRequest;
 import com.wul.oa_article.bean.request.SelectRequest;
+import com.wul.oa_article.bean.request.TempleteRequest;
 import com.wul.oa_article.bean.request.TokenRequest;
 import com.wul.oa_article.bean.request.UpdateOrderRequest;
 import com.wul.oa_article.bean.request.WechatRegisterRequest;
@@ -180,6 +182,12 @@ public interface HttpService {
      */
     @POST("industry_webservice/app/orderTask/getOrderAndTaskInfoByTaskId")
     Observable<BaseResult<TaskBO>> getOrderByTaskId(@Body OrderQueryRequest request);
+
+    /**
+     * 模糊查询模板
+     */
+    @POST("industry_webservice/app/taskTemplate/getTemplate")
+    Observable<BaseResult<List<TempleteBO>>> getTemplateList(@Body TempleteRequest request);
 
 
 }

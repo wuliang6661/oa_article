@@ -127,9 +127,9 @@ public class Task_acceptFragment extends MVPBaseFragment<Task_acceptContract.Vie
         this.taskBean = task.getTask();
         taskName.setText(taskBean.getTaskName());
 //        taskPerson.setText(taskBean.get);   //执行人
-        taskNum.setText(taskBean.getPlanNum() + "");
+        taskNum.setText(taskBean.getNum() + "");
 //        taskDanwei.setText(taskBean.get);   //单位
-        taskDate.setText(TimeUtils.millis2String(taskBean.getPlanCompleteDate(), new SimpleDateFormat("yyyy/MM/dd")));
+        taskDate.setText(taskBean.getPlanCompleteDate());
 //        taskRemart.setText(taskBean.);
     }
 

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="67dp"
+    android:background="@color/layout_bg"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+
+    <TextView
+        android:id="@+id/xuhao_text"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:background="@drawable/xuhao_bg"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="#3B5BA5"
+        android:textSize="18sp" />
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/moban_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/f_white"
+            android:textSize="15sp"
+            tools:text="张三的任务模板" />
+
+
+        <TextView
+            android:id="@+id/moban_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:singleLine="true"
+            android:textColor="@color/hint_color"
+            android:textSize="12sp"
+            tools:text="张三的任务模板" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/select_button"
+        android:layout_width="44dp"
+        android:layout_height="21dp"
+        android:background="@drawable/button_list"
+        android:gravity="center"
+        android:text="使用"
+        android:textColor="#F9FAFB"
+        android:textSize="13sp" />
+
+</LinearLayout>
