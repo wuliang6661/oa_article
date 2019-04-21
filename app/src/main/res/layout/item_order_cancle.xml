@@ -4,7 +4,6 @@
     android:id="@+id/item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/layout_bg"
     android:orientation="vertical">
 
 
@@ -26,8 +25,8 @@
                 android:id="@+id/order_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#E6E5E5"
                 android:singleLine="true"
+                android:textColor="#E6E5E5"
                 android:textSize="14sp"
                 tools:text="商品名称" />
 
@@ -36,8 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:textColor="#8D8C91"
                 android:singleLine="true"
+                android:textColor="#8D8C91"
                 android:textSize="11sp"
                 tools:text="订单编号" />
 
@@ -57,9 +56,9 @@
                 android:id="@+id/create_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:textColor="#E6E5E5"
                 android:textSize="14sp"
-                android:singleLine="true"
                 tools:text="采购方式" />
 
             <TextView
@@ -67,9 +66,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:singleLine="true"
                 android:textColor="#8D8C91"
                 android:textSize="11sp"
-                android:singleLine="true"
                 tools:text="已完成" />
 
 

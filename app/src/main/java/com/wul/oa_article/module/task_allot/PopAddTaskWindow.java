@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.base.MyApplication;
+import com.wul.oa_article.bean.PersonBO;
 import com.wul.oa_article.view.SelectPersonAct;
 import com.wul.oa_article.widget.DateDialog;
 
@@ -142,7 +143,7 @@ public class PopAddTaskWindow extends PopupWindow {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(String a) {
+    public void onEvent(PersonBO a) {
 
     }
 

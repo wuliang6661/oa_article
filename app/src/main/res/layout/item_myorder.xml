@@ -3,7 +3,6 @@
     android:id="@+id/item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#161616"
     android:orientation="vertical">
 
 
@@ -111,17 +110,23 @@
 
             <TextView
                 android:id="@+id/surplus_time"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="2019/2/16"
+                android:layout_marginRight="16dp"
+                android:gravity="right"
+                android:singleLine="true"
+                android:text="33"
                 android:textColor="#8D8C91"
                 android:textSize="11sp" />
 
             <TextView
                 android:id="@+id/task_time"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginRight="16dp"
+                android:gravity="right"
+                android:singleLine="true"
                 android:text="2019/2/16"
                 android:textColor="#8D8C91"
                 android:textSize="11sp" />

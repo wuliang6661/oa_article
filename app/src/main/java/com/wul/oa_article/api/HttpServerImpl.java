@@ -10,7 +10,9 @@ import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.SalesBo;
 import com.wul.oa_article.bean.TaskBO;
 import com.wul.oa_article.bean.TempleteBO;
+import com.wul.oa_article.bean.TempleteInfoBo;
 import com.wul.oa_article.bean.UserBo;
+import com.wul.oa_article.bean.request.AddTempleteBo;
 import com.wul.oa_article.bean.request.AsseptRequest;
 import com.wul.oa_article.bean.request.ComplayRequest;
 import com.wul.oa_article.bean.request.CreateOrderBO;
@@ -266,5 +268,29 @@ public class HttpServerImpl {
     public static Observable<List<TempleteBO>> getTempleteList(TempleteRequest request) {
         request.setToken(MyApplication.token);
         return getService().getTemplateList(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询模板详情
+     */
+    public static Observable<TempleteInfoBo> getTempleteInfo(OrderQueryRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().getTemplateInfo(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 新增模板
+     */
+    public static Observable<String> addTemplete(AddTempleteBo addTempleteBo) {
+        addTempleteBo.setToken(MyApplication.token);
+        return getService().addTemplate(addTempleteBo).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 修改模板
+     */
+    public static Observable<String> editTemplete(AddTempleteBo addTempleteBo) {
+        addTempleteBo.setToken(MyApplication.token);
+        return getService().updateTemplete(addTempleteBo).compose(RxResultHelper.httpRusult());
     }
 }

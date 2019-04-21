@@ -54,13 +54,18 @@ public class OrderDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         goBack();
         setTitleText("订单详情");
-//        isCreate = getIntent().getExtras().getBoolean("isCreate", false);
         orderId = getIntent().getExtras().getInt("id");
-//        if (isCreate) {
-//            FragmentUtils.replace(getSupportFragmentManager(), CreateOrderFragment.newInstance(2, orderId), R.id.order_details);
-//        }
+
+        boolean isHaveParent = getIntent().getExtras().getBoolean("isHaveParent", false);
+        if (isHaveParent) {
+            shangjiTaskBar.setVisibility(View.VISIBLE);
+            shangjiLayout.setVisibility(View.VISIBLE);
+        } else {
+            shangjiTaskBar.setVisibility(View.GONE);
+            shangjiLayout.setVisibility(View.GONE);
+        }
         FragmentUtils.replace(getSupportFragmentManager(), Order_detailsFragment.newInstance(0, orderId), R.id.order_details);
-        FragmentUtils.replace(getSupportFragmentManager(), new Task_allotFragment(), R.id.task_allot);
+        FragmentUtils.replace(getSupportFragmentManager(), Task_allotFragment.newInstance(1, orderId), R.id.task_allot);
     }
 
 

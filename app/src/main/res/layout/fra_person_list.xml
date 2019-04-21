@@ -106,7 +106,11 @@
     <ExpandableListView
         android:id="@+id/expand_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:childDivider="@null"
+        android:divider="@color/layout_bg"
+        android:dividerHeight="1dp"
+        android:groupIndicator="@null" />
 
 
 </LinearLayout>

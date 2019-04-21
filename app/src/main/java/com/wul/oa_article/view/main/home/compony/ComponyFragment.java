@@ -275,6 +275,7 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
                     && s.get(position).getStatus() == 1) {  //如果是当前用户创建,且进行中
                 gotoActivity(CreateTaskActivity.class, bundle, false);
             } else {
+                bundle.putBoolean("isHaveParent", false);
                 gotoActivity(OrderDetailsActivity.class, bundle, false);
             }
         });

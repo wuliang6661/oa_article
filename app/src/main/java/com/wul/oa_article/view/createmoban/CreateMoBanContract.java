@@ -1,21 +1,23 @@
 package com.wul.oa_article.view.createmoban;
 
-import android.content.Context;
-
+import com.wul.oa_article.bean.TempleteInfoBo;
 import com.wul.oa_article.mvp.BasePresenter;
-import com.wul.oa_article.mvp.BaseView;
+import com.wul.oa_article.mvp.BaseRequestView;
 
 /**
  * MVPPlugin
- *  邮箱 784787081@qq.com
+ * 邮箱 784787081@qq.com
  */
 
 public class CreateMoBanContract {
-    interface View extends BaseView {
-        
+    interface View extends BaseRequestView {
+
+        void getMoBanInfo(TempleteInfoBo infoBo);
+
+        void onSuress();
     }
 
-    interface  Presenter extends BasePresenter<View> {
-        
+    interface Presenter extends BasePresenter<View> {
+
     }
 }

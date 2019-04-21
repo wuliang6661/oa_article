@@ -15,8 +15,11 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.base.MyApplication;
+import com.wul.oa_article.bean.BumenBO;
 import com.wul.oa_article.bean.request.OrderQueryRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,6 +50,9 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
     ExpandableListView expandList;
     Unbinder unbinder;
 
+    OrderQueryRequest request;
+    int selectMenu = 1;   //默认内部联系人
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,7 +69,7 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
         params.width = ScreenUtils.getScreenWidth() / 2;
         line.setLayoutParams(params);
 
-        OrderQueryRequest request = new OrderQueryRequest();
+        request = new OrderQueryRequest();
         request.setId(Integer.parseInt(MyApplication.getCommonId()));
         mPresenter.getNeiUsers(request);
     }
@@ -73,20 +79,28 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
     public void barClick(View view) {
         switch (view.getId()) {
             case R.id.neibu_text:
-                TranslateAnimation animation = new TranslateAnimation(ScreenUtils.getScreenWidth() / 2,
-                        0, 0, 0);
-                animation.setFillAfter(true);
-                animation.setDuration(500);
-                // 给图片添加动画
-                line.startAnimation(animation);
+                if (selectMenu != 1) {
+                    TranslateAnimation animation = new TranslateAnimation(ScreenUtils.getScreenWidth() / 2,
+                            0, 0, 0);
+                    animation.setFillAfter(true);
+                    animation.setDuration(500);
+                    // 给图片添加动画
+                    line.startAnimation(animation);
+                    mPresenter.getNeiUsers(request);
+                    selectMenu = 1;
+                }
                 break;
             case R.id.out_text:
-                TranslateAnimation animation1 = new TranslateAnimation(0,
-                        ScreenUtils.getScreenWidth() / 2, 0, 0);
-                animation1.setFillAfter(true);
-                animation1.setDuration(500);
-                // 给图片添加动画
-                line.startAnimation(animation1);
+                if (selectMenu != 2) {
+                    TranslateAnimation animation1 = new TranslateAnimation(0,
+                            ScreenUtils.getScreenWidth() / 2, 0, 0);
+                    animation1.setFillAfter(true);
+                    animation1.setDuration(500);
+                    // 给图片添加动画
+                    line.startAnimation(animation1);
+                    mPresenter.getOutUsers(request);
+                    selectMenu = 2;
+                }
                 break;
         }
     }
@@ -101,5 +115,23 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void getPersonListByNeiBu(List<BumenBO> bumenBOS) {
+        ExpandAdapter expandAdapter = new ExpandAdapter(getActivity(), bumenBOS, false);
+        expandList.setAdapter(expandAdapter);
+        for (int i = 0; i < bumenBOS.size(); i++) {
+            expandList.expandGroup(i);
+        }
+    }
+
+    @Override
+    public void getPersonListByWaiBu(List<BumenBO> bumenBOS) {
+        ExpandAdapter expandAdapter = new ExpandAdapter(getActivity(), bumenBOS, true);
+        expandList.setAdapter(expandAdapter);
+        for (int i = 0; i < bumenBOS.size(); i++) {
+            expandList.expandGroup(i);
+        }
     }
 }

@@ -33,8 +33,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
- * MVPPlugin
- * 邮箱 784787081@qq.com
+ * 任务分派（可编辑和不可编辑）
  */
 
 public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View, Task_allotPresenter>
@@ -92,6 +91,15 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         super.onViewCreated(view, savedInstanceState);
 
         orderId = getArguments().getInt("orderId");
+        type = getArguments().getInt("type",0);
+        if(type == 0){   //可编辑
+            taskRightButton.setVisibility(View.VISIBLE);
+            addTaskLayout.setVisibility(View.VISIBLE);
+        }else{
+            taskRightButton.setVisibility(View.GONE);
+            addTaskLayout.setVisibility(View.GONE);
+        }
+
         tasks = new ArrayList<>();
         initView();
     }

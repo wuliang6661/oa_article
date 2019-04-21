@@ -4,6 +4,7 @@ package com.wul.oa_article.view;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -20,6 +21,7 @@ import com.wul.oa_article.module.order_details.Order_detailsFragment;
 import com.wul.oa_article.module.task_accept.Task_acceptFragment;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 
 /**
@@ -51,6 +53,8 @@ public class AcceptedTaskActivity extends BaseActivity {
 
     Order_detailsFragment detailsFragment;
     Task_acceptFragment acceptFragment;
+
+    private TaskBO taskBO;
 
     @Override
     protected int getLayout() {
@@ -90,8 +94,10 @@ public class AcceptedTaskActivity extends BaseActivity {
             @Override
             public void onSuccess(TaskBO s) {
                 new Handler().post(() -> {
+                    taskBO = s;
                     detailsFragment.setOrderInfo(s.getOrder());
                     acceptFragment.setTask(s);
+                    setShangjiLayout();
                 });
             }
 
@@ -102,6 +108,29 @@ public class AcceptedTaskActivity extends BaseActivity {
                 });
             }
         });
+    }
+
+
+    private void setShangjiLayout() {
+        if (taskBO.getParentTask() == null) {
+            shangjiLayout.setVisibility(View.GONE);
+            shangjiTaskBar.setVisibility(View.GONE);
+        } else {
+            shangjiTaskBar.setVisibility(View.VISIBLE);
+            shangjiLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+    @OnClick(R.id.shangji_task_bar)
+    public void BarClick() {
+        if (shangjiLayout.getVisibility() == View.VISIBLE) {
+            shangjiLayout.setVisibility(View.GONE);
+            shangjiTaskCheck.setChecked(true);
+        } else {
+            shangjiLayout.setVisibility(View.VISIBLE);
+            shangjiTaskCheck.setChecked(false);
+        }
     }
 
 }

@@ -9,7 +9,9 @@ import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.SalesBo;
 import com.wul.oa_article.bean.TaskBO;
 import com.wul.oa_article.bean.TempleteBO;
+import com.wul.oa_article.bean.TempleteInfoBo;
 import com.wul.oa_article.bean.UserBo;
+import com.wul.oa_article.bean.request.AddTempleteBo;
 import com.wul.oa_article.bean.request.AsseptRequest;
 import com.wul.oa_article.bean.request.ComplayRequest;
 import com.wul.oa_article.bean.request.CreateOrderBO;
@@ -188,6 +190,24 @@ public interface HttpService {
      */
     @POST("industry_webservice/app/taskTemplate/getTemplate")
     Observable<BaseResult<List<TempleteBO>>> getTemplateList(@Body TempleteRequest request);
+
+    /**
+     * 查询模板详情
+     */
+    @POST("industry_webservice/app/taskTemplate/getTemplateInfo")
+    Observable<BaseResult<TempleteInfoBo>> getTemplateInfo(@Body OrderQueryRequest request);
+
+    /**
+     * 新增模板
+     */
+    @POST("industry_webservice/app/taskTemplate/addTemplate")
+    Observable<BaseResult<String>> addTemplate(@Body AddTempleteBo addTempleteBo);
+
+    /**
+     * 修改模板
+     */
+    @POST("industry_webservice/app/taskTemplate/updateTemplate")
+    Observable<BaseResult<String>> updateTemplete(@Body AddTempleteBo addTempleteBo);
 
 
 }

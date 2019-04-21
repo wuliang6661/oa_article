@@ -17,12 +17,14 @@ import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.TempleteBO;
 import com.wul.oa_article.bean.request.TempleteRequest;
 import com.wul.oa_article.mvp.MVPBaseActivity;
+import com.wul.oa_article.view.createmoban.CreateMoBanActivity;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 
 /**
@@ -59,10 +61,15 @@ public class MobanManagerActivity extends MVPBaseActivity<MobanManagerContract.V
         request.setName("");
         request.setPageNum(1);
         request.setPageSize(1000);
-        mPresenter.getTempleteList(request);
         initView();
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.getTempleteList(request);
+    }
 
     /**
      * 初始化控件
@@ -121,7 +128,22 @@ public class MobanManagerActivity extends MVPBaseActivity<MobanManagerContract.V
                 holder.setText(R.id.moban_message, templeteBO.getRemarks());
             }
         };
+        adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("isAdd", false);
+            bundle.putSerializable("templete", templeteBOS.get(position));
+            bundle.putInt("id", templeteBOS.get(position).getId());
+            gotoActivity(CreateMoBanActivity.class, bundle, false);
+        });
         recycleView.setAdapter(adapter);
+    }
+
+
+    @OnClick(R.id.add_moban)
+    public void addMoBan() {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("isAdd", true);
+        gotoActivity(CreateMoBanActivity.class, bundle, false);
     }
 
 }

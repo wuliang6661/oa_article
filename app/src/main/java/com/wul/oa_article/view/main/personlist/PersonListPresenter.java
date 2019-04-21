@@ -1,11 +1,12 @@
 package com.wul.oa_article.view.main.personlist;
 
-import android.content.Context;
-
 import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.http.PersonServiceImpl;
+import com.wul.oa_article.bean.BumenBO;
 import com.wul.oa_article.bean.request.OrderQueryRequest;
 import com.wul.oa_article.mvp.BasePresenterImpl;
+
+import java.util.List;
 
 /**
  * MVPPlugin
@@ -17,10 +18,12 @@ public class PersonListPresenter extends BasePresenterImpl<PersonListContract.Vi
 
 
     public void getNeiUsers(OrderQueryRequest request) {
-        PersonServiceImpl.getNeiPersonList(request).subscribe(new HttpResultSubscriber<String>() {
+        PersonServiceImpl.getNeiPersonList(request).subscribe(new HttpResultSubscriber<List<BumenBO>>() {
             @Override
-            public void onSuccess(String s) {
-
+            public void onSuccess(List<BumenBO> s) {
+                if (mView != null) {
+                    mView.getPersonListByNeiBu(s);
+                }
             }
 
             @Override
@@ -34,10 +37,12 @@ public class PersonListPresenter extends BasePresenterImpl<PersonListContract.Vi
 
 
     public void getOutUsers(OrderQueryRequest request) {
-        PersonServiceImpl.getOutPersonList(request).subscribe(new HttpResultSubscriber<String>() {
+        PersonServiceImpl.getOutPersonList(request).subscribe(new HttpResultSubscriber<List<BumenBO>>() {
             @Override
-            public void onSuccess(String s) {
-
+            public void onSuccess(List<BumenBO> s) {
+                if (mView != null) {
+                    mView.getPersonListByWaiBu(s);
+                }
             }
 
             @Override
