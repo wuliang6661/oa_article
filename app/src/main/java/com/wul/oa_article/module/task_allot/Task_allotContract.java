@@ -13,6 +13,8 @@ public class Task_allotContract {
 
         void taskSourss();
 
+        void shunyanSourss();
+
     }
 
     interface Presenter extends BasePresenter<View> {

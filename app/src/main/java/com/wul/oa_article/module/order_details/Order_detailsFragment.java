@@ -87,15 +87,6 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
         return fragment;
     }
 
-    public static Order_detailsFragment newInstance(int type, OrderInfoBo infoBo) {
-        Order_detailsFragment fragment = new Order_detailsFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("order", infoBo);
-        bundle.putInt("type", type);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -115,9 +106,6 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
         showProgress();
         if (type == 2) {
 //            mPresenter.getOrderByTaskId(orderId);
-        } else if (type == 3) {
-            infoBo = (OrderInfoBo) getArguments().getSerializable("order");
-            getOrderInfo(infoBo);
         } else {
 //            mPresenter.getOrderInfo(orderId);
         }

@@ -56,6 +56,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
+
 }
 
 allprojects {
@@ -113,4 +114,5 @@ dependencies {
     implementation 'pub.devrel:easypermissions:1.3.0'
     implementation 'com.google.zxing:core:3.3.0'
     implementation 'id.zelory:compressor:2.1.0'
+    implementation 'com.yanzhenjie:recyclerview-swipe:1.2.0'
 }

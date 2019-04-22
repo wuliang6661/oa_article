@@ -354,4 +354,17 @@
         android:layout_height="wrap_content" />
 
 
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/button_bg"
+        android:text="完成任务"
+        android:textColor="@color/text_white"
+        android:textSize="18sp" />
+
+
 </LinearLayout>

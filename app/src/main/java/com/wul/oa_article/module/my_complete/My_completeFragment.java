@@ -8,11 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wul.oa_article.R;
+import com.wul.oa_article.bean.TaskBO;
+import com.wul.oa_article.bean.request.AddTaskRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 
 import butterknife.BindView;
@@ -50,6 +53,10 @@ public class My_completeFragment extends MVPBaseFragment<My_completeContract.Vie
     @BindView(R.id.recycle_view)
     RecyclerView recycleView;
     Unbinder unbinder;
+    @BindView(R.id.next_button)
+    Button nextButton;
+
+    AddTaskRequest.OrderTasksBean taskBean;
 
     @Nullable
     @Override
@@ -66,8 +73,31 @@ public class My_completeFragment extends MVPBaseFragment<My_completeContract.Vie
     }
 
 
+    /**
+     * 设置是否可编辑
+     */
+    public void setIsEdit(boolean isEdit) {
+        if (isEdit) {
+            taskNumEdit.setVisibility(View.VISIBLE);
+            nextButton.setVisibility(View.VISIBLE);
+        } else {
+            taskNumEdit.setVisibility(View.GONE);
+            nextButton.setVisibility(View.GONE);
+        }
+    }
 
-
+    /**
+     * 设置数据
+     */
+    public void setTask(TaskBO task) {
+        this.taskBean = task.getTask();
+        taskName.setText(taskBean.getTaskName());
+        taskPerson.setText(taskBean.getNickName());   //执行人
+        taskNum.setText(taskBean.getPlanNum() + "");
+        taskDanwei.setText(taskBean.getUnit());   //单位
+        taskDate.setText(taskBean.getPlanCompleteDate());
+        taskRemart.setText(taskBean.getRemark());
+    }
 
     @Override
     public void onDestroyView() {

@@ -100,10 +100,12 @@ public class PopAddTaskWindow extends PopupWindow {
     public void setData(int position, AddTaskRequest.OrderTasksBean bean) {
         this.position = position;
         personBO = new PersonBO();
-        personBO.setName(bean.getUserName());
+        personBO.setName(bean.getNickName());
         personBO.setId(bean.getUserId());
         taskName.setText(bean.getTaskName());
-        fenpaiNum.setText(bean.getPlanNum() + "");
+        if (bean.getPlanNum() != 0) {
+            fenpaiNum.setText(bean.getPlanNum() + "");
+        }
         danwei.setText(bean.getUnit());
         remark.setText(bean.getRemark());
         personName.setText(personBO.getName());

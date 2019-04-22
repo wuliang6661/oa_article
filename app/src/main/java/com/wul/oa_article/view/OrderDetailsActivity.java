@@ -64,7 +64,6 @@ public class OrderDetailsActivity extends BaseActivity {
         setTitleText("订单详情");
         id = getIntent().getExtras().getInt("id");
 
-
         orderFragment = Order_detailsFragment.newInstance(1, id);
         taskFragment = Task_allotFragment.newInstance(1, id);
         FragmentUtils.replace(getSupportFragmentManager(), orderFragment, R.id.order_details);
@@ -74,9 +73,11 @@ public class OrderDetailsActivity extends BaseActivity {
         if (order) {
             shangjiTaskBar.setVisibility(View.GONE);
             shangjiLayout.setVisibility(View.GONE);
+            taskFragment.setIsOrder(true);
             getInfo();
         } else {
             getOrderByTaskId();
+            taskFragment.setIsOrder(false);
         }
     }
 

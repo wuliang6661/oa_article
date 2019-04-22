@@ -21,6 +21,12 @@ import com.wul.oa_article.module.order_details.Order_detailsFragment;
 
 public class MyOrderActivity extends BaseActivity {
 
+
+    My_completeFragment completeFragment;
+    Order_detailsFragment detailsFragment;
+
+    private int id;
+
     @Override
     protected int getLayout() {
         return R.layout.act_my_order;
@@ -34,8 +40,13 @@ public class MyOrderActivity extends BaseActivity {
         goBack();
         setTitleText("我的任务");
 
-        FragmentUtils.replace(getSupportFragmentManager(), new Order_detailsFragment(), R.id.order_details);
-        FragmentUtils.replace(getSupportFragmentManager(), new My_completeFragment(), R.id.my_complete);
+        id = getIntent().getExtras().getInt("taskId");
+        detailsFragment = new Order_detailsFragment();
+        completeFragment = new My_completeFragment();
+        FragmentUtils.replace(getSupportFragmentManager(), detailsFragment, R.id.order_details);
+        FragmentUtils.replace(getSupportFragmentManager(), completeFragment, R.id.my_complete);
+
+        getOrderByTaskId(id);
     }
 
 
@@ -48,6 +59,19 @@ public class MyOrderActivity extends BaseActivity {
         HttpServerImpl.getOrderByTaskId(request).subscribe(new HttpResultSubscriber<TaskBO>() {
             @Override
             public void onSuccess(TaskBO s) {
+                completeFragment.setTask(s);
+                switch (s.getOrder().getOrderInfo().getStatus()) {
+                    case 0:   //待接受
+
+                        break;
+                    case 1:   //进行中
+                        completeFragment.setIsEdit(true);
+                        break;
+                    case 2:   //已完成
+                    case 3:   //已取消
+                        completeFragment.setIsEdit(false);
+                        break;
+                }
             }
 
             @Override
@@ -55,13 +79,6 @@ public class MyOrderActivity extends BaseActivity {
                 showToast(message);
             }
         });
-    }
-
-    /**
-     * 根据订单ID获取任务数据
-     */
-    private void getTaskByOrder() {
-
     }
 
 }

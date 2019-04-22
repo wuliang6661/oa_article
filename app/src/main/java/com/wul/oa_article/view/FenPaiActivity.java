@@ -1,8 +1,6 @@
 package com.wul.oa_article.view;
 
-
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.CheckBox;
@@ -15,20 +13,18 @@ import com.wul.oa_article.R;
 import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
 import com.wul.oa_article.base.BaseActivity;
-import com.wul.oa_article.bean.TaskBO;
+import com.wul.oa_article.bean.OrderAndTaskInfoBO;
 import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.module.order_details.Order_detailsFragment;
-import com.wul.oa_article.module.task_accept.Task_acceptFragment;
+import com.wul.oa_article.module.task_allot.Task_allotFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-
 /**
- * 接受任务界面
+ * 分派任务界面
  */
-
-public class AcceptedTaskActivity extends BaseActivity {
+public class FenPaiActivity extends BaseActivity {
 
     @BindView(R.id.order_details)
     FrameLayout orderDetails;
@@ -52,9 +48,7 @@ public class AcceptedTaskActivity extends BaseActivity {
     private int taskId;
 
     Order_detailsFragment detailsFragment;
-    Task_acceptFragment acceptFragment;
-
-    private TaskBO taskBO;
+    Task_allotFragment taskFragment;
 
     @Override
     protected int getLayout() {
@@ -67,57 +61,46 @@ public class AcceptedTaskActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         goBack();
-        setTitleText("接受任务");
+        setTitleText("分派任务");
 
         taskId = getIntent().getExtras().getInt("taskId");
         detailsFragment = Order_detailsFragment.newInstance(2, taskId);
-        acceptFragment = new Task_acceptFragment();
+        taskFragment = Task_allotFragment.newInstance(0, taskId);
         FragmentUtils.replace(getSupportFragmentManager(), detailsFragment, R.id.order_details);
-        FragmentUtils.replace(getSupportFragmentManager(), acceptFragment, R.id.accept_task);
+        FragmentUtils.replace(getSupportFragmentManager(), taskFragment, R.id.accept_task);
+        getOrderByTaskId();
     }
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getOrderByTaskId(taskId);
-    }
 
     /**
      * 根据任务id获取订单数据
      */
-    public void getOrderByTaskId(int id) {
+    public void getOrderByTaskId() {
         IdRequest request = new IdRequest();
-        request.setId(id);
-        HttpServerImpl.getOrderByTaskId(request).subscribe(new HttpResultSubscriber<TaskBO>() {
+        request.setId(taskId);
+        HttpServerImpl.getInfoByTaskId(request).subscribe(new HttpResultSubscriber<OrderAndTaskInfoBO>() {
             @Override
-            public void onSuccess(TaskBO s) {
-                new Handler().post(() -> {
-                    taskBO = s;
-                    detailsFragment.setOrderInfo(s.getOrder());
-                    acceptFragment.setTask(s);
-                    setShangjiLayout();
-                });
+            public void onSuccess(OrderAndTaskInfoBO s) {
+                detailsFragment.setOrderInfo(s.getOrder());
+                taskFragment.setData(s);
             }
 
             @Override
             public void onFiled(String message) {
-                new Handler().post(() -> {
-                    showToast(message);
-                });
+                showToast(message);
             }
         });
     }
 
 
     private void setShangjiLayout() {
-        if (taskBO.getParentTask() == null) {
-            shangjiLayout.setVisibility(View.GONE);
-            shangjiTaskBar.setVisibility(View.GONE);
-        } else {
-            shangjiTaskBar.setVisibility(View.VISIBLE);
-            shangjiLayout.setVisibility(View.VISIBLE);
-        }
+//        if (taskBO.getParentTask() == null) {
+//            shangjiLayout.setVisibility(View.GONE);
+//            shangjiTaskBar.setVisibility(View.GONE);
+//        } else {
+//            shangjiTaskBar.setVisibility(View.VISIBLE);
+//            shangjiLayout.setVisibility(View.VISIBLE);
+//        }
     }
 
 
@@ -131,5 +114,4 @@ public class AcceptedTaskActivity extends BaseActivity {
             shangjiTaskCheck.setChecked(false);
         }
     }
-
 }

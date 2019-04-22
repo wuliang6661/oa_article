@@ -19,17 +19,20 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.wul.oa_article.R;
+import com.wul.oa_article.api.HttpResultSubscriber;
+import com.wul.oa_article.api.HttpServerImpl;
 import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.MuBanTaskBO;
 import com.wul.oa_article.bean.OrderAndTaskInfoBO;
 import com.wul.oa_article.bean.request.AddTaskRequest;
+import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.view.OrderDetailsActivity;
 import com.wul.oa_article.view.PcUpdateAct;
 import com.wul.oa_article.view.mobanmanager.MobanManagerActivity;
-import com.wul.oa_article.widget.SlideRecyclerView;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -62,7 +65,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     @BindView(R.id.bar_order_message)
     TextView barOrderMessage;
     @BindView(R.id.task_recycle_view)
-    SlideRecyclerView taskRecycleView;
+    SwipeMenuRecyclerView taskRecycleView;
     @BindView(R.id.task_list_layout)
     LinearLayout taskListLayout;
     @BindView(R.id.continue_add)
@@ -79,6 +82,10 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     private List<AddTaskRequest.OrderTasksBean> tasks;
     private int orderId;
     private int type = 0;   //默认可编辑
+
+    boolean isTaskEdit = false;   //是否有任务正在编辑状态
+
+    private boolean isOrder = true;     //默认是订单下的任务
 
     public static Task_allotFragment newInstance(int type, int orderId) {
         Task_allotFragment fragment = new Task_allotFragment();
@@ -154,13 +161,12 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         switch (view.getId()) {
             case R.id.task_right_button:
                 if (isShunYan) {     //显示顺延弹窗
+                    if (isTaskEdit) {
+                        showToast("您有任务正在编辑！请先提交！");
+                        return;
+                    }
                     PopShunYanWindow shunYanWindow = new PopShunYanWindow(getActivity());
-                    shunYanWindow.setListener(new PopShunYanWindow.onCommitListener() {
-                        @Override
-                        public void commit(String text) {
-
-                        }
-                    });
+                    shunYanWindow.setListener(text -> mPresenter.updatePlanDate(Integer.parseInt(text), orderId, isOrder ? 0 : 1));
                     shunYanWindow.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
                 } else {     //任务编辑
                     isShunYan = true;
@@ -179,6 +185,13 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 if ("电脑上传".equals(taskSuress.getText().toString().trim())) {
                     gotoActivity(PcUpdateAct.class, false);
                 } else {
+                    for (AddTaskRequest.OrderTasksBean bean : tasks) {
+                        if (StringUtils.isEmpty(bean.getNickName()) || StringUtils.isEmpty(bean.getPlanCompleteDate())
+                                || bean.getPlanNum() == 0) {
+                            showToast("请补全任务数据！");
+                            return;
+                        }
+                    }
                     AddTaskRequest request = new AddTaskRequest();
                     request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
                     request.setObjectId(orderId);
@@ -199,6 +212,13 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         setTaskAdapter();
     }
 
+    /**
+     * 设置任务状态
+     */
+    public void setIsOrder(boolean isOrder) {
+        this.isOrder = isOrder;
+    }
+
 
     /**
      * 设置任务列表布局
@@ -214,9 +234,10 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                     @Override
                     public void convert(LGViewHolder holder, AddTaskRequest.OrderTasksBean s, int position) {
                         holder.setText(R.id.task_name, s.getTaskName());
-                        holder.setText(R.id.task_person_name, s.getUserName());
+                        holder.setText(R.id.task_person_name, s.getNickName());
                         holder.setText(R.id.task_shiji_num, "--");
-                        holder.setText(R.id.task_jihua_num, s.getPlanNum() + "/" + (StringUtils.isEmpty(s.getUnit()) ? "--" : s.getUnit()));
+                        holder.setText(R.id.task_jihua_num, (s.getPlanNum() == 0 ? "--" : s.getPlanNum()) + "/" +
+                                (StringUtils.isEmpty(s.getUnit()) ? "--" : s.getUnit()));
                         if (StringUtils.isEmpty(s.getPlanCompleteDate())) {
                             holder.setText(R.id.task_date, "--");
                         } else {
@@ -244,7 +265,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 gotoActivity(OrderDetailsActivity.class, bundle, false);
             }
         });
-        adapter.setOnItemClickListener(R.id.tv_delete, (view, position) -> taskRecycleView.closeMenu());
+        adapter.setOnItemClickListener(R.id.tv_delete, (view, position) -> taskRecycleView.smoothCloseMenu());
         if (type == 0) {
             if (tasks.size() == 0) {
                 taskRightButton.setVisibility(View.GONE);
@@ -275,10 +296,21 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
 
     @Override
     public void taskSourss() {
-//        setTaskAdapter();
+        showToast("分派成功！");
+        isTaskEdit = false;
         isShunYan = false;
         taskRightButton.setText("任务编辑");
         addTaskLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void shunyanSourss() {
+        showToast("顺延成功！");
+        if (isOrder) {
+            getInfo();
+        } else {
+            getOrderByTaskId();
+        }
     }
 
 
@@ -294,12 +326,13 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
             bean.setUnit(danwei);
             bean.setTaskType(0);
             bean.setUserId(personId.getId());
-            bean.setUserName(personId.getName());
+            bean.setNickName(personId.getName());
             if (position == -1) {
                 tasks.add(bean);
             } else {
                 tasks.set(position, bean);
             }
+            isTaskEdit = true;
             setTaskAdapter();
         });
         return window;
@@ -313,9 +346,50 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
             bean.setUserId(muBanTaskBO.getUserId());
             bean.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
             bean.setTaskName(muBanTaskBO.getTaskName());
-            bean.setUserName(muBanTaskBO.getNickName());
+            bean.setNickName(muBanTaskBO.getNickName());
             tasks.add(bean);
         }
+        isTaskEdit = true;
         setTaskAdapter();
+    }
+
+
+    /**
+     * 根据订单ID获取信息
+     */
+    public void getInfo() {
+        IdRequest request = new IdRequest();
+        request.setId(orderId);
+        HttpServerImpl.getInfoByOrderId(request).subscribe(new HttpResultSubscriber<OrderAndTaskInfoBO>() {
+            @Override
+            public void onSuccess(OrderAndTaskInfoBO s) {
+                setData(s);
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
+
+
+    /**
+     * 根据任务id获取订单数据
+     */
+    public void getOrderByTaskId() {
+        IdRequest request = new IdRequest();
+        request.setId(orderId);
+        HttpServerImpl.getInfoByTaskId(request).subscribe(new HttpResultSubscriber<OrderAndTaskInfoBO>() {
+            @Override
+            public void onSuccess(OrderAndTaskInfoBO s) {
+                setData(s);
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
     }
 }

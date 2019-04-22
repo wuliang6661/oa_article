@@ -46,6 +46,7 @@ public class CreateTaskActivity extends BaseActivity {
 
     int orderId;
 
+    Task_allotFragment taskFragment;
 
     @Override
     protected int getLayout() {
@@ -61,7 +62,9 @@ public class CreateTaskActivity extends BaseActivity {
         orderId = getIntent().getExtras().getInt("id");
         btnAlbum.setText("取消订单");
         btnAlbum.setVisibility(View.VISIBLE);
-        FragmentUtils.replace(getSupportFragmentManager(), Task_allotFragment.newInstance(0, orderId), R.id.task_allot);
+        taskFragment = Task_allotFragment.newInstance(0, orderId);
+        taskFragment.setIsOrder(true);
+        FragmentUtils.replace(getSupportFragmentManager(), taskFragment, R.id.task_allot);
     }
 
     @OnClick(R.id.kehu_msg_bar)

@@ -63,6 +63,8 @@ public class OrderInfoBo implements Serializable {
         private int num;
         private long planCompleteDate;
         private String remark;
+
+        /** 状态（0待接受，1进行中，2已完成，3已取消） */
         private int status;
         private String unit;
         private int userId;

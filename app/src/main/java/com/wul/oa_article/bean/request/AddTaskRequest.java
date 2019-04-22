@@ -91,7 +91,7 @@ public class AddTaskRequest {
         private String unit;
         private String updateDate;
         private int userId;
-        private String userName;
+        private String nickName;
         private int remainingDate;
 
 
@@ -103,12 +103,12 @@ public class AddTaskRequest {
             this.remainingDate = remainingDate;
         }
 
-        public String getUserName() {
-            return userName;
+        public String getNickName() {
+            return nickName;
         }
 
-        public void setUserName(String userName) {
-            this.userName = userName;
+        public void setNickName(String nickName) {
+            this.nickName = nickName;
         }
 
         public String getActualCompleteDate() {

@@ -305,6 +305,7 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
         adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
             Bundle bundle = new Bundle();
             bundle.putInt("id", s.get(position).getOrderId());
+            bundle.putBoolean("order", true);
             gotoActivity(OrderDetailsActivity.class, bundle, false);
         });
         recycleView.setAdapter(adapter);

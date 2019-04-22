@@ -42,7 +42,9 @@ public class Task_allotPresenter extends BasePresenterImpl<Task_allotContract.Vi
         TaskServiceImpl.shunYanTask(request).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
-
+                if (mView != null) {
+                    mView.shunyanSourss();
+                }
             }
 
             @Override

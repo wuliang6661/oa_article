@@ -105,6 +105,11 @@
             android:name=".view.MyOrderActivity"
             android:screenOrientation="portrait" />
 
+        <!--分派任务-->
+        <activity
+            android:name=".view.FenPaiActivity"
+            android:screenOrientation="portrait" />
+
         <!--扫码上传-->
         <activity
             android:name=".view.PcUpdateAct"
