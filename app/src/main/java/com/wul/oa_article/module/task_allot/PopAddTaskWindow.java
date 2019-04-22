@@ -14,8 +14,8 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wul.oa_article.R;
-import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.PersonBO;
+import com.wul.oa_article.bean.request.AddTaskRequest;
 import com.wul.oa_article.view.SelectPersonAct;
 import com.wul.oa_article.widget.DateDialog;
 
@@ -39,6 +39,9 @@ public class PopAddTaskWindow extends PopupWindow {
     private EditText remark;
     private TextView dateText;
     private TextView personName;
+
+    private PersonBO personBO;
+    private int position = -1;
 
     public PopAddTaskWindow(Activity activity) {
         super(activity);
@@ -91,8 +94,28 @@ public class PopAddTaskWindow extends PopupWindow {
         selectDate.setOnClickListener(clickListener);
     }
 
+    /**
+     * 设置数据
+     */
+    public void setData(int position, AddTaskRequest.OrderTasksBean bean) {
+        this.position = position;
+        personBO = new PersonBO();
+        personBO.setName(bean.getUserName());
+        personBO.setId(bean.getUserId());
+        taskName.setText(bean.getTaskName());
+        fenpaiNum.setText(bean.getPlanNum() + "");
+        danwei.setText(bean.getUnit());
+        remark.setText(bean.getRemark());
+        personName.setText(personBO.getName());
+        if (StringUtils.isEmpty(bean.getPlanCompleteDate())) {
+            dateText.setText("");
+        } else {
+            dateText.setText(bean.getPlanCompleteDate().replaceAll("-", "/"));
+        }
+    }
 
-    View.OnClickListener clickListener = new View.OnClickListener() {
+
+    private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
@@ -123,7 +146,7 @@ public class PopAddTaskWindow extends PopupWindow {
                         return;
                     }
                     if (listener != null) {
-                        listener.commit(strTaskName, num, strDanwei, MyApplication.userBo.getId() + "", strDate, strRemark);
+                        listener.commit(position, strTaskName, num, strDanwei, personBO, strDate, strRemark);
                     }
                     dismiss();
                     break;
@@ -144,7 +167,8 @@ public class PopAddTaskWindow extends PopupWindow {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(PersonBO a) {
-
+        this.personBO = a;
+        personName.setText(personBO.getName());
     }
 
 
@@ -176,7 +200,7 @@ public class PopAddTaskWindow extends PopupWindow {
 
     public interface onCommitListener {
 
-        void commit(String name, String num, String danwei, String personId, String date, String remark);
+        void commit(int position, String name, String num, String danwei, PersonBO personBO, String date, String remark);
     }
 
 }

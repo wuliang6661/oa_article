@@ -16,7 +16,7 @@ import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
 import com.wul.oa_article.base.BaseActivity;
 import com.wul.oa_article.bean.TaskBO;
-import com.wul.oa_article.bean.request.OrderQueryRequest;
+import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.module.order_details.Order_detailsFragment;
 import com.wul.oa_article.module.task_accept.Task_acceptFragment;
 
@@ -88,7 +88,7 @@ public class AcceptedTaskActivity extends BaseActivity {
      * 根据任务id获取订单数据
      */
     public void getOrderByTaskId(int id) {
-        OrderQueryRequest request = new OrderQueryRequest();
+        IdRequest request = new IdRequest();
         request.setId(id);
         HttpServerImpl.getOrderByTaskId(request).subscribe(new HttpResultSubscriber<TaskBO>() {
             @Override

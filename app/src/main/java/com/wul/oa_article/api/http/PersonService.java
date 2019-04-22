@@ -2,7 +2,7 @@ package com.wul.oa_article.api.http;
 
 import com.wul.oa_article.bean.BaseResult;
 import com.wul.oa_article.bean.BumenBO;
-import com.wul.oa_article.bean.request.OrderQueryRequest;
+import com.wul.oa_article.bean.request.IdRequest;
 
 import java.util.List;
 
@@ -17,13 +17,13 @@ public interface PersonService {
      * 获取内部联系人列表
      */
     @POST("industry_webservice/app/userInfo/getInUsers")
-    Observable<BaseResult<List<BumenBO>>> getInUsers(@Body OrderQueryRequest request);
+    Observable<BaseResult<List<BumenBO>>> getInUsers(@Body IdRequest request);
 
     /**
      * 获取外部联系人列表
      */
     @POST("industry_webservice/app/userInfo/getOutUsers")
-    Observable<BaseResult<List<BumenBO>>> getOutUsers(@Body OrderQueryRequest request);
+    Observable<BaseResult<List<BumenBO>>> getOutUsers(@Body IdRequest request);
 
 
 

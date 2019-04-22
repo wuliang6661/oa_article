@@ -4,6 +4,7 @@ import com.wul.oa_article.api.ApiManager;
 import com.wul.oa_article.api.HttpService;
 import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.request.AddTaskRequest;
+import com.wul.oa_article.bean.request.ShunYanRequest;
 import com.wul.oa_article.bean.request.TaskModeRequest;
 import com.wul.oa_article.util.rx.RxResultHelper;
 
@@ -43,5 +44,13 @@ public class TaskServiceImpl {
         return getService().setTaskMode(request).compose(RxResultHelper.httpRusult());
     }
 
+
+    /**
+     * 一键顺延
+     */
+    public static Observable<String> shunYanTask(ShunYanRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().updateOrderPlanDate(request).compose(RxResultHelper.httpRusult());
+    }
 
 }

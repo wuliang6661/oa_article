@@ -4,7 +4,9 @@ import com.wul.oa_article.bean.AcceptedOrderBo;
 import com.wul.oa_article.bean.BaseResult;
 import com.wul.oa_article.bean.ComplanOrderBo;
 import com.wul.oa_article.bean.HistoryBO;
+import com.wul.oa_article.bean.MuBanTaskBO;
 import com.wul.oa_article.bean.MyOrderBO;
+import com.wul.oa_article.bean.OrderAndTaskInfoBO;
 import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.SalesBo;
 import com.wul.oa_article.bean.TaskBO;
@@ -16,7 +18,7 @@ import com.wul.oa_article.bean.request.AsseptRequest;
 import com.wul.oa_article.bean.request.ComplayRequest;
 import com.wul.oa_article.bean.request.CreateOrderBO;
 import com.wul.oa_article.bean.request.ForwordPassword;
-import com.wul.oa_article.bean.request.OrderQueryRequest;
+import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.PhoneRequest;
 import com.wul.oa_article.bean.request.RegistUserRequest;
@@ -151,7 +153,7 @@ public interface HttpService {
      * 创建订单
      */
     @POST("industry_webservice/app/orderInfo/addOrder")
-    Observable<BaseResult<OrderQueryRequest>> addOrder(@Body CreateOrderBO createOrderBO);
+    Observable<BaseResult<IdRequest>> addOrder(@Body CreateOrderBO createOrderBO);
 
     /**
      * 上传图片
@@ -171,19 +173,33 @@ public interface HttpService {
      * 获取订单基础信息
      */
     @POST("industry_webservice/app/orderInfo/getOrderInfo")
-    Observable<BaseResult<OrderInfoBo>> getOrderInfo(@Body OrderQueryRequest request);
+    Observable<BaseResult<OrderInfoBo>> getOrderInfo(@Body IdRequest request);
 
     /**
      * 取消订单
      */
     @POST("industry_webservice/app/orderInfo/deleteOrderInfo")
-    Observable<BaseResult<String>> cancleOrder(@Body OrderQueryRequest request);
+    Observable<BaseResult<String>> cancleOrder(@Body IdRequest request);
 
     /**
-     * 根据任务ID查询订单信息
+     * 根据任务ID查询我的任务信息
      */
     @POST("industry_webservice/app/orderTask/getOrderAndTaskInfoByTaskId")
-    Observable<BaseResult<TaskBO>> getOrderByTaskId(@Body OrderQueryRequest request);
+    Observable<BaseResult<TaskBO>> getOrderByTaskId(@Body IdRequest request);
+
+
+    /**
+     * 根据订单ID查询任务与订单信息
+     */
+    @POST("industry_webservice/app/orderTask/getOrderInfoAndTaskByOrderId")
+    Observable<BaseResult<OrderAndTaskInfoBO>> getInfoByOrderId(@Body IdRequest request);
+
+    /**
+     * 根据任务ID查询任务与订单信息
+     */
+    @POST("industry_webservice/app/task/getOrderAndTaskByTaskId")
+    Observable<BaseResult<OrderAndTaskInfoBO>> getInfoByTaskId(@Body IdRequest request);
+
 
     /**
      * 模糊查询模板
@@ -195,7 +211,7 @@ public interface HttpService {
      * 查询模板详情
      */
     @POST("industry_webservice/app/taskTemplate/getTemplateInfo")
-    Observable<BaseResult<TempleteInfoBo>> getTemplateInfo(@Body OrderQueryRequest request);
+    Observable<BaseResult<TempleteInfoBo>> getTemplateInfo(@Body IdRequest request);
 
     /**
      * 新增模板
@@ -208,6 +224,12 @@ public interface HttpService {
      */
     @POST("industry_webservice/app/taskTemplate/updateTemplate")
     Observable<BaseResult<String>> updateTemplete(@Body AddTempleteBo addTempleteBo);
+
+    /**
+     * 使用模板
+     */
+    @POST("industry_webservice/app/taskTemplate/getTemplateTasks")
+    Observable<BaseResult<List<MuBanTaskBO>>> getTemplateTask(@Body IdRequest request);
 
 
 }

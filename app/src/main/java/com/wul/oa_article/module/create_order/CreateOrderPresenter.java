@@ -4,7 +4,7 @@ import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
 import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.request.CreateOrderBO;
-import com.wul.oa_article.bean.request.OrderQueryRequest;
+import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.bean.request.UpdateOrderRequest;
 import com.wul.oa_article.mvp.BasePresenterImpl;
 
@@ -42,9 +42,9 @@ public class CreateOrderPresenter extends BasePresenterImpl<CreateOrderContract.
      * 创建订单
      */
     public void createOrder(CreateOrderBO createOrderBO) {
-        HttpServerImpl.createOrder(createOrderBO).subscribe(new HttpResultSubscriber<OrderQueryRequest>() {
+        HttpServerImpl.createOrder(createOrderBO).subscribe(new HttpResultSubscriber<IdRequest>() {
             @Override
-            public void onSuccess(OrderQueryRequest s) {
+            public void onSuccess(IdRequest s) {
                 if (mView != null) {
                     mView.addSuress(s);
                 }
@@ -86,7 +86,7 @@ public class CreateOrderPresenter extends BasePresenterImpl<CreateOrderContract.
      * 获取订单基本信息
      */
     public void getOrderInfo(int id) {
-        OrderQueryRequest request = new OrderQueryRequest();
+        IdRequest request = new IdRequest();
         request.setId(id);
         HttpServerImpl.getOrderInfo(request).subscribe(new HttpResultSubscriber<OrderInfoBo>() {
             @Override

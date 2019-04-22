@@ -9,17 +9,22 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.wul.oa_article.R;
 import com.wul.oa_article.base.MyApplication;
+import com.wul.oa_article.bean.MuBanTaskBO;
 import com.wul.oa_article.bean.TempleteBO;
+import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.bean.request.TempleteRequest;
 import com.wul.oa_article.mvp.MVPBaseActivity;
 import com.wul.oa_article.view.createmoban.CreateMoBanActivity;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -44,6 +49,8 @@ public class MobanManagerActivity extends MVPBaseActivity<MobanManagerContract.V
     private List<TempleteBO> templeteBOS;
     TempleteRequest request;
 
+    private boolean isShowMake = true;   //是否显示使用按钮
+
     @Override
     protected int getLayout() {
         return R.layout.act_moban_manager;
@@ -56,6 +63,7 @@ public class MobanManagerActivity extends MVPBaseActivity<MobanManagerContract.V
         goBack();
         setTitleText("模板管理");
 
+        isShowMake = getIntent().getBooleanExtra("isShowMake", true);
         request = new TempleteRequest();
         request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
         request.setName("");
@@ -113,6 +121,12 @@ public class MobanManagerActivity extends MVPBaseActivity<MobanManagerContract.V
         setAdapter();
     }
 
+    @Override
+    public void makeMuBanSoress(List<MuBanTaskBO> muBanTaskBOS) {
+        EventBus.getDefault().post(muBanTaskBOS);
+        finish();
+    }
+
 
     private void setAdapter() {
         LGRecycleViewAdapter<TempleteBO> adapter = new LGRecycleViewAdapter<TempleteBO>(templeteBOS) {
@@ -126,6 +140,11 @@ public class MobanManagerActivity extends MVPBaseActivity<MobanManagerContract.V
                 holder.setText(R.id.xuhao_text, position + 1 + "");
                 holder.setText(R.id.moban_title, templeteBO.getName());
                 holder.setText(R.id.moban_message, templeteBO.getRemarks());
+                if(isShowMake){
+                    holder.getView(R.id.select_button).setVisibility(View.VISIBLE);
+                }else{
+                    holder.getView(R.id.select_button).setVisibility(View.GONE);
+                }
             }
         };
         adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
@@ -134,6 +153,11 @@ public class MobanManagerActivity extends MVPBaseActivity<MobanManagerContract.V
             bundle.putSerializable("templete", templeteBOS.get(position));
             bundle.putInt("id", templeteBOS.get(position).getId());
             gotoActivity(CreateMoBanActivity.class, bundle, false);
+        });
+        adapter.setOnItemClickListener(R.id.select_button, (view, position) -> {
+            IdRequest request = new IdRequest();
+            request.setId(templeteBOS.get(position).getId());
+            mPresenter.makeMuBan(request);
         });
         recycleView.setAdapter(adapter);
     }

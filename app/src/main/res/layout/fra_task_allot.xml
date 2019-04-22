@@ -185,13 +185,13 @@
 
 
         <TextView
-            android:id="@+id/pc_add"
+            android:id="@+id/moban_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:paddingTop="11dp"
             android:paddingBottom="11dp"
-            android:text="电脑导入"
+            android:text="模板导入"
             android:textColor="@color/blue_color"
             android:textSize="15sp"
             android:visibility="gone" />

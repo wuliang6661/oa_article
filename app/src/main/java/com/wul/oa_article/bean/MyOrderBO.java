@@ -28,6 +28,15 @@ public class MyOrderBO {
     private int userId;
     private String actualCompleteDate;
     private int status;
+    private int isMe;
+
+    public int getIsMe() {
+        return isMe;
+    }
+
+    public void setIsMe(int isMe) {
+        this.isMe = isMe;
+    }
 
     public String getRemainingDate() {
         return remainingDate;

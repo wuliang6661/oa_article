@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import com.blankj.utilcode.util.StringUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.base.MyApplication;
+import com.wul.oa_article.bean.PersonBO;
 import com.wul.oa_article.bean.TempleteBO;
 import com.wul.oa_article.bean.TempleteInfoBo;
 import com.wul.oa_article.bean.request.AddTempleteBo;
@@ -134,7 +135,7 @@ public class CreateMoBanActivity extends MVPBaseActivity<CreateMoBanContract.Vie
             AddTempleteBo.TaskTemplateDetailsBean bean = new AddTempleteBo.TaskTemplateDetailsBean();
             bean.setName(infoBean.getTaskName());
             bean.setUserId(infoBean.getUserId());
-            bean.setName(infoBean.getNickName());
+//            bean.setName(infoBean.getNickName());
             list.add(bean);
         }
         templeteBo.setTaskTemplateDetails(list);
@@ -148,10 +149,11 @@ public class CreateMoBanActivity extends MVPBaseActivity<CreateMoBanContract.Vie
     }
 
 
-    private void addMoBanBean(String taskName, String person) {
+    private void addMoBanBean(String taskName, PersonBO person) {
         TempleteBO.TaskInfoBean bean = new TempleteBO.TaskInfoBean();
         bean.setTaskName(taskName);
-        bean.setNickName(person);
+        bean.setUserId(person.getId());
+        bean.setNickName(person.getName());
         templeteBO.getTaskInfo().add(bean);
         setAddAdapter();
     }

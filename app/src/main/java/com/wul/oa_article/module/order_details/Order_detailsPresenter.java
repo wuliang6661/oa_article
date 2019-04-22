@@ -1,12 +1,10 @@
 package com.wul.oa_article.module.order_details;
 
-import android.content.Context;
-
 import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
 import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.TaskBO;
-import com.wul.oa_article.bean.request.OrderQueryRequest;
+import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.mvp.BasePresenterImpl;
 
 /**
@@ -22,7 +20,7 @@ public class Order_detailsPresenter extends BasePresenterImpl<Order_detailsContr
      * 获取订单基本信息
      */
     public void getOrderInfo(int id) {
-        OrderQueryRequest request = new OrderQueryRequest();
+        IdRequest request = new IdRequest();
         request.setId(id);
         HttpServerImpl.getOrderInfo(request).subscribe(new HttpResultSubscriber<OrderInfoBo>() {
             @Override
@@ -46,7 +44,7 @@ public class Order_detailsPresenter extends BasePresenterImpl<Order_detailsContr
      * 根据任务id获取订单数据
      */
     public void getOrderByTaskId(int id) {
-        OrderQueryRequest request = new OrderQueryRequest();
+        IdRequest request = new IdRequest();
         request.setId(id);
         HttpServerImpl.getOrderByTaskId(request).subscribe(new HttpResultSubscriber<TaskBO>() {
             @Override

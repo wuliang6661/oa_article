@@ -1,81 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="68dp"
-    android:background="@color/layout_bg"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/person_img"
-        android:layout_width="38dp"
-        android:layout_height="38dp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="13dp"
-        app:riv_corner_radius="360dp" />
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="15dp"
-        android:layout_toRightOf="@+id/person_img"
-        android:gravity="center_vertical"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:background="@color/layout_bg"
         android:orientation="vertical">
+
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/person_img"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            app:riv_corner_radius="360dp" />
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="bottom"
-            android:orientation="horizontal">
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/person_img"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/person_name"
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/f_white"
-                android:textSize="15sp"
-                tools:text="张三" />
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/person_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/f_white"
+                    android:textSize="15sp"
+                    tools:text="张三" />
+
+
+                <TextView
+                    android:id="@+id/lable_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/lable_bg"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="2dp"
+                    android:textColor="@color/blue_color"
+                    tools:text="销售部" />
+
+            </LinearLayout>
 
 
             <TextView
-                android:id="@+id/lable_text"
+                android:id="@+id/bumen_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:background="@drawable/lable_bg"
-                android:paddingLeft="8dp"
-                android:paddingTop="2dp"
-                android:paddingRight="8dp"
-                android:paddingBottom="2dp"
-                android:textColor="@color/blue_color"
-                tools:text="销售部" />
+                android:layout_marginTop="6dp"
+                android:textColor="@color/hint_color"
+                android:textSize="12sp"
+                tools:text="部门" />
 
         </LinearLayout>
 
-
-        <TextView
-            android:id="@+id/bumen_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:textColor="@color/hint_color"
-            android:textSize="12sp"
-            tools:text="部门" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:background="#2B2B2B" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#2B2B2B" />
 
 
-</RelativeLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>
+

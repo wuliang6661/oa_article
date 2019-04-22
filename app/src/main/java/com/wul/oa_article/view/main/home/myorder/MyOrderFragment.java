@@ -21,6 +21,7 @@ import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.MyOrderBO;
 import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
+import com.wul.oa_article.view.MyOrderActivity;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
@@ -276,9 +277,24 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
         adapter.setOnItemClickListener(R.id.item_layout, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int i) {
-//                if (position == 2&& s.get(i).getUserId()) {   //我分派的，则需要跳入
-//
-//                }
+                MyOrderBO orderBO = s.get(i);
+                if (orderBO.getIsMe() == 0) {   //分派给我的
+                    if (orderBO.getStatus() == 0) {  //待接受
+
+                    } else if (orderBO.getStatus() == 1) {  //进行中
+
+                    } else {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("taskId", orderBO.getId());
+                        gotoActivity(MyOrderActivity.class, bundle, false);
+                    }
+                } else if (orderBO.getIsMe() == 1) {   //我分派的
+
+                } else {   //已完成的
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("taskId", orderBO.getId());
+                    gotoActivity(MyOrderActivity.class, bundle, false);
+                }
             }
         });
         recycleView.setAdapter(adapter);

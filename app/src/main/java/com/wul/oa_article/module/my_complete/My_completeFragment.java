@@ -65,6 +65,10 @@ public class My_completeFragment extends MVPBaseFragment<My_completeContract.Vie
         super.onViewCreated(view, savedInstanceState);
     }
 
+
+
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

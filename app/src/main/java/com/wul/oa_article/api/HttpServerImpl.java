@@ -5,7 +5,9 @@ import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.AcceptedOrderBo;
 import com.wul.oa_article.bean.ComplanOrderBo;
 import com.wul.oa_article.bean.HistoryBO;
+import com.wul.oa_article.bean.MuBanTaskBO;
 import com.wul.oa_article.bean.MyOrderBO;
+import com.wul.oa_article.bean.OrderAndTaskInfoBO;
 import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.SalesBo;
 import com.wul.oa_article.bean.TaskBO;
@@ -17,7 +19,7 @@ import com.wul.oa_article.bean.request.AsseptRequest;
 import com.wul.oa_article.bean.request.ComplayRequest;
 import com.wul.oa_article.bean.request.CreateOrderBO;
 import com.wul.oa_article.bean.request.ForwordPassword;
-import com.wul.oa_article.bean.request.OrderQueryRequest;
+import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.PhoneRequest;
 import com.wul.oa_article.bean.request.RegistUserRequest;
@@ -206,7 +208,7 @@ public class HttpServerImpl {
     /**
      * 创建订单
      */
-    public static Observable<OrderQueryRequest> createOrder(CreateOrderBO createOrderBO) {
+    public static Observable<IdRequest> createOrder(CreateOrderBO createOrderBO) {
         createOrderBO.setToken(MyApplication.token);
         return getService().addOrder(createOrderBO).compose(RxResultHelper.httpRusult());
     }
@@ -240,7 +242,7 @@ public class HttpServerImpl {
     /**
      * 获取订单基础信息
      */
-    public static Observable<OrderInfoBo> getOrderInfo(OrderQueryRequest request) {
+    public static Observable<OrderInfoBo> getOrderInfo(IdRequest request) {
         request.setToken(MyApplication.token);
         return getService().getOrderInfo(request).compose(RxResultHelper.httpRusult());
     }
@@ -248,19 +250,34 @@ public class HttpServerImpl {
     /**
      * 取消订单
      */
-    public static Observable<String> cancleOrder(OrderQueryRequest request) {
+    public static Observable<String> cancleOrder(IdRequest request) {
         request.setToken(MyApplication.token);
         return getService().cancleOrder(request).compose(RxResultHelper.httpRusult());
     }
 
     /**
-     * 根据任务id获取订单信息
+     * 根据任务id获取我的任务信息
      */
-    public static Observable<TaskBO> getOrderByTaskId(OrderQueryRequest request) {
+    public static Observable<TaskBO> getOrderByTaskId(IdRequest request) {
         request.setToken(MyApplication.token);
         return getService().getOrderByTaskId(request).compose(RxResultHelper.httpRusult());
     }
 
+    /**
+     * 根据订单ID获取订单与任务信息
+     */
+    public static Observable<OrderAndTaskInfoBO> getInfoByOrderId(IdRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().getInfoByOrderId(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 根据任务ID获取订单与任务信息
+     */
+    public static Observable<OrderAndTaskInfoBO> getInfoByTaskId(IdRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().getInfoByTaskId(request).compose(RxResultHelper.httpRusult());
+    }
 
     /**
      * 模糊查询模板列表
@@ -273,7 +290,7 @@ public class HttpServerImpl {
     /**
      * 查询模板详情
      */
-    public static Observable<TempleteInfoBo> getTempleteInfo(OrderQueryRequest request) {
+    public static Observable<TempleteInfoBo> getTempleteInfo(IdRequest request) {
         request.setToken(MyApplication.token);
         return getService().getTemplateInfo(request).compose(RxResultHelper.httpRusult());
     }
@@ -293,4 +310,13 @@ public class HttpServerImpl {
         addTempleteBo.setToken(MyApplication.token);
         return getService().updateTemplete(addTempleteBo).compose(RxResultHelper.httpRusult());
     }
+
+    /**
+     * 使用模板
+     */
+    public static Observable<List<MuBanTaskBO>> makeMuBan(IdRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().getTemplateTask(request).compose(RxResultHelper.httpRusult());
+    }
+
 }

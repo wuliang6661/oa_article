@@ -40,7 +40,7 @@ import com.wul.oa_article.R;
 import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.request.CreateOrderBO;
-import com.wul.oa_article.bean.request.OrderQueryRequest;
+import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.bean.request.UpdateOrderRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.util.PhotoFromPhotoAlbum;
@@ -271,6 +271,7 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
         orderBO.setOrderSpecifications(pingLeiBOS);
         orderBO.setRemark(beizhu);
         orderBO.setPlanCompleteDate(orderDate.replaceAll("/", "-"));
+        showProgress();
         mPresenter.createOrder(orderBO);
     }
 
@@ -294,6 +295,7 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
         orderBO.setOrderSpecifications(pingLeiBOS);
         orderBO.setRemark(beizhu);
         orderBO.setPlanCompleteDate(orderDate.replaceAll("/", "-"));
+        showProgress();
         mPresenter.updateOrder(orderBO);
     }
 
@@ -606,7 +608,8 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     }
 
     @Override
-    public void addSuress(OrderQueryRequest request) {
+    public void addSuress(IdRequest request) {
+        stopProgress();
         Bundle bundle = new Bundle();
         bundle.putInt("id", request.getId());
         gotoActivity(CreateTaskActivity.class, bundle, true);
@@ -633,6 +636,7 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
 
     @Override
     public void updateSuress() {
+        stopProgress();
         showToast("修改成功！");
     }
 }

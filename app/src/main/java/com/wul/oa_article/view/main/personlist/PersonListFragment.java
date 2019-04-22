@@ -16,10 +16,14 @@ import com.blankj.utilcode.util.ScreenUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.BumenBO;
-import com.wul.oa_article.bean.request.OrderQueryRequest;
+import com.wul.oa_article.bean.PersonBO;
+import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,8 +54,10 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
     ExpandableListView expandList;
     Unbinder unbinder;
 
-    OrderQueryRequest request;
+    IdRequest request;
     int selectMenu = 1;   //默认内部联系人
+
+    private List<BumenBO> bumenBOS;
 
     @Nullable
     @Override
@@ -69,9 +75,21 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
         params.width = ScreenUtils.getScreenWidth() / 2;
         line.setLayoutParams(params);
 
-        request = new OrderQueryRequest();
+        request = new IdRequest();
         request.setId(Integer.parseInt(MyApplication.getCommonId()));
         mPresenter.getNeiUsers(request);
+
+        initView();
+    }
+
+
+    private void initView() {
+        expandList.setOnChildClickListener((expandableListView, view, i, i1, l) -> {
+            PersonBO personBO = bumenBOS.get(i).getUser().get(i1);
+            EventBus.getDefault().post(personBO);
+            Objects.requireNonNull(getActivity()).finish();
+            return true;
+        });
     }
 
 
@@ -119,6 +137,7 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
 
     @Override
     public void getPersonListByNeiBu(List<BumenBO> bumenBOS) {
+        this.bumenBOS = bumenBOS;
         ExpandAdapter expandAdapter = new ExpandAdapter(getActivity(), bumenBOS, false);
         expandList.setAdapter(expandAdapter);
         for (int i = 0; i < bumenBOS.size(); i++) {
@@ -128,6 +147,7 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
 
     @Override
     public void getPersonListByWaiBu(List<BumenBO> bumenBOS) {
+        this.bumenBOS = bumenBOS;
         ExpandAdapter expandAdapter = new ExpandAdapter(getActivity(), bumenBOS, true);
         expandList.setAdapter(expandAdapter);
         for (int i = 0; i < bumenBOS.size(); i++) {

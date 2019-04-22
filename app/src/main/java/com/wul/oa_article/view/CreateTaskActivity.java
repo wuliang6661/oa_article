@@ -15,7 +15,7 @@ import com.wul.oa_article.R;
 import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
 import com.wul.oa_article.base.BaseActivity;
-import com.wul.oa_article.bean.request.OrderQueryRequest;
+import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.module.create_order.CreateOrderFragment;
 import com.wul.oa_article.module.task_allot.Task_allotFragment;
 import com.wul.oa_article.widget.AlertDialog;
@@ -81,7 +81,7 @@ public class CreateTaskActivity extends BaseActivity {
 
 
     private void cancleOrder() {
-        OrderQueryRequest request = new OrderQueryRequest();
+        IdRequest request = new IdRequest();
         request.setId(orderId);
         HttpServerImpl.cancleOrder(request).subscribe(new HttpResultSubscriber<String>() {
             @Override

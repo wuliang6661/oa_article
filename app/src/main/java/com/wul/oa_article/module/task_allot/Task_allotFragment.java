@@ -1,6 +1,7 @@
 package com.wul.oa_article.module.task_allot;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,13 +17,23 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.base.MyApplication;
+import com.wul.oa_article.bean.MuBanTaskBO;
+import com.wul.oa_article.bean.OrderAndTaskInfoBO;
 import com.wul.oa_article.bean.request.AddTaskRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
+import com.wul.oa_article.view.OrderDetailsActivity;
+import com.wul.oa_article.view.PcUpdateAct;
+import com.wul.oa_article.view.mobanmanager.MobanManagerActivity;
 import com.wul.oa_article.widget.SlideRecyclerView;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +72,8 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     @BindView(R.id.add_task_layout)
     RelativeLayout addTaskLayout;
     Unbinder unbinder;
+    @BindView(R.id.moban_add)
+    TextView mobanAdd;
 
     private boolean isShunYan = true;  //默认是一键顺延
     private List<AddTaskRequest.OrderTasksBean> tasks;
@@ -82,6 +95,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fra_task_allot, null);
         unbinder = ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
         return view;
     }
 
@@ -91,11 +105,11 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         super.onViewCreated(view, savedInstanceState);
 
         orderId = getArguments().getInt("orderId");
-        type = getArguments().getInt("type",0);
-        if(type == 0){   //可编辑
+        type = getArguments().getInt("type", 0);
+        if (type == 0) {   //可编辑
             taskRightButton.setVisibility(View.VISIBLE);
             addTaskLayout.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             taskRightButton.setVisibility(View.GONE);
             addTaskLayout.setVisibility(View.GONE);
         }
@@ -135,12 +149,18 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     }
 
 
-    @OnClick({R.id.task_right_button, R.id.continue_add, R.id.task_suress})
+    @OnClick({R.id.task_right_button, R.id.continue_add, R.id.task_suress, R.id.moban_add})
     public void rightClick(View view) {
         switch (view.getId()) {
             case R.id.task_right_button:
                 if (isShunYan) {     //显示顺延弹窗
                     PopShunYanWindow shunYanWindow = new PopShunYanWindow(getActivity());
+                    shunYanWindow.setListener(new PopShunYanWindow.onCommitListener() {
+                        @Override
+                        public void commit(String text) {
+
+                        }
+                    });
                     shunYanWindow.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
                 } else {     //任务编辑
                     isShunYan = true;
@@ -149,33 +169,34 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 }
                 break;
             case R.id.continue_add:    //添加任务(显示添加任务弹窗)
-                PopAddTaskWindow window = new PopAddTaskWindow(getActivity());
-                window.setListener((name, num, danwei, personId, date, remark) -> {
-                    AddTaskRequest.OrderTasksBean bean = new AddTaskRequest.OrderTasksBean();
-                    bean.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
-                    bean.setPlanCompleteDate(date.replaceAll("/", "-"));
-                    bean.setPlanNum(Integer.parseInt(num));
-                    bean.setRemark(remark);
-                    bean.setTaskName(name);
-                    bean.setUnit(danwei);
-                    bean.setTaskType(0);
-                    tasks.add(bean);
-                    setTaskAdapter();
-                });
+                PopAddTaskWindow window = getPopWindow();
                 window.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
                 break;
+            case R.id.moban_add:
+                gotoActivity(MobanManagerActivity.class, false);
+                break;
             case R.id.task_suress:   //完成
-
-                isShunYan = false;
-                taskRightButton.setText("任务编辑");
-                addTaskLayout.setVisibility(View.GONE);
-                AddTaskRequest request = new AddTaskRequest();
-                request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
-                request.setObjectId(orderId);
-                request.setOrderTasks(tasks);
-                mPresenter.addTaskByOrder(request);
+                if ("电脑上传".equals(taskSuress.getText().toString().trim())) {
+                    gotoActivity(PcUpdateAct.class, false);
+                } else {
+                    AddTaskRequest request = new AddTaskRequest();
+                    request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+                    request.setObjectId(orderId);
+                    request.setOrderTasks(tasks);
+                    mPresenter.addTaskByOrder(request);
+                }
                 break;
         }
+    }
+
+
+    /**
+     * 设置数据列表
+     */
+    public void setData(OrderAndTaskInfoBO infoBO) {
+        orderId = infoBO.getOrder().getOrderInfo().getId();
+        tasks = infoBO.getTaskList();
+        setTaskAdapter();
     }
 
 
@@ -193,18 +214,50 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                     @Override
                     public void convert(LGViewHolder holder, AddTaskRequest.OrderTasksBean s, int position) {
                         holder.setText(R.id.task_name, s.getTaskName());
-//                        holder.setText(R.id.task_person_name,);
+                        holder.setText(R.id.task_person_name, s.getUserName());
                         holder.setText(R.id.task_shiji_num, "--");
-                        holder.setText(R.id.task_jihua_num, s.getPlanNum() + "/" + s.getUnit());
-                        holder.setText(R.id.task_date, s.getPlanCompleteDate().replaceAll("-", "/"));
+                        holder.setText(R.id.task_jihua_num, s.getPlanNum() + "/" + (StringUtils.isEmpty(s.getUnit()) ? "--" : s.getUnit()));
+                        if (StringUtils.isEmpty(s.getPlanCompleteDate())) {
+                            holder.setText(R.id.task_date, "--");
+                        } else {
+                            holder.setText(R.id.task_date, s.getPlanCompleteDate().replaceAll("-", "/"));
+                        }
+                        if (s.getRemainingDate() != 0) {
+                            TextView surplus_time = (TextView) holder.getView(R.id.surplus_time);
+                            surplus_time.setText(s.getRemainingDate() + "天");
+                            if (s.getRemainingDate() > 0) {
+                                surplus_time.setTextColor(Color.parseColor("#71EA45"));
+                            } else {
+                                surplus_time.setTextColor(Color.parseColor("#E92B2B"));
+                            }
+                        }
                     }
                 };
-        adapter.setOnItemClickListener(R.id.tv_delete, new LGRecycleViewAdapter.ItemClickListener() {
-            @Override
-            public void onItemClicked(View view, int position) {
-                taskRecycleView.closeMenu();
+        adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
+            if (type == 0) {   //可编辑
+                PopAddTaskWindow window = getPopWindow();
+                window.setData(position, tasks.get(position));
+                window.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+            } else {
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", tasks.get(position).getId());
+                gotoActivity(OrderDetailsActivity.class, bundle, false);
             }
         });
+        adapter.setOnItemClickListener(R.id.tv_delete, (view, position) -> taskRecycleView.closeMenu());
+        if (type == 0) {
+            if (tasks.size() == 0) {
+                taskRightButton.setVisibility(View.GONE);
+                continueAdd.setText("添加任务");
+                mobanAdd.setVisibility(View.VISIBLE);
+                taskSuress.setText("电脑上传");
+            } else {
+                taskRightButton.setVisibility(View.VISIBLE);
+                continueAdd.setText("继续添加");
+                mobanAdd.setVisibility(View.GONE);
+                taskSuress.setText("完成");
+            }
+        }
         taskRecycleView.setAdapter(adapter);
     }
 
@@ -212,10 +265,57 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void onRequestError(String msg) {
         showToast(msg);
+    }
+
+    @Override
+    public void taskSourss() {
+//        setTaskAdapter();
+        isShunYan = false;
+        taskRightButton.setText("任务编辑");
+        addTaskLayout.setVisibility(View.GONE);
+    }
+
+
+    private PopAddTaskWindow getPopWindow() {
+        PopAddTaskWindow window = new PopAddTaskWindow(getActivity());
+        window.setListener((position, name, num, danwei, personId, date, remark) -> {
+            AddTaskRequest.OrderTasksBean bean = new AddTaskRequest.OrderTasksBean();
+            bean.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+            bean.setPlanCompleteDate(date.replaceAll("/", "-"));
+            bean.setPlanNum(Integer.parseInt(num));
+            bean.setRemark(remark);
+            bean.setTaskName(name);
+            bean.setUnit(danwei);
+            bean.setTaskType(0);
+            bean.setUserId(personId.getId());
+            bean.setUserName(personId.getName());
+            if (position == -1) {
+                tasks.add(bean);
+            } else {
+                tasks.set(position, bean);
+            }
+            setTaskAdapter();
+        });
+        return window;
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(List<MuBanTaskBO> muBanTaskBOS) {
+        for (MuBanTaskBO muBanTaskBO : muBanTaskBOS) {
+            AddTaskRequest.OrderTasksBean bean = new AddTaskRequest.OrderTasksBean();
+            bean.setUserId(muBanTaskBO.getUserId());
+            bean.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+            bean.setTaskName(muBanTaskBO.getTaskName());
+            bean.setUserName(muBanTaskBO.getNickName());
+            tasks.add(bean);
+        }
+        setTaskAdapter();
     }
 }

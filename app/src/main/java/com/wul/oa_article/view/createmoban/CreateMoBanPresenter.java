@@ -4,7 +4,7 @@ import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
 import com.wul.oa_article.bean.TempleteInfoBo;
 import com.wul.oa_article.bean.request.AddTempleteBo;
-import com.wul.oa_article.bean.request.OrderQueryRequest;
+import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.mvp.BasePresenterImpl;
 
 /**
@@ -19,7 +19,7 @@ public class CreateMoBanPresenter extends BasePresenterImpl<CreateMoBanContract.
      * 获取模板详情
      */
     public void getMoBanInfo(int id) {
-        OrderQueryRequest request = new OrderQueryRequest();
+        IdRequest request = new IdRequest();
         request.setId(id);
         HttpServerImpl.getTempleteInfo(request).subscribe(new HttpResultSubscriber<TempleteInfoBo>() {
             @Override

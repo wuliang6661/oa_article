@@ -12,15 +12,13 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.TimeUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.bean.TaskBO;
+import com.wul.oa_article.bean.request.AddTaskRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
-import com.wul.oa_article.view.AcceptedTaskActivity;
 import com.wul.oa_article.view.MyOrderActivity;
 import com.wul.oa_article.widget.AlertDialog;
 
-import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -64,7 +62,7 @@ public class Task_acceptFragment extends MVPBaseFragment<Task_acceptContract.Vie
     @BindView(R.id.task_check)
     CheckBox taskCheck;
 
-    TaskBO.TaskBean taskBean;
+    AddTaskRequest.OrderTasksBean taskBean;
 
     @Nullable
     @Override
@@ -126,8 +124,8 @@ public class Task_acceptFragment extends MVPBaseFragment<Task_acceptContract.Vie
     public void setTask(TaskBO task) {
         this.taskBean = task.getTask();
         taskName.setText(taskBean.getTaskName());
-        taskPerson.setText(taskBean.getNickName());   //执行人
-        taskNum.setText(taskBean.getNum() + "");
+        taskPerson.setText(taskBean.getUserName());   //执行人
+        taskNum.setText(taskBean.getPlanNum() + "");
         taskDanwei.setText(taskBean.getUnit());   //单位
         taskDate.setText(taskBean.getPlanCompleteDate());
         taskRemart.setText(taskBean.getRemark());

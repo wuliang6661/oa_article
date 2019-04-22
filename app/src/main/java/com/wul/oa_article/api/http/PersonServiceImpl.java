@@ -4,7 +4,7 @@ import com.wul.oa_article.api.ApiManager;
 import com.wul.oa_article.api.HttpService;
 import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.BumenBO;
-import com.wul.oa_article.bean.request.OrderQueryRequest;
+import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.util.rx.RxResultHelper;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class PersonServiceImpl {
     /**
      * 获取内部联系人列表
      */
-    public static Observable<List<BumenBO>> getNeiPersonList(OrderQueryRequest request) {
+    public static Observable<List<BumenBO>> getNeiPersonList(IdRequest request) {
         request.setToken(MyApplication.token);
         return getService().getInUsers(request).compose(RxResultHelper.httpRusult());
     }
@@ -36,7 +36,7 @@ public class PersonServiceImpl {
     /**
      * 获取外部联系人列表
      */
-    public static Observable<List<BumenBO>> getOutPersonList(OrderQueryRequest request) {
+    public static Observable<List<BumenBO>> getOutPersonList(IdRequest request) {
         request.setToken(MyApplication.token);
         return getService().getOutUsers(request).compose(RxResultHelper.httpRusult());
     }

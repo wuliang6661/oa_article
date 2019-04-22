@@ -91,7 +91,7 @@ public class PopAddMoBan extends PopupWindow {
                 return;
             }
             if (listener != null) {
-                listener.commit(strName, strPerson);
+                listener.commit(strName, personBO);
                 dismiss();
             }
         });
@@ -132,7 +132,7 @@ public class PopAddMoBan extends PopupWindow {
 
     public interface onCommitListener {
 
-        void commit(String taskName, String person);
+        void commit(String taskName, PersonBO person);
     }
 }
 

@@ -119,7 +119,7 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
             infoBo = (OrderInfoBo) getArguments().getSerializable("order");
             getOrderInfo(infoBo);
         } else {
-            mPresenter.getOrderInfo(orderId);
+//            mPresenter.getOrderInfo(orderId);
         }
 
     }

@@ -1,6 +1,6 @@
 package com.wul.oa_article.bean.request;
 
-public class OrderQueryRequest {
+public class IdRequest {
 
 
     /**

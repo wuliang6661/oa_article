@@ -3,7 +3,7 @@ package com.wul.oa_article.view.main.personlist;
 import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.http.PersonServiceImpl;
 import com.wul.oa_article.bean.BumenBO;
-import com.wul.oa_article.bean.request.OrderQueryRequest;
+import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.mvp.BasePresenterImpl;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class PersonListPresenter extends BasePresenterImpl<PersonListContract.Vi
         implements PersonListContract.Presenter {
 
 
-    public void getNeiUsers(OrderQueryRequest request) {
+    public void getNeiUsers(IdRequest request) {
         PersonServiceImpl.getNeiPersonList(request).subscribe(new HttpResultSubscriber<List<BumenBO>>() {
             @Override
             public void onSuccess(List<BumenBO> s) {
@@ -36,7 +36,7 @@ public class PersonListPresenter extends BasePresenterImpl<PersonListContract.Vi
     }
 
 
-    public void getOutUsers(OrderQueryRequest request) {
+    public void getOutUsers(IdRequest request) {
         PersonServiceImpl.getOutPersonList(request).subscribe(new HttpResultSubscriber<List<BumenBO>>() {
             @Override
             public void onSuccess(List<BumenBO> s) {

@@ -82,9 +82,9 @@ public class PopShunYanWindow extends PopupWindow {
     }
 
 
-    private EditPhotoNamePop.onCommitListener listener;
+    private onCommitListener listener;
 
-    public void setListener(EditPhotoNamePop.onCommitListener listener) {
+    public void setListener(onCommitListener listener) {
         this.listener = listener;
     }
 

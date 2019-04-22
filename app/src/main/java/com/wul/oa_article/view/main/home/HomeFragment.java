@@ -1,6 +1,7 @@
 package com.wul.oa_article.view.main.home;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,9 +19,9 @@ import com.wul.oa_article.R;
 import com.wul.oa_article.bean.event.MsgNumEvent;
 import com.wul.oa_article.bean.event.OpenDrawableEvent;
 import com.wul.oa_article.mvp.MVPBaseFragment;
+import com.wul.oa_article.view.CreateActivity;
 import com.wul.oa_article.view.FragmentPaerAdapter;
 import com.wul.oa_article.view.SelectActivity;
-import com.wul.oa_article.view.CreateActivity;
 import com.wul.oa_article.view.main.home.accepted.AcceptedFragment;
 import com.wul.oa_article.view.main.home.compony.ComponyFragment;
 import com.wul.oa_article.view.main.home.myorder.MyOrderFragment;
@@ -192,7 +193,9 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
 
             @Override
             public void clickCreateMoBan() {
-                gotoActivity(MobanManagerActivity.class, false);
+                Intent intent = new Intent(getActivity(), MobanManagerActivity.class);
+                intent.putExtra("isShowMake", false);
+                startActivity(intent);
             }
         });
         popWindow.showPop(addImg, 0, 20);

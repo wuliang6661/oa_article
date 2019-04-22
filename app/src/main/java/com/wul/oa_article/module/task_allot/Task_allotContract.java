@@ -11,6 +11,7 @@ import com.wul.oa_article.mvp.BaseRequestView;
 public class Task_allotContract {
     interface View extends BaseRequestView {
 
+        void taskSourss();
 
     }
 

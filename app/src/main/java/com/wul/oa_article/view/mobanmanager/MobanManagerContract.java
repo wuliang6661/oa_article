@@ -1,5 +1,6 @@
 package com.wul.oa_article.view.mobanmanager;
 
+import com.wul.oa_article.bean.MuBanTaskBO;
 import com.wul.oa_article.bean.TempleteBO;
 import com.wul.oa_article.mvp.BasePresenter;
 import com.wul.oa_article.mvp.BaseRequestView;
@@ -16,6 +17,7 @@ public class MobanManagerContract {
 
         void getMoBan(List<TempleteBO> templeteBOS);
 
+        void makeMuBanSoress(List<MuBanTaskBO> muBanTaskBOS);
     }
 
     interface Presenter extends BasePresenter<View> {

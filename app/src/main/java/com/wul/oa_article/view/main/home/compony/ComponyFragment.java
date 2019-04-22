@@ -252,8 +252,8 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
                     surplus_time.setTextColor(Color.parseColor("#8D8C91"));
                     surplus_time.setTextSize(11);
                 } else {
-                    surplus_time.setText(myOrderBO.getOrderDate() + "天");
                     surplus_time.setTextSize(16);
+                    surplus_time.setText(myOrderBO.getOrderDate() + "天");
                     if (Integer.parseInt(myOrderBO.getOrderDate()) > 0) {
                         surplus_time.setTextColor(Color.parseColor("#71EA45"));
                     } else {
@@ -271,13 +271,13 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
         adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
             Bundle bundle = new Bundle();
             bundle.putInt("id", s.get(position).getOrderId());
-            if (s.get(position).getCreateId().equals(MyApplication.userBo.getId())
-                    && s.get(position).getStatus() == 1) {  //如果是当前用户创建,且进行中
-                gotoActivity(CreateTaskActivity.class, bundle, false);
-            } else {
-                bundle.putBoolean("isHaveParent", false);
-                gotoActivity(OrderDetailsActivity.class, bundle, false);
-            }
+//            if (s.get(position).getCreateId().equals(MyApplication.userBo.getId())
+//                    && s.get(position).getStatus() == 1) {  //如果是当前用户创建,且进行中
+//                gotoActivity(CreateTaskActivity.class, bundle, false);
+//            } else {
+            bundle.putBoolean("order", true);
+            gotoActivity(OrderDetailsActivity.class, bundle, false);
+//            }
         });
         recycleView.setAdapter(adapter);
     }
