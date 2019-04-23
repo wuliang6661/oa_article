@@ -101,6 +101,13 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
         getOrderByTask(0);
     }
 
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        getOrderByTask(selePosition);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

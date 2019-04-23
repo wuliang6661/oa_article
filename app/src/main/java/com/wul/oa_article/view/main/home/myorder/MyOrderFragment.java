@@ -83,6 +83,25 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        switch (position) {
+            case 0:
+                getOrderByTask(all, position);
+                break;
+            case 1:
+                getOrderByTask(myziji, position);
+                break;
+            case 2:
+                getOrderByTask(myfenpai, position);
+                break;
+            case 3:
+                getOrderByTask(wancheng, position);
+                break;
+        }
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
@@ -283,7 +302,9 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                     if (orderBO.getStatus() == 0) {  //待接受
 
                     } else if (orderBO.getStatus() == 1) {  //进行中
-
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("taskId", orderBO.getId());
+                        gotoActivity(MyOrderActivity.class, bundle, false);
                     } else {
                         Bundle bundle = new Bundle();
                         bundle.putInt("taskId", orderBO.getId());

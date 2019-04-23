@@ -1,6 +1,7 @@
 package com.wul.oa_article.view.order_details;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.FragmentUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.PenPaiTaskBO;
@@ -25,6 +27,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -66,10 +69,14 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
 
     private boolean isOrder = true;   //是否是订单id
     private int id;
+    private int parentId;
+    TaskDetails parentTask;
 
     OrderInfoBo infoBo;
-
     Task_allotFragment fragment;
+    IdTypeRequest request;
+
+
 
     int taskIsEdit = 0;   //可编辑
 
@@ -91,7 +98,7 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         id = getIntent().getExtras().getInt("id");
 
         fragment = new Task_allotFragment();
-        IdTypeRequest request = new IdTypeRequest();
+        request = new IdTypeRequest();
         request.setId(id);
         if (isOrder) {
             request.setType(0);
@@ -100,7 +107,6 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
             mPresenter.getTaskInfo(id);
         }
         mPresenter.getOrderInfo(request);
-        mPresenter.getTaskList(request);
     }
 
 
@@ -124,6 +130,17 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         fragment.setData(2, infoBo);   //编辑订单
     }
 
+    /**
+     * 返回上一级
+     */
+    @OnClick(R.id.task_right_button)
+    public void goParent() {
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", parentTask.getTaskInfo().getId());
+        bundle.putBoolean("isOrder", false);
+        gotoActivity(Order_detailsActivity.class, bundle, false);
+    }
+
 
     @Override
     public void onRequestError(String msg) {
@@ -139,11 +156,13 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
             Order_detailsFragment fragment = new Order_detailsFragment();
             FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.order_details);
             fragment.setOrderInfo(orderInfoBo);
+            taskIsEdit = 1;
         } else {  //可编辑
             kehuMsgBar.setVisibility(View.VISIBLE);
             orderDetails.setVisibility(View.GONE);
             taskIsEdit = 0;
         }
+        mPresenter.getTaskList(request);
     }
 
     /**
@@ -157,12 +176,22 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         fragment.isEdit(taskIsEdit);
     }
 
+    @SuppressLint("SimpleDateFormat")
     @Override
     public void getTaskInfo(TaskDetails details) {
-        if (details.getTaskInfo().getCanEdit() == 0) {
-            taskIsEdit = 1;
+        if (parentId == 0) {   //当前没有取过父级任务
+            if (details.getTaskInfo().getParentId() != 0) {
+                parentId = details.getTaskInfo().getParentId();
+                mPresenter.getTaskInfo(parentId);
+            }
         } else {
-            taskIsEdit = 0;
+            shangjiLayout.setVisibility(View.VISIBLE);
+            shangjiTaskBar.setVisibility(View.VISIBLE);
+            taskName.setText(details.getTaskInfo().getTaskName());
+            taskDate.setText(TimeUtils.millis2String(details.getTaskInfo().getPlanCompleteDate(),
+                    new SimpleDateFormat("yyyy/MM/dd")));
+            taskPersonName.setText(details.getTaskInfo().getNickName());
+            parentTask = details;
         }
     }
 

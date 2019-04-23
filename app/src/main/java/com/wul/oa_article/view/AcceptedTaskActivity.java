@@ -2,7 +2,6 @@ package com.wul.oa_article.view;
 
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.CheckBox;
@@ -11,14 +10,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.FragmentUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
+import com.wul.oa_article.api.http.TaskServiceImpl;
 import com.wul.oa_article.base.BaseActivity;
+import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.TaskBO;
+import com.wul.oa_article.bean.TaskDetails;
 import com.wul.oa_article.bean.request.IdRequest;
+import com.wul.oa_article.bean.request.IdTypeRequest;
 import com.wul.oa_article.module.order_details.Order_detailsFragment;
 import com.wul.oa_article.module.task_accept.Task_acceptFragment;
+import com.wul.oa_article.view.order_details.Order_detailsActivity;
+
+import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -54,6 +61,9 @@ public class AcceptedTaskActivity extends BaseActivity {
     Order_detailsFragment detailsFragment;
     Task_acceptFragment acceptFragment;
 
+    private int parentId;
+    TaskDetails parentTask;
+
     private TaskBO taskBO;
 
     @Override
@@ -70,54 +80,55 @@ public class AcceptedTaskActivity extends BaseActivity {
         setTitleText("接受任务");
 
         taskId = getIntent().getExtras().getInt("taskId");
-        detailsFragment = Order_detailsFragment.newInstance(2, taskId);
+        detailsFragment = new Order_detailsFragment();
         acceptFragment = new Task_acceptFragment();
         FragmentUtils.replace(getSupportFragmentManager(), detailsFragment, R.id.order_details);
         FragmentUtils.replace(getSupportFragmentManager(), acceptFragment, R.id.accept_task);
+
+        IdTypeRequest request = new IdTypeRequest();
+        request.setId(taskId);
+        request.setType(1);
+        getTaskInfo(taskId);
+        getOrderInfo(request);
+
     }
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getOrderByTaskId(taskId);
-    }
 
     /**
-     * 根据任务id获取订单数据
+     * 获取订单详情
      */
-    public void getOrderByTaskId(int id) {
-        IdRequest request = new IdRequest();
-        request.setId(id);
-        HttpServerImpl.getOrderByTaskId(request).subscribe(new HttpResultSubscriber<TaskBO>() {
+    public void getOrderInfo(IdTypeRequest request) {
+        HttpServerImpl.getOrderInfo(request).subscribe(new HttpResultSubscriber<OrderInfoBo>() {
             @Override
-            public void onSuccess(TaskBO s) {
-                new Handler().post(() -> {
-                    taskBO = s;
-                    detailsFragment.setOrderInfo(s.getOrder());
-                    acceptFragment.setTask(s);
-                    setShangjiLayout();
-                });
+            public void onSuccess(OrderInfoBo orderInfoBo) {
+                detailsFragment.setOrderInfo(orderInfoBo);
             }
 
             @Override
             public void onFiled(String message) {
-                new Handler().post(() -> {
-                    showToast(message);
-                });
+                showToast(message);
             }
         });
     }
 
 
-    private void setShangjiLayout() {
-        if (taskBO.getParentTask() == null) {
-            shangjiLayout.setVisibility(View.GONE);
-            shangjiTaskBar.setVisibility(View.GONE);
-        } else {
-            shangjiTaskBar.setVisibility(View.VISIBLE);
-            shangjiLayout.setVisibility(View.VISIBLE);
-        }
+    /**
+     * 获取单个任务详情
+     */
+    public void getTaskInfo(int id) {
+        IdRequest request = new IdRequest();
+        request.setId(id);
+        TaskServiceImpl.getTaskInfo(request).subscribe(new HttpResultSubscriber<TaskDetails>() {
+            @Override
+            public void onSuccess(TaskDetails s) {
+                getTaskInfo(s);
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
     }
 
 
@@ -132,4 +143,34 @@ public class AcceptedTaskActivity extends BaseActivity {
         }
     }
 
+
+    /**
+     * 返回上一级
+     */
+    @OnClick(R.id.task_right_button)
+    public void goParent() {
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", parentTask.getTaskInfo().getId());
+        bundle.putBoolean("isOrder", false);
+        gotoActivity(Order_detailsActivity.class, bundle, false);
+    }
+
+
+    public void getTaskInfo(TaskDetails details) {
+        if (parentId == 0) {   //当前没有取过父级任务
+            acceptFragment.setTask(details);
+            if (details.getTaskInfo().getParentId() != 0) {
+                parentId = details.getTaskInfo().getParentId();
+                getTaskInfo(parentId);
+            }
+        } else {
+            shangjiLayout.setVisibility(View.VISIBLE);
+            shangjiTaskBar.setVisibility(View.VISIBLE);
+            taskName.setText(details.getTaskInfo().getTaskName());
+            taskDate.setText(TimeUtils.millis2String(details.getTaskInfo().getPlanCompleteDate(),
+                    new SimpleDateFormat("yyyy/MM/dd")));
+            taskPersonName.setText(details.getTaskInfo().getNickName());
+            parentTask = details;
+        }
+    }
 }

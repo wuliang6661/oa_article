@@ -17,6 +17,7 @@ import com.wul.oa_article.bean.TempleteInfoBo;
 import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.bean.request.AddTempleteBo;
 import com.wul.oa_article.bean.request.AsseptRequest;
+import com.wul.oa_article.bean.request.ClientInfoRequest;
 import com.wul.oa_article.bean.request.ComplayRequest;
 import com.wul.oa_article.bean.request.CreateOrderBO;
 import com.wul.oa_article.bean.request.ForwordPassword;
@@ -25,6 +26,7 @@ import com.wul.oa_article.bean.request.IdTypeRequest;
 import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.PhoneRequest;
 import com.wul.oa_article.bean.request.RegistUserRequest;
+import com.wul.oa_article.bean.request.ScanRequest;
 import com.wul.oa_article.bean.request.SelectRequest;
 import com.wul.oa_article.bean.request.TempleteRequest;
 import com.wul.oa_article.bean.request.TokenRequest;
@@ -327,6 +329,22 @@ public class HttpServerImpl {
     public static Observable<List<MuBanTaskBO>> makeMuBan(IdRequest request) {
         request.setToken(MyApplication.token);
         return getService().getTemplateTask(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 扫一扫获取模板
+     */
+    public static Observable<List<MuBanTaskBO>> getFileContent(ScanRequest request) {
+        return getService().getFileContent(request).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 获取外部订单信息
+     */
+    public static Observable<String> getClientInfo(ClientInfoRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().getClientInfo(request).compose(RxResultHelper.httpRusult());
     }
 
 }

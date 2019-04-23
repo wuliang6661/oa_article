@@ -23,6 +23,7 @@ import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.bean.event.MsgNumEvent;
 import com.wul.oa_article.bean.request.AsseptRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
+import com.wul.oa_article.view.AcceptedTaskActivity;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
@@ -78,6 +79,12 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
             commonId = MyApplication.userBo.getCompanys().get(0).getId() + "";
         }
         request.setId(commonId);
+    }
+
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
         getAsseptOrder();
     }
 
@@ -142,11 +149,9 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
                 if (s.get(position).getTaskType() == 1) {   //外部订单
                     showAleatDialog();
                 } else {   //内部订单，跳转至接受订单页
-                    showAleatDialog();
-
-//                    Bundle bundle = new Bundle();
-//                    bundle.putInt("taskId", s.get(position).getTaskId());
-//                    gotoActivity(AcceptedTaskActivity.class, bundle, false);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("taskId", s.get(position).getTaskId());
+                    gotoActivity(AcceptedTaskActivity.class, bundle, false);
                 }
             }
         });

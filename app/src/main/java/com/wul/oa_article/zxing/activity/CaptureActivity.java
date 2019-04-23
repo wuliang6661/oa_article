@@ -33,6 +33,7 @@ import com.wul.oa_article.R;
 import com.wul.oa_article.base.BaseActivity;
 import com.wul.oa_article.util.BitmapUtil;
 import com.wul.oa_article.util.Constant;
+import com.wul.oa_article.view.PcUpdateAct;
 import com.wul.oa_article.zxing.camera.CameraManager;
 import com.wul.oa_article.zxing.decoding.CaptureActivityHandler;
 import com.wul.oa_article.zxing.decoding.InactivityTimer;
@@ -251,7 +252,7 @@ public class CaptureActivity extends BaseActivity implements Callback {
         if (TextUtils.isEmpty(resultString)) {
             Toast.makeText(CaptureActivity.this, "Scan failed!", Toast.LENGTH_SHORT).show();
         } else {
-            Intent resultIntent = new Intent();
+            Intent resultIntent = new Intent(this, PcUpdateAct.class);
             Bundle bundle = new Bundle();
             bundle.putString(Constant.INTENT_EXTRA_KEY_QR_SCAN, resultString);
             System.out.println("sssssssssssssssss scan 0 = " + resultString);
@@ -259,7 +260,8 @@ public class CaptureActivity extends BaseActivity implements Callback {
 //            bundle.putParcelable("bitmap", barcode);
 //            Logger.d("saomiao",resultString);
             resultIntent.putExtras(bundle);
-            this.setResult(RESULT_OK, resultIntent);
+//            this.setResult(RESULT_OK, resultIntent);
+            startActivity(resultIntent);
         }
         CaptureActivity.this.finish();
     }

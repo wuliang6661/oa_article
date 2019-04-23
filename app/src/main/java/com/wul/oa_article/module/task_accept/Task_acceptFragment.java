@@ -1,6 +1,7 @@
 package com.wul.oa_article.module.task_accept;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,13 +13,15 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.TimeUtils;
 import com.wul.oa_article.R;
-import com.wul.oa_article.bean.TaskBO;
-import com.wul.oa_article.bean.request.AddTaskRequest;
+import com.wul.oa_article.bean.TaskDetails;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.view.MyOrderActivity;
+import com.wul.oa_article.view.order_details.Order_detailsActivity;
 import com.wul.oa_article.widget.AlertDialog;
 
+import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -62,7 +65,7 @@ public class Task_acceptFragment extends MVPBaseFragment<Task_acceptContract.Vie
     @BindView(R.id.task_check)
     CheckBox taskCheck;
 
-    AddTaskRequest.OrderTasksBean taskBean;
+    TaskDetails taskBean;
 
     @Nullable
     @Override
@@ -107,12 +110,12 @@ public class Task_acceptFragment extends MVPBaseFragment<Task_acceptContract.Vie
             case R.id.my_suress:   //自己完成
                 new AlertDialog(Objects.requireNonNull(getActivity())).builder().setGone().setMsg("选择自己完成后无法分派任务\n是否继续？")
                         .setNegativeButton("取消", null)
-                        .setPositiveButton("确定", v -> mPresenter.setTaskMode(taskBean.getId(), 0)).show();
+                        .setPositiveButton("确定", v -> mPresenter.setTaskMode(taskBean.getTaskInfo().getId(), 0)).show();
                 break;
             case R.id.task_fenpai:   //分派任务
                 new AlertDialog(Objects.requireNonNull(getActivity())).builder().setGone().setMsg("是否确定分派任务？")
                         .setNegativeButton("取消", null)
-                        .setPositiveButton("确定", v -> mPresenter.setTaskMode(taskBean.getId(), 1)).show();
+                        .setPositiveButton("确定", v -> mPresenter.setTaskMode(taskBean.getTaskInfo().getId(), 1)).show();
                 break;
         }
     }
@@ -121,14 +124,16 @@ public class Task_acceptFragment extends MVPBaseFragment<Task_acceptContract.Vie
     /**
      * 设置数据
      */
-    public void setTask(TaskBO task) {
-        this.taskBean = task.getTask();
-        taskName.setText(taskBean.getTaskName());
-        taskPerson.setText(taskBean.getNickName());   //执行人
-        taskNum.setText(taskBean.getPlanNum() + "");
-        taskDanwei.setText(taskBean.getUnit());   //单位
-        taskDate.setText(taskBean.getPlanCompleteDate());
-        taskRemart.setText(taskBean.getRemark());
+    @SuppressLint("SimpleDateFormat")
+    public void setTask(TaskDetails task) {
+        this.taskBean = task;
+        taskName.setText(taskBean.getTaskInfo().getTaskName());
+        taskPerson.setText(taskBean.getTaskInfo().getNickName());   //执行人
+        taskNum.setText(taskBean.getTaskInfo().getNum() + "");
+        taskDanwei.setText(taskBean.getTaskInfo().getUnit());   //单位
+        taskDate.setText(TimeUtils.millis2String(taskBean.getTaskInfo().getPlanCompleteDate(),
+                new SimpleDateFormat("yyyy/MM/dd")));
+        taskRemart.setText(taskBean.getTaskInfo().getRemark());
     }
 
 
@@ -147,10 +152,13 @@ public class Task_acceptFragment extends MVPBaseFragment<Task_acceptContract.Vie
     public void sourss(int type) {
         if (type == 0) {   //自己完成
             Bundle bundle = new Bundle();
-            bundle.putInt("taskId", taskBean.getId());
-            gotoActivity(MyOrderActivity.class, bundle, false);
+            bundle.putInt("taskId", taskBean.getTaskInfo().getId());
+            gotoActivity(MyOrderActivity.class, bundle, true);
         } else {
-
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", taskBean.getTaskInfo().getId());
+            bundle.putBoolean("isOrder", false);
+            gotoActivity(Order_detailsActivity.class, bundle, true);
         }
     }
 }

@@ -1,11 +1,15 @@
 package com.wul.oa_article.module.task_allot;
 
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,24 +21,24 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.wul.oa_article.R;
-import com.wul.oa_article.api.HttpResultSubscriber;
-import com.wul.oa_article.api.HttpServerImpl;
 import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.MuBanTaskBO;
 import com.wul.oa_article.bean.OrderAndTaskInfoBO;
 import com.wul.oa_article.bean.PenPaiTaskBO;
+import com.wul.oa_article.bean.event.OrderEditSuressEvent;
 import com.wul.oa_article.bean.request.AddTaskRequest;
-import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
+import com.wul.oa_article.util.Constant;
 import com.wul.oa_article.view.OrderDetailsActivity;
-import com.wul.oa_article.view.PcUpdateAct;
 import com.wul.oa_article.view.mobanmanager.MobanManagerActivity;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
+import com.wul.oa_article.zxing.activity.CaptureActivity;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -181,7 +185,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 break;
             case R.id.task_suress:   //完成
                 if ("电脑上传".equals(taskSuress.getText().toString().trim())) {
-                    gotoActivity(PcUpdateAct.class, false);
+                    startQrCode();
                 } else {
                     for (AddTaskRequest.OrderTasksBean bean : tasks) {
                         if (StringUtils.isEmpty(bean.getNickName()) || StringUtils.isEmpty(bean.getPlanCompleteDate())
@@ -344,11 +348,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     @Override
     public void shunyanSourss() {
         showToast("顺延成功！");
-        if (isOrder) {
-            getInfo();
-        } else {
-            getOrderByTaskId();
-        }
+        EventBus.getDefault().post(new OrderEditSuressEvent());
     }
 
 
@@ -392,42 +392,51 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     }
 
 
-    /**
-     * 根据订单ID获取信息
-     */
-    public void getInfo() {
-        IdRequest request = new IdRequest();
-        request.setId(orderId);
-        HttpServerImpl.getInfoByOrderId(request).subscribe(new HttpResultSubscriber<OrderAndTaskInfoBO>() {
-            @Override
-            public void onSuccess(OrderAndTaskInfoBO s) {
-                setData(s);
-            }
-
-            @Override
-            public void onFiled(String message) {
-                showToast(message);
-            }
-        });
+    // 开始扫码
+    private void startQrCode() {
+        // 申请相机权限
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            // 申请权限
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, Constant.REQ_PERM_CAMERA);
+            return;
+        }
+        // 申请文件读写权限（部分朋友遇到相册选图需要读写权限的情况，这里一并写一下）
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            // 申请权限
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, Constant.REQ_PERM_EXTERNAL_STORAGE);
+            return;
+        }
+        // 二维码扫码
+        Intent intent = new Intent(getActivity(), CaptureActivity.class);
+        startActivity(intent);
     }
 
 
-    /**
-     * 根据任务id获取订单数据
-     */
-    public void getOrderByTaskId() {
-        IdRequest request = new IdRequest();
-        request.setId(orderId);
-        HttpServerImpl.getInfoByTaskId(request).subscribe(new HttpResultSubscriber<OrderAndTaskInfoBO>() {
-            @Override
-            public void onSuccess(OrderAndTaskInfoBO s) {
-                setData(s);
-            }
-
-            @Override
-            public void onFiled(String message) {
-                showToast(message);
-            }
-        });
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case Constant.REQ_PERM_CAMERA:
+                // 摄像头权限申请
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // 获得授权
+                    startQrCode();
+                } else {
+                    // 被禁止授权
+                    Toast.makeText(getActivity(), "请至权限中心打开本应用的相机访问权限", Toast.LENGTH_LONG).show();
+                }
+                break;
+            case Constant.REQ_PERM_EXTERNAL_STORAGE:
+                // 文件读写权限申请
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // 获得授权
+                    startQrCode();
+                } else {
+                    // 被禁止授权
+                    Toast.makeText(getActivity(), "请至权限中心打开本应用的文件读写权限", Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
     }
+
 }

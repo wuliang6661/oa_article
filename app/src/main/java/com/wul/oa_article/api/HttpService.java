@@ -16,6 +16,7 @@ import com.wul.oa_article.bean.TempleteInfoBo;
 import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.bean.request.AddTempleteBo;
 import com.wul.oa_article.bean.request.AsseptRequest;
+import com.wul.oa_article.bean.request.ClientInfoRequest;
 import com.wul.oa_article.bean.request.ComplayRequest;
 import com.wul.oa_article.bean.request.CreateOrderBO;
 import com.wul.oa_article.bean.request.ForwordPassword;
@@ -24,6 +25,7 @@ import com.wul.oa_article.bean.request.IdTypeRequest;
 import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.PhoneRequest;
 import com.wul.oa_article.bean.request.RegistUserRequest;
+import com.wul.oa_article.bean.request.ScanRequest;
 import com.wul.oa_article.bean.request.SelectRequest;
 import com.wul.oa_article.bean.request.TempleteRequest;
 import com.wul.oa_article.bean.request.TokenRequest;
@@ -239,6 +241,18 @@ public interface HttpService {
      */
     @POST("industry_webservice/app/taskTemplate/getTemplateTasks")
     Observable<BaseResult<List<MuBanTaskBO>>> getTemplateTask(@Body IdRequest request);
+
+    /**
+     * 扫一扫获取模板
+     */
+    @POST("industry_webservice/app/file/getFileContent")
+    Observable<BaseResult<List<MuBanTaskBO>>> getFileContent(@Body ScanRequest request);
+
+    /**
+     * 获取外部订单信息
+     */
+    @POST("industry_webservice/app/orderInfo/getClientInfo")
+    Observable<BaseResult<String>> getClientInfo(@Body ClientInfoRequest request);
 
 
 }
