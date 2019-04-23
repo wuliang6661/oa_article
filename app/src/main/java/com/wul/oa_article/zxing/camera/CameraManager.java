@@ -227,8 +227,8 @@ public final class CameraManager {
             }
 
             //修改之后
-            int width = screenResolution.x * 7 / 10;
-            int height = screenResolution.y * 7 / 10;
+            int width = screenResolution.x * 7 / 13;
+            int height = screenResolution.y * 7 / 13;
 
             if (height >= width) { //竖屏
                 height = width;
@@ -237,7 +237,7 @@ public final class CameraManager {
             }
 
             int leftOffset = (screenResolution.x - width) / 2;
-            int topOffset = (screenResolution.y - height) / 3;
+            int topOffset = (screenResolution.y - height) / 6;
             framingRect = new Rect(leftOffset, topOffset, leftOffset + width, topOffset + height);
 
         }

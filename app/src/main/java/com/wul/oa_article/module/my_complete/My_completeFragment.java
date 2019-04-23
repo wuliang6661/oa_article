@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.bean.TaskDetails;
@@ -143,11 +144,13 @@ public class My_completeFragment extends MVPBaseFragment<My_completeContract.Vie
             My_completeFragment.this.taskBean = task;
             taskName.setText(taskBean.getTaskInfo().getTaskName());
             taskPerson.setText(taskBean.getTaskInfo().getNickName());   //执行人
-            taskNum.setText(taskBean.getTaskInfo().getNum() + "");
+            taskNum.setText(taskBean.getTaskInfo().getPlanNum() + "");
             taskDanwei.setText(taskBean.getTaskInfo().getUnit());   //单位
             taskDate.setText(TimeUtils.millis2String(taskBean.getTaskInfo().getPlanCompleteDate(), new SimpleDateFormat("yyyy/MM/dd")));
             taskRemart.setText(taskBean.getTaskInfo().getRemark());
-            taskAllNum.setText(taskBean.getTaskInfo().getActualNum() + "");
+            if(!StringUtils.isEmpty(taskBean.getTaskInfo().getActualNum())){
+                taskAllNum.setText(taskBean.getTaskInfo().getActualNum() + "");
+            }
             setIsEdit(taskBean.getTaskInfo().getCanEdit() == 1);
             setAdapter();
         });

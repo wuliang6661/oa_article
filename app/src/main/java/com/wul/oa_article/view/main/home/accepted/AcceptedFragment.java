@@ -185,6 +185,7 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
         adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
             adapter.setPosition(position);
             adapter.notifyDataSetChanged();
+            dialog.dismiss();
             showProgress();
             mPresenter.getWaiBuOrder(taskId, MyApplication.userBo.getCompanys().get(position).getId());
         });

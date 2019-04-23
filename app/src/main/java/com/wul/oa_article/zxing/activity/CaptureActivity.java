@@ -1,6 +1,7 @@
 package com.wul.oa_article.zxing.activity;
 
 import android.app.ProgressDialog;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
@@ -17,7 +18,9 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
@@ -44,6 +47,8 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Vector;
 
+import butterknife.BindView;
+
 
 /**
  * Initial the camera
@@ -53,10 +58,16 @@ import java.util.Vector;
 public class CaptureActivity extends BaseActivity implements Callback {
 
     private static final int REQUEST_CODE_SCAN_GALLERY = 100;
+    @BindView(R.id.shoudian_img)
+    ImageView shoudianImg;
+    @BindView(R.id.shoudian_text)
+    TextView shoudianText;
+    @BindView(R.id.select_button)
+    TextView selectButton;
 
     private CaptureActivityHandler handler;
     private ViewfinderView viewfinderView;
-    private ImageButton btnFlash;
+    private LinearLayout btnFlash;
     private Button btnAlbum; // 相册
     private boolean isFlashOn = false;
     private boolean hasSurface;
@@ -80,23 +91,36 @@ public class CaptureActivity extends BaseActivity implements Callback {
         super.onCreate(savedInstanceState);
 
         goBack();
-        setTitleText("扫一扫");
+        setTitleText("扫码上传");
         //ViewUtil.addTopView(getApplicationContext(), this, R.string.scan_card);
         CameraManager.init(getApplication());
         viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_content);
 
-        btnFlash = (ImageButton) findViewById(R.id.btn_flash);
+        btnFlash = findViewById(R.id.btn_flash);
         btnFlash.setOnClickListener(flashListener);
 
         btnAlbum = (Button) findViewById(R.id.btn_album);
-        btnAlbum.setVisibility(View.VISIBLE);
+        btnAlbum.setVisibility(View.GONE);
         btnAlbum.setOnClickListener(albumOnClick);
 
 //		cancelScanButton = (Button) this.findViewById(R.id.btn_cancel_scan);
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
-
+        selectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CopyToClipboard("www.xiaomagexiaoamage.com");
+                showToast("复制成功！");
+            }
+        });
     }
+
+    private void CopyToClipboard(String text) {
+        ClipboardManager clip = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        //clip.getText(); // 粘贴
+        clip.setText(text); // 复制
+    }
+
 
     @Override
     protected int getLayout() {
@@ -373,11 +397,13 @@ public class CaptureActivity extends BaseActivity implements Callback {
                 }
                 if (isFlashOn) {
                     // 关闭闪光灯
-//                    btnFlash.setImageResource(R.drawable.flash_off);
+                    shoudianImg.setImageResource(R.drawable.saoma_an);
+                    shoudianText.setText("轻触照亮");
                     isFlashOn = false;
                 } else {
                     // 开启闪光灯
-//                    btnFlash.setImageResource(R.drawable.flash_on);
+                    shoudianImg.setImageResource(R.drawable.saoma_liang);
+                    shoudianText.setText("轻触关闭");
                     isFlashOn = true;
                 }
             } catch (Exception e) {

@@ -7,38 +7,116 @@
 
     <include layout="@layout/layout_bar" />
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <SurfaceView
-            android:id="@+id/scanner_view"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center" />
+            android:layout_height="match_parent">
 
-        <com.wul.oa_article.zxing.view.ViewfinderView
-            android:id="@+id/viewfinder_content"
-            android:layout_width="wrap_content"
+            <SurfaceView
+                android:id="@+id/scanner_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center" />
+
+            <com.wul.oa_article.zxing.view.ViewfinderView
+                android:id="@+id/viewfinder_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:corner_color="@color/blue_color"
+                app:frame_color="@color/viewfinder_frame"
+                app:label_text=""
+                app:label_text_color="@color/f_white"
+                app:laser_color="@color/blue_color"
+                app:mask_color="@color/viewfinder_mask"
+                app:result_color="@color/result_view"
+                app:result_point_color="@color/result_point_color" />
+
+
+            <!--<ImageButton
+                android:id="@+id/btn_flash"
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="30dip"
+                android:background="?attr/selectableItemBackground"
+                android:padding="6dip"
+                android:scaleType="centerInside" />-->
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:corner_color="@color/corner_color"
-            app:frame_color="@color/viewfinder_frame"
-            app:label_text="二维码/条形码扫描"
-            app:label_text_color="@color/colorAccent"
-            app:laser_color="@color/laser_color"
-            app:mask_color="@color/viewfinder_mask"
-            app:result_color="@color/result_view"
-            app:result_point_color="@color/result_point_color" />
+            android:layout_centerVertical="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/btn_flash"
-            android:layout_width="40dip"
-            android:layout_height="40dip"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="30dip"
-            android:background="?attr/selectableItemBackground"
-            android:padding="6dip"
-            android:scaleType="centerInside" />
-    </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_flash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <ImageView
+                    android:id="@+id/shoudian_img"
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:src="@drawable/saoma_an" />
+
+
+                <TextView
+                    android:id="@+id/shoudian_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="轻触照亮"
+                    android:textColor="@color/f_white"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="www.xiaomagexiaoamage.com"
+                android:textColor="@color/f_white"
+                android:textSize="15sp" />
+
+
+            <TextView
+                android:id="@+id/select_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/sacn_button"
+                android:gravity="center"
+                android:paddingLeft="13dp"
+                android:paddingTop="6dp"
+                android:paddingRight="13dp"
+                android:paddingBottom="6dp"
+                android:text="复制扫码链接"
+                android:textColor="@color/blue_color"
+                android:textSize="13sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="复制链接到电脑打开，扫描页面二维码进行上传"
+                android:textColor="@color/hint_color"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
 
 </LinearLayout>

@@ -34,11 +34,15 @@ import com.wul.oa_article.bean.event.OrderEditSuressEvent;
 import com.wul.oa_article.bean.request.AddTaskRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.util.Constant;
-import com.wul.oa_article.view.OrderDetailsActivity;
+import com.wul.oa_article.view.MyOrderActivity;
 import com.wul.oa_article.view.mobanmanager.MobanManagerActivity;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
 import com.wul.oa_article.zxing.activity.CaptureActivity;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -118,10 +122,6 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        orderId = getArguments().getInt("orderId");
-//        type = getArguments().getInt("type", 0);
-
-
         tasks = new ArrayList<>();
         initView();
     }
@@ -139,6 +139,32 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.divider_inset));
         taskRecycleView.addItemDecoration(itemDecoration);
 
+        // 创建菜单：
+        SwipeMenuCreator mSwipeMenuCreator = (leftMenu, rightMenu, viewType) -> {
+            // 2 删除
+            SwipeMenuItem deleteItem = new SwipeMenuItem(getActivity());
+            deleteItem.setText("删除")
+                    .setBackgroundColor(getResources().getColor(R.color.item_delete))
+                    .setTextColor(Color.WHITE) // 文字颜色。
+                    .setTextSize(15) // 文字大小。
+                    .setWidth(124)
+                    .setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+
+            rightMenu.addMenuItem(deleteItem);
+            // 注意：哪边不想要菜单，那么不要添加即可。
+        };
+        // 设置监听器。
+        taskRecycleView.setSwipeMenuCreator(mSwipeMenuCreator);
+        SwipeMenuItemClickListener mMenuItemClickListener = new SwipeMenuItemClickListener() {
+            @Override
+            public void onItemClick(SwipeMenuBridge menuBridge) {
+                // 任何操作必须先关闭菜单，否则可能出现Item菜单打开状态错乱。
+                menuBridge.closeMenu();
+            }
+        };
+
+        // 菜单点击监听。
+        taskRecycleView.setSwipeMenuItemClickListener(mMenuItemClickListener);
         setTaskAdapter();
     }
 
@@ -251,13 +277,22 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 bean.setTaskName(task.getTaskName());
                 bean.setNickName(task.getNickName());
                 bean.setRemainingDate(task.getRemainingDate());
+                bean.setStatus(task.getStatus());
                 bean.setPlanCompleteDate(TimeUtils.millis2String(task
                         .getPlanCompleteDate(), new SimpleDateFormat("yyyy/MM/dd")));
                 tasks.add(bean);
             }
             isTaskEdit = false;
+            if (type == 0) {   //可编辑
+                setSwipeMenu();
+            }
             setTaskAdapter();
         });
+    }
+
+
+    private void setSwipeMenu() {
+        taskRecycleView.setItemViewSwipeEnabled(false);// 开启滑动删除。默认关闭
     }
 
 
@@ -293,6 +328,21 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                                 surplus_time.setTextColor(Color.parseColor("#E92B2B"));
                             }
                         }
+                        TextView taskType = (TextView) holder.getView(R.id.task_type);
+                        switch (s.getStatus()) {
+                            case 0:   //待接受
+                                taskType.setTextColor(Color.parseColor("#F4CA40"));
+                                taskType.setText("未接受");
+                                break;
+                            case 1:  //已接受
+                                taskType.setTextColor(Color.parseColor("#8D8C91"));
+                                taskType.setText("已接受");
+                                break;
+                            case 2:   //已完成
+                                taskType.setTextColor(Color.parseColor("#8D8C91"));
+                                taskType.setText("已完成");
+                                break;
+                        }
                     }
                 };
         adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
@@ -301,12 +351,17 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 window.setData(position, tasks.get(position));
                 window.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
             } else {
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", tasks.get(position).getId());
-                gotoActivity(OrderDetailsActivity.class, bundle, false);
+                if (tasks.get(position).getStatus() != 0) {
+//                    Bundle bundle = new Bundle();
+//                    bundle.putInt("id", tasks.get(position).getId());
+//                    bundle.putBoolean("isOrder", false);
+//                    gotoActivity(Order_detailsActivity.class, bundle, false);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("taskId", tasks.get(position).getId());
+                    gotoActivity(MyOrderActivity.class, bundle, false);
+                }
             }
         });
-        adapter.setOnItemClickListener(R.id.tv_delete, (view, position) -> taskRecycleView.smoothCloseMenu());
         if (type == 0) {
             if (tasks.size() == 0) {
                 taskRightButton.setVisibility(View.GONE);

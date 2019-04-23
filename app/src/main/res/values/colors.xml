@@ -44,4 +44,6 @@
     <color name="background_tab_pressed">#e5e5e5</color>
     <color name="action_sheet_blue">@color/blue_color</color>
 
+    <color name="item_delete">#CB3C31</color>
+
 </resources>

@@ -32,15 +32,6 @@ public class PenPaiTaskBO {
     private int status;
     private int orderId;
     private String remark;
-    private int num;
-
-    public int getNum() {
-        return num;
-    }
-
-    public void setNum(int num) {
-        this.num = num;
-    }
 
     public String getRemark() {
         return remark;

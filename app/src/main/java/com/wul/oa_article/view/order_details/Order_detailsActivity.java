@@ -218,7 +218,7 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
     @Override
     public void getTaskList(List<PenPaiTaskBO> taskBOList) {
         FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.task_allot);
-        fragment.setTaskList(0, taskBOList);
+        fragment.setTaskList(taskIsEdit, taskBOList);
         fragment.setIsOrder(isOrder, id);
         fragment.isEdit(taskIsEdit);
     }
