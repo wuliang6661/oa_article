@@ -63,7 +63,7 @@ public class CreateTaskActivity extends BaseActivity {
         btnAlbum.setText("取消订单");
         btnAlbum.setVisibility(View.VISIBLE);
         taskFragment = Task_allotFragment.newInstance(0, orderId);
-        taskFragment.setIsOrder(true);
+//        taskFragment.setIsOrder(true);
         FragmentUtils.replace(getSupportFragmentManager(), taskFragment, R.id.task_allot);
     }
 
@@ -71,7 +71,7 @@ public class CreateTaskActivity extends BaseActivity {
     public void barClick(View view) {
         fragmentContainer.setVisibility(View.VISIBLE);
         kehuMsgBar.setVisibility(View.GONE);
-        FragmentUtils.replace(getSupportFragmentManager(), CreateOrderFragment.newInstance(2, orderId), R.id.fragment_container);
+        FragmentUtils.replace(getSupportFragmentManager(), new CreateOrderFragment(), R.id.fragment_container);
     }
 
 

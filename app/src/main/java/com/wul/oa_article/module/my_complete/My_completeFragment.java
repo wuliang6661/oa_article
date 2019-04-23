@@ -1,10 +1,17 @@
 package com.wul.oa_article.module.my_complete;
 
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +20,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.TimeUtils;
 import com.wul.oa_article.R;
-import com.wul.oa_article.bean.TaskBO;
-import com.wul.oa_article.bean.request.AddTaskRequest;
+import com.wul.oa_article.bean.TaskDetails;
+import com.wul.oa_article.bean.event.UpdateTaskEvent;
 import com.wul.oa_article.mvp.MVPBaseFragment;
+import com.wul.oa_article.widget.AlertDialog;
+import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
+import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -56,7 +73,7 @@ public class My_completeFragment extends MVPBaseFragment<My_completeContract.Vie
     @BindView(R.id.next_button)
     Button nextButton;
 
-    AddTaskRequest.OrderTasksBean taskBean;
+    TaskDetails taskBean;
 
     @Nullable
     @Override
@@ -70,6 +87,38 @@ public class My_completeFragment extends MVPBaseFragment<My_completeContract.Vie
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        initView();
+    }
+
+    /**
+     * 初始化布局
+     */
+    private void initView() {
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        recycleView.setLayoutManager(manager);
+
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+        itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.divider_inset));
+        recycleView.addItemDecoration(itemDecoration);
+    }
+
+
+    @OnClick(R.id.task_num_edit)
+    public void editNum() {
+        PopTaskNumWindow window = new PopTaskNumWindow(getActivity());
+        window.setListener(text -> mPresenter.updateNum(taskBean.getTaskInfo().getId(), text));
+        window.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+    }
+
+
+    @OnClick(R.id.next_button)
+    public void commitTask() {
+        new AlertDialog(Objects.requireNonNull(getActivity())).builder().setGone().setMsg("确认完成任务？")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("确定", v -> mPresenter.commitTask(taskBean.getTaskInfo().getId())).show();
+
     }
 
 
@@ -89,19 +138,71 @@ public class My_completeFragment extends MVPBaseFragment<My_completeContract.Vie
     /**
      * 设置数据
      */
-    public void setTask(TaskBO task) {
-        this.taskBean = task.getTask();
-        taskName.setText(taskBean.getTaskName());
-        taskPerson.setText(taskBean.getNickName());   //执行人
-        taskNum.setText(taskBean.getPlanNum() + "");
-        taskDanwei.setText(taskBean.getUnit());   //单位
-        taskDate.setText(taskBean.getPlanCompleteDate());
-        taskRemart.setText(taskBean.getRemark());
+    public void setTask(TaskDetails task) {
+        new Handler().post(() -> {
+            My_completeFragment.this.taskBean = task;
+            taskName.setText(taskBean.getTaskInfo().getTaskName());
+            taskPerson.setText(taskBean.getTaskInfo().getNickName());   //执行人
+            taskNum.setText(taskBean.getTaskInfo().getNum() + "");
+            taskDanwei.setText(taskBean.getTaskInfo().getUnit());   //单位
+            taskDate.setText(TimeUtils.millis2String(taskBean.getTaskInfo().getPlanCompleteDate(), new SimpleDateFormat("yyyy/MM/dd")));
+            taskRemart.setText(taskBean.getTaskInfo().getRemark());
+            taskAllNum.setText(taskBean.getTaskInfo().getActualNum() + "");
+            setIsEdit(taskBean.getTaskInfo().getCanEdit() == 1);
+            setAdapter();
+        });
     }
+
+
+    /**
+     * 设置适配器
+     */
+    private void setAdapter() {
+        LGRecycleViewAdapter<TaskDetails.TaskHistoryBean> adapter =
+                new LGRecycleViewAdapter<TaskDetails.TaskHistoryBean>(taskBean.getTaskHistory()) {
+                    @Override
+                    public int getLayoutId(int viewType) {
+                        return R.layout.item_task_num;
+                    }
+
+                    @SuppressLint("SimpleDateFormat")
+                    @Override
+                    public void convert(LGViewHolder holder, TaskDetails.TaskHistoryBean taskHistoryBean, int position) {
+                        TextView num = (TextView) holder.getView(R.id.num);
+                        if (taskHistoryBean.getNum() < 0) {
+                            num.setTextColor(Color.parseColor("#FA0707"));
+                        } else {
+                            num.setTextColor(Color.parseColor("#ffffff"));
+                        }
+                        num.setText(taskHistoryBean.getNum() + "");
+                        holder.setText(R.id.date, TimeUtils.millis2String(taskHistoryBean.getCreateDate(),
+                                new SimpleDateFormat("yyyy/MM/dd")));
+                    }
+                };
+        recycleView.setAdapter(adapter);
+    }
+
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onRequestError(String msg) {
+        showToast(msg);
+    }
+
+    @Override
+    public void updateNumSuress() {
+        showToast("修改成功！");
+        EventBus.getDefault().post(new UpdateTaskEvent());
+    }
+
+    @Override
+    public void commitSuress() {
+        showToast("任务完成成功！");
+        EventBus.getDefault().post(new UpdateTaskEvent());
     }
 }

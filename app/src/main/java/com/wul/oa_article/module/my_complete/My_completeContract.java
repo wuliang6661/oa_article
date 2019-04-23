@@ -1,21 +1,22 @@
 package com.wul.oa_article.module.my_complete;
 
-import android.content.Context;
-
 import com.wul.oa_article.mvp.BasePresenter;
-import com.wul.oa_article.mvp.BaseView;
+import com.wul.oa_article.mvp.BaseRequestView;
 
 /**
  * MVPPlugin
- *  邮箱 784787081@qq.com
+ * 邮箱 784787081@qq.com
  */
 
 public class My_completeContract {
-    interface View extends BaseView {
-        
+    interface View extends BaseRequestView {
+
+        void updateNumSuress();
+
+        void commitSuress();
     }
 
-    interface  Presenter extends BasePresenter<View> {
-        
+    interface Presenter extends BasePresenter<View> {
+
     }
 }

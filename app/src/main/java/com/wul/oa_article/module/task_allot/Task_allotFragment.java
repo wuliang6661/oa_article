@@ -3,6 +3,7 @@ package com.wul.oa_article.module.task_allot;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -18,12 +19,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
 import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.MuBanTaskBO;
 import com.wul.oa_article.bean.OrderAndTaskInfoBO;
+import com.wul.oa_article.bean.PenPaiTaskBO;
 import com.wul.oa_article.bean.request.AddTaskRequest;
 import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
@@ -38,6 +41,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,15 +115,9 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        orderId = getArguments().getInt("orderId");
-        type = getArguments().getInt("type", 0);
-        if (type == 0) {   //可编辑
-            taskRightButton.setVisibility(View.VISIBLE);
-            addTaskLayout.setVisibility(View.VISIBLE);
-        } else {
-            taskRightButton.setVisibility(View.GONE);
-            addTaskLayout.setVisibility(View.GONE);
-        }
+//        orderId = getArguments().getInt("orderId");
+//        type = getArguments().getInt("type", 0);
+
 
         tasks = new ArrayList<>();
         initView();
@@ -215,8 +213,48 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     /**
      * 设置任务状态
      */
-    public void setIsOrder(boolean isOrder) {
+    public void setIsOrder(boolean isOrder, int id) {
         this.isOrder = isOrder;
+        this.orderId = id;
+    }
+
+    /**
+     * 设置是否可编辑
+     */
+    public void isEdit(int type) {
+        this.type = type;
+        new Handler().post(() -> {
+            if (type == 0) {   //可编辑
+                taskRightButton.setVisibility(View.VISIBLE);
+                addTaskLayout.setVisibility(View.VISIBLE);
+            } else {
+                taskRightButton.setVisibility(View.GONE);
+                addTaskLayout.setVisibility(View.GONE);
+            }
+        });
+    }
+
+
+    /**
+     * 设置任务列表
+     */
+    public void setTaskList(int atype, List<PenPaiTaskBO> taskList) {
+        new Handler().post(() -> {
+            this.type = atype;
+            for (PenPaiTaskBO task : taskList) {
+                AddTaskRequest.OrderTasksBean bean = new AddTaskRequest.OrderTasksBean();
+                bean.setUserId(task.getUserId());
+                bean.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+                bean.setTaskName(task.getTaskName());
+                bean.setNickName(task.getNickName());
+                bean.setRemainingDate(task.getRemainingDate());
+                bean.setPlanCompleteDate(TimeUtils.millis2String(task
+                        .getPlanCompleteDate(), new SimpleDateFormat("yyyy/MM/dd")));
+                tasks.add(bean);
+            }
+            isTaskEdit = false;
+            setTaskAdapter();
+        });
     }
 
 

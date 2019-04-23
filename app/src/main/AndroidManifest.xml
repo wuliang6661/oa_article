@@ -95,6 +95,12 @@
             android:name=".view.OrderDetailsActivity"
             android:screenOrientation="portrait" />
 
+        <!--订单详情-->
+        <activity
+            android:name=".view.order_details.Order_detailsActivity"
+            android:screenOrientation="portrait" />
+
+
         <!--接受任务-->
         <activity
             android:name=".view.AcceptedTaskActivity"

@@ -8,11 +8,19 @@ import com.blankj.utilcode.util.FragmentUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
+import com.wul.oa_article.api.http.TaskServiceImpl;
 import com.wul.oa_article.base.BaseActivity;
-import com.wul.oa_article.bean.TaskBO;
+import com.wul.oa_article.bean.OrderInfoBo;
+import com.wul.oa_article.bean.TaskDetails;
+import com.wul.oa_article.bean.event.UpdateTaskEvent;
 import com.wul.oa_article.bean.request.IdRequest;
+import com.wul.oa_article.bean.request.IdTypeRequest;
 import com.wul.oa_article.module.my_complete.My_completeFragment;
 import com.wul.oa_article.module.order_details.Order_detailsFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 
 /**
@@ -39,6 +47,7 @@ public class MyOrderActivity extends BaseActivity {
 
         goBack();
         setTitleText("我的任务");
+        EventBus.getDefault().register(this);
 
         id = getIntent().getExtras().getInt("taskId");
         detailsFragment = new Order_detailsFragment();
@@ -46,32 +55,22 @@ public class MyOrderActivity extends BaseActivity {
         FragmentUtils.replace(getSupportFragmentManager(), detailsFragment, R.id.order_details);
         FragmentUtils.replace(getSupportFragmentManager(), completeFragment, R.id.my_complete);
 
-        getOrderByTaskId(id);
+        IdTypeRequest request = new IdTypeRequest();
+        request.setType(1);  //任务
+        request.setId(id);
+        getOrderInfo(request);
+        getTaskInfo(id);
     }
 
 
     /**
-     * 根据任务id获取订单数据
+     * 获取订单详情
      */
-    public void getOrderByTaskId(int id) {
-        IdRequest request = new IdRequest();
-        request.setId(id);
-        HttpServerImpl.getOrderByTaskId(request).subscribe(new HttpResultSubscriber<TaskBO>() {
+    public void getOrderInfo(IdTypeRequest request) {
+        HttpServerImpl.getOrderInfo(request).subscribe(new HttpResultSubscriber<OrderInfoBo>() {
             @Override
-            public void onSuccess(TaskBO s) {
-                completeFragment.setTask(s);
-                switch (s.getOrder().getOrderInfo().getStatus()) {
-                    case 0:   //待接受
-
-                        break;
-                    case 1:   //进行中
-                        completeFragment.setIsEdit(true);
-                        break;
-                    case 2:   //已完成
-                    case 3:   //已取消
-                        completeFragment.setIsEdit(false);
-                        break;
-                }
+            public void onSuccess(OrderInfoBo orderInfoBo) {
+                detailsFragment.setOrderInfo(orderInfoBo);
             }
 
             @Override
@@ -81,4 +80,36 @@ public class MyOrderActivity extends BaseActivity {
         });
     }
 
+
+    /**
+     * 获取单个任务详情
+     */
+    public void getTaskInfo(int id) {
+        IdRequest request = new IdRequest();
+        request.setId(id);
+        TaskServiceImpl.getTaskInfo(request).subscribe(new HttpResultSubscriber<TaskDetails>() {
+            @Override
+            public void onSuccess(TaskDetails s) {
+                completeFragment.setTask(s);
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateTask(UpdateTaskEvent event) {
+        getTaskInfo(id);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

@@ -9,6 +9,7 @@ import com.wul.oa_article.bean.MuBanTaskBO;
 import com.wul.oa_article.bean.MyOrderBO;
 import com.wul.oa_article.bean.OrderAndTaskInfoBO;
 import com.wul.oa_article.bean.OrderInfoBo;
+import com.wul.oa_article.bean.PenPaiTaskBO;
 import com.wul.oa_article.bean.SalesBo;
 import com.wul.oa_article.bean.TaskBO;
 import com.wul.oa_article.bean.TempleteBO;
@@ -20,6 +21,7 @@ import com.wul.oa_article.bean.request.ComplayRequest;
 import com.wul.oa_article.bean.request.CreateOrderBO;
 import com.wul.oa_article.bean.request.ForwordPassword;
 import com.wul.oa_article.bean.request.IdRequest;
+import com.wul.oa_article.bean.request.IdTypeRequest;
 import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.PhoneRequest;
 import com.wul.oa_article.bean.request.RegistUserRequest;
@@ -242,9 +244,17 @@ public class HttpServerImpl {
     /**
      * 获取订单基础信息
      */
-    public static Observable<OrderInfoBo> getOrderInfo(IdRequest request) {
+    public static Observable<OrderInfoBo> getOrderInfo(IdTypeRequest request) {
         request.setToken(MyApplication.token);
         return getService().getOrderInfo(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取任务列表
+     */
+    public static Observable<List<PenPaiTaskBO>> getTaskList(IdTypeRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().getTaskList(request).compose(RxResultHelper.httpRusult());
     }
 
     /**

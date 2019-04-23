@@ -2,6 +2,7 @@ package com.wul.oa_article.module.order_details;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -76,8 +77,6 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
 
     private int type = 2;   //根据任务获取订单数据
 
-    private OrderInfoBo infoBo;
-
     public static Order_detailsFragment newInstance(int type, int orderId) {
         Order_detailsFragment fragment = new Order_detailsFragment();
         Bundle bundle = new Bundle();
@@ -103,7 +102,7 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
 
         orderId = getArguments().getInt("orderId");
         type = getArguments().getInt("type", 0);
-        showProgress();
+//        showProgress();
         if (type == 2) {
 //            mPresenter.getOrderByTaskId(orderId);
         } else {
@@ -193,7 +192,7 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
      * 设置数据
      */
     public void setOrderInfo(OrderInfoBo info) {
-        getOrderInfo(info);
+        new Handler().post(() -> getOrderInfo(info));
     }
 
 

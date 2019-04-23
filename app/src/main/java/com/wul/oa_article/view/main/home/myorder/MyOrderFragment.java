@@ -22,6 +22,7 @@ import com.wul.oa_article.bean.MyOrderBO;
 import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.view.MyOrderActivity;
+import com.wul.oa_article.view.order_details.Order_detailsActivity;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
@@ -289,7 +290,10 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                         gotoActivity(MyOrderActivity.class, bundle, false);
                     }
                 } else if (orderBO.getIsMe() == 1) {   //我分派的
-
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", orderBO.getId());
+                    bundle.putBoolean("isOrder", false);
+                    gotoActivity(Order_detailsActivity.class, bundle, false);
                 } else {   //已完成的
                     Bundle bundle = new Bundle();
                     bundle.putInt("taskId", orderBO.getId());

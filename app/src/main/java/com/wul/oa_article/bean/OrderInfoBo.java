@@ -17,6 +17,7 @@ public class OrderInfoBo implements Serializable {
     private OrderInfoBean orderInfo;
     private List<PingLeiBO> orderSpecifications;
 
+
     public OrderInfoBean getOrderInfo() {
         return orderInfo;
     }
@@ -33,7 +34,7 @@ public class OrderInfoBo implements Serializable {
         this.orderSpecifications = orderSpecifications;
     }
 
-    public static class OrderInfoBean implements Serializable{
+    public static class OrderInfoBean implements Serializable {
         /**
          * clientName : zhan
          * clientNum : 0
@@ -64,12 +65,16 @@ public class OrderInfoBo implements Serializable {
         private long planCompleteDate;
         private String remark;
 
-        /** 状态（0待接受，1进行中，2已完成，3已取消） */
+        /**
+         * 状态（0待接受，1进行中，2已完成，3已取消）
+         */
         private int status;
         private String unit;
         private int userId;
         private List<ImageBO> image;
         private String nickName;
+        private int canEdit;
+
 
         public String getNickName() {
             return nickName;
@@ -198,5 +203,14 @@ public class OrderInfoBo implements Serializable {
         public void setImage(List<ImageBO> image) {
             this.image = image;
         }
+
+        public int getCanEdit() {
+            return canEdit;
+        }
+
+        public void setCanEdit(int canEdit) {
+            this.canEdit = canEdit;
+        }
+
     }
 }

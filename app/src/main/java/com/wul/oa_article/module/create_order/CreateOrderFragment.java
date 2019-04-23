@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -39,16 +40,19 @@ import com.guoqi.actionsheet.ActionSheet;
 import com.wul.oa_article.R;
 import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.OrderInfoBo;
+import com.wul.oa_article.bean.event.OrderEditSuressEvent;
 import com.wul.oa_article.bean.request.CreateOrderBO;
 import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.bean.request.UpdateOrderRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.util.PhotoFromPhotoAlbum;
-import com.wul.oa_article.view.CreateTaskActivity;
 import com.wul.oa_article.view.EditPhotoNamePop;
+import com.wul.oa_article.view.order_details.Order_detailsActivity;
 import com.wul.oa_article.widget.AlertDialog;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -146,25 +150,11 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     private String beizhu;
     private String orderDate;
 
-    public static CreateOrderFragment newInstance(int type, int orderId) {
-        CreateOrderFragment fragment = new CreateOrderFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("type", type);
-        bundle.putInt("orderId", orderId);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getPermission();
-        type = Objects.requireNonNull(getArguments()).getInt("type", 1);
-        if (type == 2) {
-            int orderId = getArguments().getInt("orderId", 0);
-            mPresenter.getOrderInfo(orderId);
-        }
         cameraSavePath = new File(Environment.getExternalStorageDirectory().getPath() + "/" +
                 System.currentTimeMillis() + ".jpg");
         pingLeiBOS = new ArrayList<>();
@@ -305,30 +295,6 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
      */
     @OnClick(R.id.add_pinglei)
     public void addPingLei() {
-//        String pingName = editPingleiName.getText().toString().trim();
-//        String pingGuige = editPingleiGuige.getText().toString().trim();
-//        String pingNum = editPingleiNum.getText().toString().trim();
-//        String pingDanWei = editPingleiDanwei.getText().toString().trim();
-//        if (StringUtils.isEmpty(pingName)) {
-//            showToast("请输入自定义名称！");
-//            return;
-//        }
-//        if (StringUtils.isEmpty(pingGuige)) {
-//            showToast("请输入规格！");
-//            return;
-//        }
-//        if (StringUtils.isEmpty(pingNum)) {
-//            showToast("请输入数量！");
-//            return;
-//        }
-//        if (StringUtils.isEmpty(pingDanWei)) {
-//            showToast("请输入单位！");
-//            return;
-//        }
-//        editPingleiName.setText("");
-//        editPingleiGuige.setText("");
-//        editPingleiNum.setText("");
-//        editPingleiDanwei.setText("");
         PopAddPinleiWindow window = new PopAddPinleiWindow(getActivity(), null, null, null, null);
         window.setListener((name, num, guige, danwei) -> {
             PingLeiBO pingLeiBO = new PingLeiBO(name, guige, num, danwei);
@@ -612,31 +578,45 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
         stopProgress();
         Bundle bundle = new Bundle();
         bundle.putInt("id", request.getId());
-        gotoActivity(CreateTaskActivity.class, bundle, true);
+        bundle.putBoolean("isOrder", true);
+        gotoActivity(Order_detailsActivity.class, bundle, true);
     }
 
     @SuppressLint("SimpleDateFormat")
     @Override
     public void getOrderInfo(OrderInfoBo orderInfoBo) {
-        this.orderInfoBo = orderInfoBo;
-        editKehuJiancheng.setText(orderInfoBo.getOrderInfo().getClientName());
-        editKehuOrdername.setText(orderInfoBo.getOrderInfo().getClientOrderName());
-        editKehuOrdernum.setText(orderInfoBo.getOrderInfo().getClientOrderNum());
-        editBeizhu.setText(orderInfoBo.getOrderInfo().getRemark());
-        editBenDanwei.setText(orderInfoBo.getOrderInfo().getUnit());
-        editBenNum.setText(orderInfoBo.getOrderInfo().getNum() + "");
-        editBenOrderName.setText(orderInfoBo.getOrderInfo().getCompanyOrderName());
-        editBenOrderNum.setText(orderInfoBo.getOrderInfo().getCompanyOrderNum());
-        imageBOS = orderInfoBo.getOrderInfo().getImage();
-        dateOrder.setText(TimeUtils.millis2String(orderInfoBo.getOrderInfo().getPlanCompleteDate(), new SimpleDateFormat("yyyy/MM/dd")));
-        setImageAdapter();
-        pingLeiBOS = orderInfoBo.getOrderSpecifications();
-        setPingLeiAdapter();
+        new Handler().post(() -> {
+            CreateOrderFragment.this.orderInfoBo = orderInfoBo;
+            editKehuJiancheng.setText(orderInfoBo.getOrderInfo().getClientName());
+            editKehuOrdername.setText(orderInfoBo.getOrderInfo().getClientOrderName());
+            editKehuOrdernum.setText(orderInfoBo.getOrderInfo().getClientOrderNum());
+            editBeizhu.setText(orderInfoBo.getOrderInfo().getRemark());
+            editBenDanwei.setText(orderInfoBo.getOrderInfo().getUnit());
+            editBenNum.setText(orderInfoBo.getOrderInfo().getNum() + "");
+            editBenOrderName.setText(orderInfoBo.getOrderInfo().getCompanyOrderName());
+            editBenOrderNum.setText(orderInfoBo.getOrderInfo().getCompanyOrderNum());
+            imageBOS = orderInfoBo.getOrderInfo().getImage();
+            dateOrder.setText(TimeUtils.millis2String(orderInfoBo.getOrderInfo().getPlanCompleteDate(), new SimpleDateFormat("yyyy/MM/dd")));
+            setImageAdapter();
+            pingLeiBOS = orderInfoBo.getOrderSpecifications();
+            setPingLeiAdapter();
+        });
     }
+
+    /**
+     * 设置数据
+     */
+    public void setData(int type, OrderInfoBo infoBo) {
+        this.type = type;
+        this.orderInfoBo = infoBo;
+        getOrderInfo(infoBo);
+    }
+
 
     @Override
     public void updateSuress() {
         stopProgress();
+        EventBus.getDefault().post(new OrderEditSuressEvent());
         showToast("修改成功！");
     }
 }

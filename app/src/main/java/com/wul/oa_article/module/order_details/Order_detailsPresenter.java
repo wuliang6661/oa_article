@@ -2,7 +2,6 @@ package com.wul.oa_article.module.order_details;
 
 import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
-import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.TaskBO;
 import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.mvp.BasePresenterImpl;
@@ -20,23 +19,23 @@ public class Order_detailsPresenter extends BasePresenterImpl<Order_detailsContr
      * 获取订单基本信息
      */
     public void getOrderInfo(int id) {
-        IdRequest request = new IdRequest();
-        request.setId(id);
-        HttpServerImpl.getOrderInfo(request).subscribe(new HttpResultSubscriber<OrderInfoBo>() {
-            @Override
-            public void onSuccess(OrderInfoBo s) {
-                if (mView != null) {
-                    mView.getOrderInfo(s);
-                }
-            }
-
-            @Override
-            public void onFiled(String message) {
-                if (mView != null) {
-                    mView.onRequestError(message);
-                }
-            }
-        });
+//        IdRequest request = new IdRequest();
+//        request.setId(id);
+//        HttpServerImpl.getOrderInfo(request).subscribe(new HttpResultSubscriber<OrderInfoBo>() {
+//            @Override
+//            public void onSuccess(OrderInfoBo s) {
+//                if (mView != null) {
+//                    mView.getOrderInfo(s);
+//                }
+//            }
+//
+//            @Override
+//            public void onFiled(String message) {
+//                if (mView != null) {
+//                    mView.onRequestError(message);
+//                }
+//            }
+//        });
     }
 
 

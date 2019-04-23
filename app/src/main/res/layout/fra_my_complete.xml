@@ -289,7 +289,8 @@
                     android:layout_height="16dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/edit_task_num" />
+                    android:src="@drawable/edit_task_num"
+                    android:visibility="gone" />
 
 
             </RelativeLayout>
@@ -364,7 +365,8 @@
         android:background="@drawable/button_bg"
         android:text="完成任务"
         android:textColor="@color/text_white"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:visibility="gone" />
 
 
 </LinearLayout>

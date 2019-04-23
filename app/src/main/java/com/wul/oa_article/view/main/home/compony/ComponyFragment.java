@@ -22,8 +22,7 @@ import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.ComplanOrderBo;
 import com.wul.oa_article.bean.request.ComplayRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
-import com.wul.oa_article.view.CreateTaskActivity;
-import com.wul.oa_article.view.OrderDetailsActivity;
+import com.wul.oa_article.view.order_details.Order_detailsActivity;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
@@ -275,8 +274,8 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
 //                    && s.get(position).getStatus() == 1) {  //如果是当前用户创建,且进行中
 //                gotoActivity(CreateTaskActivity.class, bundle, false);
 //            } else {
-            bundle.putBoolean("order", true);
-            gotoActivity(OrderDetailsActivity.class, bundle, false);
+            bundle.putBoolean("isOrder", true);
+            gotoActivity(Order_detailsActivity.class, bundle, false);
 //            }
         });
         recycleView.setAdapter(adapter);
@@ -305,8 +304,8 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
         adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
             Bundle bundle = new Bundle();
             bundle.putInt("id", s.get(position).getOrderId());
-            bundle.putBoolean("order", true);
-            gotoActivity(OrderDetailsActivity.class, bundle, false);
+            bundle.putBoolean("isOrder", true);
+            gotoActivity(Order_detailsActivity.class, bundle, false);
         });
         recycleView.setAdapter(adapter);
     }

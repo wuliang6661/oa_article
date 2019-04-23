@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_layout"
+    android:layout_width="match_parent"
+    android:layout_height="61dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="25dp"
+    android:paddingRight="16dp">
+
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:background="@drawable/check_box"
+        android:button="@null" />
+
+
+    <TextView
+        android:id="@+id/complny_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:textColor="@color/hint_color"
+        android:textSize="15sp"
+        tools:text="阿里巴巴公司" />
+
+</LinearLayout>

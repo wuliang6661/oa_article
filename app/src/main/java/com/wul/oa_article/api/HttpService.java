@@ -8,6 +8,7 @@ import com.wul.oa_article.bean.MuBanTaskBO;
 import com.wul.oa_article.bean.MyOrderBO;
 import com.wul.oa_article.bean.OrderAndTaskInfoBO;
 import com.wul.oa_article.bean.OrderInfoBo;
+import com.wul.oa_article.bean.PenPaiTaskBO;
 import com.wul.oa_article.bean.SalesBo;
 import com.wul.oa_article.bean.TaskBO;
 import com.wul.oa_article.bean.TempleteBO;
@@ -19,6 +20,7 @@ import com.wul.oa_article.bean.request.ComplayRequest;
 import com.wul.oa_article.bean.request.CreateOrderBO;
 import com.wul.oa_article.bean.request.ForwordPassword;
 import com.wul.oa_article.bean.request.IdRequest;
+import com.wul.oa_article.bean.request.IdTypeRequest;
 import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.PhoneRequest;
 import com.wul.oa_article.bean.request.RegistUserRequest;
@@ -170,10 +172,17 @@ public interface HttpService {
 
 
     /**
-     * 获取订单基础信息
+     * 获取订单详情(根据任务id或订单id)
      */
-    @POST("industry_webservice/app/orderInfo/getOrderInfo")
-    Observable<BaseResult<OrderInfoBo>> getOrderInfo(@Body IdRequest request);
+    @POST("industry_webservice/app/orderInfo/getOrderInfoById")
+    Observable<BaseResult<OrderInfoBo>> getOrderInfo(@Body IdTypeRequest request);
+
+    /**
+     * 获取任务列表
+     */
+    @POST("industry_webservice/app/orderTask/getOrderTaskListById")
+    Observable<BaseResult<List<PenPaiTaskBO>>> getTaskList(@Body IdTypeRequest request);
+
 
     /**
      * 取消订单

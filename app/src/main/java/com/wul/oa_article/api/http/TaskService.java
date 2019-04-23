@@ -1,9 +1,13 @@
 package com.wul.oa_article.api.http;
 
 import com.wul.oa_article.bean.BaseResult;
+import com.wul.oa_article.bean.TaskDetails;
 import com.wul.oa_article.bean.request.AddTaskRequest;
+import com.wul.oa_article.bean.request.CommitTaskRequest;
+import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.bean.request.ShunYanRequest;
 import com.wul.oa_article.bean.request.TaskModeRequest;
+import com.wul.oa_article.bean.request.TaskNumRequest;
 
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -30,5 +34,22 @@ public interface TaskService {
     @POST("industry_webservice/app/orderTask/updateOrderTaskByPlanDate")
     Observable<BaseResult<String>> updateOrderPlanDate(@Body ShunYanRequest request);
 
+    /**
+     * 获取任务详情
+     */
+    @POST("industry_webservice/app/orderTask/getOrderToTaskInfo")
+    Observable<BaseResult<TaskDetails>> getTaskInfo(@Body IdRequest request);
+
+    /**
+     * 修改完成数量
+     */
+    @POST("industry_webservice/app/orderTask/updateActualNum")
+    Observable<BaseResult<String>> updateNum(@Body TaskNumRequest request);
+
+    /**
+     * 完成任务
+     */
+    @POST("industry_webservice/app/orderTask/completeTask")
+    Observable<BaseResult<String>> completeTask(@Body CommitTaskRequest request);
 
 }

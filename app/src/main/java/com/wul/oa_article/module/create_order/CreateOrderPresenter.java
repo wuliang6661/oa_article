@@ -2,7 +2,6 @@ package com.wul.oa_article.module.create_order;
 
 import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
-import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.request.CreateOrderBO;
 import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.bean.request.UpdateOrderRequest;
@@ -88,21 +87,21 @@ public class CreateOrderPresenter extends BasePresenterImpl<CreateOrderContract.
     public void getOrderInfo(int id) {
         IdRequest request = new IdRequest();
         request.setId(id);
-        HttpServerImpl.getOrderInfo(request).subscribe(new HttpResultSubscriber<OrderInfoBo>() {
-            @Override
-            public void onSuccess(OrderInfoBo s) {
-                if (mView != null) {
-                    mView.getOrderInfo(s);
-                }
-            }
-
-            @Override
-            public void onFiled(String message) {
-                if (mView != null) {
-                    mView.onRequestError(message);
-                }
-            }
-        });
+//        HttpServerImpl.getOrderInfo(request).subscribe(new HttpResultSubscriber<OrderInfoBo>() {
+//            @Override
+//            public void onSuccess(OrderInfoBo s) {
+//                if (mView != null) {
+//                    mView.getOrderInfo(s);
+//                }
+//            }
+//
+//            @Override
+//            public void onFiled(String message) {
+//                if (mView != null) {
+//                    mView.onRequestError(message);
+//                }
+//            }
+//        });
     }
 
 }

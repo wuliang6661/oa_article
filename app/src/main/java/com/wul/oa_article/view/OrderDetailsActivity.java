@@ -70,15 +70,15 @@ public class OrderDetailsActivity extends BaseActivity {
         FragmentUtils.replace(getSupportFragmentManager(), taskFragment, R.id.task_allot);
 
         boolean order = getIntent().getExtras().getBoolean("order", false);//如果是订单跳进来，则没有父级任务
-        if (order) {
-            shangjiTaskBar.setVisibility(View.GONE);
-            shangjiLayout.setVisibility(View.GONE);
-            taskFragment.setIsOrder(true);
-            getInfo();
-        } else {
-            getOrderByTaskId();
-            taskFragment.setIsOrder(false);
-        }
+//        if (order) {
+//            shangjiTaskBar.setVisibility(View.GONE);
+//            shangjiLayout.setVisibility(View.GONE);
+//            taskFragment.setIsOrder(true);
+//            getInfo();
+//        } else {
+//            getOrderByTaskId();
+//            taskFragment.setIsOrder(false);
+//        }
     }
 
 
@@ -103,7 +103,7 @@ public class OrderDetailsActivity extends BaseActivity {
         HttpServerImpl.getInfoByOrderId(request).subscribe(new HttpResultSubscriber<OrderAndTaskInfoBO>() {
             @Override
             public void onSuccess(OrderAndTaskInfoBO s) {
-                orderFragment.setOrderInfo(s.getOrder());
+//                orderFragment.setOrderInfo(s.getOrder());
                 taskFragment.setData(s);
             }
 
@@ -124,7 +124,7 @@ public class OrderDetailsActivity extends BaseActivity {
         HttpServerImpl.getInfoByTaskId(request).subscribe(new HttpResultSubscriber<OrderAndTaskInfoBO>() {
             @Override
             public void onSuccess(OrderAndTaskInfoBO s) {
-                orderFragment.setOrderInfo(s.getOrder());
+//                orderFragment.setOrderInfo(s.getOrder());
                 taskFragment.setData(s);
             }
 
