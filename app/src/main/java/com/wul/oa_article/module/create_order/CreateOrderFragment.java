@@ -39,6 +39,7 @@ import com.blankj.utilcode.util.TimeUtils;
 import com.guoqi.actionsheet.ActionSheet;
 import com.wul.oa_article.R;
 import com.wul.oa_article.base.MyApplication;
+import com.wul.oa_article.bean.ClientOrderBo;
 import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.event.OrderEditSuressEvent;
 import com.wul.oa_article.bean.request.CreateOrderBO;
@@ -127,6 +128,16 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     @BindView(R.id.beizhu_check)
     CheckBox beizhuCheck;
     Unbinder unbinder;
+    @BindView(R.id.edit_kehu_num)
+    TextView editKehuNum;
+    @BindView(R.id.edit_kehu_danwei)
+    TextView editKehuDanwei;
+    @BindView(R.id.edit_kehu_clientdate)
+    TextView editKehuClientdate;
+    @BindView(R.id.client_kehu_layout)
+    LinearLayout clientKehuLayout;
+    @BindView(R.id.pinglei_bar)
+    LinearLayout pingleiBar;
 
     private File cameraSavePath;//拍照照片路径
     private Uri uri;
@@ -150,6 +161,8 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     private String beizhu;
     private String orderDate;
 
+    private boolean isWaiBu = false;   //是否外部订单，默认不是
+    ClientOrderBo clientOrderBo;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -252,6 +265,11 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
         orderBO.setClientName(kehuName);
         orderBO.setClientOrderName(kehuOrderName);
         orderBO.setClientOrderNum(kehuOrderNum);
+        if (isWaiBu) {
+            orderBO.setClientNum(clientOrderBo.getClientNum());
+            orderBO.setClientCompleteDate(clientOrderBo.getClientCompleteDate().replace("/", "-"));
+            orderBO.setClientUnit(clientOrderBo.getClientUnit());
+        }
 
         orderBO.setCompanyOrderName(benOrderName);
         orderBO.setCompanyOrderNum(benOrderNum);
@@ -610,6 +628,27 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
         this.type = type;
         this.orderInfoBo = infoBo;
         getOrderInfo(infoBo);
+    }
+
+
+    /**
+     * 设置外部订单数据
+     */
+    public void setClientData(ClientOrderBo clientOrderBo) {
+        new Handler().post(() -> {
+            CreateOrderFragment.this.clientOrderBo = clientOrderBo;
+            isWaiBu = true;
+            clientKehuLayout.setVisibility(View.VISIBLE);
+            editKehuJiancheng.setText(clientOrderBo.getClientName());
+            editKehuJiancheng.setEnabled(false);
+            editKehuOrdername.setText(clientOrderBo.getClientOrderName());
+            editKehuOrdername.setEnabled(false);
+            editKehuOrdernum.setText(clientOrderBo.getClientOrderNum());
+            editKehuOrdernum.setEnabled(false);
+            editKehuNum.setText(clientOrderBo.getClientNum() + "");
+            editKehuDanwei.setText(clientOrderBo.getClientUnit());
+            editKehuClientdate.setText(clientOrderBo.getClientCompleteDate());
+        });
     }
 
 

@@ -3,6 +3,7 @@ package com.wul.oa_article.api;
 import com.blankj.utilcode.util.Utils;
 import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.AcceptedOrderBo;
+import com.wul.oa_article.bean.ClientOrderBo;
 import com.wul.oa_article.bean.ComplanOrderBo;
 import com.wul.oa_article.bean.HistoryBO;
 import com.wul.oa_article.bean.MuBanTaskBO;
@@ -342,7 +343,7 @@ public class HttpServerImpl {
     /**
      * 获取外部订单信息
      */
-    public static Observable<String> getClientInfo(ClientInfoRequest request) {
+    public static Observable<ClientOrderBo> getClientInfo(ClientInfoRequest request) {
         request.setToken(MyApplication.token);
         return getService().getClientInfo(request).compose(RxResultHelper.httpRusult());
     }

@@ -19,11 +19,13 @@ import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.HttpServerImpl;
 import com.wul.oa_article.base.MyApplication;
 import com.wul.oa_article.bean.AcceptedOrderBo;
+import com.wul.oa_article.bean.ClientOrderBo;
 import com.wul.oa_article.bean.UserBo;
 import com.wul.oa_article.bean.event.MsgNumEvent;
 import com.wul.oa_article.bean.request.AsseptRequest;
 import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.view.AcceptedTaskActivity;
+import com.wul.oa_article.view.CreateActivity;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
@@ -135,8 +137,10 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
             public void convert(LGViewHolder holder, AcceptedOrderBo acceptedOrderBo, int position) {
                 if (acceptedOrderBo.getTaskType() == 1) {
                     holder.getView(R.id.waibu_img).setVisibility(View.VISIBLE);
+                    holder.setText(R.id.select_button, "选择");
                 } else {
                     holder.getView(R.id.waibu_img).setVisibility(View.GONE);
+                    holder.setText(R.id.select_button, "查看");
                 }
                 holder.setText(R.id.order_name, acceptedOrderBo.getCompanyOrderName());
                 holder.setText(R.id.task_name, acceptedOrderBo.getTaskName());
@@ -147,7 +151,7 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
             @Override
             public void onItemClicked(View view, int position) {
                 if (s.get(position).getTaskType() == 1) {   //外部订单
-                    showAleatDialog();
+                    showAleatDialog(s.get(position).getTaskId());
                 } else {   //内部订单，跳转至接受订单页
                     Bundle bundle = new Bundle();
                     bundle.putInt("taskId", s.get(position).getTaskId());
@@ -166,7 +170,7 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
     }
 
 
-    private void showAleatDialog() {
+    private void showAleatDialog(int taskId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         AlertDialog dialog = builder.create();
         View dialogView = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_select_complany, null);
@@ -181,10 +185,27 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
         adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
             adapter.setPosition(position);
             adapter.notifyDataSetChanged();
+            showProgress();
+            mPresenter.getWaiBuOrder(taskId, MyApplication.userBo.getCompanys().get(position).getId());
         });
         recyclerView.setAdapter(adapter);
         dialog.setView(dialogView);
         dialog.show();
+    }
+
+    @Override
+    public void onRequestError(String msg) {
+        stopProgress();
+        showToast(msg);
+    }
+
+    @Override
+    public void getClientInfo(ClientOrderBo clientOrderBo) {
+        stopProgress();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("isWaibu", true);
+        bundle.putSerializable("client", clientOrderBo);
+        gotoActivity(CreateActivity.class, bundle, false);
     }
 
 
