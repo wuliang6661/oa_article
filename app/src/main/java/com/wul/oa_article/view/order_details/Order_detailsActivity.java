@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -13,15 +14,19 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.wul.oa_article.R;
+import com.wul.oa_article.api.HttpResultSubscriber;
+import com.wul.oa_article.api.HttpServerImpl;
 import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.PenPaiTaskBO;
 import com.wul.oa_article.bean.TaskDetails;
 import com.wul.oa_article.bean.event.OrderEditSuressEvent;
+import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.bean.request.IdTypeRequest;
 import com.wul.oa_article.module.create_order.CreateOrderFragment;
 import com.wul.oa_article.module.order_details.Order_detailsFragment;
 import com.wul.oa_article.module.task_allot.Task_allotFragment;
 import com.wul.oa_article.mvp.MVPBaseActivity;
+import com.wul.oa_article.widget.AlertDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -29,6 +34,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -66,6 +72,10 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
     LinearLayout shangjiLayout;
     @BindView(R.id.task_allot)
     FrameLayout taskAllot;
+    @BindView(R.id.btn_album)
+    Button btnAlbum;
+    @BindView(R.id.back)
+    LinearLayout back;
 
     private boolean isOrder = true;   //是否是订单id
     private int id;
@@ -75,7 +85,6 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
     OrderInfoBo infoBo;
     Task_allotFragment fragment;
     IdTypeRequest request;
-
 
 
     int taskIsEdit = 0;   //可编辑
@@ -90,7 +99,7 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        goBack();
+        back.setVisibility(View.VISIBLE);
         setTitleText("订单详情");
 
         EventBus.getDefault().register(this);
@@ -141,6 +150,41 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         gotoActivity(Order_detailsActivity.class, bundle, false);
     }
 
+    @OnClick(R.id.back)
+    public void back() {
+        if (fragment.getIsTaskEdit()) {
+            new AlertDialog(this).builder().setGone().setMsg("您还未保存已分派的任务\n确定继续退出？")
+                    .setNegativeButton("取消", null)
+                    .setPositiveButton("确定", v -> finish()).show();
+        } else {
+            finish();
+        }
+    }
+
+    @OnClick(R.id.btn_album)
+    public void cancleOrder() {
+        new AlertDialog(Objects.requireNonNull(this)).builder().setGone().setMsg("是否确定取消订单？")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("确定", v -> orderCancle()).show();
+
+    }
+
+    private void orderCancle() {
+        IdRequest request = new IdRequest();
+        request.setId(infoBo.getOrderInfo().getId());
+        HttpServerImpl.cancleOrder(request).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                finish();
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
+
 
     @Override
     public void onRequestError(String msg) {
@@ -161,9 +205,12 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
             kehuMsgBar.setVisibility(View.VISIBLE);
             orderDetails.setVisibility(View.GONE);
             taskIsEdit = 0;
+            btnAlbum.setText("取消订单");
+            btnAlbum.setVisibility(View.VISIBLE);
         }
         mPresenter.getTaskList(request);
     }
+
 
     /**
      * 任务列表

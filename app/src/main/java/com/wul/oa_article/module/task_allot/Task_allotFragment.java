@@ -92,7 +92,6 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     private int type = 0;   //默认可编辑
 
     boolean isTaskEdit = false;   //是否有任务正在编辑状态
-
     private boolean isOrder = true;     //默认是订单下的任务
 
     public static Task_allotFragment newInstance(int type, int orderId) {
@@ -349,6 +348,10 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     public void shunyanSourss() {
         showToast("顺延成功！");
         EventBus.getDefault().post(new OrderEditSuressEvent());
+    }
+
+    public boolean getIsTaskEdit() {
+        return isTaskEdit;
     }
 
 

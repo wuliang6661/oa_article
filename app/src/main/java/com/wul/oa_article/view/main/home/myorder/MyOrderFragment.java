@@ -294,32 +294,31 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                 }
             }
         };
-        adapter.setOnItemClickListener(R.id.item_layout, new LGRecycleViewAdapter.ItemClickListener() {
-            @Override
-            public void onItemClicked(View view, int i) {
-                MyOrderBO orderBO = s.get(i);
-                if (orderBO.getIsMe() == 0) {   //分派给我的
-                    if (orderBO.getStatus() == 0) {  //待接受
+        adapter.setOnItemClickListener(R.id.item_layout, (view, i) -> {
+            MyOrderBO orderBO = s.get(i);
+            if (orderBO.getIsMe() == 0) {   //分派给我的
+                if (orderBO.getStatus() == 0) {  //待接受
 
-                    } else if (orderBO.getStatus() == 1) {  //进行中
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("taskId", orderBO.getId());
-                        gotoActivity(MyOrderActivity.class, bundle, false);
-                    } else {
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("taskId", orderBO.getId());
-                        gotoActivity(MyOrderActivity.class, bundle, false);
-                    }
-                } else if (orderBO.getIsMe() == 1) {   //我分派的
+                } else if (orderBO.getStatus() == 1) {  //进行中
                     Bundle bundle = new Bundle();
-                    bundle.putInt("id", orderBO.getId());
-                    bundle.putBoolean("isOrder", false);
-                    gotoActivity(Order_detailsActivity.class, bundle, false);
-                } else {   //已完成的
+                    bundle.putInt("taskId", orderBO.getId());
+                    gotoActivity(MyOrderActivity.class, bundle, false);
+                } else {
                     Bundle bundle = new Bundle();
                     bundle.putInt("taskId", orderBO.getId());
                     gotoActivity(MyOrderActivity.class, bundle, false);
                 }
+            } else if (orderBO.getIsMe() == 1) {   //我分派的
+                if (orderBO.getStatus() != 0) {  //不是待接受
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", orderBO.getId());
+                    bundle.putBoolean("isOrder", false);
+                    gotoActivity(Order_detailsActivity.class, bundle, false);
+                }
+            } else {   //已完成的
+                Bundle bundle = new Bundle();
+                bundle.putInt("taskId", orderBO.getId());
+                gotoActivity(MyOrderActivity.class, bundle, false);
             }
         });
         recycleView.setAdapter(adapter);
