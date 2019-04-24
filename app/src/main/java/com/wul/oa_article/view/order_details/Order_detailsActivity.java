@@ -89,6 +89,8 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
 
     int taskIsEdit = 0;   //可编辑
 
+    private boolean isCreateOrder = false;  //是否是创建订单
+
     @Override
     protected int getLayout() {
         return R.layout.act_order_details_two;
@@ -105,6 +107,16 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         EventBus.getDefault().register(this);
         isOrder = getIntent().getExtras().getBoolean("isOrder", true);
         id = getIntent().getExtras().getInt("id");
+        isCreateOrder = getIntent().getExtras().getBoolean("isCreateOrder", false);
+        if (isCreateOrder) {
+            kehuMsgBar.setVisibility(View.VISIBLE);
+            orderDetails.setVisibility(View.GONE);
+            btnAlbum.setText("取消订单");
+            btnAlbum.setVisibility(View.VISIBLE);
+        } else {
+            kehuMsgBar.setVisibility(View.GONE);
+            orderDetails.setVisibility(View.VISIBLE);
+        }
 
         fragment = new Task_allotFragment();
         request = new IdTypeRequest();
@@ -115,6 +127,7 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
             request.setType(1);
             mPresenter.getTaskInfo(id);
         }
+
         mPresenter.getOrderInfo(request);
     }
 
@@ -194,19 +207,23 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
     @Override
     public void getOrderInfo(OrderInfoBo orderInfoBo) {
         this.infoBo = orderInfoBo;
-        if (orderInfoBo.getOrderInfo().getCanEdit() == 0) {  //不可编辑
-            kehuMsgBar.setVisibility(View.GONE);
-            orderDetails.setVisibility(View.VISIBLE);
+        setTitleText(orderInfoBo.getOrderInfo().getCompanyOrderName());
+        if (!isCreateOrder) {
             Order_detailsFragment fragment = new Order_detailsFragment();
             FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.order_details);
             fragment.setOrderInfo(orderInfoBo);
+            fragment.setIsTask(!isOrder);
+        }
+        if (orderInfoBo.getOrderInfo().getCanEdit() == 0) {  //不可编辑
+//            kehuMsgBar.setVisibility(View.GONE);
+//            orderDetails.setVisibility(View.VISIBLE);
             taskIsEdit = 1;
         } else {  //可编辑
-            kehuMsgBar.setVisibility(View.VISIBLE);
-            orderDetails.setVisibility(View.GONE);
             taskIsEdit = 0;
-            btnAlbum.setText("取消订单");
-            btnAlbum.setVisibility(View.VISIBLE);
+//            kehuMsgBar.setVisibility(View.VISIBLE);
+//            orderDetails.setVisibility(View.GONE);
+//            btnAlbum.setText("取消订单");
+//            btnAlbum.setVisibility(View.VISIBLE);
         }
         mPresenter.getTaskList(request);
     }

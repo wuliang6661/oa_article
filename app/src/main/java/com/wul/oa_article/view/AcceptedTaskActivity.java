@@ -101,6 +101,7 @@ public class AcceptedTaskActivity extends BaseActivity {
         HttpServerImpl.getOrderInfo(request).subscribe(new HttpResultSubscriber<OrderInfoBo>() {
             @Override
             public void onSuccess(OrderInfoBo orderInfoBo) {
+                setTitleText(orderInfoBo.getOrderInfo().getCompanyOrderName());
                 detailsFragment.setOrderInfo(orderInfoBo);
             }
 

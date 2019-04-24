@@ -116,8 +116,12 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
             if (StringUtils.isEmpty(personBO.getLabel())) {
                 holder.lableText.setVisibility(View.GONE);
             } else {
-                holder.lableText.setVisibility(View.VISIBLE);
-                holder.lableText.setText(personBO.getLabel());
+                if(i== 0){
+                    holder.lableText.setVisibility(View.VISIBLE);
+                    holder.lableText.setText(personBO.getLabel());
+                }else{
+                    holder.lableText.setVisibility(View.GONE);
+                }
             }
             holder.bumenText.setText(bumenBO.getLabel());
         } else {

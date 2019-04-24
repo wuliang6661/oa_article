@@ -36,6 +36,7 @@ import com.wul.oa_article.mvp.MVPBaseFragment;
 import com.wul.oa_article.util.Constant;
 import com.wul.oa_article.view.MyOrderActivity;
 import com.wul.oa_article.view.mobanmanager.MobanManagerActivity;
+import com.wul.oa_article.view.order_details.Order_detailsActivity;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
 import com.wul.oa_article.zxing.activity.CaptureActivity;
@@ -355,6 +356,11 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                     Bundle bundle = new Bundle();
                     bundle.putInt("taskId", tasks.get(position).getId());
                     gotoActivity(MyOrderActivity.class, bundle, false);
+                }else {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", tasks.get(position).getId());
+                    bundle.putBoolean("isOrder", false);
+                    gotoActivity(Order_detailsActivity.class, bundle, false);
                 }
             }
         });

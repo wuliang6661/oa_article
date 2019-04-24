@@ -298,7 +298,10 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
             MyOrderBO orderBO = s.get(i);
             if (orderBO.getIsMe() == 0) {   //分派给我的
                 if (orderBO.getStatus() == 0) {  //待接受
-
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", orderBO.getId());
+                    bundle.putBoolean("isOrder", false);
+                    gotoActivity(Order_detailsActivity.class, bundle, false);
                 } else if (orderBO.getStatus() == 1) {  //进行中
                     Bundle bundle = new Bundle();
                     bundle.putInt("taskId", orderBO.getId());
@@ -310,6 +313,11 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                 }
             } else if (orderBO.getIsMe() == 1) {   //我分派的
                 if (orderBO.getStatus() != 0) {  //不是待接受
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", orderBO.getId());
+                    bundle.putBoolean("isOrder", false);
+                    gotoActivity(Order_detailsActivity.class, bundle, false);
+                } else {
                     Bundle bundle = new Bundle();
                     bundle.putInt("id", orderBO.getId());
                     bundle.putBoolean("isOrder", false);

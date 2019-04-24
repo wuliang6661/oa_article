@@ -99,6 +99,7 @@ public class MyOrderActivity extends BaseActivity {
             @Override
             public void onSuccess(OrderInfoBo orderInfoBo) {
                 if (orderInfoBo != null && orderInfoBo.getOrderInfo() != null) {
+                    setTitleText(orderInfoBo.getOrderInfo().getCompanyOrderName());
                     detailsFragment.setOrderInfo(orderInfoBo);
                 } else {
                     showToast("订单数据为空！请检查订单数据！");

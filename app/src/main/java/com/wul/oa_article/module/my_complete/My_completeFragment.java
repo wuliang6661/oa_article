@@ -75,6 +75,8 @@ public class My_completeFragment extends MVPBaseFragment<My_completeContract.Vie
     Button nextButton;
 
     TaskDetails taskBean;
+    @BindView(R.id.none_text)
+    TextView noneText;
 
     @Nullable
     @Override
@@ -148,10 +150,17 @@ public class My_completeFragment extends MVPBaseFragment<My_completeContract.Vie
             taskDanwei.setText(taskBean.getTaskInfo().getUnit());   //单位
             taskDate.setText(TimeUtils.millis2String(taskBean.getTaskInfo().getPlanCompleteDate(), new SimpleDateFormat("yyyy/MM/dd")));
             taskRemart.setText(taskBean.getTaskInfo().getRemark());
-            if(!StringUtils.isEmpty(taskBean.getTaskInfo().getActualNum())){
+            if (!StringUtils.isEmpty(taskBean.getTaskInfo().getActualNum())) {
                 taskAllNum.setText(taskBean.getTaskInfo().getActualNum() + "");
             }
             setIsEdit(taskBean.getTaskInfo().getCanEdit() == 1);
+            if (task.getTaskHistory() == null || task.getTaskHistory().size() == 0) {
+                recycleView.setVisibility(View.GONE);
+                noneText.setVisibility(View.VISIBLE);
+            } else {
+                recycleView.setVisibility(View.VISIBLE);
+                noneText.setVisibility(View.GONE);
+            }
             setAdapter();
         });
     }

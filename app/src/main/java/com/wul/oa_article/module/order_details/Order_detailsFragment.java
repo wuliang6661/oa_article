@@ -73,9 +73,9 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
 
     List<PingLeiBO> pingLeiBOS;   //添加的品类列表
     List<ImageBO> imageBOS;      //添加的图片列表
-    private int orderId;
 
-    private int type = 2;   //根据任务获取订单数据
+    boolean isTask = true;
+
 
     public static Order_detailsFragment newInstance(int type, int orderId) {
         Order_detailsFragment fragment = new Order_detailsFragment();
@@ -99,15 +99,6 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
-
-        orderId = getArguments().getInt("orderId");
-        type = getArguments().getInt("type", 0);
-//        showProgress();
-        if (type == 2) {
-//            mPresenter.getOrderByTaskId(orderId);
-        } else {
-//            mPresenter.getOrderInfo(orderId);
-        }
 
     }
 
@@ -182,6 +173,7 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
                 holder.getView(R.id.delete_img).setVisibility(View.GONE);
                 holder.setImageUrl(getActivity(), R.id.image, imageBO.url);
                 holder.setText(R.id.edit_image_name, imageBO.name);
+                holder.getView(R.id.edit_image_name).setVisibility(View.INVISIBLE);
             }
         };
         imageRecycle.setAdapter(adapter);
@@ -193,6 +185,11 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
      */
     public void setOrderInfo(OrderInfoBo info) {
         new Handler().post(() -> getOrderInfo(info));
+    }
+
+
+    public void setIsTask(boolean isTask) {
+        this.isTask = isTask;
     }
 
 
@@ -218,6 +215,11 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
         } else if (infoBo.getOrderInfo().getStatus() == 3) {
             orderStatusImg.setVisibility(View.VISIBLE);
             orderStatusImg.setImageResource(R.drawable.order_cancle_bigimg);
+        } else {
+            orderStatusImg.setVisibility(View.GONE);
+        }
+        if (isTask) {
+            orderStatusImg.setVisibility(View.GONE);
         }
         setPingLeiAdapter();
         setImageAdapter();
