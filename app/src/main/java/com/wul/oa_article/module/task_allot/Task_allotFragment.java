@@ -39,10 +39,6 @@ import com.wul.oa_article.view.mobanmanager.MobanManagerActivity;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
 import com.wul.oa_article.zxing.activity.CaptureActivity;
-import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
-import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
-import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
-import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -139,32 +135,32 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.divider_inset));
         taskRecycleView.addItemDecoration(itemDecoration);
 
-        // 创建菜单：
-        SwipeMenuCreator mSwipeMenuCreator = (leftMenu, rightMenu, viewType) -> {
-            // 2 删除
-            SwipeMenuItem deleteItem = new SwipeMenuItem(getActivity());
-            deleteItem.setText("删除")
-                    .setBackgroundColor(getResources().getColor(R.color.item_delete))
-                    .setTextColor(Color.WHITE) // 文字颜色。
-                    .setTextSize(15) // 文字大小。
-                    .setWidth(124)
-                    .setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
-
-            rightMenu.addMenuItem(deleteItem);
-            // 注意：哪边不想要菜单，那么不要添加即可。
-        };
-        // 设置监听器。
-        taskRecycleView.setSwipeMenuCreator(mSwipeMenuCreator);
-        SwipeMenuItemClickListener mMenuItemClickListener = new SwipeMenuItemClickListener() {
-            @Override
-            public void onItemClick(SwipeMenuBridge menuBridge) {
-                // 任何操作必须先关闭菜单，否则可能出现Item菜单打开状态错乱。
-                menuBridge.closeMenu();
-            }
-        };
-
-        // 菜单点击监听。
-        taskRecycleView.setSwipeMenuItemClickListener(mMenuItemClickListener);
+//        // 创建菜单：
+//        SwipeMenuCreator mSwipeMenuCreator = (leftMenu, rightMenu, viewType) -> {
+//            // 2 删除
+//            SwipeMenuItem deleteItem = new SwipeMenuItem(getActivity());
+//            deleteItem.setText("删除")
+//                    .setBackgroundColor(getResources().getColor(R.color.item_delete))
+//                    .setTextColor(Color.WHITE) // 文字颜色。
+//                    .setTextSize(15) // 文字大小。
+//                    .setWidth(124)
+//                    .setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+//
+//            rightMenu.addMenuItem(deleteItem);
+//            // 注意：哪边不想要菜单，那么不要添加即可。
+//        };
+//        // 设置监听器。
+//        taskRecycleView.setSwipeMenuCreator(mSwipeMenuCreator);
+//        SwipeMenuItemClickListener mMenuItemClickListener = new SwipeMenuItemClickListener() {
+//            @Override
+//            public void onItemClick(SwipeMenuBridge menuBridge) {
+//                // 任何操作必须先关闭菜单，否则可能出现Item菜单打开状态错乱。
+//                menuBridge.closeMenu();
+//            }
+//        };
+//
+//        // 菜单点击监听。
+//        taskRecycleView.setSwipeMenuItemClickListener(mMenuItemClickListener);
         setTaskAdapter();
     }
 
@@ -292,7 +288,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
 
 
     private void setSwipeMenu() {
-        taskRecycleView.setItemViewSwipeEnabled(false);// 开启滑动删除。默认关闭
+//        taskRecycleView.setItemViewSwipeEnabled(false);// 开启滑动删除。默认关闭
     }
 
 
