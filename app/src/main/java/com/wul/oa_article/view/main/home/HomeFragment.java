@@ -188,7 +188,9 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
         popWindow.setListener(new HomeAddPopWindow.OnClickListener() {
             @Override
             public void clickCreateOrder() {
-                gotoActivity(CreateActivity.class, false);
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("isWaibu", false);
+                gotoActivity(CreateActivity.class, bundle, false);
             }
 
             @Override
