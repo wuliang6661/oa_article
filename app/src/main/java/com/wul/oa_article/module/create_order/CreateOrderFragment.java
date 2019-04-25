@@ -97,24 +97,16 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     RecyclerView imageRecycle;
     @BindView(R.id.kehu_expand_layout)
     LinearLayout kehuExpandLayout;
-    @BindView(R.id.edit_pinglei_name)
-    EditText editPingleiName;
-    @BindView(R.id.edit_pinglei_guige)
-    EditText editPingleiGuige;
-    @BindView(R.id.edit_pinglei_num)
-    EditText editPingleiNum;
-    @BindView(R.id.edit_pinglei_danwei)
-    EditText editPingleiDanwei;
     @BindView(R.id.edit_beizhu)
     EditText editBeizhu;
     @BindView(R.id.edit_ben_orderName)
-    EditText editBenOrderName;
+    EditMsgText editBenOrderName;
     @BindView(R.id.edit_ben_orderNum)
-    EditText editBenOrderNum;
+    EditMsgText editBenOrderNum;
     @BindView(R.id.edit_ben_num)
-    EditText editBenNum;
+    EditMsgText editBenNum;
     @BindView(R.id.edit_ben_danwei)
-    EditText editBenDanwei;
+    EditMsgText editBenDanwei;
     @BindView(R.id.date_order)
     TextView dateOrder;
     @BindView(R.id.mianview)

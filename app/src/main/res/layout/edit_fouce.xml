@@ -11,8 +11,19 @@
         android:layout_height="50dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="41dp"
+        android:paddingLeft="40dp"
         android:paddingRight="18dp">
+
+
+        <TextView
+            android:id="@+id/zhongdian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="#DB2E2E"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
 
         <TextView
             android:id="@+id/edit_left_text"

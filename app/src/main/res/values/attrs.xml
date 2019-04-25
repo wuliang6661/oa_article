@@ -28,6 +28,7 @@
         <attr name="edit_text" format="string" />
         <attr name="edit_max_length" format="integer" />
         <attr name="edit_type" format="integer" />
+        <attr name="edit_zhongdian" format="boolean" />
     </declare-styleable>
 
 

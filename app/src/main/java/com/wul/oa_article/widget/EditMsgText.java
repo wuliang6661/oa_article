@@ -22,6 +22,7 @@ public class EditMsgText extends LinearLayout {
 
     private TextView title;
     private EditText message;
+    private TextView zhongdian;
 
     private Context context;
 
@@ -45,10 +46,13 @@ public class EditMsgText extends LinearLayout {
         String titleText = array.getString(R.styleable.EditMsgText_title_text);
         int maxLength = array.getInt(R.styleable.EditMsgText_edit_max_length, 6);
         int editType = array.getInt(R.styleable.EditMsgText_edit_type, 0);
+        boolean isZhongdian = array.getBoolean(R.styleable.EditMsgText_edit_zhongdian, false);
         View view = LayoutInflater.from(context).inflate(R.layout.edit_fouce, null);
         title = view.findViewById(R.id.edit_left_text);
         message = view.findViewById(R.id.edit_text);
+        zhongdian = view.findViewById(R.id.zhongdian);
 
+        initView();
         title.setText(titleText);
         message.setHint(hintText);
         message.setText(editText);
@@ -56,8 +60,10 @@ public class EditMsgText extends LinearLayout {
         if (editType == 1) {  //数字输入
             message.setInputType(InputType.TYPE_CLASS_NUMBER);
         }
+        if (isZhongdian) {
+            zhongdian.setVisibility(VISIBLE);
+        }
 
-        initView();
         addView(view);
     }
 
@@ -88,6 +94,8 @@ public class EditMsgText extends LinearLayout {
 
     public void setEnabled(boolean isEnable) {
         message.setEnabled(isEnable);
+        title.setTextColor(ContextCompat.getColor(context, R.color.hint_color));
+        message.setTextColor(ContextCompat.getColor(context, R.color.f_white));
     }
 
 }

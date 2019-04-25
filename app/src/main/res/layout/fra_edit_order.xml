@@ -124,7 +124,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="数量"
-                        android:textColor="@color/f_white"
+                        android:textColor="@color/hint_color"
                         android:textSize="13sp" />
 
 
@@ -169,7 +169,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="单位"
-                        android:textColor="@color/f_white"
+                        android:textColor="@color/hint_color"
                         android:textSize="13sp" />
 
 
@@ -213,7 +213,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="订单交期"
-                        android:textColor="@color/f_white"
+                        android:textColor="@color/hint_color"
                         android:textSize="13sp" />
 
 
@@ -306,154 +306,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <com.wul.oa_article.widget.EditMsgText
+                android:id="@+id/edit_ben_orderName"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="40dp"
-                android:paddingRight="18dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="*"
-                    android:textColor="#DB2E2E"
-                    android:textSize="12sp" />
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="本公司订单名称"
-                    android:textColor="@color/f_white"
-                    android:textSize="13sp" />
-
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="13dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="17dp"
-                    android:background="#939495" />
-
-                <EditText
-                    android:id="@+id/edit_ben_orderName"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="请输入本公司订单名称"
-                    android:maxLength="20"
-                    android:singleLine="true"
-                    android:textColor="@color/f_white"
-                    android:textColorHint="@color/hint_color"
-                    android:textSize="13sp" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginLeft="18dp"
-                android:layout_marginRight="18dp"
-                android:background="#2b2b2b" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="40dp"
-                android:paddingRight="18dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="*"
-                    android:textColor="#DB2E2E"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="本公司订单编号"
-                    android:textColor="@color/f_white"
-                    android:textSize="13sp" />
-
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="13dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="17dp"
-                    android:background="#939495" />
-
-                <EditText
-                    android:id="@+id/edit_ben_orderNum"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="请输入本公司订单编号"
-                    android:maxLength="20"
-                    android:singleLine="true"
-                    android:textColor="@color/f_white"
-                    android:textColorHint="@color/hint_color"
-                    android:textSize="13sp" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginLeft="18dp"
-                android:layout_marginRight="18dp"
-                android:background="#2b2b2b" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="41dp"
-                android:paddingRight="18dp">
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="*"
-                    android:textColor="#DB2E2E"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="数量"
-                    android:textColor="@color/f_white"
-                    android:textSize="13sp" />
-
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="13dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="17dp"
-                    android:background="#939495" />
-
-                <EditText
-                    android:id="@+id/edit_ben_num"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="请输入数量"
-                    android:inputType="number"
-                    android:maxLength="9"
-                    android:singleLine="true"
-                    android:textColor="@color/f_white"
-                    android:textColorHint="@color/hint_color"
-                    android:textSize="13sp" />
-
-            </LinearLayout>
+                app:edit_max_length="20"
+                app:edit_zhongdian="true"
+                app:hint_text="请输入本公司订单名称"
+                app:title_text="本公司订单名称" />
 
 
             <View
@@ -463,50 +323,50 @@
                 android:layout_marginRight="18dp"
                 android:background="#2b2b2b" />
 
-            <LinearLayout
+
+            <com.wul.oa_article.widget.EditMsgText
+                android:id="@+id/edit_ben_orderNum"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="41dp"
-                android:paddingRight="18dp">
+                app:edit_max_length="20"
+                app:edit_zhongdian="true"
+                app:hint_text="请输入本公司订单编号"
+                app:title_text="本公司订单编号" />
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="*"
-                    android:textColor="#DB2E2E"
-                    android:textSize="12sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:background="#2b2b2b" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="单位"
-                    android:textColor="@color/f_white"
-                    android:textSize="13sp" />
+            <com.wul.oa_article.widget.EditMsgText
+                android:id="@+id/edit_ben_num"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:edit_max_length="9"
+                app:edit_type="1"
+                app:edit_zhongdian="true"
+                app:hint_text="请输入数量"
+                app:title_text="数量" />
 
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="13dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="17dp"
-                    android:background="#939495" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:background="#2b2b2b" />
 
-                <EditText
-                    android:id="@+id/edit_ben_danwei"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="请输入单位"
-                    android:maxLength="4"
-                    android:singleLine="true"
-                    android:textColor="@color/f_white"
-                    android:textColorHint="@color/hint_color"
-                    android:textSize="13sp" />
-
-            </LinearLayout>
+            <com.wul.oa_article.widget.EditMsgText
+                android:id="@+id/edit_ben_danwei"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:edit_max_length="4"
+                app:edit_zhongdian="true"
+                app:hint_text="请输入单位"
+                app:title_text="单位" />
 
 
             <View
