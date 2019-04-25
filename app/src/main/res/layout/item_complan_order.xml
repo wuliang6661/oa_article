@@ -106,6 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
+                    android:singleLine="true"
                     android:textColor="#E32A2A"
                     android:textSize="11sp"
                     tools:text="-0天" />
@@ -130,22 +131,26 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:orientation="vertical"
-            android:paddingLeft="16dp">
+            android:paddingRight="16dp">
 
             <TextView
                 android:id="@+id/surplus_time"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="right"
+                android:singleLine="true"
                 android:textColor="#8D8C91"
                 android:textSize="11sp"
                 tools:text="2019/2/16" />
 
             <TextView
                 android:id="@+id/task_time"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/surplus_time"
                 android:layout_marginTop="8dp"
+                android:gravity="right"
+                android:singleLine="true"
                 android:textColor="#8D8C91"
                 android:textSize="11sp"
                 tools:text="2019/2/16" />
@@ -155,7 +160,8 @@
                 android:id="@+id/cancle_img"
                 android:layout_width="65dp"
                 android:layout_height="39dp"
-                android:src="@drawable/yi_cancle" />
+                android:src="@drawable/yi_cancle"
+                android:visibility="gone" />
 
 
         </RelativeLayout>

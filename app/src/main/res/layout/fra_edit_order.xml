@@ -59,7 +59,7 @@
             <com.wul.oa_article.widget.EditMsgText
                 android:id="@+id/edit_kehu_jiancheng"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/line_height"
                 app:edit_max_length="4"
                 app:hint_text="请输入客户简称（不多于4个字）"
                 app:title_text="客户简称" />
@@ -76,7 +76,7 @@
             <com.wul.oa_article.widget.EditMsgText
                 android:id="@+id/edit_kehu_ordername"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/line_height"
                 app:edit_max_length="20"
                 app:hint_text="请输入客户订单名称"
                 app:title_text="客户订单名称" />
@@ -91,7 +91,7 @@
             <com.wul.oa_article.widget.EditMsgText
                 android:id="@+id/edit_kehu_ordernum"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/line_height"
                 app:edit_max_length="20"
                 app:hint_text="请输入客户订单编号"
                 app:title_text="客户订单编号" />
@@ -114,7 +114,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="@dimen/line_height"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="41dp"
@@ -159,7 +159,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="@dimen/line_height"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="41dp"
@@ -203,7 +203,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="@dimen/line_height"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="41dp"
@@ -309,7 +309,7 @@
             <com.wul.oa_article.widget.EditMsgText
                 android:id="@+id/edit_ben_orderName"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/line_height"
                 app:edit_max_length="20"
                 app:edit_zhongdian="true"
                 app:hint_text="请输入本公司订单名称"
@@ -327,7 +327,7 @@
             <com.wul.oa_article.widget.EditMsgText
                 android:id="@+id/edit_ben_orderNum"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/line_height"
                 app:edit_max_length="20"
                 app:edit_zhongdian="true"
                 app:hint_text="请输入本公司订单编号"
@@ -344,7 +344,7 @@
             <com.wul.oa_article.widget.EditMsgText
                 android:id="@+id/edit_ben_num"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/line_height"
                 app:edit_max_length="9"
                 app:edit_type="1"
                 app:edit_zhongdian="true"
@@ -362,7 +362,7 @@
             <com.wul.oa_article.widget.EditMsgText
                 android:id="@+id/edit_ben_danwei"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/line_height"
                 app:edit_max_length="4"
                 app:edit_zhongdian="true"
                 app:hint_text="请输入单位"
@@ -378,7 +378,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/line_height"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="41dp"
@@ -495,7 +495,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/line_height"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="18dp"

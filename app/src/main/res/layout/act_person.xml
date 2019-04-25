@@ -6,6 +6,8 @@
     android:orientation="vertical">
 
 
+    <include layout="@layout/layout_bar" />
+
     <FrameLayout
         android:id="@+id/person_list"
         android:layout_width="match_parent"

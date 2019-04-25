@@ -81,6 +81,11 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
         } else {
             hodler.bumenName.setText(list.get(i).getDepart());
         }
+        if (i == 0) {
+            hodler.checkBox.setVisibility(View.GONE);
+        } else {
+            hodler.checkBox.setVisibility(View.VISIBLE);
+        }
         return view;
     }
 
@@ -116,10 +121,10 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
             if (StringUtils.isEmpty(personBO.getLabel())) {
                 holder.lableText.setVisibility(View.GONE);
             } else {
-                if(i== 0){
+                if (i == 0) {
                     holder.lableText.setVisibility(View.VISIBLE);
                     holder.lableText.setText(personBO.getLabel());
-                }else{
+                } else {
                     holder.lableText.setVisibility(View.GONE);
                 }
             }

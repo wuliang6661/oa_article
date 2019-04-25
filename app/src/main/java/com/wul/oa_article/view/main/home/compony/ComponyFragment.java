@@ -69,6 +69,12 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
     TextView renwuTime;
 
     ComplayRequest request;
+    @BindView(R.id.task_layout)
+    LinearLayout taskLayout;
+    @BindView(R.id.no_cancle_layout)
+    LinearLayout noCancleLayout;
+    @BindView(R.id.cancle_layout)
+    LinearLayout cancleLayout;
     private int selePosition;
 
     @Nullable
@@ -163,18 +169,24 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
      */
     private void setBarStyleByTab(boolean isTabOut) {
         if (isTabOut) {
-            personLayout.setVisibility(View.GONE);
-            shengyuTime.setText("订单交期");
-            shengyuTime.setGravity(Gravity.RIGHT);
-            renwuTime.setText("");
+//            personLayout.setVisibility(View.GONE);
+//            shengyuTime.setText("订单交期");
+//            shengyuTime.setGravity(Gravity.CENTER);
+//            taskLayout.setGravity(Gravity.CENTER);
+//            renwuTime.setText("");
+            noCancleLayout.setVisibility(View.GONE);
+            cancleLayout.setVisibility(View.VISIBLE);
         } else {
-            personLayout.setVisibility(View.VISIBLE);
-            barOrderMessage.setText("创建人");
-            barOrderType.setText("客户简称");
-            barPersonTime.setText("任务时限");
-            renwuTime.setText("订单交期");
-            shengyuTime.setText("剩余时间");
-            shengyuTime.setGravity(Gravity.LEFT);
+//            personLayout.setVisibility(View.VISIBLE);
+//            barOrderMessage.setText("创建人");
+//            barOrderType.setText("客户简称");
+//            barPersonTime.setText("任务时限");
+//            renwuTime.setText("订单交期");
+//            shengyuTime.setText("剩余时间");
+//            shengyuTime.setGravity(Gravity.LEFT);
+//            taskLayout.setGravity(Gravity.CENTER_VERTICAL);
+            noCancleLayout.setVisibility(View.VISIBLE);
+            cancleLayout.setVisibility(View.GONE);
         }
     }
 

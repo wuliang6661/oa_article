@@ -22,6 +22,7 @@ import com.wul.oa_article.bean.HistoryBO;
 import com.wul.oa_article.bean.MyOrderBO;
 import com.wul.oa_article.bean.request.OrderRequest;
 import com.wul.oa_article.bean.request.SelectRequest;
+import com.wul.oa_article.view.order_details.Order_detailsActivity;
 import com.wul.oa_article.widget.AlertDialog;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
@@ -47,6 +48,8 @@ public class SelectActivity extends BaseActivity {
     RecyclerView taskRecycle;
     @BindView(R.id.task_layout)
     LinearLayout taskLayout;
+    @BindView(R.id.none_layout)
+    LinearLayout noneLayout;
 
     @Override
     protected int getLayout() {
@@ -222,7 +225,13 @@ public class SelectActivity extends BaseActivity {
             public void onSuccess(List<MyOrderBO> s) {
                 stopProgress();
                 historyLayout.setVisibility(View.GONE);
-                taskLayout.setVisibility(View.VISIBLE);
+                if (s == null || s.size() == 0) {
+                    taskLayout.setVisibility(View.GONE);
+                    noneLayout.setVisibility(View.VISIBLE);
+                } else {
+                    taskLayout.setVisibility(View.VISIBLE);
+                    noneLayout.setVisibility(View.GONE);
+                }
                 setAdapter(s);
             }
 
@@ -256,7 +265,7 @@ public class SelectActivity extends BaseActivity {
                 orderType.setTextColor(Color.parseColor("#8D8C91"));
                 switch (myOrderBO.getStatus()) {
                     case 0:
-                        holder.setText(R.id.order_type, "待接受");
+                        holder.setText(R.id.order_type, "未接受");
                         orderType.setTextColor(Color.parseColor("#F4CA40"));
                         break;
                     case 1:
@@ -268,23 +277,65 @@ public class SelectActivity extends BaseActivity {
                     case 3:
                         holder.setText(R.id.order_type, "已取消");
                         break;
+                    default:
+                        holder.setText(R.id.order_type, "未分派");
+                        break;
                 }
                 TextView surplus_time = (TextView) holder.getView(R.id.surplus_time);
-                if (StringUtils.isEmpty(myOrderBO.getRemainingDate())) {
-                    surplus_time.setText(myOrderBO.getPlanCompleteDate().replaceAll("-", "/"));
-                    surplus_time.setTextColor(Color.parseColor("#8D8C91"));
-                    surplus_time.setTextSize(11);
-                } else {
-                    surplus_time.setText(myOrderBO.getRemainingDate() + "天");
-                    surplus_time.setTextSize(16);
-                    if (Integer.parseInt(myOrderBO.getRemainingDate()) > 0) {
-                        surplus_time.setTextColor(Color.parseColor("#71EA45"));
+                if (myOrderBO.getStatus() != 3) {
+                    if (StringUtils.isEmpty(myOrderBO.getRemainingDate())) {
+                        surplus_time.setText(myOrderBO.getPlanCompleteDate().replaceAll("-", "/"));
+                        surplus_time.setTextColor(Color.parseColor("#8D8C91"));
+                        surplus_time.setTextSize(11);
                     } else {
-                        surplus_time.setTextColor(Color.parseColor("#E92B2B"));
+                        surplus_time.setText(myOrderBO.getRemainingDate() + "天");
+                        surplus_time.setTextSize(16);
+                        if (Integer.parseInt(myOrderBO.getRemainingDate()) > 0) {
+                            surplus_time.setTextColor(Color.parseColor("#71EA45"));
+                        } else {
+                            surplus_time.setTextColor(Color.parseColor("#E92B2B"));
+                        }
                     }
+                } else {
+                    surplus_time.setText("--");
                 }
             }
         };
+        adapter.setOnItemClickListener(R.id.item_layout, (view, i) -> {
+            MyOrderBO orderBO = s.get(i);
+            if (orderBO.getIsMe() == 0) {   //分派给我的
+                if (orderBO.getStatus() == 0) {  //待接受
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", orderBO.getId());
+                    bundle.putBoolean("isOrder", false);
+                    gotoActivity(Order_detailsActivity.class, bundle, false);
+                } else if (orderBO.getStatus() == 1) {  //进行中
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("taskId", orderBO.getId());
+                    gotoActivity(MyOrderActivity.class, bundle, false);
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("taskId", orderBO.getId());
+                    gotoActivity(MyOrderActivity.class, bundle, false);
+                }
+            } else if (orderBO.getIsMe() == 1) {   //我分派的
+                if (orderBO.getStatus() != 0) {  //不是待接受
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", orderBO.getId());
+                    bundle.putBoolean("isOrder", false);
+                    gotoActivity(Order_detailsActivity.class, bundle, false);
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", orderBO.getId());
+                    bundle.putBoolean("isOrder", false);
+                    gotoActivity(Order_detailsActivity.class, bundle, false);
+                }
+            } else {   //已完成的
+                Bundle bundle = new Bundle();
+                bundle.putInt("taskId", orderBO.getId());
+                gotoActivity(MyOrderActivity.class, bundle, false);
+            }
+        });
         taskRecycle.setAdapter(adapter);
     }
 

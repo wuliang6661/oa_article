@@ -38,10 +38,6 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
         implements PersonListContract.View {
 
 
-    @BindView(R.id.comple_img)
-    ImageView compleImg;
-    @BindView(R.id.title_text)
-    TextView titleText;
     @BindView(R.id.add_img)
     ImageView addImg;
     @BindView(R.id.neibu_text)
