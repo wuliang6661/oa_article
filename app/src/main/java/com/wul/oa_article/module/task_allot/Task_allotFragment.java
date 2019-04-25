@@ -309,8 +309,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                         holder.setText(R.id.task_name, s.getTaskName());
                         holder.setText(R.id.task_person_name, s.getNickName());
                         holder.setText(R.id.task_shiji_num, "--");
-                        holder.setText(R.id.task_jihua_num, (s.getPlanNum() == 0 ? "--" : s.getPlanNum()) + "/" +
-                                (StringUtils.isEmpty(s.getUnit()) ? "--" : s.getUnit()));
+                        holder.setText(R.id.task_jihua_num, s.getPlanNum() == 0 ? "--" : s.getPlanNum() + "");
                         if (StringUtils.isEmpty(s.getPlanCompleteDate())) {
                             holder.setText(R.id.task_date, "--");
                         } else {
@@ -339,6 +338,14 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                                 taskType.setTextColor(Color.parseColor("#8D8C91"));
                                 taskType.setText("已完成");
                                 break;
+                            case 3:
+                                taskType.setTextColor(Color.parseColor("#8D8C91"));
+                                taskType.setText("已取消");
+                                break;
+                            default:
+                                taskType.setTextColor(Color.parseColor("#8D8C91"));
+                                taskType.setText("未分派");
+                                break;
                         }
                     }
                 };
@@ -356,7 +363,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                     Bundle bundle = new Bundle();
                     bundle.putInt("taskId", tasks.get(position).getId());
                     gotoActivity(MyOrderActivity.class, bundle, false);
-                }else {
+                } else {
                     Bundle bundle = new Bundle();
                     bundle.putInt("id", tasks.get(position).getId());
                     bundle.putBoolean("isOrder", false);

@@ -25,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -50,6 +51,7 @@ import com.wul.oa_article.util.PhotoFromPhotoAlbum;
 import com.wul.oa_article.view.EditPhotoNamePop;
 import com.wul.oa_article.view.order_details.Order_detailsActivity;
 import com.wul.oa_article.widget.AlertDialog;
+import com.wul.oa_article.widget.EditMsgText;
 import com.wul.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.wul.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
@@ -80,11 +82,11 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
         implements CreateOrderContract.View, ActionSheet.OnActionSheetSelected {
 
     @BindView(R.id.edit_kehu_jiancheng)
-    EditText editKehuJiancheng;
+    EditMsgText editKehuJiancheng;
     @BindView(R.id.edit_kehu_ordername)
-    EditText editKehuOrdername;
+    EditMsgText editKehuOrdername;
     @BindView(R.id.edit_kehu_ordernum)
-    EditText editKehuOrdernum;
+    EditMsgText editKehuOrdernum;
     @BindView(R.id.ben_expand_layout)
     LinearLayout benExpandLayout;
     @BindView(R.id.recycle_view)
@@ -138,6 +140,8 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     LinearLayout clientKehuLayout;
     @BindView(R.id.pinglei_bar)
     LinearLayout pingleiBar;
+    @BindView(R.id.next_button)
+    Button nextButton;
 
     private File cameraSavePath;//拍照照片路径
     private Uri uri;
@@ -615,6 +619,7 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
             editBenOrderNum.setText(orderInfoBo.getOrderInfo().getCompanyOrderNum());
             imageBOS = orderInfoBo.getOrderInfo().getImage();
             dateOrder.setText(TimeUtils.millis2String(orderInfoBo.getOrderInfo().getPlanCompleteDate(), new SimpleDateFormat("yyyy/MM/dd")));
+            nextButton.setText("保存");
             setImageAdapter();
             pingLeiBOS = orderInfoBo.getOrderSpecifications();
             setPingLeiAdapter();

@@ -339,6 +339,7 @@
                 android:background="#2b2b2b" />
 
             <LinearLayout
+                android:id="@+id/image_title"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_marginLeft="3dp"

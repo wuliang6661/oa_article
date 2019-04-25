@@ -30,13 +30,15 @@ public class PopAddMoBan extends PopupWindow {
     private TextView personName;
     private PersonBO personBO;
 
-    PopAddMoBan(Activity activity, String name, String person) {
+    private int selectPosition = -1;
+
+    PopAddMoBan(Activity activity, String name, String person, int userId) {
         super(activity);
 
         EventBus.getDefault().register(this);
         this.activity = activity;
         dialogView = activity.getLayoutInflater().inflate(R.layout.pop_add_moban, null);
-        initView(name, person);
+        initView(name, person, userId);
         this.setBackgroundDrawable(new ColorDrawable(0));
         this.setContentView(dialogView);
         //设置PopupWindow弹出窗体的宽
@@ -62,7 +64,7 @@ public class PopAddMoBan extends PopupWindow {
     /**
      * 初始化布局
      */
-    private void initView(String name, String person) {
+    private void initView(String name, String person, int userId) {
         taskName = dialogView.findViewById(R.id.edit_task_name);
         RelativeLayout selectPerson = dialogView.findViewById(R.id.select_person);
         personName = dialogView.findViewById(R.id.person_name);
@@ -72,6 +74,9 @@ public class PopAddMoBan extends PopupWindow {
         if (!StringUtils.isEmpty(name)) {
             taskName.setText(name);
             personName.setText(person);
+            personBO = new PersonBO();
+            personBO.setId(userId);
+            personBO.setName(person);
         }
         selectPerson.setOnClickListener(view -> {
             Intent intent = new Intent(activity, SelectPersonAct.class);
@@ -91,7 +96,7 @@ public class PopAddMoBan extends PopupWindow {
                 return;
             }
             if (listener != null) {
-                listener.commit(strName, personBO);
+                listener.commit(selectPosition, strName, personBO);
                 dismiss();
             }
         });
@@ -130,9 +135,13 @@ public class PopAddMoBan extends PopupWindow {
         this.listener = listener;
     }
 
+    public void setSelectPosition(int position) {
+        this.selectPosition = position;
+    }
+
     public interface onCommitListener {
 
-        void commit(String taskName, PersonBO person);
+        void commit(int position, String taskName, PersonBO person);
     }
 }
 

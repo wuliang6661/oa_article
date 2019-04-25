@@ -8,6 +8,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -111,8 +112,8 @@ public class CreateMoBanActivity extends MVPBaseActivity<CreateMoBanContract.Vie
 
     @OnClick(R.id.add_moban)
     public void addMoBan() {
-        PopAddMoBan shunYanWindow = new PopAddMoBan(this, null, null);
-        shunYanWindow.setListener((taskName, person) -> addMoBanBean(taskName, person));
+        PopAddMoBan shunYanWindow = new PopAddMoBan(this, null, null, 0);
+        shunYanWindow.setListener((position, taskName, person) -> addMoBanBean(taskName, person));
         shunYanWindow.showAtLocation(this.getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
     }
 
@@ -173,6 +174,23 @@ public class CreateMoBanActivity extends MVPBaseActivity<CreateMoBanContract.Vie
                         holder.setText(R.id.person_name, taskTemplateDetailsBean.getNickName());
                     }
                 };
+        adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
+            TempleteBO.TaskInfoBean taskInfoBean = templeteBO.getTaskInfo().get(position);
+            PopAddMoBan shunYanWindow = new PopAddMoBan(CreateMoBanActivity.this, taskInfoBean.getTaskName(), taskInfoBean.getNickName(),
+                    taskInfoBean.getUserId());
+            shunYanWindow.setSelectPosition(position);
+            shunYanWindow.setListener((selectPosition, taskName, person) -> {
+                if (selectPosition != -1) {
+                    TempleteBO.TaskInfoBean bean = new TempleteBO.TaskInfoBean();
+                    bean.setTaskName(taskName);
+                    bean.setUserId(person.getId());
+                    bean.setNickName(person.getName());
+                    templeteBO.getTaskInfo().set(position, bean);
+                    setAddAdapter();
+                }
+            });
+            shunYanWindow.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+        });
         recycleView.setAdapter(adapter);
     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mianview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -55,42 +56,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <com.wul.oa_article.widget.EditMsgText
+                android:id="@+id/edit_kehu_jiancheng"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="41dp"
-                android:paddingRight="18dp">
+                app:edit_max_length="4"
+                app:hint_text="请输入客户简称（不多于4个字）"
+                app:title_text="客户简称" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="客户简称"
-                    android:textColor="@color/f_white"
-                    android:textSize="13sp" />
-
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="13dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="17dp"
-                    android:background="#939495" />
-
-                <EditText
-                    android:id="@+id/edit_kehu_jiancheng"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="请输入客户简称（不多于4个字）"
-                    android:maxLength="4"
-                    android:singleLine="true"
-                    android:textColor="@color/f_white"
-                    android:textColorHint="@color/hint_color"
-                    android:textSize="13sp" />
-
-            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -99,43 +72,14 @@
                 android:layout_marginRight="18dp"
                 android:background="#2b2b2b" />
 
-            <LinearLayout
-                android:id="@+id/layout2"
+
+            <com.wul.oa_article.widget.EditMsgText
+                android:id="@+id/edit_kehu_ordername"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="41dp"
-                android:paddingRight="18dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="客户订单名称"
-                    android:textColor="@color/f_white"
-                    android:textSize="13sp" />
-
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="13dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="17dp"
-                    android:background="#939495" />
-
-                <EditText
-                    android:id="@+id/edit_kehu_ordername"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="请输入客户订单名称"
-                    android:maxLength="20"
-                    android:singleLine="true"
-                    android:textColor="@color/f_white"
-                    android:textColorHint="@color/hint_color"
-                    android:textSize="13sp" />
-
-            </LinearLayout>
+                app:edit_max_length="20"
+                app:hint_text="请输入客户订单名称"
+                app:title_text="客户订单名称" />
 
             <View
                 android:layout_width="match_parent"
@@ -144,42 +88,13 @@
                 android:layout_marginRight="18dp"
                 android:background="#2b2b2b" />
 
-            <LinearLayout
+            <com.wul.oa_article.widget.EditMsgText
+                android:id="@+id/edit_kehu_ordernum"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="41dp"
-                android:paddingRight="18dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="客户订单编号"
-                    android:textColor="@color/f_white"
-                    android:textSize="13sp" />
-
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="13dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="17dp"
-                    android:background="#939495" />
-
-                <EditText
-                    android:id="@+id/edit_kehu_ordernum"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="请输入客户订单编号"
-                    android:maxLength="20"
-                    android:singleLine="true"
-                    android:textColor="@color/f_white"
-                    android:textColorHint="@color/hint_color"
-                    android:textSize="13sp" />
-
-            </LinearLayout>
+                app:edit_max_length="20"
+                app:hint_text="请输入客户订单编号"
+                app:title_text="客户订单编号" />
 
 
             <LinearLayout
@@ -195,6 +110,7 @@
                     android:layout_marginLeft="18dp"
                     android:layout_marginRight="18dp"
                     android:background="#2b2b2b" />
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -953,7 +869,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="3dp"
             android:background="@drawable/button_bg"
-            android:text="保存"
+            android:text="创建"
             android:textColor="@color/text_white"
             android:textSize="18sp" />
 

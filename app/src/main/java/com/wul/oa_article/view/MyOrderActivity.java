@@ -55,6 +55,8 @@ public class MyOrderActivity extends BaseActivity {
     TextView taskPersonName;
     @BindView(R.id.shangji_layout)
     LinearLayout shangjiLayout;
+    @BindView(R.id.order_num)
+    TextView orderNum;
 
     private int id;
     My_completeFragment completeFragment;
@@ -100,6 +102,8 @@ public class MyOrderActivity extends BaseActivity {
             public void onSuccess(OrderInfoBo orderInfoBo) {
                 if (orderInfoBo != null && orderInfoBo.getOrderInfo() != null) {
                     setTitleText(orderInfoBo.getOrderInfo().getCompanyOrderName());
+                    orderNum.setText(orderInfoBo.getOrderInfo().getCompanyOrderNum());
+                    orderNum.setVisibility(View.VISIBLE);
                     detailsFragment.setOrderInfo(orderInfoBo);
                 } else {
                     showToast("订单数据为空！请检查订单数据！");

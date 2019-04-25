@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/layout_bg"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="41dp"
+        android:paddingRight="18dp">
+
+        <TextView
+            android:id="@+id/edit_left_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="客户简称"
+            android:textColor="@color/f_white"
+            android:textSize="13sp" />
+
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="13dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="17dp"
+            android:background="#939495" />
+
+        <EditText
+            android:id="@+id/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:hint="请输入客户简称（不多于4个字）"
+            android:singleLine="true"
+            android:textColor="@color/f_white"
+            android:textColorHint="@color/hint_color"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

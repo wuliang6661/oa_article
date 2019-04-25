@@ -9,15 +9,26 @@
         label_text  框上方提示
     -->
     <declare-styleable name="ViewfinderView">
-        <attr name="corner_color" format="color"/>
-        <attr name="laser_color" format="color"/>
+        <attr name="corner_color" format="color" />
+        <attr name="laser_color" format="color" />
         <attr name="frame_color" format="color" />
         <attr name="mask_color" format="color" />
-        <attr name="result_point_color" format="color"/>
+        <attr name="result_point_color" format="color" />
         <attr name="result_color" format="color" />
-        <attr name="label_text_color" format="color"/>
-        <attr name="label_text" format="string"/>
-        <attr name="label_text_size" format="float"/>
+        <attr name="label_text_color" format="color" />
+        <attr name="label_text" format="string" />
+        <attr name="label_text_size" format="float" />
     </declare-styleable>
+
+
+    <!--edit_type  0为字符串输入  1为数字输入-->
+    <declare-styleable name="EditMsgText">
+        <attr name="title_text" format="string" />
+        <attr name="hint_text" format="string" />
+        <attr name="edit_text" format="string" />
+        <attr name="edit_max_length" format="integer" />
+        <attr name="edit_type" format="integer" />
+    </declare-styleable>
+
 
 </resources>

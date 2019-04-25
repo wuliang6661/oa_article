@@ -76,6 +76,8 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
     Button btnAlbum;
     @BindView(R.id.back)
     LinearLayout back;
+    @BindView(R.id.order_num)
+    TextView orderNum;
 
     private boolean isOrder = true;   //是否是订单id
     private int id;
@@ -208,6 +210,8 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
     public void getOrderInfo(OrderInfoBo orderInfoBo) {
         this.infoBo = orderInfoBo;
         setTitleText(orderInfoBo.getOrderInfo().getCompanyOrderName());
+        orderNum.setText(orderInfoBo.getOrderInfo().getCompanyOrderNum());
+        orderNum.setVisibility(View.VISIBLE);
         if (!isCreateOrder) {
             Order_detailsFragment fragment = new Order_detailsFragment();
             FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.order_details);

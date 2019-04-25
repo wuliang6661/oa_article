@@ -265,7 +265,7 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                 orderType.setTextColor(Color.parseColor("#8D8C91"));
                 switch (myOrderBO.getStatus()) {
                     case 0:
-                        holder.setText(R.id.order_type, "待接受");
+                        holder.setText(R.id.order_type, "未接受");
                         orderType.setTextColor(Color.parseColor("#F4CA40"));
                         break;
                     case 1:
@@ -277,20 +277,27 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                     case 3:
                         holder.setText(R.id.order_type, "已取消");
                         break;
+                    default:
+                        holder.setText(R.id.order_type, "未分派");
+                        break;
                 }
                 TextView surplus_time = (TextView) holder.getView(R.id.surplus_time);
-                if (StringUtils.isEmpty(myOrderBO.getRemainingDate())) {
-                    surplus_time.setText(myOrderBO.getPlanCompleteDate().replaceAll("-", "/"));
-                    surplus_time.setTextColor(Color.parseColor("#8D8C91"));
-                    surplus_time.setTextSize(11);
-                } else {
-                    surplus_time.setText(myOrderBO.getRemainingDate() + "天");
-                    surplus_time.setTextSize(16);
-                    if (Integer.parseInt(myOrderBO.getRemainingDate()) > 0) {
-                        surplus_time.setTextColor(Color.parseColor("#71EA45"));
+                if (myOrderBO.getStatus() != 3) {
+                    if (StringUtils.isEmpty(myOrderBO.getRemainingDate())) {
+                        surplus_time.setText(myOrderBO.getPlanCompleteDate().replaceAll("-", "/"));
+                        surplus_time.setTextColor(Color.parseColor("#8D8C91"));
+                        surplus_time.setTextSize(11);
                     } else {
-                        surplus_time.setTextColor(Color.parseColor("#E92B2B"));
+                        surplus_time.setText(myOrderBO.getRemainingDate() + "天");
+                        surplus_time.setTextSize(16);
+                        if (Integer.parseInt(myOrderBO.getRemainingDate()) > 0) {
+                            surplus_time.setTextColor(Color.parseColor("#71EA45"));
+                        } else {
+                            surplus_time.setTextColor(Color.parseColor("#E92B2B"));
+                        }
                     }
+                } else {
+                    surplus_time.setText("--");
                 }
             }
         };

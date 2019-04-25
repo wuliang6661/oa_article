@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.TimeUtils;
 import com.wul.oa_article.R;
 import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.module.create_order.ImageBO;
@@ -75,6 +76,8 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
     List<ImageBO> imageBOS;      //添加的图片列表
 
     boolean isTask = true;
+    @BindView(R.id.image_title)
+    LinearLayout imageTitle;
 
 
     public static Order_detailsFragment newInstance(int type, int orderId) {
@@ -202,7 +205,7 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
         kehuOrderNum.setText(infoBo.getOrderInfo().getClientOrderNum());
         orderDanwei.setText(infoBo.getOrderInfo().getUnit());
         orderNum.setText(infoBo.getOrderInfo().getNum() + "");
-        orderDate.setText(com.blankj.utilcode.util.TimeUtils.millis2String(infoBo.getOrderInfo()
+        orderDate.setText(TimeUtils.millis2String(infoBo.getOrderInfo()
                 .getPlanCompleteDate(), new SimpleDateFormat("yyyy/MM/dd")));
         beizhu.setText(infoBo.getOrderInfo().getRemark());
         this.pingLeiBOS = infoBo.getOrderSpecifications();
@@ -222,6 +225,13 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
             orderStatusImg.setVisibility(View.GONE);
         }
         setPingLeiAdapter();
+        if (this.imageBOS == null || this.imageBOS.size() == 0) {
+            imageTitle.setVisibility(View.GONE);
+            imageRecycle.setVisibility(View.GONE);
+        } else {
+            imageTitle.setVisibility(View.VISIBLE);
+            imageRecycle.setVisibility(View.VISIBLE);
+        }
         setImageAdapter();
     }
 

@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -164,6 +165,7 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
         if (isTabOut) {
             personLayout.setVisibility(View.GONE);
             shengyuTime.setText("订单交期");
+            shengyuTime.setGravity(Gravity.RIGHT);
             renwuTime.setText("");
         } else {
             personLayout.setVisibility(View.VISIBLE);
@@ -172,6 +174,7 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
             barPersonTime.setText("任务时限");
             renwuTime.setText("订单交期");
             shengyuTime.setText("剩余时间");
+            shengyuTime.setGravity(Gravity.LEFT);
         }
     }
 
