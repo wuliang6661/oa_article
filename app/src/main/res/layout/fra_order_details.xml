@@ -334,6 +334,7 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/blow_line"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="#2b2b2b" />

@@ -107,6 +107,7 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
             holder.personImg = view.findViewById(R.id.person_img);
             holder.lableText = view.findViewById(R.id.lable_text);
             holder.bumenText = view.findViewById(R.id.bumen_name);
+            holder.child_line = view.findViewById(R.id.child_line);
             view.setTag(holder);
         } else {
             holder = (ChildHolder) view.getTag();
@@ -117,6 +118,11 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
             GlideApp.with(context).load(personBO.getImage()).into(holder.personImg);
         }
         holder.personName.setText(personBO.getName());
+        if (getChildrenCount(i) == i1 + 1) {
+            holder.child_line.setVisibility(View.GONE);
+        } else {
+            holder.child_line.setVisibility(View.VISIBLE);
+        }
         if (isWaiBu) {   //外部联系人
             if (StringUtils.isEmpty(personBO.getLabel())) {
                 holder.lableText.setVisibility(View.GONE);
@@ -143,6 +149,7 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
         TextView personName;
         TextView lableText;
         TextView bumenText;
+        View child_line;
 
     }
 

@@ -265,7 +265,7 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
                     task_date.setText(myOrderBO.getTaskDate() + "天");
                     task_date.setTextColor(Color.parseColor("#E92B2B"));
                 }
-                holder.setText(R.id.task_time, myOrderBO.getOrderPlanDate());
+                holder.setText(R.id.task_time, myOrderBO.getOrderPlanDate().replaceAll("-", "/"));
                 TextView surplus_time = (TextView) holder.getView(R.id.surplus_time);
                 if (StringUtils.isEmpty(myOrderBO.getOrderDate())) {
                     surplus_time.setText(myOrderBO.getOrderEndDate().replaceAll("-", "/"));

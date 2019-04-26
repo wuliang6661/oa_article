@@ -78,6 +78,8 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
     boolean isTask = true;
     @BindView(R.id.image_title)
     LinearLayout imageTitle;
+    @BindView(R.id.blow_line)
+    View blowLine;
 
 
     public static Order_detailsFragment newInstance(int type, int orderId) {
@@ -228,9 +230,11 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
         if (this.imageBOS == null || this.imageBOS.size() == 0) {
             imageTitle.setVisibility(View.GONE);
             imageRecycle.setVisibility(View.GONE);
+            blowLine.setVisibility(View.GONE);
         } else {
             imageTitle.setVisibility(View.VISIBLE);
             imageRecycle.setVisibility(View.VISIBLE);
+            blowLine.setVisibility(View.VISIBLE);
         }
         setImageAdapter();
     }
