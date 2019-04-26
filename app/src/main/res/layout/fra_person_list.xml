@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#1a1a1a"
-        android:paddingTop="10dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
 
 
         <LinearLayout
@@ -20,6 +20,7 @@
             android:layout_width="0dp"
             android:layout_height="33dp"
             android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
             android:layout_weight="1"
             android:background="@drawable/select_edit_bg"
             android:gravity="center_vertical"
@@ -50,7 +51,8 @@
             android:layout_width="40dp"
             android:layout_height="23dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/add_circle" />
+            android:src="@drawable/add_circle"
+            android:visibility="gone" />
 
 
     </LinearLayout>
