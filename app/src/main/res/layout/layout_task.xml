@@ -121,15 +121,17 @@
                 android:id="@+id/shengyu_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="right"
                 android:text="剩余时间"
                 android:textColor="#A9A6A6"
                 android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/renwu_time"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:gravity="right"
                 android:text="任务时间"
                 android:textColor="#8D8C91"
                 android:textSize="9sp" />
@@ -179,8 +181,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="35dp">
 
             <TextView
                 android:layout_width="wrap_content"

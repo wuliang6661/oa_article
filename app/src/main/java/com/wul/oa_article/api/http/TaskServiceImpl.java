@@ -82,4 +82,13 @@ public class TaskServiceImpl {
         return getService().completeTask(request).compose(RxResultHelper.httpRusult());
     }
 
+
+    /**
+     * 取消任务
+     */
+    public static Observable<String> cancleTask(IdRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().cancleTask(request).compose(RxResultHelper.httpRusult());
+    }
+
 }

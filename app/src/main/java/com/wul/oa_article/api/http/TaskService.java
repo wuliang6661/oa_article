@@ -52,4 +52,10 @@ public interface TaskService {
     @POST("industry_webservice/app/orderTask/completeTask")
     Observable<BaseResult<String>> completeTask(@Body CommitTaskRequest request);
 
+    /**
+     * 取消任务
+     */
+    @POST("industry_webservice/app/orderTask/deleteTask")
+    Observable<BaseResult<String>> cancleTask(@Body IdRequest request);
+
 }

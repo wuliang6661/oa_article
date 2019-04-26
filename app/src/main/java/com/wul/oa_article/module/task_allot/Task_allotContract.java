@@ -15,6 +15,8 @@ public class Task_allotContract {
 
         void shunyanSourss();
 
+        void cancleSuress(int position);
+
     }
 
     interface Presenter extends BasePresenter<View> {

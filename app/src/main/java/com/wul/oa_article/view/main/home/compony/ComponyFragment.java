@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -178,11 +177,11 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
             cancleLayout.setVisibility(View.VISIBLE);
         } else {
 //            personLayout.setVisibility(View.VISIBLE);
-//            barOrderMessage.setText("创建人");
-//            barOrderType.setText("客户简称");
-//            barPersonTime.setText("任务时限");
-//            renwuTime.setText("订单交期");
-//            shengyuTime.setText("剩余时间");
+            barOrderMessage.setText("创建人");
+            barOrderType.setText("客户简称");
+            barPersonTime.setText("任务时限");
+            renwuTime.setText("订单交期");
+            shengyuTime.setText("剩余时间");
 //            shengyuTime.setGravity(Gravity.LEFT);
 //            taskLayout.setGravity(Gravity.CENTER_VERTICAL);
             noCancleLayout.setVisibility(View.VISIBLE);

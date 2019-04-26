@@ -7,7 +7,7 @@
     android:orientation="horizontal">
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:background="@color/layout_bg"
@@ -15,8 +15,9 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:paddingLeft="17dp">
@@ -61,12 +62,12 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
+            android:layout_weight="1"
             android:gravity="center_vertical"
             android:orientation="vertical"
-            android:paddingLeft="16dp">
+            android:paddingLeft="35dp">
 
             <TextView
                 android:id="@+id/task_shiji_num"
@@ -90,12 +91,12 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="17dp"
+            android:layout_weight="1"
             android:gravity="center_vertical|right"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingRight="17dp">
 
             <TextView
                 android:id="@+id/surplus_time"
@@ -117,7 +118,7 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
     <TextView

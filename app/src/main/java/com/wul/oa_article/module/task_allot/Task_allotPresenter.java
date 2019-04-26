@@ -3,8 +3,10 @@ package com.wul.oa_article.module.task_allot;
 import com.wul.oa_article.api.HttpResultSubscriber;
 import com.wul.oa_article.api.http.TaskServiceImpl;
 import com.wul.oa_article.bean.request.AddTaskRequest;
+import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.bean.request.ShunYanRequest;
 import com.wul.oa_article.mvp.BasePresenterImpl;
+import com.wul.oa_article.util.rx.RxResultHelper;
 
 /**
  * MVPPlugin
@@ -55,5 +57,27 @@ public class Task_allotPresenter extends BasePresenterImpl<Task_allotContract.Vi
             }
         });
     }
+
+    //取消任务
+    public void cancleTask(int id, int position) {
+        IdRequest request = new IdRequest();
+        request.setId(id);
+        TaskServiceImpl.cancleTask(request).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if (mView != null) {
+                    mView.cancleSuress(position);
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
+
 
 }

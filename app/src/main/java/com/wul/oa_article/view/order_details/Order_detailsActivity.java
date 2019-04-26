@@ -20,6 +20,7 @@ import com.wul.oa_article.bean.OrderInfoBo;
 import com.wul.oa_article.bean.PenPaiTaskBO;
 import com.wul.oa_article.bean.TaskDetails;
 import com.wul.oa_article.bean.event.OrderEditSuressEvent;
+import com.wul.oa_article.bean.event.UpdateTaskEvent;
 import com.wul.oa_article.bean.request.IdRequest;
 import com.wul.oa_article.bean.request.IdTypeRequest;
 import com.wul.oa_article.module.create_order.CreateOrderFragment;
@@ -268,6 +269,12 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         kehuMsgBar.setVisibility(View.VISIBLE);
         orderDetails.setVisibility(View.GONE);
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateTask(UpdateTaskEvent event) {
+        mPresenter.getTaskList(request);
+    }
+
 
     @Override
     protected void onDestroy() {

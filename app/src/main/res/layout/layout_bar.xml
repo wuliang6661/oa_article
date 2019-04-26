@@ -67,7 +67,7 @@
             android:layout_marginBottom="6dp"
             android:gravity="center"
             android:textColor="#6E6C81"
-            android:textSize="11sp"
+            android:textSize="13sp"
             android:visibility="gone"
             tools:text="Dh15155" />
 
