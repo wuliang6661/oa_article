@@ -273,9 +273,13 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                         break;
                     case 2:
                         holder.setText(R.id.order_type, "已完成");
+                        holder.setText(R.id.order_nick_name, "--");
+                        holder.setText(R.id.task_time, "--");
                         break;
                     case 3:
                         holder.setText(R.id.order_type, "已取消");
+                        holder.setText(R.id.order_nick_name, "--");
+                        holder.setText(R.id.task_time, "--");
                         break;
                     default:
                         holder.setText(R.id.order_type, "未分派");
@@ -298,6 +302,8 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                     }
                 } else {
                     surplus_time.setText("--");
+                    surplus_time.setTextColor(Color.parseColor("#8D8C91"));
+                    surplus_time.setTextSize(11);
                 }
             }
         };

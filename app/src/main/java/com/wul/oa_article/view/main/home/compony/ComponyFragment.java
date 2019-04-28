@@ -247,7 +247,8 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
             public void convert(LGViewHolder holder, ComplanOrderBo myOrderBO, int position) {
                 holder.setText(R.id.order_name, myOrderBO.getOrderName());
                 holder.setText(R.id.order_num, myOrderBO.getOrderNum());
-                holder.setText(R.id.order_message, myOrderBO.getCreateName());
+                holder.setText(R.id.order_message, myOrderBO.getCreateName().length() > 3 ?
+                        myOrderBO.getCreateName().substring(0, 3) + "..." : myOrderBO.getCreateName());
                 holder.setText(R.id.order_type, myOrderBO.getClientName());
                 holder.setText(R.id.order_nick_name, StringUtils.isEmpty(myOrderBO.getUserName()) ? "--" : myOrderBO.getUserName());
                 if (StringUtils.isEmpty(myOrderBO.getTaskPlanDate())) {
@@ -281,11 +282,19 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
                         surplus_time.setTextColor(Color.parseColor("#E92B2B"));
                     }
                 }
-                if (myOrderBO.getStatus() == 3) {
-                    surplus_time.setText("");
-                    holder.getView(R.id.cancle_img).setVisibility(View.VISIBLE);
-                } else {
-                    holder.getView(R.id.cancle_img).setVisibility(View.GONE);
+                holder.getView(R.id.cancle_img).setVisibility(View.GONE);
+                switch (myOrderBO.getStatus()) {
+                    case 2:   //已完成
+                        task_date.setText("");
+                        holder.setText(R.id.nike_name_time, "--");
+                        holder.setText(R.id.order_nick_name, "--");
+                        break;
+                    case 3:   //已取消
+                        surplus_time.setText("");
+                        holder.getView(R.id.cancle_img).setVisibility(View.VISIBLE);
+                        break;
+                    default:
+                        break;
                 }
             }
         };
@@ -318,7 +327,8 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
             public void convert(LGViewHolder holder, ComplanOrderBo complanOrderBo, int position) {
                 holder.setText(R.id.order_name, complanOrderBo.getOrderName());
                 holder.setText(R.id.order_num, complanOrderBo.getOrderNum());
-                holder.setText(R.id.create_name, complanOrderBo.getCreateName());
+                holder.setText(R.id.create_name, complanOrderBo.getCreateName().length() > 3 ?
+                        complanOrderBo.getCreateName().substring(0, 3) + "..." : complanOrderBo.getCreateName());
                 holder.setText(R.id.create_nick_name, complanOrderBo.getClientName());
                 holder.setText(R.id.order_time, complanOrderBo.getOrderPlanDate());
             }

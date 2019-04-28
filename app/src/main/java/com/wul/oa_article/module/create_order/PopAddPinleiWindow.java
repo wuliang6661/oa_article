@@ -76,22 +76,14 @@ public class PopAddPinleiWindow extends PopupWindow {
                 ToastUtils.showShort("请输入品类名称！");
                 return;
             }
-            if (StringUtils.isEmpty(strSize)) {
-                ToastUtils.showShort("请输入规格！");
+            if (!StringUtils.isEmpty(strSize) || !StringUtils.isEmpty(strNum) || !StringUtils.isEmpty(strUnit)) {
+                if (listener != null) {
+                    listener.commit(strName, strNum, strSize, strUnit);
+                    dismiss();
+                }
                 return;
             }
-            if (StringUtils.isEmpty(strNum)) {
-                ToastUtils.showShort("请输入数量！");
-                return;
-            }
-            if (StringUtils.isEmpty(strUnit)) {
-                ToastUtils.showShort("请输入单位！");
-                return;
-            }
-            if (listener != null) {
-                listener.commit(strName, strNum, strSize, strUnit);
-                dismiss();
-            }
+            ToastUtils.showShort("请完善品类信息！");
         });
     }
 

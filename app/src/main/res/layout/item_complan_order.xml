@@ -85,7 +85,7 @@
             android:paddingLeft="16dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="bottom"
                 android:orientation="horizontal">
@@ -94,7 +94,6 @@
                     android:id="@+id/order_nick_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxLength="3"
                     android:singleLine="true"
                     android:textColor="#E6E5E5"
                     android:textSize="14sp"
@@ -103,9 +102,10 @@
 
                 <TextView
                     android:id="@+id/task_date"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
+                    android:gravity="right"
                     android:singleLine="true"
                     android:textColor="#E32A2A"
                     android:textSize="11sp"
