@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.wul.oa_article">
+    package="com.article.oa_article">
 
     <!-- 微信权限-->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -27,7 +27,7 @@
 
 
     <application
-        android:name=".base.MyApplication"
+        android:name="com.article.oa_article.base.MyApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
@@ -36,7 +36,7 @@
 
 
         <activity
-            android:name=".view.login.LoginActivity"
+            android:name="com.article.oa_article.view.login.LoginActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
@@ -50,104 +50,104 @@
 
         <!--注册页面-->
         <activity
-            android:name=".view.register.RegisterActivity"
+            android:name="com.article.oa_article.view.register.RegisterActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--忘记密码-->
         <activity
-            android:name=".view.forword_password.Forword_passwordActivity"
+            android:name="com.article.oa_article.view.forword_password.Forword_passwordActivity"
             android:screenOrientation="portrait" />
 
         <!--验证码登录-->
         <activity
-            android:name=".view.verificationlogin.VerificationLoginActivity"
+            android:name="com.article.oa_article.view.verificationlogin.VerificationLoginActivity"
             android:screenOrientation="portrait" />
 
         <!--主页-->
         <activity
-            android:name=".view.main.MainActivity"
+            android:name="com.article.oa_article.view.main.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <!--搜索页面-->
         <activity
-            android:name=".view.SelectActivity"
+            android:name="com.article.oa_article.view.SelectActivity"
             android:screenOrientation="portrait" />
 
         <!--用户协议-->
         <activity
-            android:name=".view.register.PersonXieyIAct"
+            android:name="com.article.oa_article.view.register.PersonXieyIAct"
             android:screenOrientation="portrait" />
 
         <!--创建订单-->
         <activity
-            android:name=".view.CreateActivity"
+            android:name="com.article.oa_article.view.CreateActivity"
             android:screenOrientation="portrait" />
 
         <!--创建任务-->
         <activity
-            android:name=".view.CreateTaskActivity"
+            android:name="com.article.oa_article.view.CreateTaskActivity"
             android:screenOrientation="portrait" />
 
         <!--订单详情-->
         <activity
-            android:name=".view.OrderDetailsActivity"
+            android:name="com.article.oa_article.view.OrderDetailsActivity"
             android:screenOrientation="portrait" />
 
         <!--订单详情-->
         <activity
-            android:name=".view.order_details.Order_detailsActivity"
+            android:name="com.article.oa_article.view.order_details.Order_detailsActivity"
             android:screenOrientation="portrait" />
 
 
         <!--接受任务-->
         <activity
-            android:name=".view.AcceptedTaskActivity"
+            android:name="com.article.oa_article.view.AcceptedTaskActivity"
             android:screenOrientation="portrait" />
 
         <!--自己完成-->
         <activity
-            android:name=".view.MyOrderActivity"
+            android:name="com.article.oa_article.view.MyOrderActivity"
             android:screenOrientation="portrait" />
 
         <!--分派任务-->
         <activity
-            android:name=".view.FenPaiActivity"
+            android:name="com.article.oa_article.view.FenPaiActivity"
             android:screenOrientation="portrait" />
 
         <!--扫码上传-->
         <activity
-            android:name=".view.PcUpdateAct"
+            android:name="com.article.oa_article.view.PcUpdateAct"
             android:screenOrientation="portrait" />
 
         <!--人员列表-->
         <activity
-            android:name=".view.SelectPersonAct"
+            android:name="com.article.oa_article.view.SelectPersonAct"
             android:screenOrientation="portrait" />
 
         <!--模板管理-->
         <activity
-            android:name=".view.mobanmanager.MobanManagerActivity"
+            android:name="com.article.oa_article.view.mobanmanager.MobanManagerActivity"
             android:screenOrientation="portrait" />
 
         <!--新增模板-->
         <activity
-            android:name=".view.createmoban.CreateMoBanActivity"
+            android:name="com.article.oa_article.view.createmoban.CreateMoBanActivity"
             android:screenOrientation="portrait" />
 
         <!--扫一扫-->
-        <activity android:name=".zxing.activity.CaptureActivity" />
+        <activity android:name="com.article.oa_article.zxing.activity.CaptureActivity" />
 
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="com.article.oa_article.wxapi.WXEntryActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.wul.oa_article.fileprovider"
+            android:authorities="com.article.oa_article.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
