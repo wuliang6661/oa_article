@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,7 @@ public class EditMsgText extends LinearLayout {
         int maxLength = array.getInt(R.styleable.EditMsgText_edit_max_length, 6);
         int editType = array.getInt(R.styleable.EditMsgText_edit_type, 0);
         boolean isZhongdian = array.getBoolean(R.styleable.EditMsgText_edit_zhongdian, false);
+        boolean editFitter = array.getBoolean(R.styleable.EditMsgText_edit_fitter, false);
         View view = LayoutInflater.from(context).inflate(R.layout.edit_fouce, null);
         title = view.findViewById(R.id.edit_left_text);
         message = view.findViewById(R.id.edit_text);
@@ -62,6 +64,10 @@ public class EditMsgText extends LinearLayout {
         }
         if (isZhongdian) {
             zhongdian.setVisibility(VISIBLE);
+        }
+        if (editFitter) {
+            message.setKeyListener(DigitsKeyListener.getInstance("0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXC" +
+                    "VBNM/-+~!@#$%^&*(){}|:;,.?<>"));
         }
 
         addView(view);

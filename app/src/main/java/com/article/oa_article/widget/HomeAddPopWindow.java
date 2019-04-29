@@ -31,13 +31,13 @@ public class HomeAddPopWindow extends PopupWindow implements View.OnClickListene
         this.setHeight(SizeUtils.dp2px(107));
         this.setFocusable(true);
         //设置宽高
-        setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(activity, R.color.tab_bg)));
+//        setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(activity, R.color.dialog_bg)));
         this.setOnDismissListener(() -> bgAlpha(1.0f));
     }
 
 
     public void showPop(View view, int x, int y) {
-        bgAlpha(0.4f);
+        bgAlpha(0.5f);
         showAsDropDown(view, x, y);
     }
 

@@ -46,4 +46,8 @@
 
     <color name="item_delete">#CB3C31</color>
 
+    <color name="dialog_bg">#70100e0e</color>
+
+    <color name="pop_bg">#1D1D1D</color>
+
 </resources>

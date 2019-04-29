@@ -263,6 +263,7 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                 TextView orderType = (TextView) holder.getView(R.id.order_type);
                 holder.setText(R.id.task_time, myOrderBO.getPlanCompleteDate().replaceAll("-", "/"));
                 orderType.setTextColor(Color.parseColor("#8D8C91"));
+                holder.getView(R.id.cancle_img).setVisibility(View.GONE);
                 switch (myOrderBO.getStatus()) {
                     case 0:
                         holder.setText(R.id.order_type, "未接受");
@@ -275,11 +276,15 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                         holder.setText(R.id.order_type, "已完成");
                         holder.setText(R.id.order_nick_name, "--");
                         holder.setText(R.id.task_time, "--");
+                        holder.getView(R.id.cancle_img).setVisibility(View.VISIBLE);
+                        holder.setImageResurce(R.id.cancle_img, R.drawable.order_suress_img);
                         break;
                     case 3:
                         holder.setText(R.id.order_type, "已取消");
                         holder.setText(R.id.order_nick_name, "--");
                         holder.setText(R.id.task_time, "--");
+                        holder.getView(R.id.cancle_img).setVisibility(View.VISIBLE);
+                        holder.setImageResurce(R.id.cancle_img, R.drawable.yi_cancle);
                         break;
                     default:
                         holder.setText(R.id.order_type, "未分派");

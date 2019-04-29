@@ -288,10 +288,13 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
                         task_date.setText("");
                         holder.setText(R.id.nike_name_time, "--");
                         holder.setText(R.id.order_nick_name, "--");
+                        holder.getView(R.id.cancle_img).setVisibility(View.VISIBLE);
+                        holder.setImageResurce(R.id.cancle_img, R.drawable.order_suress_img);
                         break;
                     case 3:   //已取消
                         surplus_time.setText("");
                         holder.getView(R.id.cancle_img).setVisibility(View.VISIBLE);
+                        holder.setImageResurce(R.id.cancle_img, R.drawable.yi_cancle);
                         break;
                     default:
                         break;
