@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.article.oa_article.bean.OrderNumBO;
 import com.blankj.utilcode.util.StringUtils;
 import com.article.oa_article.R;
 import com.article.oa_article.api.HttpResultSubscriber;
@@ -104,7 +105,7 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
             commonId = MyApplication.userBo.getCompanys().get(0).getId() + "";
         }
         request.setCompanyId(commonId);
-        getOrderByTask(0);
+//        getOrderByTask(0);
     }
 
 
@@ -112,6 +113,7 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
     public void onSupportVisible() {
         super.onSupportVisible();
         getOrderByTask(selePosition);
+        mPresenter.getOrderNum(Integer.parseInt(MyApplication.getCommonId()));
     }
 
     @Override
@@ -350,5 +352,18 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onRequestError(String msg) {
+        showToast(msg);
+    }
+
+    @Override
+    public void getOrderNum(OrderNumBO orderNumBO) {
+        tab1.setText(orderNumBO.getAll() + "\n全部");
+        tab2.setText(orderNumBO.getOngoing() + "\n进行中");
+        tab3.setText(orderNumBO.getComplete() + "\n已完成");
+        tab4.setText(orderNumBO.getCancel() + "\n已取消");
     }
 }

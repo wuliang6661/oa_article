@@ -9,9 +9,11 @@ import com.article.oa_article.bean.MuBanTaskBO;
 import com.article.oa_article.bean.MyOrderBO;
 import com.article.oa_article.bean.OrderAndTaskInfoBO;
 import com.article.oa_article.bean.OrderInfoBo;
+import com.article.oa_article.bean.OrderNumBO;
 import com.article.oa_article.bean.PenPaiTaskBO;
 import com.article.oa_article.bean.SalesBo;
 import com.article.oa_article.bean.TaskBO;
+import com.article.oa_article.bean.TaskNumBO;
 import com.article.oa_article.bean.TempleteBO;
 import com.article.oa_article.bean.TempleteInfoBo;
 import com.article.oa_article.bean.UserBo;
@@ -254,6 +256,18 @@ public interface HttpService {
      */
     @POST("industry_webservice/app/orderInfo/getClientInfo")
     Observable<BaseResult<ClientOrderBo>> getClientInfo(@Body ClientInfoRequest request);
+
+    /**
+     * 获取订单个数
+     */
+    @POST("industry_webservice/app/orderInfo/getOrderCountByType")
+    Observable<BaseResult<OrderNumBO>> getOrdercount(@Body IdRequest request);
+
+    /**
+     * 获取任务统计数目
+     */
+    @POST("industry_webservice/app/orderTask/getTaskCountByType")
+    Observable<BaseResult<TaskNumBO>> getTaskCount(@Body IdRequest request);
 
 
 }

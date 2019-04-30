@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.article.oa_article.bean.TaskNumBO;
 import com.blankj.utilcode.util.StringUtils;
 import com.article.oa_article.R;
 import com.article.oa_article.api.HttpResultSubscriber;
@@ -79,7 +80,7 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
         initBean(myziji);
         initBean(myfenpai);
         initBean(wancheng);
-        getOrderByTask(all, 0);
+//        getOrderByTask(all, 0);
     }
 
     @Override
@@ -99,6 +100,7 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                 getOrderByTask(wancheng, position);
                 break;
         }
+        mPresenter.getTaskNum(Integer.parseInt(MyApplication.getCommonId()));
     }
 
     @Override
@@ -355,5 +357,18 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onRequestError(String msg) {
+        showToast(msg);
+    }
+
+    @Override
+    public void getTaskNum(TaskNumBO taskNumBO) {
+        tab1.setText(taskNumBO.getAll() + "\n所有任务");
+        tab2.setText(taskNumBO.getMy() + "\n我自己的");
+        tab3.setText(taskNumBO.getICreate() + "\n我分派的");
+        tab4.setText(taskNumBO.getComplete() + "\n已完成");
     }
 }

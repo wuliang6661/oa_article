@@ -1,7 +1,8 @@
 package com.article.oa_article.view.main.home.myorder;
 
+import com.article.oa_article.bean.TaskNumBO;
 import com.article.oa_article.mvp.BasePresenter;
-import com.article.oa_article.mvp.BaseView;
+import com.article.oa_article.mvp.BaseRequestView;
 
 /**
  * MVPPlugin
@@ -9,8 +10,9 @@ import com.article.oa_article.mvp.BaseView;
  */
 
 public class MyOrderContract {
-    interface View extends BaseView {
-        
+    interface View extends BaseRequestView {
+
+        void getTaskNum(TaskNumBO taskNumBO);
     }
 
     interface  Presenter extends BasePresenter<View> {

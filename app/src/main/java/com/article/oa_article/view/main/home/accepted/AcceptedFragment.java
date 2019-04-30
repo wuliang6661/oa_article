@@ -81,6 +81,7 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
             commonId = MyApplication.userBo.getCompanys().get(0).getId() + "";
         }
         request.setId(commonId);
+        getAsseptOrder();
     }
 
 

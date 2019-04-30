@@ -98,6 +98,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
         fragments.add(componyFragment);
         fragments.add(acceptedFragment);
         viewPager.setAdapter(new FragmentPaerAdapter(getFragmentManager(), fragments));
+        viewPager.setOffscreenPageLimit(3);
 
         texts = new TextView[]{myOrder, gongsiOrder, unknowOrder};
         setPagerListener();

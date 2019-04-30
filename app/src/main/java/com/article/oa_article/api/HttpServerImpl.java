@@ -1,5 +1,7 @@
 package com.article.oa_article.api;
 
+import com.article.oa_article.bean.OrderNumBO;
+import com.article.oa_article.bean.TaskNumBO;
 import com.blankj.utilcode.util.Utils;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.AcceptedOrderBo;
@@ -347,5 +349,27 @@ public class HttpServerImpl {
         request.setToken(MyApplication.token);
         return getService().getClientInfo(request).compose(RxResultHelper.httpRusult());
     }
+
+
+    /**
+     * 获取订单统计数目
+     */
+    public static Observable<OrderNumBO> getOrderNum(int id) {
+        IdRequest request = new IdRequest();
+        request.setId(id);
+        request.setToken(MyApplication.token);
+        return getService().getOrdercount(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 统计任务数目
+     */
+    public static Observable<TaskNumBO> getTaskNum(int id) {
+        IdRequest request = new IdRequest();
+        request.setToken(MyApplication.token);
+        request.setId(id);
+        return getService().getTaskCount(request).compose(RxResultHelper.httpRusult());
+    }
+
 
 }
