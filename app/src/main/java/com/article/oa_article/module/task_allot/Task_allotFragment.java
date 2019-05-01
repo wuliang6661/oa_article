@@ -23,9 +23,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.blankj.utilcode.util.SizeUtils;
-import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.TimeUtils;
 import com.article.oa_article.R;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.MuBanTaskBO;
@@ -42,6 +39,9 @@ import com.article.oa_article.widget.AlertDialog;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 import com.article.oa_article.zxing.activity.CaptureActivity;
+import com.blankj.utilcode.util.SizeUtils;
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
@@ -92,7 +92,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     @BindView(R.id.moban_add)
     TextView mobanAdd;
 
-    private boolean isShunYan = true;  //默认是一键顺延
+    private boolean isShunYan = false;  //默认是任务编辑
     private List<AddTaskRequest.OrderTasksBean> tasks;
     private int orderId;
     private int type = 0;   //默认可编辑
@@ -176,6 +176,9 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                     isShunYan = true;
                     taskRightButton.setText("一键顺延");
                     addTaskLayout.setVisibility(View.VISIBLE);
+                    taskRecycleView.setAdapter(null);
+                    setSwipeMenu();
+                    setTaskAdapter();
                 }
                 break;
             case R.id.continue_add:    //添加任务(显示添加任务弹窗)
@@ -232,7 +235,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         new Handler().post(() -> {
             if (type == 0) {   //可编辑
                 taskRightButton.setVisibility(View.VISIBLE);
-                addTaskLayout.setVisibility(View.VISIBLE);
+//                addTaskLayout.setVisibility(View.VISIBLE);
             } else {
                 taskRightButton.setVisibility(View.GONE);
                 addTaskLayout.setVisibility(View.GONE);
@@ -262,7 +265,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 tasks.add(bean);
             }
             isTaskEdit = false;
-            if (type == 0 && adapter == null) {   //可编辑
+            if (type == 0 && adapter == null && isShunYan) {   //可编辑
                 setSwipeMenu();
             }
             setTaskAdapter();
@@ -307,6 +310,14 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         };
         // 菜单点击监听。
         taskRecycleView.setSwipeMenuItemClickListener(mMenuItemClickListener);
+    }
+
+    /**
+     * 删除侧滑
+     */
+    private void clearSwipeDelete() {
+        taskRecycleView.setSwipeMenuCreator(null);
+        taskRecycleView.setSwipeMenuItemClickListener(null);
     }
 
 
@@ -394,16 +405,12 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
             }
         };
         adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
-            if (type == 0) {   //可编辑
+            if (type == 0 && isShunYan) {   //可编辑
                 PopAddTaskWindow window = getPopWindow();
                 window.setData(position, tasks.get(position));
                 window.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
             } else {
                 if (tasks.get(position).getStatus() != 0) {
-//                    Bundle bundle = new Bundle();
-//                    bundle.putInt("id", tasks.get(position).getId());
-//                    bundle.putBoolean("isOrder", false);
-//                    gotoActivity(Order_detailsActivity.class, bundle, false);
                     Bundle bundle = new Bundle();
                     bundle.putInt("taskId", tasks.get(position).getId());
                     gotoActivity(MyOrderActivity.class, bundle, false);
@@ -450,6 +457,8 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         isShunYan = false;
         taskRightButton.setText("任务编辑");
         addTaskLayout.setVisibility(View.GONE);
+        clearSwipeDelete();
+        setTaskAdapter();
     }
 
     @Override

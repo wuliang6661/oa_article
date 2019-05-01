@@ -85,16 +85,6 @@
             android:name="com.article.oa_article.view.CreateActivity"
             android:screenOrientation="portrait" />
 
-        <!--创建任务-->
-        <activity
-            android:name="com.article.oa_article.view.CreateTaskActivity"
-            android:screenOrientation="portrait" />
-
-        <!--订单详情-->
-        <activity
-            android:name="com.article.oa_article.view.OrderDetailsActivity"
-            android:screenOrientation="portrait" />
-
         <!--订单详情-->
         <activity
             android:name="com.article.oa_article.view.order_details.Order_detailsActivity"
@@ -109,11 +99,6 @@
         <!--自己完成-->
         <activity
             android:name="com.article.oa_article.view.MyOrderActivity"
-            android:screenOrientation="portrait" />
-
-        <!--分派任务-->
-        <activity
-            android:name="com.article.oa_article.view.FenPaiActivity"
             android:screenOrientation="portrait" />
 
         <!--扫码上传-->

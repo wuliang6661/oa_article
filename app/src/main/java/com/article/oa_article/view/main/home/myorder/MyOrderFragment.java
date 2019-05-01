@@ -13,19 +13,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.article.oa_article.bean.TaskNumBO;
-import com.blankj.utilcode.util.StringUtils;
 import com.article.oa_article.R;
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.HttpServerImpl;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.MyOrderBO;
+import com.article.oa_article.bean.TaskNumBO;
 import com.article.oa_article.bean.request.OrderRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
+import com.article.oa_article.view.AcceptedTaskActivity;
 import com.article.oa_article.view.MyOrderActivity;
 import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
+import com.blankj.utilcode.util.StringUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -319,9 +320,8 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
             if (orderBO.getIsMe() == 0) {   //分派给我的
                 if (orderBO.getStatus() == 0) {  //待接受
                     Bundle bundle = new Bundle();
-                    bundle.putInt("id", orderBO.getId());
-                    bundle.putBoolean("isOrder", false);
-                    gotoActivity(Order_detailsActivity.class, bundle, false);
+                    bundle.putInt("taskId", orderBO.getId());
+                    gotoActivity(AcceptedTaskActivity.class, bundle, false);
                 } else if (orderBO.getStatus() == 1) {  //进行中
                     Bundle bundle = new Bundle();
                     bundle.putInt("taskId", orderBO.getId());
