@@ -22,6 +22,7 @@
 
 
     <!--edit_type  0为字符串输入  1为数字输入-->
+    <!--edit_fitter true为只能输入字母数字符号-->
     <declare-styleable name="EditMsgText">
         <attr name="title_text" format="string" />
         <attr name="hint_text" format="string" />
@@ -29,6 +30,7 @@
         <attr name="edit_max_length" format="integer" />
         <attr name="edit_type" format="integer" />
         <attr name="edit_zhongdian" format="boolean" />
+        <attr name="edit_fitter" format="boolean" />
     </declare-styleable>
 
 

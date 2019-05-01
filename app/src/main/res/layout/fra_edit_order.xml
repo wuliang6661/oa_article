@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.wul.oa_article.widget.EditMsgText
+            <com.article.oa_article.widget.EditMsgText
                 android:id="@+id/edit_kehu_jiancheng"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/line_height"
@@ -73,7 +73,7 @@
                 android:background="#2b2b2b" />
 
 
-            <com.wul.oa_article.widget.EditMsgText
+            <com.article.oa_article.widget.EditMsgText
                 android:id="@+id/edit_kehu_ordername"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/line_height"
@@ -88,10 +88,11 @@
                 android:layout_marginRight="18dp"
                 android:background="#2b2b2b" />
 
-            <com.wul.oa_article.widget.EditMsgText
+            <com.article.oa_article.widget.EditMsgText
                 android:id="@+id/edit_kehu_ordernum"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/line_height"
+                app:edit_fitter="true"
                 app:edit_max_length="20"
                 app:hint_text="请输入客户订单编号"
                 app:title_text="客户订单编号" />
@@ -306,7 +307,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.wul.oa_article.widget.EditMsgText
+            <com.article.oa_article.widget.EditMsgText
                 android:id="@+id/edit_ben_orderName"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/line_height"
@@ -324,10 +325,11 @@
                 android:background="#2b2b2b" />
 
 
-            <com.wul.oa_article.widget.EditMsgText
+            <com.article.oa_article.widget.EditMsgText
                 android:id="@+id/edit_ben_orderNum"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/line_height"
+                app:edit_fitter="true"
                 app:edit_max_length="20"
                 app:edit_zhongdian="true"
                 app:hint_text="请输入本公司订单编号"
@@ -341,7 +343,7 @@
                 android:layout_marginRight="18dp"
                 android:background="#2b2b2b" />
 
-            <com.wul.oa_article.widget.EditMsgText
+            <com.article.oa_article.widget.EditMsgText
                 android:id="@+id/edit_ben_num"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/line_height"
@@ -359,7 +361,7 @@
                 android:layout_marginRight="18dp"
                 android:background="#2b2b2b" />
 
-            <com.wul.oa_article.widget.EditMsgText
+            <com.article.oa_article.widget.EditMsgText
                 android:id="@+id/edit_ben_danwei"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/line_height"

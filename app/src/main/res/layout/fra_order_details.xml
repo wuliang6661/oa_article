@@ -38,6 +38,7 @@
             android:layout_marginLeft="5dp"
             android:background="@drawable/bar_check_box"
             android:button="@null"
+            android:checked="true"
             android:enabled="false" />
 
 
@@ -47,7 +48,8 @@
     <RelativeLayout
         android:id="@+id/kehu_order_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
