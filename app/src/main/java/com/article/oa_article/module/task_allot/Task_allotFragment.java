@@ -99,6 +99,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
 
     boolean isTaskEdit = false;   //是否有任务正在编辑状态
     private boolean isOrder = true;     //默认是订单下的任务
+    View view;
 
     private LGRecycleViewAdapter<AddTaskRequest.OrderTasksBean> adapter;
 
@@ -115,7 +116,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fra_task_allot, null);
+        view = inflater.inflate(R.layout.fra_task_allot, null);
         unbinder = ButterKnife.bind(this, view);
         EventBus.getDefault().register(this);
         return view;
@@ -312,14 +313,6 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         taskRecycleView.setSwipeMenuItemClickListener(mMenuItemClickListener);
     }
 
-    /**
-     * 删除侧滑
-     */
-    private void clearSwipeDelete() {
-        taskRecycleView.setSwipeMenuCreator(null);
-        taskRecycleView.setSwipeMenuItemClickListener(null);
-    }
-
 
     /**
      * 删除任务
@@ -457,8 +450,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         isShunYan = false;
         taskRightButton.setText("任务编辑");
         addTaskLayout.setVisibility(View.GONE);
-        clearSwipeDelete();
-        setTaskAdapter();
+//        setTaskAdapter();
     }
 
     @Override

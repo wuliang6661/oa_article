@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-[{"outputType":{"type":"APK"},"apkInfo":{"type":"MAIN","splits":[],"versionCode":1},"path":"app-release.apk","properties":{"packageId":"com.wul.oa_article","split":"","minSdkVersion":"19"}}]
-=======
-[{"outputType":{"type":"APK"},"apkInfo":{"type":"MAIN","splits":[],"versionCode":1},"path":"app-release.apk","properties":{"packageId":"com.article.oa_article","split":"","minSdkVersion":"19"}}]
->>>>>>> 46269e6306c58d8cad6786edf867b4f969ef63ec
