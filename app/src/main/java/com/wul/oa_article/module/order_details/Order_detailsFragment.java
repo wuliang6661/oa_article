@@ -239,6 +239,8 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
         setImageAdapter();
     }
 
+
+
     @Override
     public void onRequestError(String msg) {
         stopProgress();
