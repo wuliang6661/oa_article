@@ -31,8 +31,10 @@ import com.article.oa_article.bean.PenPaiTaskBO;
 import com.article.oa_article.bean.event.UpdateTaskEvent;
 import com.article.oa_article.bean.request.AddTaskRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
+import com.article.oa_article.util.AppManager;
 import com.article.oa_article.util.Constant;
 import com.article.oa_article.view.MyOrderActivity;
+import com.article.oa_article.view.mobanmanager.DataBean;
 import com.article.oa_article.view.mobanmanager.MobanManagerActivity;
 import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.article.oa_article.widget.AlertDialog;
@@ -102,16 +104,6 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     View view;
 
     private LGRecycleViewAdapter<AddTaskRequest.OrderTasksBean> adapter;
-
-    public static Task_allotFragment newInstance(int type, int orderId) {
-        Task_allotFragment fragment = new Task_allotFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("orderId", orderId);
-        bundle.putInt("type", type);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
 
     @Nullable
     @Override
@@ -187,7 +179,9 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 window.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.moban_add:
-                gotoActivity(MobanManagerActivity.class, false);
+                Intent intent = new Intent(getActivity(), MobanManagerActivity.class);
+                startActivityForResult(intent, 0x11);
+//                gotoActivity(MobanManagerActivity.class, false);
                 break;
             case R.id.task_suress:   //完成
                 if ("电脑上传".equals(taskSuress.getText().toString().trim())) {
@@ -494,6 +488,19 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         return window;
     }
 
+//    private boolean isVisiable = false;
+//
+//    @Override
+//    public void onSupportInvisible() {
+//        super.onSupportInvisible();
+//        isVisiable = true;
+//    }
+//
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        isVisiable = false;
+//    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(List<MuBanTaskBO> muBanTaskBOS) {
@@ -509,6 +516,13 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         setTaskAdapter();
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        DataBean dataBean = (DataBean) data.getSerializableExtra("data");
+        onEvent(dataBean.getMubans());
+    }
 
     // 开始扫码
     private void startQrCode() {

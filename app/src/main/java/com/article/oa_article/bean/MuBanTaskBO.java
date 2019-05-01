@@ -1,6 +1,8 @@
 package com.article.oa_article.bean;
 
-public class MuBanTaskBO {
+import java.io.Serializable;
+
+public class MuBanTaskBO implements Serializable {
 
 
     /**
