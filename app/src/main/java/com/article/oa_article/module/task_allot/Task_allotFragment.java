@@ -444,6 +444,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         isShunYan = false;
         taskRightButton.setText("任务编辑");
         addTaskLayout.setVisibility(View.GONE);
+        EventBus.getDefault().post(new UpdateTaskEvent());
 //        setTaskAdapter();
     }
 
@@ -466,7 +467,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
 
     private PopAddTaskWindow getPopWindow() {
         PopAddTaskWindow window = new PopAddTaskWindow(getActivity());
-        window.setListener((position, name, num, danwei, personId, date, remark) -> {
+        window.setListener((position, name, num, danwei, personId, date, remark,oldbean) -> {
             AddTaskRequest.OrderTasksBean bean = new AddTaskRequest.OrderTasksBean();
             bean.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
             bean.setPlanCompleteDate(date.replaceAll("/", "-"));
@@ -477,6 +478,9 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
             bean.setTaskType(0);
             bean.setUserId(personId.getId());
             bean.setNickName(personId.getName());
+            if(oldbean != null){
+                bean.setId(oldbean.getId());
+            }
             if (position == -1) {
                 tasks.add(bean);
             } else {

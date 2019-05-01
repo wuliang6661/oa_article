@@ -42,6 +42,7 @@ public class PopAddTaskWindow extends PopupWindow {
 
     private PersonBO personBO;
     private int position = -1;
+    AddTaskRequest.OrderTasksBean bean;
 
     public PopAddTaskWindow(Activity activity) {
         super(activity);
@@ -99,6 +100,7 @@ public class PopAddTaskWindow extends PopupWindow {
      */
     public void setData(int position, AddTaskRequest.OrderTasksBean bean) {
         this.position = position;
+        this.bean = bean;
         personBO = new PersonBO();
         personBO.setName(bean.getNickName());
         personBO.setId(bean.getUserId());
@@ -148,7 +150,7 @@ public class PopAddTaskWindow extends PopupWindow {
                         return;
                     }
                     if (listener != null) {
-                        listener.commit(position, strTaskName, num, strDanwei, personBO, strDate, strRemark);
+                        listener.commit(position, strTaskName, num, strDanwei, personBO, strDate, strRemark, bean);
                     }
                     dismiss();
                     break;
@@ -202,7 +204,7 @@ public class PopAddTaskWindow extends PopupWindow {
 
     public interface onCommitListener {
 
-        void commit(int position, String name, String num, String danwei, PersonBO personBO, String date, String remark);
+        void commit(int position, String name, String num, String danwei, PersonBO personBO, String date, String remark, AddTaskRequest.OrderTasksBean bean);
     }
 
 }
