@@ -20,8 +20,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.TimeUtils;
 import com.article.oa_article.R;
 import com.article.oa_article.bean.TaskDetails;
 import com.article.oa_article.bean.event.UpdateTaskEvent;
@@ -29,6 +27,7 @@ import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.widget.AlertDialog;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
+import com.blankj.utilcode.util.TimeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -150,7 +149,7 @@ public class My_completeFragment extends MVPBaseFragment<My_completeContract.Vie
             taskDanwei.setText(taskBean.getTaskInfo().getUnit());   //单位
             taskDate.setText(TimeUtils.millis2String(taskBean.getTaskInfo().getPlanCompleteDate(), new SimpleDateFormat("yyyy/MM/dd")));
             taskRemart.setText(taskBean.getTaskInfo().getRemark());
-            if (!StringUtils.isEmpty(taskBean.getTaskInfo().getActualNum())) {
+            if (taskBean.getTaskInfo().getActualNum() != 0) {
                 taskAllNum.setText(taskBean.getTaskInfo().getActualNum() + "");
             }
             setIsEdit(taskBean.getTaskInfo().getCanEdit() == 1);

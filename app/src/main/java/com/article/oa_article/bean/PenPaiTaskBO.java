@@ -26,7 +26,7 @@ public class PenPaiTaskBO {
     private String taskName;
     private int id;
     private long planCompleteDate;
-    private String actualNum;
+    private int actualNum;
     private int userId;
     private int parentId;
     private int status;
@@ -113,11 +113,11 @@ public class PenPaiTaskBO {
         this.planCompleteDate = planCompleteDate;
     }
 
-    public String getActualNum() {
+    public int getActualNum() {
         return actualNum;
     }
 
-    public void setActualNum(String actualNum) {
+    public void setActualNum(int actualNum) {
         this.actualNum = actualNum;
     }
 

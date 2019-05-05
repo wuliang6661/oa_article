@@ -9,21 +9,20 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.FragmentUtils;
-import com.blankj.utilcode.util.TimeUtils;
 import com.article.oa_article.R;
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.HttpServerImpl;
 import com.article.oa_article.api.http.TaskServiceImpl;
 import com.article.oa_article.base.BaseActivity;
 import com.article.oa_article.bean.OrderInfoBo;
-import com.article.oa_article.bean.TaskBO;
 import com.article.oa_article.bean.TaskDetails;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.IdTypeRequest;
 import com.article.oa_article.module.order_details.Order_detailsFragment;
 import com.article.oa_article.module.task_accept.Task_acceptFragment;
 import com.article.oa_article.view.order_details.Order_detailsActivity;
+import com.blankj.utilcode.util.FragmentUtils;
+import com.blankj.utilcode.util.TimeUtils;
 
 import java.text.SimpleDateFormat;
 
@@ -64,7 +63,8 @@ public class AcceptedTaskActivity extends BaseActivity {
     private int parentId;
     TaskDetails parentTask;
 
-    private TaskBO taskBO;
+    private boolean isHome;   //是否从我的任务跳入
+
 
     @Override
     protected int getLayout() {
@@ -80,10 +80,14 @@ public class AcceptedTaskActivity extends BaseActivity {
         setTitleText("接受任务");
 
         taskId = getIntent().getExtras().getInt("taskId");
+        isHome = getIntent().getExtras().getBoolean("isHome", false);
         detailsFragment = new Order_detailsFragment();
         acceptFragment = new Task_acceptFragment();
         FragmentUtils.replace(getSupportFragmentManager(), detailsFragment, R.id.order_details);
         FragmentUtils.replace(getSupportFragmentManager(), acceptFragment, R.id.accept_task);
+        if(isHome){
+            acceptFragment.setIsAccepted(false);
+        }
 
         IdTypeRequest request = new IdTypeRequest();
         request.setId(taskId);

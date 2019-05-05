@@ -65,6 +65,7 @@ public class MyOrderActivity extends BaseActivity {
     private int parentId;
     TaskDetails parentTask;
 
+
     @Override
     protected int getLayout() {
         return R.layout.act_my_order;

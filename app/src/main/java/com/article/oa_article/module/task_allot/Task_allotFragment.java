@@ -255,6 +255,9 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 bean.setNickName(task.getNickName());
                 bean.setRemainingDate(task.getRemainingDate());
                 bean.setStatus(task.getStatus());
+                bean.setActualNum(task.getActualNum());
+                bean.setPlanNum(task.getPlanNum());
+                bean.setUnit(task.getUnit());
                 bean.setPlanCompleteDate(TimeUtils.millis2String(task
                         .getPlanCompleteDate(), new SimpleDateFormat("yyyy/MM/dd")));
                 tasks.add(bean);
@@ -345,8 +348,12 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
             public void convert(LGViewHolder holder, AddTaskRequest.OrderTasksBean s, int position) {
                 holder.setText(R.id.task_name, s.getTaskName());
                 holder.setText(R.id.task_person_name, s.getNickName());
-                holder.setText(R.id.task_shiji_num, "--");
-                holder.setText(R.id.task_jihua_num, s.getPlanNum() == 0 ? "--" : s.getPlanNum() + "");
+                holder.setText(R.id.task_shiji_num, s.getActualNum() + "");
+                if (StringUtils.isEmpty(s.getUnit())) {
+                    holder.setText(R.id.task_jihua_num, s.getPlanNum() == 0 ? "--" : s.getPlanNum() + "");
+                } else {
+                    holder.setText(R.id.task_jihua_num, s.getPlanNum() + " / " + s.getUnit());
+                }
                 if (StringUtils.isEmpty(s.getPlanCompleteDate())) {
                     holder.setText(R.id.task_date, "--");
                 } else {
@@ -467,7 +474,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
 
     private PopAddTaskWindow getPopWindow() {
         PopAddTaskWindow window = new PopAddTaskWindow(getActivity());
-        window.setListener((position, name, num, danwei, personId, date, remark,oldbean) -> {
+        window.setListener((position, name, num, danwei, personId, date, remark, oldbean) -> {
             AddTaskRequest.OrderTasksBean bean = new AddTaskRequest.OrderTasksBean();
             bean.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
             bean.setPlanCompleteDate(date.replaceAll("/", "-"));
@@ -478,7 +485,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
             bean.setTaskType(0);
             bean.setUserId(personId.getId());
             bean.setNickName(personId.getName());
-            if(oldbean != null){
+            if (oldbean != null) {
                 bean.setId(oldbean.getId());
             }
             if (position == -1) {

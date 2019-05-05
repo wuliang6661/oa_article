@@ -3,6 +3,7 @@ package com.article.oa_article.module.task_accept;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -134,6 +135,16 @@ public class Task_acceptFragment extends MVPBaseFragment<Task_acceptContract.Vie
         taskDate.setText(TimeUtils.millis2String(taskBean.getTaskInfo().getPlanCompleteDate(),
                 new SimpleDateFormat("yyyy/MM/dd")));
         taskRemart.setText(taskBean.getTaskInfo().getRemark());
+    }
+
+
+    /**
+     * 设置接受任务是否显示
+     */
+    public void setIsAccepted(boolean isAccepted) {
+        if (!isAccepted) {
+            new Handler().post(() -> nextButton.setVisibility(View.GONE));
+        }
     }
 
 
