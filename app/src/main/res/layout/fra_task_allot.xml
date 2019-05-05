@@ -50,7 +50,7 @@
             android:layout_height="match_parent"
             android:layout_marginRight="15dp"
             android:gravity="center_vertical"
-            android:text="任务编辑"
+            android:text="编辑"
             android:textColor="@color/blue_color"
             android:textSize="15sp" />
 

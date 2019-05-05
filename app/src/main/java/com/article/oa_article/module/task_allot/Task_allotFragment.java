@@ -449,7 +449,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         showToast("分派成功！");
         isTaskEdit = false;
         isShunYan = false;
-        taskRightButton.setText("任务编辑");
+        taskRightButton.setText("编辑");
         addTaskLayout.setVisibility(View.GONE);
         EventBus.getDefault().post(new UpdateTaskEvent());
 //        setTaskAdapter();

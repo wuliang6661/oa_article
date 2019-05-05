@@ -220,15 +220,15 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
             fragment.setIsTask(!isOrder);
         }
         if (orderInfoBo.getOrderInfo().getCanEdit() == 0) {  //不可编辑
-//            kehuMsgBar.setVisibility(View.GONE);
-//            orderDetails.setVisibility(View.VISIBLE);
+            kehuMsgBar.setVisibility(View.GONE);
+            orderDetails.setVisibility(View.VISIBLE);
             taskIsEdit = 1;
         } else {  //可编辑
             taskIsEdit = 0;
-//            kehuMsgBar.setVisibility(View.VISIBLE);
-//            orderDetails.setVisibility(View.GONE);
-//            btnAlbum.setText("取消订单");
-//            btnAlbum.setVisibility(View.VISIBLE);
+            kehuMsgBar.setVisibility(View.VISIBLE);
+            orderDetails.setVisibility(View.GONE);
+            btnAlbum.setText("取消订单");
+            btnAlbum.setVisibility(View.VISIBLE);
         }
         mPresenter.getTaskList(request);
     }

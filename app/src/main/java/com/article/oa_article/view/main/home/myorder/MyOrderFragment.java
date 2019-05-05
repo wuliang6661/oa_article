@@ -341,7 +341,8 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                 } else {
                     Bundle bundle = new Bundle();
                     bundle.putInt("taskId", orderBO.getId());
-                    gotoActivity(MyOrderActivity.class, bundle, false);
+                    bundle.putBoolean("isHome", true);
+                    gotoActivity(AcceptedTaskActivity.class, bundle, false);
                 }
             } else {   //已完成的
                 Bundle bundle = new Bundle();
