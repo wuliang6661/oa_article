@@ -11,8 +11,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.FragmentUtils;
-import com.blankj.utilcode.util.TimeUtils;
 import com.article.oa_article.R;
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.HttpServerImpl;
@@ -28,6 +26,8 @@ import com.article.oa_article.module.order_details.Order_detailsFragment;
 import com.article.oa_article.module.task_allot.Task_allotFragment;
 import com.article.oa_article.mvp.MVPBaseActivity;
 import com.article.oa_article.widget.AlertDialog;
+import com.blankj.utilcode.util.FragmentUtils;
+import com.blankj.utilcode.util.TimeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -89,10 +89,12 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
     Task_allotFragment fragment;
     IdTypeRequest request;
 
+    Order_detailsFragment detailsFragment;
+
 
     int taskIsEdit = 0;   //可编辑
 
-    private boolean isCreateOrder = false;  //是否是创建订单
+    private boolean isEditOrder = false;  //是否是修改订单
 
     @Override
     protected int getLayout() {
@@ -110,18 +112,15 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         EventBus.getDefault().register(this);
         isOrder = getIntent().getExtras().getBoolean("isOrder", true);
         id = getIntent().getExtras().getInt("id");
-        isCreateOrder = getIntent().getExtras().getBoolean("isCreateOrder", false);
-        if (isCreateOrder) {
-            kehuMsgBar.setVisibility(View.VISIBLE);
-            orderDetails.setVisibility(View.GONE);
-            btnAlbum.setText("取消订单");
-            btnAlbum.setVisibility(View.VISIBLE);
-        } else {
-            kehuMsgBar.setVisibility(View.GONE);
-            orderDetails.setVisibility(View.VISIBLE);
-        }
+        isEditOrder = getIntent().getExtras().getBoolean("isEditOrder", false);
 
         fragment = new Task_allotFragment();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         request = new IdTypeRequest();
         request.setId(id);
         if (isOrder) {
@@ -130,10 +129,8 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
             request.setType(1);
             mPresenter.getTaskInfo(id);
         }
-
         mPresenter.getOrderInfo(request);
     }
-
 
     @OnClick(R.id.shangji_task_bar)
     public void BarClick() {
@@ -146,14 +143,24 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         }
     }
 
-    @OnClick(R.id.order_edit)
-    public void editOrder() {
-        kehuMsgBar.setVisibility(View.GONE);
-        orderDetails.setVisibility(View.VISIBLE);
-        CreateOrderFragment fragment = new CreateOrderFragment();
-        FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.order_details);
-        fragment.setData(2, infoBo);   //编辑订单
-    }
+//    @OnClick(R.id.order_edit)
+//    public void editOrder() {
+//        kehuMsgBar.setVisibility(View.GONE);
+//        orderDetails.setVisibility(View.VISIBLE);
+//        CreateOrderFragment fragment = new CreateOrderFragment();
+//        FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.order_details);
+//        fragment.setData(2, infoBo);   //编辑订单
+//    }
+//
+//    @OnClick(R.id.kehu_msg_bar)
+//    public void clickBar() {
+//        kehuMsgBar.setVisibility(View.GONE);
+//        orderDetails.setVisibility(View.VISIBLE);
+//        Order_detailsFragment fragment = new Order_detailsFragment();
+//        FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.order_details);
+//        fragment.setOrderInfo(infoBo);
+//    }
+
 
     /**
      * 返回上一级
@@ -213,22 +220,24 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         setTitleText(orderInfoBo.getOrderInfo().getCompanyOrderName());
         orderNum.setText(orderInfoBo.getOrderInfo().getCompanyOrderNum());
         orderNum.setVisibility(View.VISIBLE);
-        if (!isCreateOrder) {
-            Order_detailsFragment fragment = new Order_detailsFragment();
+        if (!isEditOrder) {   //显示订单详情
+            if (detailsFragment == null) {
+                detailsFragment = new Order_detailsFragment();
+                FragmentUtils.replace(getSupportFragmentManager(), detailsFragment, R.id.order_details);
+            }
+            detailsFragment.setOrderInfo(orderInfoBo);
+            detailsFragment.setIsTask(!isOrder);
+        } else {    //显示修改订单
+            CreateOrderFragment fragment = new CreateOrderFragment();
             FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.order_details);
-            fragment.setOrderInfo(orderInfoBo);
-            fragment.setIsTask(!isOrder);
+            fragment.setData(2, infoBo);   //编辑订单
+            btnAlbum.setText("取消订单");
+            btnAlbum.setVisibility(View.VISIBLE);
         }
         if (orderInfoBo.getOrderInfo().getCanEdit() == 0) {  //不可编辑
-            kehuMsgBar.setVisibility(View.GONE);
-            orderDetails.setVisibility(View.VISIBLE);
             taskIsEdit = 1;
         } else {  //可编辑
             taskIsEdit = 0;
-            kehuMsgBar.setVisibility(View.VISIBLE);
-            orderDetails.setVisibility(View.GONE);
-            btnAlbum.setText("取消订单");
-            btnAlbum.setVisibility(View.VISIBLE);
         }
         mPresenter.getTaskList(request);
     }
@@ -264,11 +273,6 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void OrderUpDateSuress(OrderEditSuressEvent event) {
-        kehuMsgBar.setVisibility(View.VISIBLE);
-        orderDetails.setVisibility(View.GONE);
-    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateTask(UpdateTaskEvent event) {
