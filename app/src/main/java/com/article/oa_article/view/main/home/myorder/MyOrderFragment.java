@@ -278,14 +278,14 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                     case 2:
                         holder.setText(R.id.order_type, "已完成");
                         holder.setText(R.id.order_nick_name, "--");
-                        holder.setText(R.id.task_time, "--");
+//                        holder.setText(R.id.task_time, "--");
                         holder.getView(R.id.cancle_img).setVisibility(View.VISIBLE);
                         holder.setImageResurce(R.id.cancle_img, R.drawable.order_suress_img);
                         break;
                     case 3:
                         holder.setText(R.id.order_type, "已取消");
                         holder.setText(R.id.order_nick_name, "--");
-                        holder.setText(R.id.task_time, "--");
+//                        holder.setText(R.id.task_time, "--");
                         holder.getView(R.id.cancle_img).setVisibility(View.VISIBLE);
                         holder.setImageResurce(R.id.cancle_img, R.drawable.yi_cancle);
                         break;
@@ -294,7 +294,15 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                         break;
                 }
                 TextView surplus_time = (TextView) holder.getView(R.id.surplus_time);
-                if (myOrderBO.getStatus() != 3) {
+                if (myOrderBO.getStatus() == 3) {
+                    surplus_time.setText("--");
+                    surplus_time.setTextColor(Color.parseColor("#8D8C91"));
+                    surplus_time.setTextSize(11);
+                } else if (myOrderBO.getStatus() == 2) {
+                    surplus_time.setText(myOrderBO.getActualCompleteDate().replaceAll("-", "/"));
+                    surplus_time.setTextColor(Color.parseColor("#8D8C91"));
+                    surplus_time.setTextSize(11);
+                } else {
                     if (StringUtils.isEmpty(myOrderBO.getRemainingDate())) {
                         surplus_time.setText(myOrderBO.getPlanCompleteDate().replaceAll("-", "/"));
                         surplus_time.setTextColor(Color.parseColor("#8D8C91"));
@@ -308,10 +316,6 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                             surplus_time.setTextColor(Color.parseColor("#E92B2B"));
                         }
                     }
-                } else {
-                    surplus_time.setText("--");
-                    surplus_time.setTextColor(Color.parseColor("#8D8C91"));
-                    surplus_time.setTextSize(11);
                 }
             }
         };

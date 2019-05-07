@@ -252,7 +252,8 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
                 holder.setText(R.id.order_message, myOrderBO.getCreateName().length() > 3 ?
                         myOrderBO.getCreateName().substring(0, 3) + "..." : myOrderBO.getCreateName());
                 holder.setText(R.id.order_type, myOrderBO.getClientName());
-                holder.setText(R.id.order_nick_name, StringUtils.isEmpty(myOrderBO.getUserName()) ? "--" : myOrderBO.getUserName());
+                holder.setText(R.id.order_nick_name, StringUtils.isEmpty(myOrderBO.getUserName()) ? "--" :
+                        (myOrderBO.getUserName().length() > 3 ? myOrderBO.getUserName().substring(0, 3) + "..." : myOrderBO.getUserName()));
                 if (StringUtils.isEmpty(myOrderBO.getTaskPlanDate())) {
                     holder.setText(R.id.nike_name_time, "--");
                 } else {
@@ -262,10 +263,18 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
                 if (myOrderBO.getTaskDate() == 0) {
                     task_date.setText("");
                 } else if (myOrderBO.getTaskDate() > 0) {
-                    task_date.setText(myOrderBO.getTaskDate() + "天");
+                    String taskDate = String.valueOf(myOrderBO.getTaskDate());
+                    if (myOrderBO.getTaskDate() > 100 || myOrderBO.getTaskDate() < -10) {
+                        taskDate = String.valueOf(myOrderBO.getTaskDate()).substring(0, 2) + "...";
+                    }
+                    task_date.setText(taskDate + "天");
                     task_date.setTextColor(Color.parseColor("#71EA45"));
                 } else {
-                    task_date.setText(myOrderBO.getTaskDate() + "天");
+                    String taskDate = String.valueOf(myOrderBO.getTaskDate());
+                    if (myOrderBO.getTaskDate() > 100 || myOrderBO.getTaskDate() < -10) {
+                        taskDate = String.valueOf(myOrderBO.getTaskDate()).substring(0, 2) + "...";
+                    }
+                    task_date.setText(taskDate + "天");
                     task_date.setTextColor(Color.parseColor("#E92B2B"));
                 }
                 holder.setText(R.id.task_time, myOrderBO.getOrderPlanDate().replaceAll("-", "/")

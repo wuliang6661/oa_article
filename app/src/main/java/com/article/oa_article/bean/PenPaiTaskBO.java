@@ -26,12 +26,21 @@ public class PenPaiTaskBO {
     private String taskName;
     private int id;
     private long planCompleteDate;
-    private int actualNum;
+    private int  actualNum;
     private int userId;
     private int parentId;
     private int status;
     private int orderId;
     private String remark;
+    private int addButton;
+
+    public int getAddButton() {
+        return addButton;
+    }
+
+    public void setAddButton(int addButton) {
+        this.addButton = addButton;
+    }
 
     public String getRemark() {
         return remark;

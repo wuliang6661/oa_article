@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
+import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.TaskDetails;
 import com.article.oa_article.bean.event.UpdateTaskEvent;
 import com.article.oa_article.mvp.MVPBaseFragment;
@@ -152,7 +153,8 @@ public class My_completeFragment extends MVPBaseFragment<My_completeContract.Vie
             if (taskBean.getTaskInfo().getActualNum() != 0) {
                 taskAllNum.setText(taskBean.getTaskInfo().getActualNum() + "");
             }
-            setIsEdit(taskBean.getTaskInfo().getCanEdit() == 1);
+            setIsEdit(taskBean.getTaskInfo().getAddButton() == 1);
+//            setIsEdit(taskBean.getTaskInfo().getUserId() == MyApplication.userBo.getId());
             if (task.getTaskHistory() == null || task.getTaskHistory().size() == 0) {
                 recycleView.setVisibility(View.GONE);
                 noneText.setVisibility(View.VISIBLE);
