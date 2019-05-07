@@ -14,18 +14,18 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.article.oa_article.bean.OrderNumBO;
-import com.blankj.utilcode.util.StringUtils;
 import com.article.oa_article.R;
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.HttpServerImpl;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.ComplanOrderBo;
+import com.article.oa_article.bean.OrderNumBO;
 import com.article.oa_article.bean.request.ComplayRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
+import com.blankj.utilcode.util.StringUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -315,13 +315,8 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
         adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
             Bundle bundle = new Bundle();
             bundle.putInt("id", s.get(position).getOrderId());
-//            if (s.get(position).getCreateId().equals(MyApplication.userBo.getId())
-//                    && s.get(position).getStatus() == 1) {  //如果是当前用户创建,且进行中
-//                gotoActivity(CreateTaskActivity.class, bundle, false);
-//            } else {
             bundle.putBoolean("isOrder", true);
             gotoActivity(Order_detailsActivity.class, bundle, false);
-//            }
         });
         recycleView.setAdapter(adapter);
     }

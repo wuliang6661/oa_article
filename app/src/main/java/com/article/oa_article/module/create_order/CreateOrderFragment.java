@@ -32,17 +32,10 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bigkoo.pickerview.builder.TimePickerBuilder;
-import com.bigkoo.pickerview.view.TimePickerView;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.TimeUtils;
-import com.guoqi.actionsheet.ActionSheet;
 import com.article.oa_article.R;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.ClientOrderBo;
 import com.article.oa_article.bean.OrderInfoBo;
-import com.article.oa_article.bean.event.OrderEditSuressEvent;
 import com.article.oa_article.bean.request.CreateOrderBO;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.UpdateOrderRequest;
@@ -54,8 +47,12 @@ import com.article.oa_article.widget.AlertDialog;
 import com.article.oa_article.widget.EditMsgText;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
-
-import org.greenrobot.eventbus.EventBus;
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.view.TimePickerView;
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.TimeUtils;
+import com.guoqi.actionsheet.ActionSheet;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -652,7 +649,6 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     @Override
     public void updateSuress() {
         stopProgress();
-        EventBus.getDefault().post(new OrderEditSuressEvent());
         showToast("修改成功！");
     }
 }

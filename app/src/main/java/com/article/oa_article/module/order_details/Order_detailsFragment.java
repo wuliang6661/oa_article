@@ -17,14 +17,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.TimeUtils;
 import com.article.oa_article.R;
 import com.article.oa_article.bean.OrderInfoBo;
 import com.article.oa_article.module.create_order.ImageBO;
 import com.article.oa_article.module.create_order.PingLeiBO;
 import com.article.oa_article.mvp.MVPBaseFragment;
+import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
+import com.blankj.utilcode.util.TimeUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -80,16 +81,11 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
     LinearLayout imageTitle;
     @BindView(R.id.blow_line)
     View blowLine;
+    @BindView(R.id.order_edit)
+    TextView orderEdit;
 
+    private OrderInfoBo infoBo;
 
-    public static Order_detailsFragment newInstance(int type, int orderId) {
-        Order_detailsFragment fragment = new Order_detailsFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("orderId", orderId);
-        bundle.putInt("type", type);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
 
     @Nullable
     @Override
@@ -132,6 +128,16 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
             kehuOrderLayout.setVisibility(View.VISIBLE);
             kehuOrderCheck.setChecked(false);
         }
+    }
+
+
+    @OnClick(R.id.order_edit)
+    public void editOrder() {
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", infoBo.getOrderInfo().getId());
+        bundle.putBoolean("isOrder", true);
+        bundle.putBoolean("isEditOrder", true);
+        gotoActivity(Order_detailsActivity.class, bundle, false);
     }
 
 
@@ -201,6 +207,7 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
     @Override
     public void getOrderInfo(OrderInfoBo infoBo) {
         stopProgress();
+        this.infoBo = infoBo;
         createName.setText(infoBo.getOrderInfo().getNickName());
         kehuName.setText(infoBo.getOrderInfo().getClientName());
         kehuOrderName.setText(infoBo.getOrderInfo().getClientOrderName());
@@ -236,9 +243,13 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
             imageRecycle.setVisibility(View.VISIBLE);
             blowLine.setVisibility(View.VISIBLE);
         }
+        if (infoBo.getOrderInfo().getCanEdit() == 1) {
+            orderEdit.setVisibility(View.VISIBLE);
+        } else {
+            orderEdit.setVisibility(View.GONE);
+        }
         setImageAdapter();
     }
-
 
 
     @Override
