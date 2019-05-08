@@ -136,7 +136,7 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
 
             @Override
             public void convert(LGViewHolder holder, AcceptedOrderBo acceptedOrderBo, int position) {
-                if (acceptedOrderBo.getTaskType() == 1) {
+                if (acceptedOrderBo.getIsChoose() == 1) {
                     holder.getView(R.id.waibu_img).setVisibility(View.VISIBLE);
                     holder.setText(R.id.select_button, "选择");
                 } else {
@@ -152,7 +152,11 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
             @Override
             public void onItemClicked(View view, int position) {
                 if (s.get(position).getTaskType() == 1) {   //外部订单
-                    showAleatDialog(s.get(position).getTaskId());
+                    if (s.get(position).getIsChoose() == 1) {  //选择
+                        showAleatDialog(s.get(position).getTaskId());
+                    } else {
+                        mPresenter.getWaiBuOrder(s.get(position).getTaskId(), MyApplication.userBo.getCompanys().get(0).getId());
+                    }
                 } else {   //内部订单，跳转至接受订单页
                     Bundle bundle = new Bundle();
                     bundle.putInt("taskId", s.get(position).getTaskId());

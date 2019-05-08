@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/layout_bg"
@@ -74,6 +75,7 @@
 
 
         <LinearLayout
+            android:id="@+id/person_name_layout"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:gravity="center_vertical"
@@ -90,6 +92,7 @@
 
 
             <TextView
+                android:id="@+id/person_name_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -117,6 +120,7 @@
 
 
         <LinearLayout
+            android:id="@+id/person_phone_layout"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:gravity="center_vertical"
@@ -133,13 +137,14 @@
 
 
             <TextView
+                android:id="@+id/person_phone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="哈哈哈哈"
                 android:textColor="@color/text_hint_color"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                tools:text="哈哈哈哈" />
 
 
             <ImageView
@@ -159,6 +164,7 @@
             android:background="@color/line_default_color" />
 
         <LinearLayout
+            android:id="@+id/password_layout"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:gravity="center_vertical"
