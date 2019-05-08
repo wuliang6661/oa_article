@@ -16,9 +16,11 @@ import android.widget.TextView;
 
 import com.article.oa_article.R;
 import com.article.oa_article.mvp.MVPBaseFragment;
+import com.article.oa_article.view.setting.SettingActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -59,6 +61,25 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        initView();
+    }
+
+    /**
+     * 初始化布局
+     */
+    private void initView() {
+        tabLayout.addTab(tabLayout.newTab().setText("产能分析"));
+        tabLayout.addTab(tabLayout.newTab().setText("评价中心"));
+        tabLayout.addTab(tabLayout.newTab().setText("任务数据"));
+        tabLayout.addTab(tabLayout.newTab().setText("企业认证"));
+        tabLayout.addTab(tabLayout.newTab().setText("管理团队"));
+    }
+
+
+    @OnClick(R.id.person_layout)
+    public void goSetting() {
+        gotoActivity(SettingActivity.class, false);
     }
 
 
