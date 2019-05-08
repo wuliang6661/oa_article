@@ -4,12 +4,12 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.article.oa_article.Config;
+import com.article.oa_article.bean.UserBo;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.article.oa_article.Config;
-import com.article.oa_article.bean.UserBo;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 
@@ -51,6 +51,18 @@ public class MyApplication extends Application {
             return "0";
         } else {
             return MyApplication.userBo.getCompanys().get(0).getId() + "";
+        }
+    }
+
+
+    /**
+     * 当前用户选择的公司
+     */
+    public static UserBo.CompanysBean getCommon() {
+        if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
+            return null;
+        } else {
+            return MyApplication.userBo.getCompanys().get(0);
         }
     }
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 
 import com.article.oa_article.R;
+import com.article.oa_article.view.main.message.MessageFragment;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -29,9 +30,9 @@ public class NoneFragment2 extends SupportFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        if (findChildFragment(SalesGoodFragment.class) == null) {
-//            loadRootFragment(R.id.fl_first_container, new SalesGoodFragment());
-//        }
+        if (findChildFragment(MessageFragment.class) == null) {
+            loadRootFragment(R.id.fl_first_container, new MessageFragment());
+        }
     }
 
     @Override

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/bar_color">
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="消息"
+            android:textColor="@color/f_white"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/edit_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="13sp"
+            android:text="编辑"
+            android:textColor="@color/f_white"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/msg_num"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@+id/title"
+            android:background="@drawable/msg_drawable"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="#FDFDFB"
+            android:textSize="11sp" />
+
+
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/message_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>
