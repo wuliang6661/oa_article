@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
+import com.article.oa_article.bean.UserBo;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.setting.SettingActivity;
 
@@ -63,6 +64,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
         super.onViewCreated(view, savedInstanceState);
 
         initView();
+        mPresenter.getUserInfo();
     }
 
     /**
@@ -87,5 +89,16 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void getUser(UserBo userBo) {
+        personName.setText(userBo.getName());
+        personPhone.setText(userBo.getPhone());
+    }
+
+    @Override
+    public void onRequestError(String msg) {
+        showToast(msg);
     }
 }

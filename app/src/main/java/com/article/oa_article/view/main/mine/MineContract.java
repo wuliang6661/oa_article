@@ -1,9 +1,8 @@
 package com.article.oa_article.view.main.mine;
 
-import android.content.Context;
-
+import com.article.oa_article.bean.UserBo;
 import com.article.oa_article.mvp.BasePresenter;
-import com.article.oa_article.mvp.BaseView;
+import com.article.oa_article.mvp.BaseRequestView;
 
 /**
  * MVPPlugin
@@ -11,8 +10,9 @@ import com.article.oa_article.mvp.BaseView;
  */
 
 public class MineContract {
-    interface View extends BaseView {
-        
+    interface View extends BaseRequestView {
+
+        void getUser(UserBo userBo);
     }
 
     interface  Presenter extends BasePresenter<View> {
