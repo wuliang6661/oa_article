@@ -2,8 +2,10 @@ package com.article.oa_article.module.create_order;
 
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.HttpServerImpl;
+import com.article.oa_article.api.http.TaskServiceImpl;
 import com.article.oa_article.bean.request.CreateOrderBO;
 import com.article.oa_article.bean.request.IdRequest;
+import com.article.oa_article.bean.request.TaskModeRequest;
 import com.article.oa_article.bean.request.UpdateOrderRequest;
 import com.article.oa_article.mvp.BasePresenterImpl;
 
@@ -24,6 +26,30 @@ public class CreateOrderPresenter extends BasePresenterImpl<CreateOrderContract.
             public void onSuccess(String s) {
                 if (mView != null) {
                     mView.updateSourss(file.getName(), s);
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
+
+    /**
+     * 创建外部订单时先接受任务
+     */
+    public void setTaskMode(int taskId, int orderId) {
+        TaskModeRequest request = new TaskModeRequest();
+        request.setTaskId(taskId);
+        request.setCompleteType(1);
+        TaskServiceImpl.setTaskMode(request).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if (mView != null) {
+                    mView.acceptSuress(orderId);
                 }
             }
 

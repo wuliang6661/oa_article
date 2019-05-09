@@ -126,6 +126,11 @@
             android:name="com.article.oa_article.view.setting.SettingActivity"
             android:screenOrientation="portrait" />
 
+        <!--修改昵称-->
+        <activity
+            android:name="com.article.oa_article.view.setting.PersonNameSettingAct"
+            android:screenOrientation="portrait" />
+
         <!--扫一扫-->
         <activity android:name="com.article.oa_article.zxing.activity.CaptureActivity" />
 

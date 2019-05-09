@@ -136,11 +136,14 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
 
             @Override
             public void convert(LGViewHolder holder, AcceptedOrderBo acceptedOrderBo, int position) {
-                if (acceptedOrderBo.getIsChoose() == 1) {
+                if (acceptedOrderBo.getTaskType() == 1) {
                     holder.getView(R.id.waibu_img).setVisibility(View.VISIBLE);
-                    holder.setText(R.id.select_button, "选择");
                 } else {
                     holder.getView(R.id.waibu_img).setVisibility(View.GONE);
+                }
+                if (acceptedOrderBo.getIsChoose() == 1) {
+                    holder.setText(R.id.select_button, "选择");
+                } else {
                     holder.setText(R.id.select_button, "查看");
                 }
                 holder.setText(R.id.order_name, acceptedOrderBo.getCompanyOrderName());
@@ -206,10 +209,11 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
     }
 
     @Override
-    public void getClientInfo(ClientOrderBo clientOrderBo) {
+    public void getClientInfo(int taskId, ClientOrderBo clientOrderBo) {
         stopProgress();
         Bundle bundle = new Bundle();
         bundle.putBoolean("isWaibu", true);
+        bundle.putInt("taskId", taskId);
         bundle.putSerializable("client", clientOrderBo);
         gotoActivity(CreateActivity.class, bundle, false);
     }

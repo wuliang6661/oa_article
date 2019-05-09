@@ -155,6 +155,7 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     private String orderDate;
 
     private boolean isWaiBu = false;   //是否外部订单，默认不是
+    private int taskId;    //外部任务ID
     ClientOrderBo clientOrderBo;
 
     @Override
@@ -262,6 +263,7 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
             orderBO.setClientNum(clientOrderBo.getClientNum());
             orderBO.setClientCompleteDate(clientOrderBo.getClientCompleteDate().replace("/", "-"));
             orderBO.setClientUnit(clientOrderBo.getClientUnit());
+            orderBO.setParentOrderTaskId(taskId);
         }
 
         orderBO.setCompanyOrderName(benOrderName);
@@ -587,10 +589,14 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     @Override
     public void addSuress(IdRequest request) {
         stopProgress();
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", request.getId());
-        bundle.putBoolean("isOrder", true);
-        gotoActivity(Order_detailsActivity.class, bundle, true);
+        if (isWaiBu) {
+            mPresenter.setTaskMode(taskId, request.getId());
+        } else {
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", request.getId());
+            bundle.putBoolean("isOrder", true);
+            gotoActivity(Order_detailsActivity.class, bundle, true);
+        }
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -628,10 +634,11 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     /**
      * 设置外部订单数据
      */
-    public void setClientData(ClientOrderBo clientOrderBo) {
+    public void setClientData(int taskId, ClientOrderBo clientOrderBo) {
         new Handler().post(() -> {
             CreateOrderFragment.this.clientOrderBo = clientOrderBo;
             isWaiBu = true;
+            CreateOrderFragment.this.taskId = taskId;
             clientKehuLayout.setVisibility(View.VISIBLE);
             editKehuJiancheng.setText(clientOrderBo.getClientName());
             editKehuJiancheng.setEnabled(false);
@@ -650,5 +657,13 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     public void updateSuress() {
         stopProgress();
         showToast("修改成功！");
+    }
+
+    @Override
+    public void acceptSuress(int orderId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", orderId);
+        bundle.putBoolean("isOrder", true);
+        gotoActivity(Order_detailsActivity.class, bundle, true);
     }
 }

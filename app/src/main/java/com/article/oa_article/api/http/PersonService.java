@@ -3,6 +3,7 @@ package com.article.oa_article.api.http;
 import com.article.oa_article.bean.BaseResult;
 import com.article.oa_article.bean.BumenBO;
 import com.article.oa_article.bean.request.IdRequest;
+import com.article.oa_article.bean.request.PersonNameRequest;
 
 import java.util.List;
 
@@ -25,6 +26,11 @@ public interface PersonService {
     @POST("industry_webservice/app/userInfo/getOutUsers")
     Observable<BaseResult<List<BumenBO>>> getOutUsers(@Body IdRequest request);
 
+    /**
+     * 修改昵称
+     */
+    @POST("industry_webservice/app/userInfo/updateNickName")
+    Observable<BaseResult<String>> updateNickName(@Body PersonNameRequest request);
 
 
 }

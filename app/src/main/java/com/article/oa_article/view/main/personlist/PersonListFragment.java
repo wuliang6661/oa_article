@@ -21,7 +21,6 @@ import com.article.oa_article.bean.PersonBO;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.blankj.utilcode.util.ScreenUtils;
-import com.bumptech.glide.Glide;
 
 import org.greenrobot.eventbus.EventBus;
 

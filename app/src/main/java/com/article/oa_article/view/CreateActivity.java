@@ -18,6 +18,7 @@ public class CreateActivity extends BaseActivity {
 
 
     ClientOrderBo clientOrderBo;
+    int taskId;
 
     @Override
     protected int getLayout() {
@@ -34,11 +35,12 @@ public class CreateActivity extends BaseActivity {
         boolean isWaiBu = Objects.requireNonNull(getIntent().getExtras()).getBoolean("isWaibu", false);
         if (isWaiBu) {
             clientOrderBo = (ClientOrderBo) getIntent().getExtras().getSerializable("client");
+            taskId = getIntent().getExtras().getInt("taskId");
         }
         CreateOrderFragment fragment = new CreateOrderFragment();
         FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.fragment_container);
         if (isWaiBu) {
-            fragment.setClientData(clientOrderBo);
+            fragment.setClientData(taskId, clientOrderBo);
         }
     }
 
