@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.article.oa_article.R;
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.HttpServerImpl;
+import com.article.oa_article.api.http.PersonServiceImpl;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.UserBo;
 import com.article.oa_article.mvp.MVPBaseActivity;
@@ -65,9 +66,14 @@ public class SettingActivity extends MVPBaseActivity<SettingContract.View, Setti
 
         goBack();
         setTitleText("资料设置");
-        getUserInfo();
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getUserInfo();
+    }
 
     @OnClick({R.id.person_name_layout, R.id.person_phone_layout, R.id.password_layout, R.id.switch_img})
     public void clickLayout(View view) {
@@ -76,10 +82,10 @@ public class SettingActivity extends MVPBaseActivity<SettingContract.View, Setti
                 gotoActivity(PersonNameSettingAct.class, false);
                 break;
             case R.id.person_phone_layout:
-
+                gotoActivity(PhoneSettingAct.class, false);
                 break;
             case R.id.password_layout:
-
+                gotoActivity(PasswordSettingAct.class, false);
                 break;
             case R.id.switch_img:
                 ActionSheet.showSheet(this, this, null);
@@ -181,12 +187,45 @@ public class SettingActivity extends MVPBaseActivity<SettingContract.View, Setti
                 photoPath = uri.getEncodedPath();
             }
             Log.d("拍照返回图片路径:", photoPath);
-//            mPresenter.updateImage(new File(Objects.requireNonNull(photoPath)));
+            updateImage(new File(Objects.requireNonNull(photoPath)));
         } else if (requestCode == 2 && resultCode == RESULT_OK) {
             photoPath = PhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
-//            mPresenter.updateImage(new File(photoPath));
+            updateImage(new File(photoPath));
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    public void updateImage(File file) {
+        HttpServerImpl.updateFile(file).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                updateImg(s);
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
+
+
+    /**
+     * 更换头像
+     */
+    private void updateImg(String imageUrl) {
+        PersonServiceImpl.updateImg(imageUrl).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                getUserInfo();
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
     }
 
 }

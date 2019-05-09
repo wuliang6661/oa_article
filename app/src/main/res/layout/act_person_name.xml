@@ -56,14 +56,28 @@
             android:layout_marginRight="16dp"
             android:background="@color/line_default_color" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="7dp"
-            android:text="昵称由4-10位汉字/字母/符号组成，首位不能是符号"
-            android:textColor="@color/text_hint_color"
-            android:textSize="11sp" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:src="@drawable/warning_img" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:text="昵称由4-10位汉字/字母/符号组成，首位不能是符号"
+                android:textColor="@color/text_hint_color"
+                android:textSize="11sp" />
+        </LinearLayout>
 
 
         <Button

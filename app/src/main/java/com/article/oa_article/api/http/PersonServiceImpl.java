@@ -5,7 +5,9 @@ import com.article.oa_article.api.HttpService;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.BumenBO;
 import com.article.oa_article.bean.request.IdRequest;
+import com.article.oa_article.bean.request.PersonImgRequest;
 import com.article.oa_article.bean.request.PersonNameRequest;
+import com.article.oa_article.bean.request.PersonPasswordRequest;
 import com.article.oa_article.util.rx.RxResultHelper;
 
 import java.util.List;
@@ -53,5 +55,23 @@ public class PersonServiceImpl {
         return getService().updateNickName(request).compose(RxResultHelper.httpRusult());
     }
 
+
+    /**
+     * 更换头像
+     */
+    public static Observable<String> updateImg(String imageUrl) {
+        PersonImgRequest request = new PersonImgRequest();
+        request.setToken(MyApplication.token);
+        request.setNewImage(imageUrl);
+        return getService().updateImg(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 更换密码
+     */
+    public static Observable<String> updatePassword(PersonPasswordRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().updatePassword(request).compose(RxResultHelper.httpRusult());
+    }
 
 }
