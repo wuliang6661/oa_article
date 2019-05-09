@@ -24,7 +24,7 @@ public class AcceptedPresenter extends BasePresenterImpl<AcceptedContract.View>
             @Override
             public void onSuccess(ClientOrderBo s) {
                 if (mView != null) {
-                    mView.getClientInfo(s);
+                    mView.getClientInfo(taskId, s);
                 }
             }
 

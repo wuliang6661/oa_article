@@ -2,6 +2,7 @@ package com.article.oa_article.view.main.personlist;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,15 +11,16 @@ import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ScreenUtils;
 import com.article.oa_article.R;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.BumenBO;
 import com.article.oa_article.bean.PersonBO;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
+import com.blankj.utilcode.util.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -49,9 +51,16 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
     @BindView(R.id.expand_list)
     ExpandableListView expandList;
     Unbinder unbinder;
+    @BindView(R.id.complany_img)
+    ImageView complanyImg;
+    @BindView(R.id.complan_name)
+    TextView complanName;
+    @BindView(R.id.title_layout)
+    LinearLayout titleLayout;
 
     IdRequest request;
     int selectMenu = 1;   //默认内部联系人
+
 
     private List<BumenBO> bumenBOS;
 
@@ -117,6 +126,14 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
                 }
                 break;
         }
+    }
+
+    public void setTitleVisiable() {
+        new Handler().post(() -> {
+            titleLayout.setVisibility(View.VISIBLE);
+            complanName.setText(MyApplication.getCommon().getCompanyName());
+//                Glide.with(getActivity()).load(MyApplication.getCommon().)
+        });
     }
 
 

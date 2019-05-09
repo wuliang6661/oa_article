@@ -12,7 +12,7 @@ import com.article.oa_article.mvp.BaseRequestView;
 public class AcceptedContract {
     interface View extends BaseRequestView {
 
-        void getClientInfo(ClientOrderBo clientOrderBo);
+        void getClientInfo(int taskId,ClientOrderBo clientOrderBo);
     }
 
     interface Presenter extends BasePresenter<View> {

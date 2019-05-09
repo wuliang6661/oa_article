@@ -20,6 +20,15 @@ public class AcceptedOrderBo {
     private String planCompleteDate;
     private String companyOrderName;
     private int taskId;
+    private int isChoose;
+
+    public int getIsChoose() {
+        return isChoose;
+    }
+
+    public void setIsChoose(int isChoose) {
+        this.isChoose = isChoose;
+    }
 
     public int getTaskType() {
         return taskType;

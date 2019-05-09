@@ -17,7 +17,6 @@ import com.article.oa_article.api.HttpServerImpl;
 import com.article.oa_article.bean.OrderInfoBo;
 import com.article.oa_article.bean.PenPaiTaskBO;
 import com.article.oa_article.bean.TaskDetails;
-import com.article.oa_article.bean.event.OrderEditSuressEvent;
 import com.article.oa_article.bean.event.UpdateTaskEvent;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.IdTypeRequest;

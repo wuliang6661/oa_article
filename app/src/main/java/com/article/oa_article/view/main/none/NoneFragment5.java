@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.article.oa_article.R;
+import com.article.oa_article.view.main.mine.MineFragment;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -24,9 +25,9 @@ public class NoneFragment5 extends SupportFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        if (findChildFragment(ShopCarFragment.class) == null) {
-//            loadRootFragment(R.id.fl_first_container, new MineFragment());
-//        }
+        if (findChildFragment(MineFragment.class) == null) {
+            loadRootFragment(R.id.fl_first_container, new MineFragment());
+        }
     }
 
     @Override

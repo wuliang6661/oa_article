@@ -22,6 +22,8 @@ public class CreateOrderContract {
 
         void updateSuress();
 
+        void acceptSuress(int orderId);
+
     }
 
     interface Presenter extends BasePresenter<View> {

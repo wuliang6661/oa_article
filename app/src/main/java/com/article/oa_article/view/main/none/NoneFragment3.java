@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.article.oa_article.R;
+import com.article.oa_article.view.main.personlist.PersonListFragment;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -28,9 +29,11 @@ public class NoneFragment3 extends SupportFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        if (findChildFragment(PersonListFragment.class) == null) {
-//            loadRootFragment(R.id.fl_first_container, new PersonListFragment());
-//        }
+        PersonListFragment listFragment = new PersonListFragment();
+        if (findChildFragment(PersonListFragment.class) == null) {
+            loadRootFragment(R.id.fl_first_container, listFragment);
+        }
+        listFragment.setTitleVisiable();
     }
 
     @Override
