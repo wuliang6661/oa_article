@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 
 import com.article.oa_article.R;
+import com.article.oa_article.view.main.zaoxiaomi.ZaoXiaoMiFragment;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -25,9 +26,9 @@ public class NoneFragment4 extends SupportFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        if (findChildFragment(ShopCarFragment.class) == null) {
-//            loadRootFragment(R.id.fl_first_container, new MineFragment());
-//        }
+        if (findChildFragment(ZaoXiaoMiFragment.class) == null) {
+            loadRootFragment(R.id.fl_first_container, new ZaoXiaoMiFragment());
+        }
     }
 
     @Override

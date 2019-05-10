@@ -115,4 +115,5 @@ dependencies {
     implementation 'com.google.zxing:core:3.3.0'
     implementation 'id.zelory:compressor:2.1.0'
     compile 'com.yanzhenjie:recyclerview-swipe:1.1.4'
+    compile 'com.haibin:calendarview:3.6.1'
 }

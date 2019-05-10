@@ -72,4 +72,27 @@
 \u3000\u3000十一.  附则\n
 本协议部分条款无效、被撤销或者终止的，不影响其他条款的效力，其他条款仍然有效。\n\n\n
 	</string>
+
+
+    <string-array name="english_week_string_array">
+        <item>Sun</item>
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+        <item>Sat</item>
+    </string-array>
+
+    <string-array name="chinese_week_string_array">
+        <item>周日</item>
+        <item>周一</item>
+        <item>周二</item>
+        <item>周三</item>
+        <item>周四</item>
+        <item>周五</item>
+        <item>周六</item>
+    </string-array>
+
+
 </resources>
