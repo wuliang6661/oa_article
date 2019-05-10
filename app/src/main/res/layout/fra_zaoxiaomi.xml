@@ -47,7 +47,9 @@
             app:min_year="2008"
             app:min_year_day="1"
             app:min_year_month="1"
+            app:month_view="com.article.oa_article.widget.calader.SimpleMonthView"
             app:other_month_lunar_text_color="#666666"
+            app:day_text_size="13sp"
             app:other_month_text_color="#666666"
             app:scheme_text="●"
             app:scheme_text_color="#F4CA40"
@@ -58,7 +60,8 @@
             app:week_bar_height="40dp"
             app:week_start_with="sun"
             app:week_text_color="@color/white"
-            app:week_text_size="13sp" />
+            app:week_text_size="13sp"
+            app:week_view="com.article.oa_article.widget.calader.SimpleWeekView" />
 
 
         <android.support.v4.widget.NestedScrollView
@@ -75,6 +78,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/image_layout"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:gravity="center"

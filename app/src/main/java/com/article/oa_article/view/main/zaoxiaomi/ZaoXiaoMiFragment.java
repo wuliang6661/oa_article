@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.article.oa_article.R;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.util.DateUtils;
+import com.blankj.utilcode.util.SizeUtils;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
@@ -28,6 +29,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -102,6 +104,7 @@ public class ZaoXiaoMiFragment extends MVPBaseFragment<ZaoXiaoMiContract.View, Z
         calendarView.setOnViewChangeListener(this);
 
         calendarView.setFixMode();
+        calendarView.setCalendarItemHeight(SizeUtils.dp2px(40));
 
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -122,6 +125,23 @@ public class ZaoXiaoMiFragment extends MVPBaseFragment<ZaoXiaoMiContract.View, Z
         calendar.setSchemeColor(color);//如果单独标记颜色、则会使用这个颜色
         calendar.setScheme(text);
         return calendar;
+    }
+
+
+    @OnClick({R.id.date_layout, R.id.image_layout})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.date_layout:
+                calendarLayout.expand();
+                break;
+            case R.id.image_layout:
+                if (calendarLayout.isExpand()) {
+                    calendarLayout.shrink();
+                } else {
+                    calendarLayout.expand();
+                }
+                break;
+        }
     }
 
 
