@@ -105,6 +105,7 @@ public class ZaoXiaoMiFragment extends MVPBaseFragment<ZaoXiaoMiContract.View, Z
 
         calendarView.setFixMode();
         calendarView.setCalendarItemHeight(SizeUtils.dp2px(40));
+        calendarView.setSelectStartCalendar(new Date().getYear() + 1900, new Date().getMonth() + 1, new Date().getDay());
 
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
