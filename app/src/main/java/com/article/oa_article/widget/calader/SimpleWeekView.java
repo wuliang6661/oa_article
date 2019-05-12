@@ -50,7 +50,7 @@ public class SimpleWeekView extends WeekView {
         int cy = mItemHeight / 2;
         //        canvas.drawCircle(cx, cy, mRadius, mSchemePaint);
 
-        canvas.drawCircle(cx + 28, cy, 5, paint);
+        canvas.drawCircle(cx + 30, cy, 5, paint);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class SimpleWeekView extends WeekView {
         int cy = mItemHeight / 2;
 
         if (hasScheme) {
-            canvas.drawCircle(cx + 28, cy, 5, paint);
+            canvas.drawCircle(cx + 30, cy, 5, paint);
         }
         if (isSelected) {
             canvas.drawText(String.valueOf(calendar.getDay()),
