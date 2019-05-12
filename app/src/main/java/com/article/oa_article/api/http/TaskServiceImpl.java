@@ -41,6 +41,15 @@ public class TaskServiceImpl {
     }
 
     /**
+     * 任务下分派任务
+     */
+    public static Observable<String> addTaskByTask(AddTaskRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().addTaskByTask(request).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
      * 任务处理
      */
     public static Observable<String> setTaskMode(TaskModeRequest request) {

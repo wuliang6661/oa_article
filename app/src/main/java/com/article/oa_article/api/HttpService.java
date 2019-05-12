@@ -22,6 +22,8 @@ import com.article.oa_article.bean.request.AsseptRequest;
 import com.article.oa_article.bean.request.ClientInfoRequest;
 import com.article.oa_article.bean.request.ComplayRequest;
 import com.article.oa_article.bean.request.CreateOrderBO;
+import com.article.oa_article.bean.request.DateScheduleRequest;
+import com.article.oa_article.bean.request.DateTaskRequest;
 import com.article.oa_article.bean.request.ForwordPassword;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.IdTypeRequest;
@@ -268,6 +270,18 @@ public interface HttpService {
      */
     @POST("industry_webservice/app/orderTask/getTaskCountByType")
     Observable<BaseResult<TaskNumBO>> getTaskCount(@Body IdRequest request);
+
+    /**
+     * （造小蜜）查询含有日程的日期
+     */
+    @POST("industry_webservice/app/userHoney/getOrderTaskToScheduleList")
+    Observable<BaseResult<String>> getDateBySchedule(@Body DateScheduleRequest request);
+
+    /**
+     * （造小蜜）查询日期下的任务列表
+     */
+    @POST("industry_webservice/app/userHoney/getOrderTaskListByDay")
+    Observable<BaseResult<String>> getTaskByDate(@Body DateTaskRequest request);
 
 
 }

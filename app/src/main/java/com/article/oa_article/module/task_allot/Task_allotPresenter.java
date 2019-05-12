@@ -79,4 +79,26 @@ public class Task_allotPresenter extends BasePresenterImpl<Task_allotContract.Vi
     }
 
 
+    /**
+     * 任务下分派任务
+     */
+    public void addTaskByTask(AddTaskRequest request) {
+        TaskServiceImpl.addTaskByTask(request).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if (mView != null) {
+                    mView.taskSourss();
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
+
+
 }

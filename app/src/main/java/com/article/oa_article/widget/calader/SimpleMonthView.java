@@ -3,6 +3,7 @@ package com.article.oa_article.widget.calader;
 import android.content.Context;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
 
@@ -18,12 +19,18 @@ public class SimpleMonthView extends MonthView {
 
     private int mRadius;
 
+    Paint paint = new Paint();
+
+
     public SimpleMonthView(Context context) {
         super(context);
         //兼容硬件加速无效的代码
-        setLayerType(View.LAYER_TYPE_SOFTWARE,mSelectedPaint);
+        setLayerType(View.LAYER_TYPE_SOFTWARE, mSelectedPaint);
         //4.0以上硬件加速会导致无效
         mSelectedPaint.setMaskFilter(new BlurMaskFilter(25, BlurMaskFilter.Blur.SOLID));
+
+        paint.setColor(Color.parseColor("#F4CA40"));
+        paint.setStrokeWidth(5);
     }
 
     @Override
@@ -49,19 +56,23 @@ public class SimpleMonthView extends MonthView {
     protected void onDrawScheme(Canvas canvas, Calendar calendar, int x, int y) {
         int cx = x + mItemWidth / 2;
         int cy = y + mItemHeight / 2;
-        canvas.drawCircle(cx, cy, mRadius, mSchemePaint);
+//        canvas.drawCircle(cx, cy, mRadius, mSchemePaint);
+
+        canvas.drawCircle(cx + 30, cy, 5, paint);
     }
 
     @Override
     protected void onDrawText(Canvas canvas, Calendar calendar, int x, int y, boolean hasScheme, boolean isSelected) {
         float baselineY = mTextBaseLine + y;
         int cx = x + mItemWidth / 2;
+        int cy = y + mItemHeight / 2;
+
+        if (hasScheme) {
+            canvas.drawCircle(cx + 30, cy, 5, paint);
+        }
 
         if (isSelected) {
-            canvas.drawText(String.valueOf(calendar.getDay()),
-                    cx,
-                    baselineY,
-                    mSelectTextPaint);
+            canvas.drawText(String.valueOf(calendar.getDay()), cx, baselineY, mSelectTextPaint);
         } else if (hasScheme) {
             canvas.drawText(String.valueOf(calendar.getDay()),
                     cx,

@@ -90,7 +90,6 @@
             android:name="com.article.oa_article.view.order_details.Order_detailsActivity"
             android:screenOrientation="portrait" />
 
-
         <!--接受任务-->
         <activity
             android:name="com.article.oa_article.view.AcceptedTaskActivity"
@@ -139,6 +138,11 @@
         <!--修改手机号码-->
         <activity
             android:name="com.article.oa_article.view.setting.PhoneSettingAct"
+            android:screenOrientation="portrait" />
+
+        <!--名片-->
+        <activity
+            android:name=".view.person_details.Person_detailsActivity"
             android:screenOrientation="portrait" />
 
         <!--扫一扫-->

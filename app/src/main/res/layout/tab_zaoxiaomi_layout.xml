@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bar_color"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/today_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/today_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal|bottom"
+            android:text="今日到期"
+            android:textColor="@color/hint_color"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/today_point"
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:layout_alignTop="@+id/today_text"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@+id/today_text"
+            android:background="@drawable/range_yello"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</LinearLayout>

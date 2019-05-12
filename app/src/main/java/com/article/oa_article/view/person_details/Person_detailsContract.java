@@ -1,9 +1,6 @@
-package com.article.oa_article.view.main.zaoxiaomi;
-
-import android.content.Context;
+package com.article.oa_article.view.person_details;
 
 import com.article.oa_article.mvp.BasePresenter;
-import com.article.oa_article.mvp.BaseRequestView;
 import com.article.oa_article.mvp.BaseView;
 
 /**
@@ -11,8 +8,8 @@ import com.article.oa_article.mvp.BaseView;
  *  邮箱 784787081@qq.com
  */
 
-public class ZaoXiaoMiContract {
-    interface View extends BaseRequestView {
+public class Person_detailsContract {
+    interface View extends BaseView {
         
     }
 

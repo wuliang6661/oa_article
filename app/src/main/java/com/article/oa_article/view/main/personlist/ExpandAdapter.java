@@ -114,10 +114,8 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
         }
         BumenBO bumenBO = list.get(i);
         PersonBO personBO = list.get(i).getUser().get(i1);
-        if (!StringUtils.isEmpty(personBO.getImage())) {
-            GlideApp.with(context).load(personBO.getImage()).error(R.drawable.person_img_defailt)
-                    .placeholder(R.drawable.person_img_defailt).into(holder.personImg);
-        }
+        GlideApp.with(context).load(personBO.getImage()).error(R.drawable.person_img_defailt)
+                .placeholder(R.drawable.person_img_defailt).into(holder.personImg);
         holder.personName.setText(personBO.getName());
         if (getChildrenCount(i) == i1 + 1) {
             holder.child_line.setVisibility(View.GONE);

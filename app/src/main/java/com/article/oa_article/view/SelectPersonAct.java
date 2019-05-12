@@ -24,6 +24,7 @@ public class SelectPersonAct extends BaseActivity {
         setTitleText("选择执行人");
 
         PersonListFragment fragment = new PersonListFragment();
+        fragment.setIsSelectPerson(true);
         FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.person_list);
     }
 }

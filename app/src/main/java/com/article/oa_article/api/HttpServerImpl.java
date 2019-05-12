@@ -1,8 +1,5 @@
 package com.article.oa_article.api;
 
-import com.article.oa_article.bean.OrderNumBO;
-import com.article.oa_article.bean.TaskNumBO;
-import com.blankj.utilcode.util.Utils;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.AcceptedOrderBo;
 import com.article.oa_article.bean.ClientOrderBo;
@@ -12,9 +9,11 @@ import com.article.oa_article.bean.MuBanTaskBO;
 import com.article.oa_article.bean.MyOrderBO;
 import com.article.oa_article.bean.OrderAndTaskInfoBO;
 import com.article.oa_article.bean.OrderInfoBo;
+import com.article.oa_article.bean.OrderNumBO;
 import com.article.oa_article.bean.PenPaiTaskBO;
 import com.article.oa_article.bean.SalesBo;
 import com.article.oa_article.bean.TaskBO;
+import com.article.oa_article.bean.TaskNumBO;
 import com.article.oa_article.bean.TempleteBO;
 import com.article.oa_article.bean.TempleteInfoBo;
 import com.article.oa_article.bean.UserBo;
@@ -23,6 +22,8 @@ import com.article.oa_article.bean.request.AsseptRequest;
 import com.article.oa_article.bean.request.ClientInfoRequest;
 import com.article.oa_article.bean.request.ComplayRequest;
 import com.article.oa_article.bean.request.CreateOrderBO;
+import com.article.oa_article.bean.request.DateScheduleRequest;
+import com.article.oa_article.bean.request.DateTaskRequest;
 import com.article.oa_article.bean.request.ForwordPassword;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.IdTypeRequest;
@@ -37,6 +38,7 @@ import com.article.oa_article.bean.request.UpdateOrderRequest;
 import com.article.oa_article.bean.request.WechatRegisterRequest;
 import com.article.oa_article.util.MD5;
 import com.article.oa_article.util.rx.RxResultHelper;
+import com.blankj.utilcode.util.Utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -369,6 +371,28 @@ public class HttpServerImpl {
         request.setToken(MyApplication.token);
         request.setId(id);
         return getService().getTaskCount(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取含有日程的日期
+     */
+    public static Observable<String> getDateSchedule(String date) {
+        DateScheduleRequest request = new DateScheduleRequest();
+        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setToken(MyApplication.token);
+        request.setDate(date);
+        return getService().getDateBySchedule(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取日期下的任务列表
+     */
+    public static Observable<String> getTaskByDate(DateTaskRequest request) {
+        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setPageNum(1);
+        request.setPageSize(1000);
+        request.setToken(MyApplication.token);
+        return getService().getTaskByDate(request).compose(RxResultHelper.httpRusult());
     }
 
 

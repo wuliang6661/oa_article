@@ -21,6 +21,12 @@ public interface TaskService {
     @POST("industry_webservice/app/orderTask/addOrderTaskByOrder")
     Observable<BaseResult<String>> addTaskByOrder(@Body AddTaskRequest request);
 
+    /**
+     * 任务下分配任务
+     */
+    @POST("industry_webservice/app/orderTask/addOrderTaskByTask")
+    Observable<BaseResult<String>> addTaskByTask(@Body AddTaskRequest request);
+
 
     /**
      * 任务是自己完成还是向下分配

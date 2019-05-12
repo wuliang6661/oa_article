@@ -20,6 +20,7 @@ import com.article.oa_article.bean.BumenBO;
 import com.article.oa_article.bean.PersonBO;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
+import com.article.oa_article.view.person_details.Person_detailsActivity;
 import com.blankj.utilcode.util.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -61,6 +62,8 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
     IdRequest request;
     int selectMenu = 1;   //默认内部联系人
 
+    boolean isSelectPerson = false;   //是选择联系人进入
+
 
     private List<BumenBO> bumenBOS;
 
@@ -90,9 +93,13 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
 
     private void initView() {
         expandList.setOnChildClickListener((expandableListView, view, i, i1, l) -> {
-            PersonBO personBO = bumenBOS.get(i).getUser().get(i1);
-            EventBus.getDefault().post(personBO);
-            Objects.requireNonNull(getActivity()).finish();
+            if (isSelectPerson) {
+                PersonBO personBO = bumenBOS.get(i).getUser().get(i1);
+                EventBus.getDefault().post(personBO);
+                Objects.requireNonNull(getActivity()).finish();
+            } else {
+                gotoActivity(Person_detailsActivity.class, false);
+            }
             return true;
         });
     }
@@ -166,5 +173,10 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
         for (int i = 0; i < bumenBOS.size(); i++) {
             expandList.expandGroup(i);
         }
+    }
+
+
+    public void setIsSelectPerson(boolean isSelectPerson) {
+        this.isSelectPerson = isSelectPerson;
     }
 }

@@ -31,7 +31,6 @@ import com.article.oa_article.bean.PenPaiTaskBO;
 import com.article.oa_article.bean.event.UpdateTaskEvent;
 import com.article.oa_article.bean.request.AddTaskRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
-import com.article.oa_article.util.AppManager;
 import com.article.oa_article.util.Constant;
 import com.article.oa_article.view.MyOrderActivity;
 import com.article.oa_article.view.mobanmanager.DataBean;
@@ -193,12 +192,17 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                             showToast("请补全任务数据！");
                             return;
                         }
+                        bean.setPlanCompleteDate(bean.getPlanCompleteDate().replaceAll("/", "-"));
                     }
                     AddTaskRequest request = new AddTaskRequest();
                     request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
                     request.setObjectId(orderId);
                     request.setOrderTasks(tasks);
-                    mPresenter.addTaskByOrder(request);
+                    if (isOrder) {
+                        mPresenter.addTaskByOrder(request);
+                    } else {
+                        mPresenter.addTaskByTask(request);
+                    }
                 }
                 break;
         }
@@ -376,7 +380,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                         break;
                     case 1:  //已接受
                         taskType.setTextColor(Color.parseColor("#8D8C91"));
-                        taskType.setText("已接受");
+                        taskType.setText("进行中");
                         break;
                     case 2:   //已完成
                         taskType.setTextColor(Color.parseColor("#8D8C91"));
