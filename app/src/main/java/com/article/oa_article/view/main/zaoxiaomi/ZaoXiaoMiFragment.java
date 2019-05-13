@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,17 +17,25 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
+import com.article.oa_article.bean.DateShemeBO;
+import com.article.oa_article.bean.DateTaskBo;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.util.DateUtils;
+import com.article.oa_article.view.order_details.Order_detailsActivity;
+import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
+import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 import com.blankj.utilcode.util.SizeUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,8 +62,6 @@ public class ZaoXiaoMiFragment extends MVPBaseFragment<ZaoXiaoMiContract.View, Z
     TextView titleText;
     @BindView(R.id.calendarView)
     CalendarView calendarView;
-    @BindView(R.id.nestedScrollView)
-    NestedScrollView nestedScrollView;
     @BindView(R.id.calendarLayout)
     CalendarLayout calendarLayout;
     Unbinder unbinder;
@@ -70,6 +76,13 @@ public class ZaoXiaoMiFragment extends MVPBaseFragment<ZaoXiaoMiContract.View, Z
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
 
+    private String selectDate;  //当前选中日期,默认为当前日期
+    private String currenMonth; //当前滑动到的月份
+
+    private List<DateTaskBo> yuqiTasks;   //已逾期的任务列表
+    private List<DateTaskBo> todayTasks;   //今日到期的任务列表
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -83,20 +96,23 @@ public class ZaoXiaoMiFragment extends MVPBaseFragment<ZaoXiaoMiContract.View, Z
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Date date = new Date();
-        dateText.setText((date.getMonth() + 1) + "月" + date.getDay() + "日  " + DateUtils.DateToWeek(date));
         initView();
-
         initTab();
         titleText.setText(calendarView.getCurYear() + "年" + calendarView.getCurMonth() + "月");
+        dateText.setText(calendarView.getCurMonth() + "月" + calendarView.getCurDay() + "日  " + DateUtils.DateToWeek(new Date()));
+        currenMonth = calendarView.getCurYear() + "-" + (calendarView.getCurMonth() < 10 ?
+                "0" + calendarView.getCurMonth() : calendarView.getCurMonth());
+        selectDate = TimeUtils.date2String(new Date(), new SimpleDateFormat("yyyy-MM-dd"));
     }
 
 
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        mPresenter.getDateSchedule(calendarView.getCurYear() + "-" + (calendarView.getCurMonth() < 10 ?
-                "0" + calendarView.getCurMonth() : calendarView.getCurMonth()));
+
+        mPresenter.getDateSchedule(currenMonth);
+        mPresenter.getTaskByDate(selectDate, 0);
+        mPresenter.getTaskByDate(selectDate, 1);
     }
 
 
@@ -110,19 +126,17 @@ public class ZaoXiaoMiFragment extends MVPBaseFragment<ZaoXiaoMiContract.View, Z
         //设置日期拦截事件，仅适用单选模式，当前无效
         calendarView.setOnCalendarInterceptListener(this);
         calendarView.setOnViewChangeListener(this);
-
         calendarView.setFixMode();
         calendarView.setCalendarItemHeight(SizeUtils.dp2px(40));
 
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recycleView.setLayoutManager(manager);
-        recycleView.setNestedScrollingEnabled(false);
+//        recycleView.setNestedScrollingEnabled(false);
 
-        Map<String, Calendar> maps = new HashMap<>();
-        maps.put(getSchemeCalendar(2019, 5, 10, 0, ".").toString(),
-                getSchemeCalendar(2019, 5, 10, 0, "."));
-        calendarView.setSchemeDate(maps);
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+        itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.divider_inset));
+        recycleView.addItemDecoration(itemDecoration);
 
         calendarView.scrollToCurrent();
     }
@@ -138,7 +152,7 @@ public class ZaoXiaoMiFragment extends MVPBaseFragment<ZaoXiaoMiContract.View, Z
             TextView textView = inflate.findViewById(R.id.today_text);
             if (i == 0) {
                 textView.setText("已逾期");
-                textView.setTextColor(ContextCompat.getColor(getActivity(), R.color.blue_color));
+                textView.setTextColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.blue_color));
             } else {
                 textView.setText("今日到期");
             }
@@ -151,6 +165,7 @@ public class ZaoXiaoMiFragment extends MVPBaseFragment<ZaoXiaoMiContract.View, Z
                 View view = tab.getCustomView();
                 TextView today = view.findViewById(R.id.today_text);
                 today.setTextColor(ContextCompat.getColor(getActivity(), R.color.blue_color));
+                setAdapter(tab.getPosition());
             }
 
             @Override
@@ -169,13 +184,13 @@ public class ZaoXiaoMiFragment extends MVPBaseFragment<ZaoXiaoMiContract.View, Z
     }
 
 
-    private Calendar getSchemeCalendar(int year, int month, int day, int color, String text) {
+    private Calendar getSchemeCalendar(int year, int month, int day) {
         Calendar calendar = new Calendar();
         calendar.setYear(year);
         calendar.setMonth(month);
         calendar.setDay(day);
-        calendar.setSchemeColor(color);//如果单独标记颜色、则会使用这个颜色
-        calendar.setScheme(text);
+        calendar.setSchemeColor(0);//如果单独标记颜色、则会使用这个颜色
+        calendar.setScheme(".");
         return calendar;
     }
 
@@ -224,13 +239,18 @@ public class ZaoXiaoMiFragment extends MVPBaseFragment<ZaoXiaoMiContract.View, Z
 
     @Override
     public void onCalendarSelect(Calendar calendar, boolean isClick) {
-
+        selectDate = calendar.getYear() + "-" + (calendar.getMonth() < 10 ? "0" + calendar.getMonth() : calendar.getMonth())
+                + "-" + (calendar.getDay() < 10 ? "0" + calendar.getDay() : calendar.getDay());
+        mPresenter.getTaskByDate(selectDate, 0);
+        mPresenter.getTaskByDate(selectDate, 1);
+        tabLayout.post(() -> tabLayout.getTabAt(0).select());
     }
 
     @Override
     public void onMonthChange(int year, int month) {
         titleText.setText(year + "年" + month + "月");
-        mPresenter.getDateSchedule(year + "-" + (month < 10 ? "0" + month : month));
+        currenMonth = year + "-" + (month < 10 ? "0" + month : month);
+        mPresenter.getDateSchedule(currenMonth);
     }
 
     @Override
@@ -268,5 +288,78 @@ public class ZaoXiaoMiFragment extends MVPBaseFragment<ZaoXiaoMiContract.View, Z
     @Override
     public void onRequestError(String msg) {
         showToast(msg);
+    }
+
+    @Override
+    public void getShameDate(List<DateShemeBO> shemeBOS) {
+        Map<String, Calendar> maps = new HashMap<>();
+        for (int i = 0; i < shemeBOS.size(); i++) {
+            String[] dates = shemeBOS.get(i).getDay().split("-");
+            maps.put(getSchemeCalendar(Integer.parseInt(dates[0]), Integer.parseInt(dates[1]), Integer.parseInt(dates[2])).toString(),
+                    getSchemeCalendar(Integer.parseInt(dates[0]), Integer.parseInt(dates[1]), Integer.parseInt(dates[2])));
+        }
+        calendarView.setSchemeDate(maps);
+    }
+
+    @Override
+    public void getTaskByYuqi(List<DateTaskBo> dateTaskBos) {
+        View view = tabLayout.getTabAt(0).getCustomView();
+        TextView point = view.findViewById(R.id.today_point);
+        if (dateTaskBos.size() > 0) {
+            point.setBackgroundResource(R.drawable.range_red);
+            point.setVisibility(View.VISIBLE);
+        } else {
+            point.setVisibility(View.GONE);
+        }
+        this.yuqiTasks = dateTaskBos;
+        setAdapter(tabLayout.getSelectedTabPosition());
+    }
+
+    @Override
+    public void getTaskByToday(List<DateTaskBo> dateTaskBos) {
+        View view = tabLayout.getTabAt(1).getCustomView();
+        TextView point = view.findViewById(R.id.today_point);
+        if (dateTaskBos.size() > 0) {
+            point.setBackgroundResource(R.drawable.range_yello);
+            point.setVisibility(View.VISIBLE);
+        } else {
+            point.setVisibility(View.GONE);
+        }
+        this.todayTasks = dateTaskBos;
+        setAdapter(tabLayout.getSelectedTabPosition());
+    }
+
+
+    /**
+     * 设置适配器
+     */
+    private void setAdapter(int type) {
+        LGRecycleViewAdapter<DateTaskBo> adapter = new LGRecycleViewAdapter<DateTaskBo>(type == 0 ? yuqiTasks : todayTasks) {
+            @Override
+            public int getLayoutId(int viewType) {
+                return R.layout.item_moban;
+            }
+
+            @Override
+            public void convert(LGViewHolder holder, DateTaskBo dateTaskBo, int position) {
+                holder.setText(R.id.xuhao_text, position + 1 + "");
+                if (type == 0) {
+                    holder.setText(R.id.moban_title, dateTaskBo.getTaskName() + "  已逾期" +
+                            dateTaskBo.getDayBetween() + "天");
+                } else {
+                    holder.setText(R.id.moban_title, dateTaskBo.getTaskName() + "  今日到期");
+                }
+                holder.setText(R.id.moban_message, dateTaskBo.getCompanyOrderNum() + "   "
+                        + dateTaskBo.getCompanyOrderName());
+                holder.setText(R.id.select_button, "查看");
+                holder.getView(R.id.item_layout).setOnClickListener(view -> {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", dateTaskBo.getId());
+                    bundle.putBoolean("isOrder", false);
+                    gotoActivity(Order_detailsActivity.class, bundle, false);
+                });
+            }
+        };
+        recycleView.setAdapter(adapter);
     }
 }

@@ -4,6 +4,8 @@ import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.AcceptedOrderBo;
 import com.article.oa_article.bean.ClientOrderBo;
 import com.article.oa_article.bean.ComplanOrderBo;
+import com.article.oa_article.bean.DateShemeBO;
+import com.article.oa_article.bean.DateTaskBo;
 import com.article.oa_article.bean.HistoryBO;
 import com.article.oa_article.bean.MuBanTaskBO;
 import com.article.oa_article.bean.MyOrderBO;
@@ -376,7 +378,7 @@ public class HttpServerImpl {
     /**
      * 获取含有日程的日期
      */
-    public static Observable<String> getDateSchedule(String date) {
+    public static Observable<List<DateShemeBO>> getDateSchedule(String date) {
         DateScheduleRequest request = new DateScheduleRequest();
         request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
         request.setToken(MyApplication.token);
@@ -387,7 +389,7 @@ public class HttpServerImpl {
     /**
      * 获取日期下的任务列表
      */
-    public static Observable<String> getTaskByDate(DateTaskRequest request) {
+    public static Observable<List<DateTaskBo>> getTaskByDate(DateTaskRequest request) {
         request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
         request.setPageNum(1);
         request.setPageSize(1000);

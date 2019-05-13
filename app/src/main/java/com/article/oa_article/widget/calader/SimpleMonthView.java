@@ -30,7 +30,7 @@ public class SimpleMonthView extends MonthView {
         mSelectedPaint.setMaskFilter(new BlurMaskFilter(25, BlurMaskFilter.Blur.SOLID));
 
         paint.setColor(Color.parseColor("#F4CA40"));
-        paint.setStrokeWidth(5);
+        paint.setStrokeWidth(6);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class SimpleMonthView extends MonthView {
         int cy = y + mItemHeight / 2;
 //        canvas.drawCircle(cx, cy, mRadius, mSchemePaint);
 
-        canvas.drawCircle(cx + 30, cy, 5, paint);
+        canvas.drawCircle(cx + 32, cy, 6, paint);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class SimpleMonthView extends MonthView {
         int cy = y + mItemHeight / 2;
 
         if (hasScheme) {
-            canvas.drawCircle(cx + 30, cy, 5, paint);
+            canvas.drawCircle(cx + 32, cy, 6, paint);
         }
 
         if (isSelected) {

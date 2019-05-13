@@ -4,6 +4,8 @@ import com.article.oa_article.bean.AcceptedOrderBo;
 import com.article.oa_article.bean.BaseResult;
 import com.article.oa_article.bean.ClientOrderBo;
 import com.article.oa_article.bean.ComplanOrderBo;
+import com.article.oa_article.bean.DateShemeBO;
+import com.article.oa_article.bean.DateTaskBo;
 import com.article.oa_article.bean.HistoryBO;
 import com.article.oa_article.bean.MuBanTaskBO;
 import com.article.oa_article.bean.MyOrderBO;
@@ -275,13 +277,13 @@ public interface HttpService {
      * （造小蜜）查询含有日程的日期
      */
     @POST("industry_webservice/app/userHoney/getOrderTaskToScheduleList")
-    Observable<BaseResult<String>> getDateBySchedule(@Body DateScheduleRequest request);
+    Observable<BaseResult<List<DateShemeBO>>> getDateBySchedule(@Body DateScheduleRequest request);
 
     /**
      * （造小蜜）查询日期下的任务列表
      */
     @POST("industry_webservice/app/userHoney/getOrderTaskListByDay")
-    Observable<BaseResult<String>> getTaskByDate(@Body DateTaskRequest request);
+    Observable<BaseResult<List<DateTaskBo>>> getTaskByDate(@Body DateTaskRequest request);
 
 
 }

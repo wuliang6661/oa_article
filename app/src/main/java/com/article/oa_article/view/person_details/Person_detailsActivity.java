@@ -16,6 +16,10 @@ import com.article.oa_article.mvp.MVPBaseActivity;
 public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContract.View, Person_detailsPresenter>
         implements Person_detailsContract.View {
 
+
+
+
+
     @Override
     protected int getLayout() {
         return R.layout.act_person_details;

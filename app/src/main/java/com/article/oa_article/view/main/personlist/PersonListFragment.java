@@ -98,7 +98,11 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
                 EventBus.getDefault().post(personBO);
                 Objects.requireNonNull(getActivity()).finish();
             } else {
-                gotoActivity(Person_detailsActivity.class, false);
+                Bundle bundle = new Bundle();
+                bundle.putInt("personId", bumenBOS.get(i).getUser().get(i1).getId());
+                bundle.putBoolean("isNeiBu", selectMenu == 1);
+                bundle.putString("departName", bumenBOS.get(i).getUser().get(i1).getDepart());
+                gotoActivity(Person_detailsActivity.class, bundle, false);
             }
             return true;
         });
