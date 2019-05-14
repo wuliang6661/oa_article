@@ -5,10 +5,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,6 +24,7 @@ import com.article.oa_article.bean.BumenBO;
 import com.article.oa_article.bean.PersonBO;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
+import com.article.oa_article.view.moveaddperson.MoveAddPersonActivity;
 import com.article.oa_article.view.person_details.Person_detailsActivity;
 import com.blankj.utilcode.util.ScreenUtils;
 
@@ -63,6 +68,8 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
     int selectMenu = 1;   //默认内部联系人
 
     boolean isSelectPerson = false;   //是选择联系人进入
+    @BindView(R.id.edit_name)
+    EditText editName;
 
 
     private List<BumenBO> bumenBOS;
@@ -106,6 +113,28 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
             }
             return true;
         });
+        editName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (selectMenu == 1) {
+                    request.setName(editable.toString());
+                    mPresenter.getNeiUsers(request);
+                } else {
+                    request.setName(editable.toString());
+                    mPresenter.getOutUsers(request);
+                }
+            }
+        });
     }
 
 
@@ -137,7 +166,40 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
                 }
                 break;
         }
+        if (isSelectPerson) {
+            addImg.setVisibility(View.GONE);
+        } else {
+            if (selectMenu == 1) {
+                if (MyApplication.getCommon().getIsAdmin() == 1) {
+                    addImg.setVisibility(View.VISIBLE);
+                } else {
+                    addImg.setVisibility(View.GONE);
+                }
+            } else {
+                addImg.setVisibility(View.VISIBLE);
+            }
+        }
     }
+
+    @OnClick(R.id.add_img)
+    public void addImage() {
+        PopPersonAdd addPop = new PopPersonAdd(getActivity());
+        addPop.setListener(new PopPersonAdd.onCommitListener() {
+            @Override
+            public void shoudongAdd() {
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("isNeiBu", selectMenu == 1);
+                gotoActivity(MoveAddPersonActivity.class, bundle, false);
+            }
+
+            @Override
+            public void piliangAdd() {
+
+            }
+        });
+        addPop.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+    }
+
 
     public void setTitleVisiable() {
         new Handler().post(() -> {
@@ -182,5 +244,20 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
 
     public void setIsSelectPerson(boolean isSelectPerson) {
         this.isSelectPerson = isSelectPerson;
+        new Handler().post(() -> {
+            if (isSelectPerson) {
+                addImg.setVisibility(View.GONE);
+            } else {
+                if (selectMenu == 1) {
+                    if (MyApplication.getCommon().getIsAdmin() == 1) {
+                        addImg.setVisibility(View.VISIBLE);
+                    } else {
+                        addImg.setVisibility(View.GONE);
+                    }
+                } else {
+                    addImg.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 }

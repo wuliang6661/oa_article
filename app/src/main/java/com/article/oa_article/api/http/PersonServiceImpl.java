@@ -3,7 +3,9 @@ package com.article.oa_article.api.http;
 import com.article.oa_article.api.ApiManager;
 import com.article.oa_article.api.HttpService;
 import com.article.oa_article.base.MyApplication;
+import com.article.oa_article.bean.BuMenFlowBO;
 import com.article.oa_article.bean.BumenBO;
+import com.article.oa_article.bean.request.BuMenRequest;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.PersonImgRequest;
 import com.article.oa_article.bean.request.PersonNameRequest;
@@ -72,6 +74,15 @@ public class PersonServiceImpl {
     public static Observable<String> updatePassword(PersonPasswordRequest request) {
         request.setToken(MyApplication.token);
         return getService().updatePassword(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取部门列表
+     */
+    public static Observable<List<BuMenFlowBO>> getBumenList(BuMenRequest request) {
+        request.setToken(MyApplication.token);
+        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+        return getService().getDeparts(request).compose(RxResultHelper.httpRusult());
     }
 
 }

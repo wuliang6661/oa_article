@@ -57,6 +57,7 @@ public class UserBo {
 
         private int id;
         private String companyName;
+        private int isAdmin;
 
         public int getId() {
             return id;
@@ -72,6 +73,14 @@ public class UserBo {
 
         public void setCompanyName(String companyName) {
             this.companyName = companyName;
+        }
+
+        public int getIsAdmin() {
+            return isAdmin;
+        }
+
+        public void setIsAdmin(int isAdmin) {
+            this.isAdmin = isAdmin;
         }
     }
 }

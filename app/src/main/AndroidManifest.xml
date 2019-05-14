@@ -145,6 +145,17 @@
             android:name=".view.person_details.Person_detailsActivity"
             android:screenOrientation="portrait" />
 
+        <!--手动添加联系人-->
+        <activity
+            android:name=".view.moveaddperson.MoveAddPersonActivity"
+            android:screenOrientation="portrait" />
+
+        <!--部门选择-->
+        <activity
+            android:name=".view.bumen.BumenActivity"
+            android:screenOrientation="portrait" />
+
+
         <!--扫一扫-->
         <activity android:name="com.article.oa_article.zxing.activity.CaptureActivity" />
 

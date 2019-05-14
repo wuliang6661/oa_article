@@ -64,12 +64,16 @@
                 android:src="@drawable/select_img" />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <EditText
+                android:id="@+id/edit_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="9dp"
-                android:text="搜索"
-                android:textColor="#8D8C91"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="搜索"
+                android:textColor="@color/f_white"
+                android:textColorHint="#8D8C91"
                 android:textSize="13sp" />
 
 

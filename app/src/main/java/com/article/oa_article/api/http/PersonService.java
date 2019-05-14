@@ -1,7 +1,9 @@
 package com.article.oa_article.api.http;
 
 import com.article.oa_article.bean.BaseResult;
+import com.article.oa_article.bean.BuMenFlowBO;
 import com.article.oa_article.bean.BumenBO;
+import com.article.oa_article.bean.request.BuMenRequest;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.PersonImgRequest;
 import com.article.oa_article.bean.request.PersonNameRequest;
@@ -45,6 +47,12 @@ public interface PersonService {
      */
     @POST("industry_webservice/app/userInfo/updatePassword")
     Observable<BaseResult<String>> updatePassword(@Body PersonPasswordRequest request);
+
+    /**
+     * 查询部门列表
+     */
+    @POST("industry_webservice/app/depart/getDepartsByName")
+    Observable<BaseResult<List<BuMenFlowBO>>> getDeparts(@Body BuMenRequest request);
 
 
 }

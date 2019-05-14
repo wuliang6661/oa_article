@@ -10,6 +10,15 @@ public class IdRequest {
 
     private int id;
     private String token;
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getId() {
         return id;
