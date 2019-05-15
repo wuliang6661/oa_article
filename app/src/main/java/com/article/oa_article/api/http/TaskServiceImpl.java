@@ -3,14 +3,20 @@ package com.article.oa_article.api.http;
 import com.article.oa_article.api.ApiManager;
 import com.article.oa_article.api.HttpService;
 import com.article.oa_article.base.MyApplication;
+import com.article.oa_article.bean.TaskCenterBo;
 import com.article.oa_article.bean.TaskDetails;
 import com.article.oa_article.bean.request.AddTaskRequest;
 import com.article.oa_article.bean.request.CommitTaskRequest;
 import com.article.oa_article.bean.request.IdRequest;
+import com.article.oa_article.bean.request.PageRequest;
 import com.article.oa_article.bean.request.ShunYanRequest;
 import com.article.oa_article.bean.request.TaskModeRequest;
 import com.article.oa_article.bean.request.TaskNumRequest;
+import com.article.oa_article.bean.request.TokenRequest;
 import com.article.oa_article.util.rx.RxResultHelper;
+import com.article.oa_article.view.myscope.MyScopeActivity;
+
+import java.util.List;
 
 import rx.Observable;
 
@@ -99,5 +105,14 @@ public class TaskServiceImpl {
         request.setToken(MyApplication.token);
         return getService().cancleTask(request).compose(RxResultHelper.httpRusult());
     }
+
+    /**
+     * 获取任务数据列表
+     */
+    public static Observable<List<TaskCenterBo>> getTaskList(PageRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().getTaskCenterList(request).compose(RxResultHelper.httpRusult());
+    }
+
 
 }

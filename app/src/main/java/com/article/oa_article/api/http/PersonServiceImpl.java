@@ -6,6 +6,7 @@ import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.BuMenFlowBO;
 import com.article.oa_article.bean.BumenBO;
 import com.article.oa_article.bean.ChartBO;
+import com.article.oa_article.bean.ScopeBO;
 import com.article.oa_article.bean.UserInInfoBo;
 import com.article.oa_article.bean.UserOutInfo;
 import com.article.oa_article.bean.request.BuMenRequest;
@@ -14,6 +15,7 @@ import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.PersonImgRequest;
 import com.article.oa_article.bean.request.PersonNameRequest;
 import com.article.oa_article.bean.request.PersonPasswordRequest;
+import com.article.oa_article.bean.request.TokenRequest;
 import com.article.oa_article.bean.request.UserInInfoRequest;
 import com.article.oa_article.bean.request.UserOutRequest;
 import com.article.oa_article.util.rx.RxResultHelper;
@@ -118,5 +120,14 @@ public class PersonServiceImpl {
         return getService().getUserOutInfo(request).compose(RxResultHelper.httpRusult());
     }
 
+
+    /**
+     * 获取已收到的评价列表
+     */
+    public static Observable<List<ScopeBO>> getScopeList() {
+        TokenRequest request = new TokenRequest();
+        request.token = MyApplication.token;
+        return getService().getMyScope(request).compose(RxResultHelper.httpRusult());
+    }
 
 }

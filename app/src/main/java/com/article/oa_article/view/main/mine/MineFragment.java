@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +17,13 @@ import android.widget.TextView;
 
 import com.article.oa_article.R;
 import com.article.oa_article.bean.UserBo;
+import com.article.oa_article.module.scopecenter.ScopeCenterFragment;
+import com.article.oa_article.module.taskcenter.TaskCenterFragment;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.setting.SettingActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +57,8 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
     ViewPager viewPager;
     Unbinder unbinder;
 
+    private String[] tabs = new String[]{"产能分析", "评价中心", "任务数据", "企业认证", "管理团队"};
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -71,11 +79,22 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
      * 初始化布局
      */
     private void initView() {
-        tabLayout.addTab(tabLayout.newTab().setText("产能分析"));
-        tabLayout.addTab(tabLayout.newTab().setText("评价中心"));
-        tabLayout.addTab(tabLayout.newTab().setText("任务数据"));
-        tabLayout.addTab(tabLayout.newTab().setText("企业认证"));
-        tabLayout.addTab(tabLayout.newTab().setText("管理团队"));
+        tabLayout.addTab(tabLayout.newTab().setText(tabs[0]));
+        tabLayout.addTab(tabLayout.newTab().setText(tabs[1]));
+        tabLayout.addTab(tabLayout.newTab().setText(tabs[2]));
+        tabLayout.addTab(tabLayout.newTab().setText(tabs[3]));
+        tabLayout.addTab(tabLayout.newTab().setText(tabs[4]));
+
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new Fragment());
+        fragments.add(new ScopeCenterFragment());
+        fragments.add(new TaskCenterFragment());
+        fragments.add(new Fragment());
+        fragments.add(new Fragment());
+        viewPager.setAdapter(new PagerAdapter(getFragmentManager(), fragments, tabs));
+        tabLayout.setupWithViewPager(viewPager);
+
+        viewPager.setOffscreenPageLimit(5);
     }
 
 

@@ -160,6 +160,11 @@
             android:name=".view.lablecustom.LableCustomActivity"
             android:screenOrientation="portrait" />
 
+        <!--收到的评价-->
+        <activity
+            android:name=".view.myscope.MyScopeActivity"
+            android:screenOrientation="portrait" />
+
 
         <!--扫一扫-->
         <activity android:name="com.article.oa_article.zxing.activity.CaptureActivity" />

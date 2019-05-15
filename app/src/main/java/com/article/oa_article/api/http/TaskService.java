@@ -1,13 +1,17 @@
 package com.article.oa_article.api.http;
 
 import com.article.oa_article.bean.BaseResult;
+import com.article.oa_article.bean.TaskCenterBo;
 import com.article.oa_article.bean.TaskDetails;
 import com.article.oa_article.bean.request.AddTaskRequest;
 import com.article.oa_article.bean.request.CommitTaskRequest;
 import com.article.oa_article.bean.request.IdRequest;
+import com.article.oa_article.bean.request.PageRequest;
 import com.article.oa_article.bean.request.ShunYanRequest;
 import com.article.oa_article.bean.request.TaskModeRequest;
 import com.article.oa_article.bean.request.TaskNumRequest;
+
+import java.util.List;
 
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -63,5 +67,11 @@ public interface TaskService {
      */
     @POST("industry_webservice/app/orderTask/deleteTask")
     Observable<BaseResult<String>> cancleTask(@Body IdRequest request);
+
+    /**
+     * 获取任务数据
+     */
+    @POST("industry_webservice/app/orderTask/getTaskInfo")
+    Observable<BaseResult<List<TaskCenterBo>>> getTaskCenterList(@Body PageRequest request);
 
 }
