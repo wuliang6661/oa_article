@@ -1,6 +1,7 @@
 package com.article.oa_article.view.moveaddperson;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -11,8 +12,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
+import com.article.oa_article.bean.BuMenFlowBO;
 import com.article.oa_article.mvp.MVPBaseActivity;
 import com.article.oa_article.view.bumen.BumenActivity;
+import com.article.oa_article.view.lablecustom.LableCustomActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -47,6 +50,8 @@ public class MoveAddPersonActivity extends MVPBaseActivity<MoveAddPersonContract
 
     private boolean isNeiBu = true;   //默认添加内部联系人
 
+    private BuMenFlowBO buMenFlowBO;
+
     @Override
     protected int getLayout() {
         return R.layout.act_moveadd_person;
@@ -80,8 +85,26 @@ public class MoveAddPersonActivity extends MVPBaseActivity<MoveAddPersonContract
 
     @OnClick(R.id.select_bumen)
     public void selectBumen() {
-        gotoActivity(BumenActivity.class, false);
+        Intent intent = new Intent(this, BumenActivity.class);
+        startActivityForResult(intent, 0x11);
     }
 
 
+    @OnClick(R.id.select_waibu_flow)
+    public void waibuClick() {
+        Intent intent = new Intent(this, LableCustomActivity.class);
+        startActivityForResult(intent, 0x22);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case 0x11:
+                buMenFlowBO = (BuMenFlowBO) data.getSerializableExtra("bumen");
+                bumenName.setText(buMenFlowBO.getName());
+                break;
+        }
+    }
 }

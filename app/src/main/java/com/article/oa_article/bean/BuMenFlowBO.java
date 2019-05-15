@@ -1,5 +1,7 @@
 package com.article.oa_article.bean;
 
+import java.io.Serializable;
+
 /**
  * author : wuliang
  * e-mail : wuliang6661@163.com
@@ -7,7 +9,7 @@ package com.article.oa_article.bean;
  * desc   :
  * version: 1.0
  */
-public class BuMenFlowBO {
+public class BuMenFlowBO implements Serializable {
 
 
     /**

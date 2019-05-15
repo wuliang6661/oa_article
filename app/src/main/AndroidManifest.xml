@@ -155,6 +155,11 @@
             android:name=".view.bumen.BumenActivity"
             android:screenOrientation="portrait" />
 
+        <!--标签选择-->
+        <activity
+            android:name=".view.lablecustom.LableCustomActivity"
+            android:screenOrientation="portrait" />
+
 
         <!--扫一扫-->
         <activity android:name="com.article.oa_article.zxing.activity.CaptureActivity" />

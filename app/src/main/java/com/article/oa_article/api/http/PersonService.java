@@ -3,11 +3,17 @@ package com.article.oa_article.api.http;
 import com.article.oa_article.bean.BaseResult;
 import com.article.oa_article.bean.BuMenFlowBO;
 import com.article.oa_article.bean.BumenBO;
+import com.article.oa_article.bean.ChartBO;
+import com.article.oa_article.bean.UserInInfoBo;
+import com.article.oa_article.bean.UserOutInfo;
 import com.article.oa_article.bean.request.BuMenRequest;
+import com.article.oa_article.bean.request.ChartRequest;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.PersonImgRequest;
 import com.article.oa_article.bean.request.PersonNameRequest;
 import com.article.oa_article.bean.request.PersonPasswordRequest;
+import com.article.oa_article.bean.request.UserInInfoRequest;
+import com.article.oa_article.bean.request.UserOutRequest;
 
 import java.util.List;
 
@@ -53,6 +59,24 @@ public interface PersonService {
      */
     @POST("industry_webservice/app/depart/getDepartsByName")
     Observable<BaseResult<List<BuMenFlowBO>>> getDeparts(@Body BuMenRequest request);
+
+    /**
+     * 查询产能折线图
+     */
+    @POST("industry_webservice/app/output/getOutPutByUserId")
+    Observable<BaseResult<List<ChartBO>>> getOutPutByUserId(@Body ChartRequest request);
+
+    /**
+     * 获取内部联系人详情
+     */
+    @POST("industry_webservice/app/userInfo/getUserInInfo")
+    Observable<BaseResult<UserInInfoBo>> getUserInInfo(@Body UserInInfoRequest request);
+
+    /**
+     * 获取外部联系人详情
+     */
+    @POST("industry_webservice/app/userInfo/getUserOutInfo")
+    Observable<BaseResult<UserOutInfo>> getUserOutInfo(@Body UserOutRequest request);
 
 
 }
