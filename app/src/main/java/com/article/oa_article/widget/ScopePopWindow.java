@@ -46,6 +46,7 @@ public class ScopePopWindow extends PopupWindow {
         wuliuRattingBar = window.findViewById(R.id.wuliu_ratting);
         commitLayout = window.findViewById(R.id.commit_layout);
         commit = window.findViewById(R.id.commit);
+        commit.setOnClickListener(clickListener);
 
         if (!isEnable) {   //可以设置值
             fuwuRatingBar.setEnabled(false);
@@ -78,7 +79,6 @@ public class ScopePopWindow extends PopupWindow {
         window.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         int mShowMorePopupWindowWidth = window.getMeasuredWidth();
         showAtLocation(view, Gravity.NO_GRAVITY, location[0] - mShowMorePopupWindowWidth - 10, location[1]);
-//        showAsDropDown(view, mShowMorePopupWindowWidth, mShowMorePopupWindowHeight);
     }
 
 
@@ -94,7 +94,30 @@ public class ScopePopWindow extends PopupWindow {
     }
 
 
+    View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            dismiss();
+            if (listener != null) {
+                listener.commit(fuwuRatingBar.getRating(), zhiliangRatingBar.getRating(), zhunshiRattingBar.getRating(),
+                        jiageRattingBar.getRating(), wuliuRattingBar.getRating());
+            }
+        }
+    };
 
+
+    OnCommitListener listener;
+
+    public void setOnCommitListener(OnCommitListener listener) {
+        this.listener = listener;
+    }
+
+
+    public interface OnCommitListener {
+
+        void commit(float fuwuScope, float zhiliangScope, float zhunshiScope,
+                    float jiageScope, float wuliuScope);
+    }
 
 
 }

@@ -15,6 +15,8 @@ public class AlreadyScopeContract {
     interface View extends BaseRequestView {
 
         void getAlreadyScope(List<AlreadyScopeBO> alreadyScopeBOS);
+
+        void getToScope(List<AlreadyScopeBO> alreadyScopeBOS);
     }
 
     interface Presenter extends BasePresenter<View> {

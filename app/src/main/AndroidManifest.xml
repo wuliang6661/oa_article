@@ -170,7 +170,6 @@
             android:name=".view.alreadyscope.AlreadyScopeActivity"
             android:screenOrientation="portrait" />
 
-
         <!--扫一扫-->
         <activity android:name="com.article.oa_article.zxing.activity.CaptureActivity" />
 

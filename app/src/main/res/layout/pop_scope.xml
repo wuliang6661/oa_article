@@ -32,7 +32,7 @@
             android:layout_marginLeft="18dp"
             android:gravity="center_vertical"
             app:numStars="5"
-            app:rating="5"
+            app:rating="1"
             app:ratingViewClass="com.article.oa_article.widget.SimpleRatingView" />
 
     </LinearLayout>
@@ -60,7 +60,7 @@
             android:layout_marginLeft="18dp"
             android:gravity="center_vertical"
             app:numStars="5"
-            app:rating="5"
+            app:rating="1"
             app:ratingViewClass="com.article.oa_article.widget.SimpleRatingView" />
 
 
@@ -89,7 +89,7 @@
             android:layout_marginLeft="18dp"
             android:gravity="center_vertical"
             app:numStars="5"
-            app:rating="5"
+            app:rating="1"
             app:ratingViewClass="com.article.oa_article.widget.SimpleRatingView" />
 
 
@@ -117,7 +117,7 @@
             android:layout_marginLeft="18dp"
             android:gravity="center_vertical"
             app:numStars="5"
-            app:rating="5"
+            app:rating="1"
             app:ratingViewClass="com.article.oa_article.widget.SimpleRatingView" />
 
     </LinearLayout>
@@ -144,7 +144,7 @@
             android:layout_marginLeft="18dp"
             android:gravity="center_vertical"
             app:numStars="5"
-            app:rating="0"
+            app:rating="1"
             app:ratingViewClass="com.article.oa_article.widget.SimpleRatingView" />
     </LinearLayout>
 
@@ -155,7 +155,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
         android:gravity="right"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/commit"

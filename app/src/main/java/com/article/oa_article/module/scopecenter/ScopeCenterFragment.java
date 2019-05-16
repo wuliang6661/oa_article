@@ -59,10 +59,14 @@ public class ScopeCenterFragment extends MVPBaseFragment<ScopeCenterContract.Vie
                 gotoActivity(MyScopeActivity.class, false);
                 break;
             case R.id.yi_pingjia:
-                gotoActivity(AlreadyScopeActivity.class, false);
+                Bundle bundle = new Bundle();
+                bundle.putInt("type", 1);
+                gotoActivity(AlreadyScopeActivity.class, bundle, false);
                 break;
             case R.id.dai_pingjia:
-
+                Bundle bundle2 = new Bundle();
+                bundle2.putInt("type", 2);
+                gotoActivity(AlreadyScopeActivity.class, bundle2, false);
                 break;
         }
     }
