@@ -3,9 +3,10 @@ package com.article.oa_article.view.alreadyscope;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.article.oa_article.R;
 import com.article.oa_article.bean.AlreadyScopeBO;
@@ -15,6 +16,7 @@ import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 
@@ -46,6 +48,10 @@ public class AlreadyScopeActivity extends MVPBaseActivity<AlreadyScopeContract.V
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recycleView.setLayoutManager(manager);
 
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(Objects.requireNonNull(this), DividerItemDecoration.VERTICAL);
+        itemDecoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(this, R.drawable.divider_inset)));
+        recycleView.addItemDecoration(itemDecoration);
+
         mPresenter.getHaveScope();
     }
 
@@ -74,12 +80,12 @@ public class AlreadyScopeActivity extends MVPBaseActivity<AlreadyScopeContract.V
                 holder.setText(R.id.scope, alreadyScopeBO.getScore() + "");
             }
         };
-        adapter.setOnItemClickListener(R.id.scope, new LGRecycleViewAdapter.ItemClickListener() {
-            @Override
-            public void onItemClicked(View view, int position) {
-                ScopePopWindow popWindow = new ScopePopWindow(AlreadyScopeActivity.this);
-                popWindow.showPop(view, 0, 0);
-            }
+        adapter.setOnItemClickListener(R.id.scope, (view, position) -> {
+            AlreadyScopeBO alreadyScopeBO = alreadyScopeBOS.get(position);
+            ScopePopWindow popWindow = new ScopePopWindow(AlreadyScopeActivity.this,
+                    alreadyScopeBO.getServiceAttitudeScore(), alreadyScopeBO.getProductQualityScore(),
+                    alreadyScopeBO.getPunctualityScore(), alreadyScopeBO.getPriceRationalityScore(), alreadyScopeBO.getLogisticsScore(), false);
+            popWindow.showPop(view);
         });
         recycleView.setAdapter(adapter);
     }

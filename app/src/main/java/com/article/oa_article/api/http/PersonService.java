@@ -14,6 +14,7 @@ import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.PersonImgRequest;
 import com.article.oa_article.bean.request.PersonNameRequest;
 import com.article.oa_article.bean.request.PersonPasswordRequest;
+import com.article.oa_article.bean.request.ScopeRequest;
 import com.article.oa_article.bean.request.TokenRequest;
 import com.article.oa_article.bean.request.UserInInfoRequest;
 import com.article.oa_article.bean.request.UserOutRequest;
@@ -92,5 +93,17 @@ public interface PersonService {
      */
     @POST("industry_webservice/app/evaluate/getHaveEvaluates")
     Observable<BaseResult<List<AlreadyScopeBO>>> getHaveScope(@Body TokenRequest request);
+
+    /**
+     * 待评价列表
+     */
+    @POST("industry_webservice/app/evaluate/getToBeEvaluates")
+    Observable<BaseResult<List<AlreadyScopeBO>>> getToScope(@Body TokenRequest request);
+
+    /**
+     * 评价
+     */
+    @POST("industry_webservice/app/evaluate/addEvaluate")
+    Observable<BaseResult<String>> addScope(@Body ScopeRequest request);
 
 }

@@ -118,4 +118,5 @@ dependencies {
     compile 'com.yanzhenjie:recyclerview-swipe:1.1.4'
     compile 'com.haibin:calendarview:3.6.1'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    compile 'com.xingliuhua:xlhratingbar_lib:2.1'
 }

@@ -3,6 +3,7 @@ package com.article.oa_article.view.alreadyscope;
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.http.PersonServiceImpl;
 import com.article.oa_article.bean.AlreadyScopeBO;
+import com.article.oa_article.bean.request.ScopeRequest;
 import com.article.oa_article.mvp.BasePresenterImpl;
 
 import java.util.List;
@@ -34,5 +35,36 @@ public class AlreadyScopePresenter extends BasePresenterImpl<AlreadyScopeContrac
         });
     }
 
+
+    public void getToScope() {
+        PersonServiceImpl.getToScope().subscribe(new HttpResultSubscriber<List<AlreadyScopeBO>>() {
+            @Override
+            public void onSuccess(List<AlreadyScopeBO> alreadyScopeBOS) {
+
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
+
+
+    public void scope(ScopeRequest request) {
+        PersonServiceImpl.scope(request).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+
+            }
+
+            @Override
+            public void onFiled(String message) {
+
+            }
+        });
+    }
 
 }

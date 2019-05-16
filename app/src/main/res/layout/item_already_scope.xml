@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
 
@@ -9,8 +9,6 @@
         android:id="@+id/cancle_layout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="3dp"
-        android:background="@color/bar_color"
         android:orientation="horizontal">
 
 
@@ -131,7 +129,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="分"
+                android:text=" 分"
                 android:textColor="@color/hint_color"
                 android:textSize="15sp" />
 

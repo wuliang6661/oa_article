@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/pop_scope_bg"
@@ -24,13 +25,15 @@
             android:textColor="@color/f_white"
             android:textSize="15sp" />
 
-        <RatingBar
-            style="@style/roomRatingBar_1"
+        <com.example.xlhratingbar_lib.XLHRatingBar
+            android:id="@+id/fuwu_ratting"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:layout_marginLeft="30dp"
-            android:numStars="5"
-            android:stepSize="1" />
+            android:layout_marginLeft="18dp"
+            android:gravity="center_vertical"
+            app:numStars="5"
+            app:rating="5"
+            app:ratingViewClass="com.article.oa_article.widget.SimpleRatingView" />
 
     </LinearLayout>
 
@@ -50,13 +53,16 @@
             android:textColor="@color/f_white"
             android:textSize="15sp" />
 
-        <RatingBar
-            style="@style/roomRatingBar_1"
+        <com.example.xlhratingbar_lib.XLHRatingBar
+            android:id="@+id/zhiliang_ratting"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:layout_marginLeft="30dp"
-            android:numStars="5"
-            android:stepSize="1" />
+            android:layout_marginLeft="18dp"
+            android:gravity="center_vertical"
+            app:numStars="5"
+            app:rating="5"
+            app:ratingViewClass="com.article.oa_article.widget.SimpleRatingView" />
+
 
     </LinearLayout>
 
@@ -76,13 +82,16 @@
             android:textColor="@color/f_white"
             android:textSize="15sp" />
 
-        <RatingBar
-            style="@style/roomRatingBar_1"
+        <com.example.xlhratingbar_lib.XLHRatingBar
+            android:id="@+id/zhunshi_ratting"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:layout_marginLeft="30dp"
-            android:numStars="5"
-            android:stepSize="1" />
+            android:layout_marginLeft="18dp"
+            android:gravity="center_vertical"
+            app:numStars="5"
+            app:rating="5"
+            app:ratingViewClass="com.article.oa_article.widget.SimpleRatingView" />
+
 
     </LinearLayout>
 
@@ -101,13 +110,15 @@
             android:textColor="@color/f_white"
             android:textSize="15sp" />
 
-        <RatingBar
-            style="@style/roomRatingBar_1"
+        <com.example.xlhratingbar_lib.XLHRatingBar
+            android:id="@+id/jiage_ratting"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:layout_marginLeft="30dp"
-            android:numStars="5"
-            android:stepSize="1" />
+            android:layout_marginLeft="18dp"
+            android:gravity="center_vertical"
+            app:numStars="5"
+            app:rating="5"
+            app:ratingViewClass="com.article.oa_article.widget.SimpleRatingView" />
 
     </LinearLayout>
 
@@ -126,13 +137,38 @@
             android:textColor="@color/f_white"
             android:textSize="15sp" />
 
-        <RatingBar
-            style="@style/roomRatingBar_1"
+        <com.example.xlhratingbar_lib.XLHRatingBar
+            android:id="@+id/wuliu_ratting"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:layout_marginLeft="30dp"
-            android:numStars="5"
-            android:stepSize="1" />
+            android:layout_marginLeft="18dp"
+            android:gravity="center_vertical"
+            app:numStars="5"
+            app:rating="0"
+            app:ratingViewClass="com.article.oa_article.widget.SimpleRatingView" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/commit_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/commit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_bg"
+            android:paddingLeft="15dp"
+            android:paddingTop="5dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="5dp"
+            android:text="确定"
+            android:textColor="@color/f_white"
+            android:textSize="15sp" />
 
     </LinearLayout>
 

@@ -16,11 +16,11 @@ import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.PersonImgRequest;
 import com.article.oa_article.bean.request.PersonNameRequest;
 import com.article.oa_article.bean.request.PersonPasswordRequest;
+import com.article.oa_article.bean.request.ScopeRequest;
 import com.article.oa_article.bean.request.TokenRequest;
 import com.article.oa_article.bean.request.UserInInfoRequest;
 import com.article.oa_article.bean.request.UserOutRequest;
 import com.article.oa_article.util.rx.RxResultHelper;
-import com.article.oa_article.view.myscope.MyScopeActivity;
 
 import java.util.List;
 
@@ -139,6 +139,23 @@ public class PersonServiceImpl {
         TokenRequest request = new TokenRequest();
         request.token = MyApplication.token;
         return getService().getHaveScope(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 待评价列表
+     */
+    public static Observable<List<AlreadyScopeBO>> getToScope() {
+        TokenRequest request = new TokenRequest();
+        request.token = MyApplication.token;
+        return getService().getToScope(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 评价
+     */
+    public static Observable<String> scope(ScopeRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().addScope(request).compose(RxResultHelper.httpRusult());
     }
 
 }
