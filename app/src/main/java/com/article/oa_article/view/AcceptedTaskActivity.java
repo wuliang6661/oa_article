@@ -20,6 +20,7 @@ import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.IdTypeRequest;
 import com.article.oa_article.module.order_details.Order_detailsFragment;
 import com.article.oa_article.module.task_accept.Task_acceptFragment;
+import com.article.oa_article.util.AppManager;
 import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.TimeUtils;
@@ -54,6 +55,8 @@ public class AcceptedTaskActivity extends BaseActivity {
     LinearLayout shangjiLayout;
     @BindView(R.id.accept_task)
     FrameLayout acceptTask;
+    @BindView(R.id.back)
+    LinearLayout back;
 
     private int taskId;
 
@@ -76,8 +79,8 @@ public class AcceptedTaskActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        goBack();
         setTitleText("接受任务");
+        back.setOnClickListener(view -> AppManager.getAppManager().goHome());
 
         taskId = getIntent().getExtras().getInt("taskId");
         isHome = getIntent().getExtras().getBoolean("isHome", false);
@@ -85,7 +88,7 @@ public class AcceptedTaskActivity extends BaseActivity {
         acceptFragment = new Task_acceptFragment();
         FragmentUtils.replace(getSupportFragmentManager(), detailsFragment, R.id.order_details);
         FragmentUtils.replace(getSupportFragmentManager(), acceptFragment, R.id.accept_task);
-        if(isHome){
+        if (isHome) {
             acceptFragment.setIsAccepted(false);
         }
 

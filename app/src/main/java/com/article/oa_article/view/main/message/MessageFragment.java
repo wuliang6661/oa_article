@@ -86,7 +86,7 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
 
     @Override
     public void onRequestError(String msg) {
-        showToast(msg);
+//        showToast(msg);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.article.oa_article.api.http;
 import com.article.oa_article.api.ApiManager;
 import com.article.oa_article.api.HttpService;
 import com.article.oa_article.base.MyApplication;
+import com.article.oa_article.bean.AlreadyScopeBO;
 import com.article.oa_article.bean.BuMenFlowBO;
 import com.article.oa_article.bean.BumenBO;
 import com.article.oa_article.bean.ChartBO;
@@ -19,6 +20,7 @@ import com.article.oa_article.bean.request.TokenRequest;
 import com.article.oa_article.bean.request.UserInInfoRequest;
 import com.article.oa_article.bean.request.UserOutRequest;
 import com.article.oa_article.util.rx.RxResultHelper;
+import com.article.oa_article.view.myscope.MyScopeActivity;
 
 import java.util.List;
 
@@ -128,6 +130,15 @@ public class PersonServiceImpl {
         TokenRequest request = new TokenRequest();
         request.token = MyApplication.token;
         return getService().getMyScope(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取已评价列表
+     */
+    public static Observable<List<AlreadyScopeBO>> getHaveScope() {
+        TokenRequest request = new TokenRequest();
+        request.token = MyApplication.token;
+        return getService().getHaveScope(request).compose(RxResultHelper.httpRusult());
     }
 
 }

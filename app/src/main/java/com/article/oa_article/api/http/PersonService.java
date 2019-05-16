@@ -1,5 +1,6 @@
 package com.article.oa_article.api.http;
 
+import com.article.oa_article.bean.AlreadyScopeBO;
 import com.article.oa_article.bean.BaseResult;
 import com.article.oa_article.bean.BuMenFlowBO;
 import com.article.oa_article.bean.BumenBO;
@@ -85,5 +86,11 @@ public interface PersonService {
      */
     @POST("industry_webservice/app/evaluate/getMyEvaluates")
     Observable<BaseResult<List<ScopeBO>>> getMyScope(@Body TokenRequest request);
+
+    /**
+     * 已评价列表
+     */
+    @POST("industry_webservice/app/evaluate/getHaveEvaluates")
+    Observable<BaseResult<List<AlreadyScopeBO>>> getHaveScope(@Body TokenRequest request);
 
 }

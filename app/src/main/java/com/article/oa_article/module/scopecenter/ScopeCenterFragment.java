@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.article.oa_article.R;
 import com.article.oa_article.mvp.MVPBaseFragment;
+import com.article.oa_article.view.alreadyscope.AlreadyScopeActivity;
 import com.article.oa_article.view.myscope.MyScopeActivity;
 
 import butterknife.BindView;
@@ -58,7 +59,7 @@ public class ScopeCenterFragment extends MVPBaseFragment<ScopeCenterContract.Vie
                 gotoActivity(MyScopeActivity.class, false);
                 break;
             case R.id.yi_pingjia:
-
+                gotoActivity(AlreadyScopeActivity.class, false);
                 break;
             case R.id.dai_pingjia:
 

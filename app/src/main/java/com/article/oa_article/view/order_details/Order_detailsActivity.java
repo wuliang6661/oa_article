@@ -24,6 +24,7 @@ import com.article.oa_article.module.create_order.CreateOrderFragment;
 import com.article.oa_article.module.order_details.Order_detailsFragment;
 import com.article.oa_article.module.task_allot.Task_allotFragment;
 import com.article.oa_article.mvp.MVPBaseActivity;
+import com.article.oa_article.util.AppManager;
 import com.article.oa_article.widget.AlertDialog;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.TimeUtils;
@@ -114,12 +115,6 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         isEditOrder = getIntent().getExtras().getBoolean("isEditOrder", false);
 
         fragment = new Task_allotFragment();
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         request = new IdTypeRequest();
         request.setId(id);
         if (isOrder) {
@@ -129,6 +124,13 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
             mPresenter.getTaskInfo(id);
         }
         mPresenter.getOrderInfo(request);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
     @OnClick(R.id.shangji_task_bar)
@@ -141,25 +143,6 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
             shangjiTaskCheck.setChecked(false);
         }
     }
-
-//    @OnClick(R.id.order_edit)
-//    public void editOrder() {
-//        kehuMsgBar.setVisibility(View.GONE);
-//        orderDetails.setVisibility(View.VISIBLE);
-//        CreateOrderFragment fragment = new CreateOrderFragment();
-//        FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.order_details);
-//        fragment.setData(2, infoBo);   //编辑订单
-//    }
-//
-//    @OnClick(R.id.kehu_msg_bar)
-//    public void clickBar() {
-//        kehuMsgBar.setVisibility(View.GONE);
-//        orderDetails.setVisibility(View.VISIBLE);
-//        Order_detailsFragment fragment = new Order_detailsFragment();
-//        FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.order_details);
-//        fragment.setOrderInfo(infoBo);
-//    }
-
 
     /**
      * 返回上一级
@@ -177,9 +160,9 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         if (fragment.getIsTaskEdit()) {
             new AlertDialog(this).builder().setGone().setMsg("您还未保存已分派的任务\n确定继续退出？")
                     .setNegativeButton("取消", null)
-                    .setPositiveButton("确定", v -> finish()).show();
+                    .setPositiveButton("确定", v -> AppManager.getAppManager().goHome()).show();
         } else {
-            finish();
+            AppManager.getAppManager().goHome();
         }
     }
 

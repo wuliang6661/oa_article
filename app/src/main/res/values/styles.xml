@@ -43,4 +43,11 @@
     </style>
 
 
+    <style name="roomRatingBar_1" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratting_bg</item>
+        <item name="android:minHeight">20dip</item>
+        <item name="android:maxHeight">20dip</item>
+    </style>
+
+
 </resources>

@@ -8,8 +8,6 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.FragmentUtils;
-import com.blankj.utilcode.util.TimeUtils;
 import com.article.oa_article.R;
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.HttpServerImpl;
@@ -22,7 +20,10 @@ import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.IdTypeRequest;
 import com.article.oa_article.module.my_complete.My_completeFragment;
 import com.article.oa_article.module.order_details.Order_detailsFragment;
+import com.article.oa_article.util.AppManager;
 import com.article.oa_article.view.order_details.Order_detailsActivity;
+import com.blankj.utilcode.util.FragmentUtils;
+import com.blankj.utilcode.util.TimeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -57,6 +58,8 @@ public class MyOrderActivity extends BaseActivity {
     LinearLayout shangjiLayout;
     @BindView(R.id.order_num)
     TextView orderNum;
+    @BindView(R.id.back)
+    LinearLayout back;
 
     private int id;
     My_completeFragment completeFragment;
@@ -76,8 +79,8 @@ public class MyOrderActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        goBack();
         setTitleText("我的任务");
+        back.setOnClickListener(view -> AppManager.getAppManager().goHome());
         EventBus.getDefault().register(this);
 
         id = getIntent().getExtras().getInt("taskId");

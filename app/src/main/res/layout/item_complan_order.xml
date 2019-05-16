@@ -104,7 +104,6 @@
                     android:id="@+id/task_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
                     android:gravity="right"
                     android:singleLine="true"
                     android:textColor="#E32A2A"
