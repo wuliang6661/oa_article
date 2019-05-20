@@ -503,7 +503,7 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
         getPermission();
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            uri = FileProvider.getUriForFile(Objects.requireNonNull(getActivity()), "com.wul.oa_article.fileprovider", cameraSavePath);
+            uri = FileProvider.getUriForFile(Objects.requireNonNull(getActivity()), "com.article.oa_article.fileprovider", cameraSavePath);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         } else {
             uri = Uri.fromFile(cameraSavePath);

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -66,6 +67,9 @@ public class SettingActivity extends MVPBaseActivity<SettingContract.View, Setti
 
         goBack();
         setTitleText("资料设置");
+
+        cameraSavePath = new File(Environment.getExternalStorageDirectory().getPath() + "/" +
+                System.currentTimeMillis() + ".jpg");
     }
 
 
@@ -159,7 +163,7 @@ public class SettingActivity extends MVPBaseActivity<SettingContract.View, Setti
         getPermission();
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            uri = FileProvider.getUriForFile(this, "com.wul.oa_article.fileprovider", cameraSavePath);
+            uri = FileProvider.getUriForFile(this, "com.article.oa_article.fileprovider", cameraSavePath);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         } else {
             uri = Uri.fromFile(cameraSavePath);
