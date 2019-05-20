@@ -186,6 +186,11 @@
             android:name=".view.optionsfankui.OptionsFankuiActivity"
             android:screenOrientation="portrait" />
 
+        <!--反馈类型-->
+        <activity
+            android:name=".view.optionsfankui.OptionsTypeActivity"
+            android:screenOrientation="portrait" />
+
 
         <!--扫一扫-->
         <activity android:name="com.article.oa_article.zxing.activity.CaptureActivity" />

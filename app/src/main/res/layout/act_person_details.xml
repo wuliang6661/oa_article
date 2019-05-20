@@ -23,6 +23,7 @@
             android:id="@+id/person_img"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:scaleType="fitXY"
             android:src="@drawable/person_img_defailt"
             app:riv_corner_radius="360dp" />
 

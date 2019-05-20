@@ -14,18 +14,18 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.article.oa_article.bean.OrderNumBO;
-import com.blankj.utilcode.util.StringUtils;
 import com.article.oa_article.R;
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.HttpServerImpl;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.ComplanOrderBo;
+import com.article.oa_article.bean.OrderNumBO;
 import com.article.oa_article.bean.request.ComplayRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
+import com.blankj.utilcode.util.StringUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -98,13 +98,7 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
         request.setPageNum(1);
         request.setPageSize(1000);
         request.setUserId(MyApplication.userBo.getId() + "");
-        String commonId;
-        if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
-            commonId = "0";
-        } else {
-            commonId = MyApplication.userBo.getCompanys().get(0).getId() + "";
-        }
-        request.setCompanyId(commonId);
+        request.setCompanyId(MyApplication.getCommonId());
 //        getOrderByTask(0);
     }
 

@@ -31,6 +31,8 @@ public class MyApplication extends Application {
 
     public static IWXAPI WXapi;
 
+    public static int selectComplan = 0;    //默认选择第一家公司
+
 
     @Override
     public void onCreate() {
@@ -50,7 +52,7 @@ public class MyApplication extends Application {
         if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
             return "0";
         } else {
-            return MyApplication.userBo.getCompanys().get(0).getId() + "";
+            return MyApplication.userBo.getCompanys().get(selectComplan).getId() + "";
         }
     }
 
@@ -62,7 +64,7 @@ public class MyApplication extends Application {
         if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
             return null;
         } else {
-            return MyApplication.userBo.getCompanys().get(0);
+            return MyApplication.userBo.getCompanys().get(selectComplan);
         }
     }
 

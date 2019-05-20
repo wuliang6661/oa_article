@@ -144,13 +144,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         SelectRequest request = new SelectRequest();
         request.setPageNum(1 + "");
         request.setPageSize(1000 + "");
-        String commonId;
-        if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
-            commonId = "0";
-        } else {
-            commonId = MyApplication.userBo.getCompanys().get(0).getId() + "";
-        }
-        request.setCompanyId(commonId);
+        request.setCompanyId(MyApplication.getCommonId());
         request.setType("1");
         mPresenter.getCommplayList(request);
     }

@@ -15,6 +15,7 @@ import com.article.oa_article.bean.request.PersonImgRequest;
 import com.article.oa_article.bean.request.PersonNameRequest;
 import com.article.oa_article.bean.request.PersonPasswordRequest;
 import com.article.oa_article.bean.request.PersonPhoneRequest;
+import com.article.oa_article.bean.request.PhoneRequest;
 import com.article.oa_article.bean.request.ScopeRequest;
 import com.article.oa_article.bean.request.TokenRequest;
 import com.article.oa_article.bean.request.UserInInfoRequest;
@@ -64,6 +65,12 @@ public interface PersonService {
      */
     @POST("industry_webservice/app/userInfo/updatePhone")
     Observable<BaseResult<String>> updatePhone(@Body PersonPhoneRequest request);
+
+    /**
+     * 发送短信验证码(修改手机号)
+     */
+    @POST("industry_webservice/app/userInfo/getNewPhoneCode")
+    Observable<BaseResult<String>> sendMessage(@Body PhoneRequest request);
 
     /**
      * 查询部门列表

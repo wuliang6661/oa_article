@@ -7,5 +7,7 @@ public class PhoneRequest {
 
     public int type;
 
+    public String token;
+
 
 }

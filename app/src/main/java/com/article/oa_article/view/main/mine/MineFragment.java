@@ -19,14 +19,12 @@ import com.article.oa_article.R;
 import com.article.oa_article.base.GlideApp;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.UserBo;
-import com.article.oa_article.module.chatline.ChatLineFragment;
 import com.article.oa_article.module.scopecenter.ScopeCenterFragment;
 import com.article.oa_article.module.systemsetting.SystemSettingFragment;
 import com.article.oa_article.module.taskcenter.TaskCenterFragment;
 import com.article.oa_article.module.tempmanager.TempManagerFragment;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.setting.SettingActivity;
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +88,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
      * 初始化布局
      */
     private void initView() {
+        tabLayout.removeAllTabs();
         tabLayout.addTab(tabLayout.newTab().setText(tabs[0]));
         tabLayout.addTab(tabLayout.newTab().setText(tabs[1]));
         tabLayout.addTab(tabLayout.newTab().setText(tabs[2]));
@@ -108,12 +107,32 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
         tabLayout.setupWithViewPager(viewPager);
 
         viewPager.setOffscreenPageLimit(5);
+        complanName.setText(MyApplication.getCommon().getCompanyName());
     }
 
 
     @OnClick(R.id.person_layout)
     public void goSetting() {
         gotoActivity(SettingActivity.class, false);
+    }
+
+    /**
+     * 切换公司
+     */
+    @OnClick(R.id.title_layout)
+    public void switchComplan() {
+        PopSwitchComplan popSwitchComplan = new PopSwitchComplan(getActivity());
+        popSwitchComplan.setListener(position -> {
+            MyApplication.selectComplan = position;
+            initView();
+            mPresenter.getUserInfo();
+        });
+        popSwitchComplan.setOnDismissListener(() -> {
+            complanCheck.setChecked(false);
+            popSwitchComplan.backgroundAlpha(1f);
+        });
+        popSwitchComplan.showPop(complanName);
+        complanCheck.setChecked(true);
     }
 
 

@@ -17,6 +17,7 @@ import com.article.oa_article.bean.request.PersonImgRequest;
 import com.article.oa_article.bean.request.PersonNameRequest;
 import com.article.oa_article.bean.request.PersonPasswordRequest;
 import com.article.oa_article.bean.request.PersonPhoneRequest;
+import com.article.oa_article.bean.request.PhoneRequest;
 import com.article.oa_article.bean.request.ScopeRequest;
 import com.article.oa_article.bean.request.TokenRequest;
 import com.article.oa_article.bean.request.UserInInfoRequest;
@@ -88,6 +89,17 @@ public class PersonServiceImpl {
         request.setNewPhone(phone);
         request.setToken(MyApplication.token);
         return getService().updatePhone(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 修改手机号时获取短信验证码
+     */
+    public static Observable<String> updatePhoneSendMessage(String phone, int type) {
+        PhoneRequest request = new PhoneRequest();
+        request.phone = phone;
+        request.type = type;
+        request.token = MyApplication.token;
+        return getService().sendMessage(request).compose(RxResultHelper.httpRusult());
     }
 
 

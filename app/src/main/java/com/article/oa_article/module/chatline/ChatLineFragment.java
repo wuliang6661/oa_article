@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * MVPPlugin
@@ -193,7 +196,9 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
             set2.setCircleRadius(3f);
             set2.setFillAlpha(65);
             set2.setFillColor(Color.RED);
-            set2.setDrawCircleHole(false);
+            set1.setDrawCircleHole(false);
+            set1.setDrawCircles(false);
+            set1.setDrawValues(false);
             set2.setHighLightColor(Color.rgb(244, 117, 117));
             //set2.setFillFormatter(new MyFillFormatter(900f));
 
@@ -205,7 +210,9 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
             set3.setCircleRadius(3f);
             set3.setFillAlpha(65);
             set3.setFillColor(ColorTemplate.colorWithAlpha(Color.YELLOW, 200));
-            set3.setDrawCircleHole(false);
+            set1.setDrawCircleHole(false);
+            set1.setDrawCircles(false);
+            set1.setDrawValues(false);
             set3.setHighLightColor(Color.rgb(244, 117, 117));
 
             // create a data object with the data sets
@@ -271,8 +278,9 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
                 minNum = chartBO.getYipaiNum();
             }
         }
-        leftAxis.setAxisMaximum(maxNum + 10);
-        leftAxis.setAxisMinimum(minNum - 10);
+        Log.e(TAG, maxNum + "       " + minNum);
+        leftAxis.setAxisMaximum(maxNum + 200);
+        leftAxis.setAxisMinimum(minNum - 100);
         setData(chartBOS);
     }
 

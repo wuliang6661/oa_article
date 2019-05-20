@@ -72,20 +72,37 @@ public class PhoneSettingAct extends BaseActivity {
             return;
         }
         showProgress();
-        HttpServerImpl.sendMessage(phone, 2).subscribe(new HttpResultSubscriber<String>() {
-            @Override
-            public void onSuccess(String s) {
-                stopProgress();
-                timer.start();
-                showToast("验证码发送成功！");
-            }
+        if (isFrist) {
+            PersonServiceImpl.updatePhoneSendMessage(phone, 2).subscribe(new HttpResultSubscriber<String>() {
+                @Override
+                public void onSuccess(String s) {
+                    stopProgress();
+                    timer.start();
+                    showToast("验证码发送成功！");
+                }
 
-            @Override
-            public void onFiled(String message) {
-                stopProgress();
-                showToast(message);
-            }
-        });
+                @Override
+                public void onFiled(String message) {
+                    stopProgress();
+                    showToast(message);
+                }
+            });
+        } else {
+            HttpServerImpl.sendMessage(phone, 2).subscribe(new HttpResultSubscriber<String>() {
+                @Override
+                public void onSuccess(String s) {
+                    stopProgress();
+                    timer.start();
+                    showToast("验证码发送成功！");
+                }
+
+                @Override
+                public void onFiled(String message) {
+                    stopProgress();
+                    showToast(message);
+                }
+            });
+        }
     }
 
 
