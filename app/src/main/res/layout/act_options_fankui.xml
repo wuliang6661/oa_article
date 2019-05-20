@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_bar" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/fankui_type"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/bar_color"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingRight="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:text="反馈类型"
+                    android:textColor="@color/f_white"
+                    android:textSize="15sp" />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_weight="1"
+                    android:text="请选择反馈类型"
+                    android:textColor="@color/text_hint_color"
+                    android:textSize="15sp" />
+
+
+                <ImageView
+                    android:layout_width="8dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/next_right" />
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp">
+
+                <EditText
+                    android:id="@+id/edit_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_option_bg"
+                    android:gravity="start"
+                    android:hint="请写下您对造小强的感受和意见"
+                    android:maxLength="100"
+                    android:minLines="6"
+                    android:padding="7dp"
+                    android:textColor="@color/f_white"
+                    android:textColorHint="@color/text_hint_color"
+                    android:textSize="13sp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="7dp"
+                    android:layout_marginBottom="7dp"
+                    android:text="0/100"
+                    android:textColor="@color/text_hint_color"
+                    android:textSize="13sp" />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/bar_color"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingRight="18dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="18dp"
+                        android:text="手机/邮箱/QQ（选填）"
+                        android:textColor="@color/f_white"
+                        android:textSize="15sp" />
+
+
+                    <EditText
+                        android:id="@+id/edit_lianxifangshi"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="请输入其中一个号码"
+                        android:textColor="@color/f_white"
+                        android:textColorHint="@color/text_hint_color"
+                        android:textSize="15sp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="18dp"
+                android:gravity="center_vertical"
+                android:text="上传图片（最多6张）"
+                android:textColor="@color/f_white"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/line_default_color" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/image_recycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <Button
+                android:id="@+id/next_button"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/button_bg"
+                android:text="提交"
+                android:textColor="@color/text_white"
+                android:textSize="18sp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

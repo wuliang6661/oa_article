@@ -20,9 +20,7 @@ import com.article.oa_article.bean.request.ChartRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
-import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -67,6 +65,7 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
     private String endDate;
 
     private int month = 1;  //1 :月表 0：季表  2：年表
+    private YAxis leftAxis;
 
     @Nullable
     @Override
@@ -118,11 +117,11 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
         setData(new ArrayList<>());
         chart.animateX(1000);
 
-        YAxis leftAxis = chart.getAxisLeft();
+        leftAxis = chart.getAxisLeft();
         leftAxis.setTextColor(Color.parseColor("#6F6F6F"));
         leftAxis.setTextSize(11f);
-        leftAxis.setAxisMaximum(200f);
-        leftAxis.setAxisMinimum(0f);
+//        leftAxis.setAxisMaximum(200f);
+//        leftAxis.setAxisMinimum(0f);
         leftAxis.setDrawGridLines(false);
         leftAxis.setGranularityEnabled(false);
         //设置样式
@@ -187,7 +186,7 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
             // create a data object with the datasets
             // create a dataset and give it a type
             set2 = new LineDataSet(yVals2, "");
-            set2.setAxisDependency(YAxis.AxisDependency.RIGHT);
+            set2.setAxisDependency(YAxis.AxisDependency.LEFT);
             set2.setColor(Color.RED);
             set2.setCircleColor(Color.WHITE);
             set2.setLineWidth(2f);
@@ -199,7 +198,7 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
             //set2.setFillFormatter(new MyFillFormatter(900f));
 
             set3 = new LineDataSet(yVals3, "");
-            set3.setAxisDependency(YAxis.AxisDependency.RIGHT);
+            set3.setAxisDependency(YAxis.AxisDependency.LEFT);
             set3.setColor(Color.YELLOW);
             set3.setCircleColor(Color.WHITE);
             set3.setLineWidth(2f);
@@ -250,6 +249,30 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
         if (month == 1) {
             setRecycleAdapter(chartBOS);
         }
+        int maxNum = 0;
+        int minNum = 0;
+        for (ChartBO chartBO : chartBOS) {
+            if (maxNum < chartBO.getJihuaNum()) {
+                maxNum = chartBO.getJihuaNum();
+            }
+            if (maxNum < chartBO.getShijiNum()) {
+                maxNum = chartBO.getShijiNum();
+            }
+            if (maxNum < chartBO.getYipaiNum()) {
+                maxNum = chartBO.getYipaiNum();
+            }
+            if (minNum > chartBO.getJihuaNum()) {
+                minNum = chartBO.getJihuaNum();
+            }
+            if (minNum > chartBO.getShijiNum()) {
+                minNum = chartBO.getShijiNum();
+            }
+            if (minNum > chartBO.getYipaiNum()) {
+                minNum = chartBO.getYipaiNum();
+            }
+        }
+        leftAxis.setAxisMaximum(maxNum + 10);
+        leftAxis.setAxisMinimum(minNum - 10);
         setData(chartBOS);
     }
 

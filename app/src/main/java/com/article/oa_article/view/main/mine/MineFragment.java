@@ -16,9 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
+import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.UserBo;
+import com.article.oa_article.module.chatline.ChatLineFragment;
 import com.article.oa_article.module.scopecenter.ScopeCenterFragment;
+import com.article.oa_article.module.systemsetting.SystemSettingFragment;
 import com.article.oa_article.module.taskcenter.TaskCenterFragment;
+import com.article.oa_article.module.tempmanager.TempManagerFragment;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.setting.SettingActivity;
 
@@ -86,11 +90,13 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
         tabLayout.addTab(tabLayout.newTab().setText(tabs[4]));
 
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new Fragment());
+//        ChatLineFragment chatLineFragment = new ChatLineFragment();
+//        chatLineFragment.setUserBo(MyApplication.userBo.getId(), Integer.parseInt(MyApplication.getCommonId()));
+        fragments.add(new SystemSettingFragment());
         fragments.add(new ScopeCenterFragment());
         fragments.add(new TaskCenterFragment());
         fragments.add(new Fragment());
-        fragments.add(new Fragment());
+        fragments.add(new TempManagerFragment());
         viewPager.setAdapter(new PagerAdapter(getFragmentManager(), fragments, tabs));
         tabLayout.setupWithViewPager(viewPager);
 

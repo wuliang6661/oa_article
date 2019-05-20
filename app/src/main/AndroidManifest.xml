@@ -170,6 +170,23 @@
             android:name=".view.alreadyscope.AlreadyScopeActivity"
             android:screenOrientation="portrait" />
 
+        <!--部门管理-->
+        <activity
+            android:name=".view.bumenmanager.BumenManagerActivity"
+            android:screenOrientation="portrait" />
+
+        <!--员工管理-->
+        <activity
+            android:name=".view.personmanager.PersonManagerActivity"
+            android:screenOrientation="portrait" />
+
+
+        <!--意见反馈-->
+        <activity
+            android:name=".view.optionsfankui.OptionsFankuiActivity"
+            android:screenOrientation="portrait" />
+
+
         <!--扫一扫-->
         <activity android:name="com.article.oa_article.zxing.activity.CaptureActivity" />
 
