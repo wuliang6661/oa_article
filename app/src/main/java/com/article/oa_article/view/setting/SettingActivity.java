@@ -19,6 +19,7 @@ import com.article.oa_article.R;
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.HttpServerImpl;
 import com.article.oa_article.api.http.PersonServiceImpl;
+import com.article.oa_article.base.GlideApp;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.UserBo;
 import com.article.oa_article.mvp.MVPBaseActivity;
@@ -109,6 +110,8 @@ public class SettingActivity extends MVPBaseActivity<SettingContract.View, Setti
                 personName.setText(s.getName());
                 personNameText.setText(s.getName());
                 personPhone.setText(s.getPhone());
+                GlideApp.with(SettingActivity.this).load(s.getImage()).error(R.drawable.person_img_defailt)
+                        .placeholder(R.drawable.person_img_defailt).into(personImg);
             }
 
             @Override

@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
+import com.article.oa_article.base.GlideApp;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.UserBo;
 import com.article.oa_article.module.chatline.ChatLineFragment;
@@ -25,6 +26,7 @@ import com.article.oa_article.module.taskcenter.TaskCenterFragment;
 import com.article.oa_article.module.tempmanager.TempManagerFragment;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.setting.SettingActivity;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +78,11 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
         super.onViewCreated(view, savedInstanceState);
 
         initView();
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
         mPresenter.getUserInfo();
     }
 
@@ -120,6 +127,8 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
     public void getUser(UserBo userBo) {
         personName.setText(userBo.getName());
         personPhone.setText(userBo.getPhone());
+        GlideApp.with(getActivity()).load(userBo.getImage()).error(R.drawable.person_img_defailt)
+                .placeholder(R.drawable.person_img_defailt).into(personImg);
     }
 
     @Override

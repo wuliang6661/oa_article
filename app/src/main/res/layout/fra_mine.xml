@@ -47,12 +47,14 @@
         android:orientation="horizontal">
 
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/person_img"
             android:layout_width="57dp"
             android:layout_height="57dp"
             android:layout_marginLeft="28dp"
-            android:src="@drawable/none_img" />
+            android:scaleType="fitXY"
+            android:src="@drawable/person_img_defailt"
+            app:riv_corner_radius="360dp" />
 
 
         <LinearLayout

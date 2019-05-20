@@ -15,7 +15,16 @@ public class UserBo {
     private String name;
     private int id;
     private String phone;
+    private String image;
     private List<CompanysBean> companys;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public String getName() {
         return name;

@@ -9,6 +9,9 @@ import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.http.PersonServiceImpl;
 import com.article.oa_article.base.BaseActivity;
 import com.article.oa_article.bean.request.PersonPasswordRequest;
+import com.article.oa_article.util.AppManager;
+import com.article.oa_article.util.MD5;
+import com.article.oa_article.view.login.LoginActivity;
 import com.blankj.utilcode.util.StringUtils;
 
 import butterknife.BindView;
@@ -72,13 +75,15 @@ public class PasswordSettingAct extends BaseActivity {
 
     private void updatePassword(String ordPass, String newPass, String passComrim) {
         PersonPasswordRequest request = new PersonPasswordRequest();
-        request.setOldPassword(ordPass);
-        request.setNewPassword(newPass);
-        request.setConfirmPassword(passComrim);
+        request.setOldPassword(MD5.strToMd5Low32(MD5.strToMd5Low32(ordPass) + "zxq"));
+        request.setNewPassword(MD5.strToMd5Low32(MD5.strToMd5Low32(newPass) + "zxq"));
+        request.setConfirmPassword(MD5.strToMd5Low32(MD5.strToMd5Low32(passComrim) + "zxq"));
         PersonServiceImpl.updatePassword(request).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
-                finish();
+                showToast("密码已成功修改！请重新登录！");
+                AppManager.getAppManager().finishAllActivity();
+                gotoActivity(LoginActivity.class, true);
             }
 
             @Override

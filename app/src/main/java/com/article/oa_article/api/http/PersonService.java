@@ -14,6 +14,7 @@ import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.PersonImgRequest;
 import com.article.oa_article.bean.request.PersonNameRequest;
 import com.article.oa_article.bean.request.PersonPasswordRequest;
+import com.article.oa_article.bean.request.PersonPhoneRequest;
 import com.article.oa_article.bean.request.ScopeRequest;
 import com.article.oa_article.bean.request.TokenRequest;
 import com.article.oa_article.bean.request.UserInInfoRequest;
@@ -57,6 +58,12 @@ public interface PersonService {
      */
     @POST("industry_webservice/app/userInfo/updatePassword")
     Observable<BaseResult<String>> updatePassword(@Body PersonPasswordRequest request);
+
+    /**
+     * 修改手机号码
+     */
+    @POST("industry_webservice/app/userInfo/updatePhone")
+    Observable<BaseResult<String>> updatePhone(@Body PersonPhoneRequest request);
 
     /**
      * 查询部门列表
