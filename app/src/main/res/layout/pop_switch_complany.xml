@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="256dp"
     android:layout_height="wrap_content"
-    android:background="@color/pop_bg"
+    android:background="#901d1d1d"
     android:orientation="vertical">
 
 
@@ -11,5 +11,29 @@
         android:layout_width="256dp"
         android:layout_height="wrap_content" />
 
+
+    <LinearLayout
+        android:id="@+id/add_complan"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/add_img" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:text="新建企业"
+            android:textColor="@color/blue_color"
+            android:textSize="15sp" />
+
+    </LinearLayout>
 
 </LinearLayout>

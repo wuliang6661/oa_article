@@ -32,6 +32,7 @@
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_marginLeft="6dp"
+        android:scaleType="fitXY"
         android:src="@drawable/person_img_defailt"
         app:riv_corner_radius="360dp" />
 
@@ -43,16 +44,17 @@
         android:gravity="center_vertical"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="bottom"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/msg_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:maxLength="12"
                 android:textColor="@color/f_white"
                 android:textSize="15sp"
                 tools:text="申请添加好友" />
@@ -71,16 +73,17 @@
 
             <TextView
                 android:id="@+id/order_date"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:gravity="right"
                 android:text="昨天18:23"
                 android:textColor="#ACACAC"
                 android:textSize="10sp" />
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
 
         <LinearLayout
@@ -94,7 +97,6 @@
                 android:id="@+id/msg_order_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
                 android:textColor="@color/hint_color"
                 android:textSize="11sp"
                 tools:text="申请添加好友" />
@@ -107,6 +109,7 @@
                 android:layout_toRightOf="@+id/msg_order_name"
                 android:background="@drawable/button_list"
                 android:gravity="center"
+                android:maxLength="15"
                 android:paddingLeft="7dp"
                 android:paddingTop="2dp"
                 android:paddingRight="7dp"

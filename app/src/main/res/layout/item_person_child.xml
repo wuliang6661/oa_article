@@ -20,6 +20,8 @@
             android:layout_height="38dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="13dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/person_img_defailt"
             app:riv_corner_radius="360dp" />
 
 
