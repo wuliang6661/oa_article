@@ -1,8 +1,11 @@
 package com.article.oa_article.api.http;
 
 import com.article.oa_article.bean.BaseResult;
+import com.article.oa_article.bean.MsgBO;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.PageRequest;
+
+import java.util.List;
 
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -15,7 +18,7 @@ public interface MessageService {
      * 获取消息列表
      */
     @POST("industry_webservice/app/userMessage/getUserMessageList")
-    Observable<BaseResult<String>> getMessageList(@Body PageRequest request);
+    Observable<BaseResult<List<MsgBO>>> getMessageList(@Body PageRequest request);
 
     /**
      * 获取未读数量统计

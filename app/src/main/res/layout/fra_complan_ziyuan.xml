@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_bg"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="28dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:background="@drawable/point_blue" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text="人力资源"
+            android:textColor="@color/hint_color"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+
+    <com.article.oa_article.widget.EditMsgText
+        android:id="@+id/complan_guanli_num"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        app:edit_max_length="9"
+        app:edit_type="1"
+        app:hint_text="请输入管理人员数"
+        app:title_text="管理人员" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/line_default_color" />
+
+
+    <com.article.oa_article.widget.EditMsgText
+        android:id="@+id/complan_jishu_num"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        app:edit_max_length="20"
+        app:edit_type="1"
+        app:hint_text="请输入技术人员数"
+        app:title_text="技术人员" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/line_default_color" />
+
+
+    <com.article.oa_article.widget.EditMsgText
+        android:id="@+id/complan_pugong_num"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        app:edit_max_length="20"
+        app:edit_type="1"
+        app:hint_text="请输入普工人员数"
+        app:title_text="管理人员" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/line_default_color" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="28dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:background="@drawable/point_blue" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text="设备资源"
+            android:textColor="@color/hint_color"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/shebei_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <LinearLayout
+        android:id="@+id/add_pinglei"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginLeft="28dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/add_img" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="继续添加"
+            android:textColor="@color/blue_color"
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="28dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:background="@drawable/point_blue" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text="厂房资源"
+            android:textColor="@color/hint_color"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+
+    <com.article.oa_article.widget.EditMsgText
+        android:id="@+id/complan_changfang_mianji"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        app:edit_max_length="9"
+        app:hint_text="请输入厂房面积"
+        app:title_text="厂房面积" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/line_default_color" />
+
+
+    <com.article.oa_article.widget.EditMsgText
+        android:id="@+id/complan_changfang_xingzhi"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        app:edit_max_length="20"
+        app:edit_type="1"
+        app:hint_text="请选择厂房性质"
+        app:title_text="厂房性质" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/line_default_color" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginLeft="40dp"
+        android:gravity="center_vertical"
+        android:text="上传图片"
+        android:textColor="@color/f_white"
+        android:textSize="13sp" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/image_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

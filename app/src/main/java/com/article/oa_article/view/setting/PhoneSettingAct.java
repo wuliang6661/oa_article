@@ -40,8 +40,6 @@ public class PhoneSettingAct extends BaseActivity {
     @BindView(R.id.next_button)
     Button nextButton;
 
-    private String oldPhone;
-    private String newPhone;
     private boolean isFrist = true;   //默认在第一步
 
 
@@ -146,7 +144,6 @@ public class PhoneSettingAct extends BaseActivity {
                 getVerfication.setClickable(true);
                 MyApplication.token = s;
                 isFrist = false;
-                oldPhone = phone;
             }
 
             @Override

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/layout_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="28dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:background="@drawable/point_blue" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text="企业资质"
+            android:textColor="@color/hint_color"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+
+    <com.article.oa_article.widget.EditMsgText
+        android:id="@+id/zizhi_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        app:edit_max_length="20"
+        app:hint_text="请输入资质名称"
+        app:title_text="资质名称" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/line_default_color" />
+
+
+    <com.article.oa_article.widget.EditMsgText
+        android:id="@+id/banfa_danwei"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        app:edit_max_length="20"
+        app:hint_text="请输入颁发单位"
+        app:title_text="颁发单位" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/line_default_color" />
+
+
+    <com.article.oa_article.widget.EditMsgText
+        android:id="@+id/youxiao_date"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        app:edit_max_length="20"
+        app:hint_text="请输入颁发单位"
+        app:title_text="有效期\u3000" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/line_default_color" />
+
+
+    <com.article.oa_article.widget.EditMsgText
+        android:id="@+id/certificate_num"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        app:edit_max_length="20"
+        app:hint_text="请输入颁发编号"
+        app:title_text="证书编号" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/line_default_color" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginLeft="40dp"
+        android:gravity="center_vertical"
+        android:text="上传图片"
+        android:textColor="@color/f_white"
+        android:textSize="13sp" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/image_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

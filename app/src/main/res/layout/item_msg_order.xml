@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="67dp"
+    android:background="@color/layout_bg"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/check_box"
+        android:button="@null"
+        android:checked="false"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/point"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/range_red" />
+
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/person_img"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginLeft="6dp"
+        android:src="@drawable/person_img_defailt"
+        app:riv_corner_radius="360dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="8dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/msg_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/f_white"
+                android:textSize="15sp"
+                tools:text="申请添加好友" />
+
+
+            <TextView
+                android:id="@+id/msg_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/msg_message"
+                android:textColor="#F4CA40"
+                android:textSize="15sp"
+                tools:text="已完成" />
+
+
+            <TextView
+                android:id="@+id/order_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:text="昨天18:23"
+                android:textColor="#ACACAC"
+                android:textSize="10sp" />
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/msg_order_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/hint_color"
+                android:textSize="11sp"
+                tools:text="申请添加好友" />
+
+            <TextView
+                android:id="@+id/msg_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/msg_order_name"
+                android:background="@drawable/button_list"
+                android:gravity="center"
+                android:paddingLeft="7dp"
+                android:paddingTop="2dp"
+                android:paddingRight="7dp"
+                android:paddingBottom="2dp"
+                android:text="一级任务"
+                android:textColor="#7B7F96"
+                android:textSize="8sp" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

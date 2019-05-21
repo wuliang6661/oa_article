@@ -2,9 +2,12 @@ package com.article.oa_article.view.main.message;
 
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.http.MessageServiceImpl;
+import com.article.oa_article.bean.MsgBO;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.PageRequest;
 import com.article.oa_article.mvp.BasePresenterImpl;
+
+import java.util.List;
 
 /**
  * MVPPlugin
@@ -18,10 +21,12 @@ public class MessagePresenter extends BasePresenterImpl<MessageContract.View>
     public void getMessageList(int id) {
         PageRequest request = new PageRequest();
         request.setId(id);
-        MessageServiceImpl.getMessageList(request).subscribe(new HttpResultSubscriber<String>() {
+        MessageServiceImpl.getMessageList(request).subscribe(new HttpResultSubscriber<List<MsgBO>>() {
             @Override
-            public void onSuccess(String s) {
-
+            public void onSuccess(List<MsgBO> s) {
+                if (mView != null) {
+                    mView.getMsgList(s);
+                }
             }
 
             @Override

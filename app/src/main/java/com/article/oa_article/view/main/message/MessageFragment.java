@@ -15,8 +15,13 @@ import android.widget.TextView;
 
 import com.article.oa_article.R;
 import com.article.oa_article.base.MyApplication;
+import com.article.oa_article.bean.MsgBO;
 import com.article.oa_article.mvp.MVPBaseFragment;
+import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
+import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
+import com.blankj.utilcode.util.TimeUtils;
 
+import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -86,7 +91,7 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
 
     @Override
     public void onRequestError(String msg) {
-//        showToast(msg);
+        showToast(msg);
     }
 
     @Override
@@ -98,5 +103,56 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
             msgNum.setVisibility(View.VISIBLE);
             msgNum.setText(notNum + "");
         }
+    }
+
+    @Override
+    public void getMsgList(List<MsgBO> msgBOS) {
+        setAdapter(msgBOS);
+    }
+
+
+    private void setAdapter(List<MsgBO> msgBOS) {
+        LGRecycleViewAdapter<MsgBO> adapter = new LGRecycleViewAdapter<MsgBO>(msgBOS) {
+            @Override
+            public int getLayoutId(int viewType) {
+                if (viewType == 0) {  //好友申请通知
+                    return R.layout.item_msg_person;
+                } else {      //任务进度
+                    return R.layout.item_msg_order;
+                }
+            }
+
+            @Override
+            public void convert(LGViewHolder holder, MsgBO msgBO, int position) {
+                if (msgBO.getReadStatus() == 0) {
+                    holder.getView(R.id.point).setVisibility(View.INVISIBLE);
+                } else {
+                    holder.getView(R.id.point).setVisibility(View.VISIBLE);
+                }
+                holder.setImageUrl(getActivity(), R.id.person_img, msgBO.getImage());
+                if (msgBO.getMessageType() == 0) {
+                    holder.setText(R.id.msg_message, msgBO.getNickName() + "  " + msgBO.getContent());
+                } else {
+                    holder.setText(R.id.msg_message, msgBO.getNickName() + "  " + msgBO.getContent());
+                    switch (msgBO.getTaskStatus()) {
+                        case "2":
+                            holder.setText(R.id.msg_type, "已完成");
+                            break;
+                        case "3":
+                            holder.setText(R.id.msg_type, "已取消");
+                            break;
+                    }
+                    holder.setText(R.id.msg_order_name, msgBO.getOrderName() + "  " + msgBO.getOrderNum());
+                    holder.setText(R.id.msg_level, msgBO.getTaskLevel() + "级任务");
+                    holder.setText(R.id.order_date, TimeUtils.getFriendlyTimeSpanByNow(msgBO.getCreateDate()));
+                }
+            }
+
+            @Override
+            public int getItemViewType(int position) {
+                return msgBOS.get(position).getMessageType();
+            }
+        };
+        messageRecycle.setAdapter(adapter);
     }
 }

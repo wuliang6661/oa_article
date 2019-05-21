@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_bg"
+    android:orientation="vertical">
+
+
+    <com.article.oa_article.widget.EditMsgText
+        android:id="@+id/complan_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        app:edit_max_length="20"
+        app:hint_text="请输入公司全称"
+        app:title_text="客户全称" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/line_default_color" />
+
+
+    <com.article.oa_article.widget.EditMsgText
+        android:id="@+id/complan_jiancheng"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        app:edit_max_length="4"
+        app:hint_text="请输入公司简称"
+        app:title_text="客户简称" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/line_default_color" />
+
+
+    <com.article.oa_article.widget.EditMsgText
+        android:id="@+id/complan_address"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        app:edit_max_length="20"
+        app:hint_text="请输入公司详细地址"
+        app:title_text="详细地址" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/line_default_color" />
+
+
+    <com.article.oa_article.widget.EditMsgText
+        android:id="@+id/complan_phone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        app:edit_max_length="4"
+        app:edit_type="1"
+        app:hint_text="请输入联系方式"
+        app:title_text="联系方式" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/line_default_color" />
+
+
+    <com.article.oa_article.widget.EditMsgText
+        android:id="@+id/complan_email"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        app:edit_max_length="20"
+        app:hint_text="请输入企业邮箱"
+        app:title_text="企业邮箱" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/line_default_color" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginLeft="40dp"
+        android:gravity="center_vertical"
+        android:text="上传法人手持身份证"
+        android:textColor="@color/f_white"
+        android:textSize="13sp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/card_fanmian"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/image_update_add" />
+
+
+            <ImageView
+                android:id="@+id/delete_fanmian"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/delete_img" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_fanmian"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="8dp"
+                android:background="@null"
+                android:singleLine="true"
+                android:text="正面.jpg"
+                android:textColor="#B8B8B8"
+                android:textSize="12sp" />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/card_zhengmian"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/image_update_add" />
+
+
+            <ImageView
+                android:id="@+id/delete_img"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/delete_img" />
+
+
+            <TextView
+                android:id="@+id/edit_image_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_zhengmian"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="8dp"
+                android:background="@null"
+                android:singleLine="true"
+                android:text="反面.jpg"
+                android:textColor="#B8B8B8"
+                android:textSize="12sp" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/line_default_color" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginLeft="40dp"
+        android:gravity="center_vertical"
+        android:text="营业执照上传"
+        android:textColor="@color/f_white"
+        android:textSize="13sp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/zhizhao"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/image_update_add" />
+
+
+            <ImageView
+                android:id="@+id/delete_zhizhao"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/delete_img" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/zhizhao"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="8dp"
+                android:background="@null"
+                android:singleLine="true"
+                android:text="执照.jpg"
+                android:textColor="#B8B8B8"
+                android:textSize="12sp" />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</LinearLayout>

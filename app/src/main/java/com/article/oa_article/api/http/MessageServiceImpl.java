@@ -3,9 +3,12 @@ package com.article.oa_article.api.http;
 import com.article.oa_article.api.ApiManager;
 import com.article.oa_article.api.HttpService;
 import com.article.oa_article.base.MyApplication;
+import com.article.oa_article.bean.MsgBO;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.PageRequest;
 import com.article.oa_article.util.rx.RxResultHelper;
+
+import java.util.List;
 
 import rx.Observable;
 
@@ -26,7 +29,7 @@ public class MessageServiceImpl {
     /**
      * 获取消息列表
      */
-    public static Observable<String> getMessageList(PageRequest request) {
+    public static Observable<List<MsgBO>> getMessageList(PageRequest request) {
         request.setToken(MyApplication.token);
         request.setPageNum(1);
         request.setPageSize(1000);

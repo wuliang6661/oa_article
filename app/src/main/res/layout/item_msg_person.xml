@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="67dp"
+    android:background="@color/layout_bg"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/check_box"
+        android:button="@null"
+        android:checked="false"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/point"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/range_red" />
+
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/person_img"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginLeft="6dp"
+        android:src="@drawable/person_img_defailt"
+        app:riv_corner_radius="360dp" />
+
+
+    <TextView
+        android:id="@+id/msg_message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_weight="1"
+        android:textColor="@color/f_white"
+        android:textSize="15sp"
+        tools:text="申请添加好友" />
+
+
+    <ImageView
+        android:layout_width="8dp"
+        android:layout_height="15dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/next_right" />
+
+
+</LinearLayout>
