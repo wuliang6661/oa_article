@@ -9,7 +9,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/gongsi_img_recycle"
         android:layout_width="match_parent"
-        android:layout_height="105dp" />
+        android:layout_height="105dp"
+        android:layout_marginLeft="18dp" />
 
     <LinearLayout
         android:id="@+id/kehu_order_layout"

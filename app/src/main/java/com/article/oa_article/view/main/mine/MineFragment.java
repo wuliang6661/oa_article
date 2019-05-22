@@ -19,6 +19,8 @@ import com.article.oa_article.R;
 import com.article.oa_article.base.GlideApp;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.UserBo;
+import com.article.oa_article.module.chatline.ChatLineFragment;
+import com.article.oa_article.module.complanmsg.ComplanMsgFragment;
 import com.article.oa_article.module.scopecenter.ScopeCenterFragment;
 import com.article.oa_article.module.systemsetting.SystemSettingFragment;
 import com.article.oa_article.module.taskcenter.TaskCenterFragment;
@@ -61,7 +63,9 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
     ViewPager viewPager;
     Unbinder unbinder;
 
-    private String[] tabs = new String[]{"产能分析", "评价中心", "任务数据", "企业认证", "管理团队"};
+    private String[] tabsAdmain = new String[]{"产能分析", "评价中心", "任务数据", "企业认证", "管理团队"};
+
+    private String[] tabs = new String[]{"产能分析", "评价中心", "任务数据", "企业认证", "系统设置"};
 
     @Nullable
     @Override
@@ -89,24 +93,42 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
      */
     private void initView() {
         tabLayout.removeAllTabs();
-        tabLayout.addTab(tabLayout.newTab().setText(tabs[0]));
-        tabLayout.addTab(tabLayout.newTab().setText(tabs[1]));
-        tabLayout.addTab(tabLayout.newTab().setText(tabs[2]));
-        tabLayout.addTab(tabLayout.newTab().setText(tabs[3]));
-        tabLayout.addTab(tabLayout.newTab().setText(tabs[4]));
+        if (MyApplication.getCommon().getIsAdmin() == 0) {  //管理员
+            tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[0]));
+            tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[1]));
+            tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[2]));
+            tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[3]));
+            tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[4]));
 
-        List<Fragment> fragments = new ArrayList<>();
+            List<Fragment> fragments = new ArrayList<>();
 //        ChatLineFragment chatLineFragment = new ChatLineFragment();
 //        chatLineFragment.setUserBo(MyApplication.userBo.getId(), Integer.parseInt(MyApplication.getCommonId()));
-        fragments.add(new SystemSettingFragment());
-        fragments.add(new ScopeCenterFragment());
-        fragments.add(new TaskCenterFragment());
-        fragments.add(new Fragment());
-        fragments.add(new TempManagerFragment());
-        viewPager.setAdapter(new PagerAdapter(getFragmentManager(), fragments, tabs));
-        tabLayout.setupWithViewPager(viewPager);
+            fragments.add(new SystemSettingFragment());
+            fragments.add(new ScopeCenterFragment());
+            fragments.add(new TaskCenterFragment());
+            fragments.add(new Fragment());
+            fragments.add(new TempManagerFragment());
+            viewPager.setAdapter(new PagerAdapter(getFragmentManager(), fragments, tabsAdmain));
+            tabLayout.setupWithViewPager(viewPager);
+            viewPager.setOffscreenPageLimit(5);
+        } else {
+            tabLayout.addTab(tabLayout.newTab().setText(tabs[0]));
+            tabLayout.addTab(tabLayout.newTab().setText(tabs[1]));
+            tabLayout.addTab(tabLayout.newTab().setText(tabs[2]));
+            tabLayout.addTab(tabLayout.newTab().setText(tabs[3]));
+            tabLayout.addTab(tabLayout.newTab().setText(tabs[4]));
 
-        viewPager.setOffscreenPageLimit(5);
+            List<Fragment> fragments = new ArrayList<>();
+            ChatLineFragment chatLineFragment = ChatLineFragment.getInstance(0);
+            fragments.add(chatLineFragment);
+            fragments.add(new ScopeCenterFragment());
+            fragments.add(new TaskCenterFragment());
+            fragments.add(new ComplanMsgFragment());
+            fragments.add(new SystemSettingFragment());
+            viewPager.setAdapter(new PagerAdapter(getFragmentManager(), fragments, tabs));
+            tabLayout.setupWithViewPager(viewPager);
+            viewPager.setOffscreenPageLimit(5);
+        }
         complanName.setText(MyApplication.getCommon().getCompanyName());
     }
 

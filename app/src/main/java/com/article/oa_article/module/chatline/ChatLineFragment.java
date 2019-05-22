@@ -13,9 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
+import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.ChartBO;
 import com.article.oa_article.bean.request.ChartRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
@@ -61,6 +63,8 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
     @BindView(R.id.chart1)
     LineChart chart;
     Unbinder unbinder;
+    @BindView(R.id.complan_bar)
+    LinearLayout complanBar;
 
     private int userId;
     private int complanId;
@@ -69,6 +73,18 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
 
     private int month = 1;  //1 :月表 0：季表  2：年表
     private YAxis leftAxis;
+
+    int type = 0;  //默认是取公司产能，  1为个人
+
+
+    public static ChatLineFragment getInstance(int type) {
+        ChatLineFragment fragment = new ChatLineFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("type", type);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
 
     @Nullable
     @Override
@@ -88,7 +104,19 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
 
         beginDate = "2018-05";
         endDate = "2019-05";
-
+        type = getArguments().getInt("type");
+        if (type == 0) {
+            userId = MyApplication.userBo.getId();
+            complanId = Integer.parseInt(MyApplication.getCommonId());
+            complanBar.setVisibility(View.GONE);
+            ChartRequest request = new ChartRequest();
+            request.setUserId(userId);
+            request.setCompanyId(complanId);
+            request.setBeginDate(beginDate);
+            request.setEndDate(endDate);
+            request.setMethod(month);
+            mPresenter.getChartData(request);
+        }
     }
 
     private void initView() {

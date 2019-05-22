@@ -58,6 +58,7 @@
 
 
             <TextView
+                android:id="@+id/guanli_num"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
@@ -92,6 +93,7 @@
 
 
             <TextView
+                android:id="@+id/jishu_num"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
@@ -125,6 +127,7 @@
 
 
             <TextView
+                android:id="@+id/pugong_num"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
@@ -216,6 +219,7 @@
 
 
             <TextView
+                android:id="@+id/mianji_num"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
@@ -250,6 +254,7 @@
 
 
             <TextView
+                android:id="@+id/xingzhi_num"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"

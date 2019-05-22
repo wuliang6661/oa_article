@@ -188,7 +188,7 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
         wanchenglv.setText(inInfoBo.getCompleteRate());
         yuqilv.setText(inInfoBo.getOverdueRate());
 
-        ChatLineFragment fragment = new ChatLineFragment();
+        ChatLineFragment fragment = ChatLineFragment.getInstance(1);
         fragment.setUserBo(userId, Integer.parseInt(MyApplication.getCommonId()));
         FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.chanlian);
     }
@@ -205,7 +205,7 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
         pingfen.setText(info.getScore() + "");
         yuqilv.setText(info.getCompanys().get(0).getOverdueRate());
 
-        ChatLineFragment fragment = new ChatLineFragment();
+        ChatLineFragment fragment = ChatLineFragment.getInstance(1);
         fragment.setUserBo(userId, info.getCompanys().get(0).getCompanyId());
         FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.chanlian);
     }
@@ -221,5 +221,7 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
         FragmentUtils.replace(getSupportFragmentManager(), zizhiFragment, R.id.complan_zizhi);
 
         fragment.setComplanBo(complanBO);
+        zizhiFragment.setComplanBo(complanBO);
+        shiliFragment.setComplanBo(complanBO);
     }
 }
