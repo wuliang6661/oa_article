@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
+import com.article.oa_article.bean.CountNumBO;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.bumenmanager.BumenManagerActivity;
 import com.article.oa_article.view.personmanager.PersonManagerActivity;
@@ -53,6 +54,8 @@ public class TempManagerFragment extends MVPBaseFragment<TempManagerContract.Vie
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mPresenter.getCount();
     }
 
 
@@ -73,5 +76,17 @@ public class TempManagerFragment extends MVPBaseFragment<TempManagerContract.Vie
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onRequestError(String msg) {
+        showToast(msg);
+    }
+
+    @Override
+    public void getCount(CountNumBO countNumBO) {
+        tempNum.setText(countNumBO.getDeparts() + "");
+        personNum.setText(countNumBO.getCompanyUsers() + "");
+        orderNum.setText(countNumBO.getOrders() + "");
     }
 }

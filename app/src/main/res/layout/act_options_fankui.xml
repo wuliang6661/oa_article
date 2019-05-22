@@ -38,12 +38,14 @@
 
 
                 <TextView
+                    android:id="@+id/type_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp"
                     android:layout_weight="1"
-                    android:text="请选择反馈类型"
-                    android:textColor="@color/text_hint_color"
+                    android:hint="请选择反馈类型"
+                    android:textColor="@color/f_white"
+                    android:textColorHint="@color/text_hint_color"
                     android:textSize="15sp" />
 
 
@@ -77,6 +79,7 @@
 
 
                 <TextView
+                    android:id="@+id/msg_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

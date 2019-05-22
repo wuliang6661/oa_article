@@ -34,21 +34,41 @@
             app:xyzTitleSize="10sp"
             app:xyzTitleTop="5dp" />
 
-        <com.xyz.tabitem.BottmTabItem
-            android:id="@+id/main2"
+
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:xyzIcon="@drawable/main2"
-            app:xyzIconHeight="20dp"
-            app:xyzIconWidth="20dp"
-            app:xyzSelectIcon="@drawable/main2_xz"
-            app:xyzSelectState="false"
-            app:xyzTitle="消息"
-            app:xyzTitleColor="#80849C"
-            app:xyzTitleSelectColor="#4166BE"
-            app:xyzTitleSize="10sp"
-            app:xyzTitleTop="5dp" />
+            android:layout_weight="1">
+
+
+            <com.xyz.tabitem.BottmTabItem
+                android:id="@+id/main2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:xyzIcon="@drawable/main2"
+                app:xyzIconHeight="20dp"
+                app:xyzIconWidth="20dp"
+                app:xyzSelectIcon="@drawable/main2_xz"
+                app:xyzSelectState="false"
+                app:xyzTitle="消息"
+                app:xyzTitleColor="#80849C"
+                app:xyzTitleSelectColor="#4166BE"
+                app:xyzTitleSize="10sp"
+                app:xyzTitleTop="5dp" />
+
+            <TextView
+                android:id="@+id/today_point"
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="23dp"
+                android:background="@drawable/range_red"
+                android:visibility="gone" />
+
+
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:layout_width="0dp"

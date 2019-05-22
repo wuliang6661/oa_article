@@ -13,17 +13,24 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.article.oa_article.R;
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.HttpServerImpl;
+import com.article.oa_article.base.MyApplication;
+import com.article.oa_article.bean.FankuiTypeBO;
+import com.article.oa_article.bean.request.FanKuiRequest;
 import com.article.oa_article.mvp.MVPBaseActivity;
 import com.article.oa_article.util.PhotoFromPhotoAlbum;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.guoqi.actionsheet.ActionSheet;
 
 import java.io.File;
@@ -32,6 +39,7 @@ import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import pub.devrel.easypermissions.EasyPermissions;
 
 
@@ -53,6 +61,10 @@ public class OptionsFankuiActivity extends MVPBaseActivity<OptionsFankuiContract
     RecyclerView imageRecycle;
     @BindView(R.id.next_button)
     Button nextButton;
+    @BindView(R.id.type_text)
+    TextView typeText;
+    @BindView(R.id.msg_num)
+    TextView msgNum;
 
 
     private File cameraSavePath;//拍照照片路径
@@ -60,6 +72,7 @@ public class OptionsFankuiActivity extends MVPBaseActivity<OptionsFankuiContract
     private String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     private List<String> images;
+    private FankuiTypeBO fankuiTypeBO;
 
     @Override
     protected int getLayout() {
@@ -88,6 +101,23 @@ public class OptionsFankuiActivity extends MVPBaseActivity<OptionsFankuiContract
         imageRecycle.setHasFixedSize(true);
         imageRecycle.setLayoutManager(gridLayoutManager);
         imageRecycle.setNestedScrollingEnabled(false);
+
+        editMessage.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                msgNum.setText(editable.toString().length() + "/100");
+            }
+        });
     }
 
 
@@ -95,6 +125,47 @@ public class OptionsFankuiActivity extends MVPBaseActivity<OptionsFankuiContract
         ImageAdapter adapter = new ImageAdapter(this, images);
         adapter.setListener(() -> ActionSheet.showSheet(OptionsFankuiActivity.this, OptionsFankuiActivity.this, null));
         imageRecycle.setAdapter(adapter);
+    }
+
+
+    @OnClick(R.id.fankui_type)
+    public void typeClick() {
+        Intent intent = new Intent(this, OptionsTypeActivity.class);
+        startActivityForResult(intent, 0x11);
+    }
+
+
+    @OnClick(R.id.next_button)
+    public void buttonClick() {
+        if (fankuiTypeBO == null) {
+            showToast("请选择反馈类型！");
+            return;
+        }
+        String text = editMessage.getText().toString().trim();
+        if (StringUtils.isEmpty(text)) {
+            showToast("请填写反馈内容！");
+            return;
+        }
+        String phone = editLianxifangshi.getText().toString().trim();
+        if (StringUtils.isEmpty(phone)) {
+            showToast("请填写联系方式！");
+            return;
+        }
+        if (images.size() == 0) {
+            showToast("请上传反馈图片！");
+            return;
+        }
+        StringBuilder image = new StringBuilder();
+        for (String url : images) {
+            image.append(url).append(",");
+        }
+        FanKuiRequest request = new FanKuiRequest();
+        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setContact(phone);
+        request.setContent(text);
+        request.setType(fankuiTypeBO.getCode());
+        request.setImage(image.substring(0, image.length() - 1));
+        mPresenter.addFeed(request);
     }
 
 
@@ -174,23 +245,40 @@ public class OptionsFankuiActivity extends MVPBaseActivity<OptionsFankuiContract
         } else if (requestCode == 2 && resultCode == RESULT_OK) {
             photoPath = PhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
             updateImage(new File(photoPath));
+        } else if (resultCode == 0x11) {
+            fankuiTypeBO = (FankuiTypeBO) data.getSerializableExtra("type");
+            typeText.setText(fankuiTypeBO.getName());
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
 
     public void updateImage(File file) {
+        showProgress();
         HttpServerImpl.updateFile(file).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
+                stopProgress();
                 images.add(s);
                 setImagesAdapter();
             }
 
             @Override
             public void onFiled(String message) {
+                stopProgress();
                 showToast(message);
             }
         });
+    }
+
+    @Override
+    public void onRequestError(String msg) {
+        showToast(msg);
+    }
+
+    @Override
+    public void sourss() {
+        showToast("反馈提交成功！");
+        finish();
     }
 }

@@ -12,11 +12,15 @@ import android.widget.TextView;
 import com.article.oa_article.R;
 import com.article.oa_article.base.GlideApp;
 import com.article.oa_article.base.MyApplication;
+import com.article.oa_article.bean.ComplanBO;
 import com.article.oa_article.bean.UserInInfoBo;
 import com.article.oa_article.bean.UserOutInfo;
 import com.article.oa_article.bean.request.UserInInfoRequest;
 import com.article.oa_article.bean.request.UserOutRequest;
 import com.article.oa_article.module.chatline.ChatLineFragment;
+import com.article.oa_article.module.complanydetails.ComplanyDetailsFragment;
+import com.article.oa_article.module.complanyshili.ComplanyshiliFragment;
+import com.article.oa_article.module.complanyzizhi.ComplanyZizhiFragment;
 import com.article.oa_article.mvp.MVPBaseActivity;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -105,6 +109,7 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
             UserOutRequest request = new UserOutRequest();
             request.setUserId(userId);
             mPresenter.getOutUserInfo(request);
+            mPresenter.getComplanMsg();
         }
     }
 
@@ -203,5 +208,18 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
         ChatLineFragment fragment = new ChatLineFragment();
         fragment.setUserBo(userId, info.getCompanys().get(0).getCompanyId());
         FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.chanlian);
+    }
+
+    @Override
+    public void getComplanInfo(ComplanBO complanBO) {
+        ComplanyDetailsFragment fragment = new ComplanyDetailsFragment();
+        ComplanyshiliFragment shiliFragment = new ComplanyshiliFragment();
+        ComplanyZizhiFragment zizhiFragment = new ComplanyZizhiFragment();
+
+        FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.complan_details);
+        FragmentUtils.replace(getSupportFragmentManager(), shiliFragment, R.id.complan_shili);
+        FragmentUtils.replace(getSupportFragmentManager(), zizhiFragment, R.id.complan_zizhi);
+
+        fragment.setComplanBo(complanBO);
     }
 }

@@ -7,11 +7,15 @@ import com.article.oa_article.bean.AlreadyScopeBO;
 import com.article.oa_article.bean.BuMenFlowBO;
 import com.article.oa_article.bean.BumenBO;
 import com.article.oa_article.bean.ChartBO;
+import com.article.oa_article.bean.ComplanBO;
+import com.article.oa_article.bean.CountNumBO;
+import com.article.oa_article.bean.FankuiTypeBO;
 import com.article.oa_article.bean.ScopeBO;
 import com.article.oa_article.bean.UserInInfoBo;
 import com.article.oa_article.bean.UserOutInfo;
 import com.article.oa_article.bean.request.BuMenRequest;
 import com.article.oa_article.bean.request.ChartRequest;
+import com.article.oa_article.bean.request.FanKuiRequest;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.PersonImgRequest;
 import com.article.oa_article.bean.request.PersonNameRequest;
@@ -181,6 +185,43 @@ public class PersonServiceImpl {
     public static Observable<String> scope(ScopeRequest request) {
         request.setToken(MyApplication.token);
         return getService().addScope(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取反馈类型
+     */
+    public static Observable<List<FankuiTypeBO>> getOptionType() {
+        TokenRequest request = new TokenRequest();
+        request.token = MyApplication.token;
+        return getService().getFeedType(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 提交反馈
+     */
+    public static Observable<String> addFeed(FanKuiRequest request) {
+        request.setToken(MyApplication.token);
+        return getService().addFeed(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取公司数量
+     */
+    public static Observable<CountNumBO> getCounts() {
+        IdRequest request = new IdRequest();
+        request.setId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setToken(MyApplication.token);
+        return getService().getCounts(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询企业认证信息
+     */
+    public static Observable<ComplanBO> getComplanMsg() {
+        IdRequest request = new IdRequest();
+        request.setId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setToken(MyApplication.token);
+        return getService().getComplanMsg(request).compose(RxResultHelper.httpRusult());
     }
 
 }

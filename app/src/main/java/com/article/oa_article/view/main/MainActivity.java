@@ -18,13 +18,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.bigkoo.pickerview.builder.TimePickerBuilder;
-import com.bigkoo.pickerview.view.TimePickerView;
-import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.TimeUtils;
 import com.article.oa_article.R;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.SalesBo;
+import com.article.oa_article.bean.event.MsgNumEvent;
 import com.article.oa_article.bean.event.OpenDrawableEvent;
 import com.article.oa_article.bean.request.AsseptRequest;
 import com.article.oa_article.bean.request.ComplayRequest;
@@ -37,6 +34,10 @@ import com.article.oa_article.view.main.none.NoneFragment2;
 import com.article.oa_article.view.main.none.NoneFragment3;
 import com.article.oa_article.view.main.none.NoneFragment4;
 import com.article.oa_article.view.main.none.NoneFragment5;
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.view.TimePickerView;
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.xyz.tabitem.BottmTabItem;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -109,6 +110,8 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     EditText editKeybord;
     @BindView(R.id.id_flowlayout)
     TagFlowLayout idFlowlayout;
+    @BindView(R.id.today_point)
+    TextView todayPoint;
 
     private int selectPosition = 0;
     private BottmTabItem[] buttms;
@@ -723,4 +726,15 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             return true;
         });
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(MsgNumEvent event) {
+        if (event.num > 0) {
+            todayPoint.setVisibility(View.VISIBLE);
+        } else {
+            todayPoint.setVisibility(View.GONE);
+        }
+    }
+
+
 }

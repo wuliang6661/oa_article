@@ -1,5 +1,6 @@
 package com.article.oa_article.view.person_details;
 
+import com.article.oa_article.bean.ComplanBO;
 import com.article.oa_article.bean.UserInInfoBo;
 import com.article.oa_article.bean.UserOutInfo;
 import com.article.oa_article.mvp.BasePresenter;
@@ -17,6 +18,8 @@ public class Person_detailsContract {
         void getUserInInfo(UserInInfoBo inInfoBo);
 
         void getUserOutInfo(UserOutInfo info);
+
+        void getComplanInfo(ComplanBO complanBO);
 
     }
 

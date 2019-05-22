@@ -5,11 +5,15 @@ import com.article.oa_article.bean.BaseResult;
 import com.article.oa_article.bean.BuMenFlowBO;
 import com.article.oa_article.bean.BumenBO;
 import com.article.oa_article.bean.ChartBO;
+import com.article.oa_article.bean.ComplanBO;
+import com.article.oa_article.bean.CountNumBO;
+import com.article.oa_article.bean.FankuiTypeBO;
 import com.article.oa_article.bean.ScopeBO;
 import com.article.oa_article.bean.UserInInfoBo;
 import com.article.oa_article.bean.UserOutInfo;
 import com.article.oa_article.bean.request.BuMenRequest;
 import com.article.oa_article.bean.request.ChartRequest;
+import com.article.oa_article.bean.request.FanKuiRequest;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.PersonImgRequest;
 import com.article.oa_article.bean.request.PersonNameRequest;
@@ -119,5 +123,29 @@ public interface PersonService {
      */
     @POST("industry_webservice/app/evaluate/addEvaluate")
     Observable<BaseResult<String>> addScope(@Body ScopeRequest request);
+
+    /**
+     * 获取反馈类型
+     */
+    @POST("industry_webservice/app/feedback/getFeedBackType")
+    Observable<BaseResult<List<FankuiTypeBO>>> getFeedType(@Body TokenRequest request);
+
+    /**
+     * 新增用户反馈
+     */
+    @POST("industry_webservice/app/feedback/addFeedBack")
+    Observable<BaseResult<String>> addFeed(@Body FanKuiRequest request);
+
+    /**
+     * 获取公司数量
+     */
+    @POST("industry_webservice/app/companyInfo/getCounts")
+    Observable<BaseResult<CountNumBO>> getCounts(@Body IdRequest request);
+
+    /**
+     * 查询企业认证信息
+     */
+    @POST("industry_webservice/app/companyInfo/getCompanyInfo")
+    Observable<BaseResult<ComplanBO>> getComplanMsg(@Body IdRequest request);
 
 }
