@@ -24,6 +24,7 @@ import com.article.oa_article.bean.BumenBO;
 import com.article.oa_article.bean.PersonBO;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
+import com.article.oa_article.view.addusers.AddUsersActivity;
 import com.article.oa_article.view.moveaddperson.MoveAddPersonActivity;
 import com.article.oa_article.view.person_details.Person_detailsActivity;
 import com.blankj.utilcode.util.ScreenUtils;
@@ -194,7 +195,7 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
 
             @Override
             public void piliangAdd() {
-
+                gotoActivity(AddUsersActivity.class, false);
             }
         });
         addPop.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);

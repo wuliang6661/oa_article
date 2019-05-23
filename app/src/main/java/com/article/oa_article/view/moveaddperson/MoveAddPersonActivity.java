@@ -18,6 +18,7 @@ import com.article.oa_article.bean.request.AddUserRequest;
 import com.article.oa_article.mvp.MVPBaseActivity;
 import com.article.oa_article.view.bumen.BumenActivity;
 import com.article.oa_article.view.lablecustom.LableCustomActivity;
+import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 
 import butterknife.BindView;
@@ -94,6 +95,10 @@ public class MoveAddPersonActivity extends MVPBaseActivity<MoveAddPersonContract
         String phone = editPhoneNum.getText().toString().trim();
         if (StringUtils.isEmpty(phone)) {
             showToast("请输入手机号！");
+            return;
+        }
+        if (!RegexUtils.isMobileExact(phone)) {
+            showToast("请输入正确手机号！");
             return;
         }
         AddUserRequest request = new AddUserRequest();
