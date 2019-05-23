@@ -8,13 +8,17 @@ import com.article.oa_article.bean.ChartBO;
 import com.article.oa_article.bean.ComplanBO;
 import com.article.oa_article.bean.CountNumBO;
 import com.article.oa_article.bean.FankuiTypeBO;
+import com.article.oa_article.bean.LableBo;
 import com.article.oa_article.bean.ScopeBO;
 import com.article.oa_article.bean.UserInInfoBo;
 import com.article.oa_article.bean.UserOutInfo;
+import com.article.oa_article.bean.request.AddLableRequest;
+import com.article.oa_article.bean.request.AddUserRequest;
 import com.article.oa_article.bean.request.BuMenRequest;
 import com.article.oa_article.bean.request.ChartRequest;
 import com.article.oa_article.bean.request.FanKuiRequest;
 import com.article.oa_article.bean.request.IdRequest;
+import com.article.oa_article.bean.request.LableRequest;
 import com.article.oa_article.bean.request.PersonImgRequest;
 import com.article.oa_article.bean.request.PersonNameRequest;
 import com.article.oa_article.bean.request.PersonPasswordRequest;
@@ -147,5 +151,29 @@ public interface PersonService {
      */
     @POST("industry_webservice/app/companyInfo/getCompanyInfo")
     Observable<BaseResult<ComplanBO>> getComplanMsg(@Body IdRequest request);
+
+    /**
+     * 获取外部联系人标签
+     */
+    @POST("industry_webservice/app/label/getAllLabels")
+    Observable<BaseResult<LableBo>> getAllLabels(@Body LableRequest request);
+
+    /**
+     * 删除标签
+     */
+    @POST("industry_webservice/app/label/deleteCustomLabel")
+    Observable<BaseResult<String>> deleteLable(@Body IdRequest request);
+
+    /**
+     * 新增标签
+     */
+    @POST("industry_webservice/app/label/addLabel")
+    Observable<BaseResult<String>> addLable(@Body AddLableRequest request);
+
+    /**
+     * 添加好友
+     */
+    @POST("industry_webservice/app/userInfo/addFriendUser")
+    Observable<BaseResult<String>> addUser(@Body AddUserRequest request);
 
 }

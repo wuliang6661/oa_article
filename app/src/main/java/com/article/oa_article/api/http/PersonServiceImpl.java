@@ -10,13 +10,17 @@ import com.article.oa_article.bean.ChartBO;
 import com.article.oa_article.bean.ComplanBO;
 import com.article.oa_article.bean.CountNumBO;
 import com.article.oa_article.bean.FankuiTypeBO;
+import com.article.oa_article.bean.LableBo;
 import com.article.oa_article.bean.ScopeBO;
 import com.article.oa_article.bean.UserInInfoBo;
 import com.article.oa_article.bean.UserOutInfo;
+import com.article.oa_article.bean.request.AddLableRequest;
+import com.article.oa_article.bean.request.AddUserRequest;
 import com.article.oa_article.bean.request.BuMenRequest;
 import com.article.oa_article.bean.request.ChartRequest;
 import com.article.oa_article.bean.request.FanKuiRequest;
 import com.article.oa_article.bean.request.IdRequest;
+import com.article.oa_article.bean.request.LableRequest;
 import com.article.oa_article.bean.request.PersonImgRequest;
 import com.article.oa_article.bean.request.PersonNameRequest;
 import com.article.oa_article.bean.request.PersonPasswordRequest;
@@ -223,5 +227,48 @@ public class PersonServiceImpl {
         request.setToken(MyApplication.token);
         return getService().getComplanMsg(request).compose(RxResultHelper.httpRusult());
     }
+
+    /**
+     * 获取外部联系人标签
+     */
+    public static Observable<LableBo> getAllLables() {
+        LableRequest request = new LableRequest();
+        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setToken(MyApplication.token);
+        return getService().getAllLabels(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 删除标签
+     */
+    public static Observable<String> deleteLable(int id) {
+        IdRequest request = new IdRequest();
+        request.setToken(MyApplication.token);
+        request.setId(id);
+        return getService().deleteLable(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 新增标签
+     */
+    public static Observable<String> addLable(String name) {
+        AddLableRequest request = new AddLableRequest();
+        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setName(name);
+        request.setOrderNum(1);
+        request.setToken(MyApplication.token);
+        return getService().addLable(request).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 添加好友
+     */
+    public static Observable<String> addUser(AddUserRequest request) {
+        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setToken(MyApplication.token);
+        return getService().addUser(request).compose(RxResultHelper.httpRusult());
+    }
+
 
 }

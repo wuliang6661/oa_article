@@ -19,7 +19,7 @@
         android:textSize="13sp" />
 
 
-    <com.zhy.view.flowlayout.TagFlowLayout
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/flow_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
         android:textSize="13sp" />
 
 
-    <com.zhy.view.flowlayout.TagFlowLayout
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/lable_flow_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_bg"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/layout_bar" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+
+
+        <LinearLayout
+            android:id="@+id/select_layout"
+            android:layout_width="0dp"
+            android:layout_height="33dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_weight="1"
+            android:background="@drawable/select_edit_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/select_img" />
+
+
+            <EditText
+                android:id="@+id/edit_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="9dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="搜索"
+                android:textColor="@color/f_white"
+                android:textColorHint="#8D8C91"
+                android:textSize="13sp" />
+
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/add_img"
+            android:layout_width="40dp"
+            android:layout_height="23dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/add_circle"
+            android:visibility="gone" />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/button_bg"
+            android:text="确定"
+            android:textColor="@color/text_white"
+            android:textSize="18sp" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/person_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/next_button" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

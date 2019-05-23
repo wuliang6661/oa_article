@@ -78,8 +78,8 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         requestPermission();
         if (BuildConfig.DEBUG) {
             editPhone.setText("18368163483");
-             // 15726818192
-            editPassword.setText("123456");
+            // 15726818192
+            editPassword.setText("111111");
         }
     }
 
@@ -91,13 +91,16 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                 || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions(this,
                     new String[]{
                             Manifest.permission.READ_PHONE_STATE,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.CALL_PHONE
+                            Manifest.permission.CALL_PHONE,
+                            Manifest.permission.READ_CONTACTS
                     }, 1);
 
         }

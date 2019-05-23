@@ -205,6 +205,7 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
         new Handler().post(() -> {
             titleLayout.setVisibility(View.VISIBLE);
             complanName.setText(MyApplication.getCommon().getCompanyName());
+            complanyImg.setVisibility(View.GONE);
 //                Glide.with(getActivity()).load(MyApplication.getCommon().)
         });
     }

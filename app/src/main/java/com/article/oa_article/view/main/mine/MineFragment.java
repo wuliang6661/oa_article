@@ -27,6 +27,7 @@ import com.article.oa_article.module.taskcenter.TaskCenterFragment;
 import com.article.oa_article.module.tempmanager.TempManagerFragment;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.setting.SettingActivity;
+import com.blankj.utilcode.util.FragmentUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,13 +60,13 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
     TextView personPhone;
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
-    @BindView(R.id.view_pager)
-    ViewPager viewPager;
     Unbinder unbinder;
 
     private String[] tabsAdmain = new String[]{"产能分析", "评价中心", "任务数据", "企业认证", "管理团队"};
 
     private String[] tabs = new String[]{"产能分析", "评价中心", "任务数据", "企业认证", "系统设置"};
+
+    List<Fragment> fragments = new ArrayList<>();
 
     @Nullable
     @Override
@@ -80,6 +81,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
         super.onViewCreated(view, savedInstanceState);
 
         initView();
+        setListener();
     }
 
     @Override
@@ -93,24 +95,20 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
      */
     private void initView() {
         tabLayout.removeAllTabs();
-        if (MyApplication.getCommon().getIsAdmin() == 0) {  //管理员
+        fragments.clear();
+        if (MyApplication.getCommon().getIsAdmin() == 1) {  //管理员
             tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[0]));
             tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[1]));
             tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[2]));
             tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[3]));
             tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[4]));
 
-            List<Fragment> fragments = new ArrayList<>();
-//        ChatLineFragment chatLineFragment = new ChatLineFragment();
-//        chatLineFragment.setUserBo(MyApplication.userBo.getId(), Integer.parseInt(MyApplication.getCommonId()));
-            fragments.add(new SystemSettingFragment());
+            ChatLineFragment chatLineFragment = ChatLineFragment.getInstance(0);
+            fragments.add(chatLineFragment);
             fragments.add(new ScopeCenterFragment());
             fragments.add(new TaskCenterFragment());
             fragments.add(new Fragment());
             fragments.add(new TempManagerFragment());
-            viewPager.setAdapter(new PagerAdapter(getFragmentManager(), fragments, tabsAdmain));
-            tabLayout.setupWithViewPager(viewPager);
-            viewPager.setOffscreenPageLimit(5);
         } else {
             tabLayout.addTab(tabLayout.newTab().setText(tabs[0]));
             tabLayout.addTab(tabLayout.newTab().setText(tabs[1]));
@@ -118,18 +116,35 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
             tabLayout.addTab(tabLayout.newTab().setText(tabs[3]));
             tabLayout.addTab(tabLayout.newTab().setText(tabs[4]));
 
-            List<Fragment> fragments = new ArrayList<>();
             ChatLineFragment chatLineFragment = ChatLineFragment.getInstance(0);
             fragments.add(chatLineFragment);
             fragments.add(new ScopeCenterFragment());
             fragments.add(new TaskCenterFragment());
             fragments.add(new ComplanMsgFragment());
             fragments.add(new SystemSettingFragment());
-            viewPager.setAdapter(new PagerAdapter(getFragmentManager(), fragments, tabs));
-            tabLayout.setupWithViewPager(viewPager);
-            viewPager.setOffscreenPageLimit(5);
         }
         complanName.setText(MyApplication.getCommon().getCompanyName());
+        FragmentUtils.replace(getFragmentManager(), fragments.get(0), R.id.mine_fragment);
+    }
+
+
+    private void setListener() {
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                FragmentUtils.replace(getFragmentManager(), fragments.get(tab.getPosition()), R.id.mine_fragment);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
 

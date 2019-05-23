@@ -13,9 +13,12 @@ import android.widget.TextView;
 
 import com.article.oa_article.R;
 import com.article.oa_article.bean.BuMenFlowBO;
+import com.article.oa_article.bean.LableBo;
+import com.article.oa_article.bean.request.AddUserRequest;
 import com.article.oa_article.mvp.MVPBaseActivity;
 import com.article.oa_article.view.bumen.BumenActivity;
 import com.article.oa_article.view.lablecustom.LableCustomActivity;
+import com.blankj.utilcode.util.StringUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -43,14 +46,21 @@ public class MoveAddPersonActivity extends MVPBaseActivity<MoveAddPersonContract
     TextView hintMessageLayout;
     @BindView(R.id.next_button)
     Button nextButton;
-    @BindView(R.id.waibu_layout)
-    LinearLayout waibuLayout;
-    @BindView(R.id.waibu_line)
-    View waibuLine;
+    @BindView(R.id.bumen_layout)
+    LinearLayout bumenLayout;
+    @BindView(R.id.bumen_line)
+    View bumenLine;
+    @BindView(R.id.waibu_point)
+    TextView waibuPoint;
 
     private boolean isNeiBu = true;   //默认添加内部联系人
 
     private BuMenFlowBO buMenFlowBO;
+
+    LableBo.SysLabelsBean labelsBean;
+    LableBo.CustomLabelsBean customLabelsBean;
+
+    boolean isFirst;
 
     @Override
     protected int getLayout() {
@@ -66,20 +76,57 @@ public class MoveAddPersonActivity extends MVPBaseActivity<MoveAddPersonContract
 
         isNeiBu = getIntent().getExtras().getBoolean("isNeiBu");
         if (isNeiBu) {
-            hintMessageLayout.setVisibility(View.GONE);
-            waibuLayout.setVisibility(View.GONE);
-            waibuLine.setVisibility(View.GONE);
-        } else {
             hintMessageLayout.setVisibility(View.VISIBLE);
-            waibuLayout.setVisibility(View.VISIBLE);
-            waibuLine.setVisibility(View.VISIBLE);
+            bumenLayout.setVisibility(View.VISIBLE);
+            bumenLine.setVisibility(View.VISIBLE);
+            waibuPoint.setVisibility(View.GONE);
+        } else {
+            hintMessageLayout.setVisibility(View.GONE);
+            bumenLayout.setVisibility(View.GONE);
+            bumenLine.setVisibility(View.GONE);
+            waibuPoint.setVisibility(View.VISIBLE);
         }
     }
 
 
     @OnClick(R.id.next_button)
     public void savePerson() {
-
+        String phone = editPhoneNum.getText().toString().trim();
+        if (StringUtils.isEmpty(phone)) {
+            showToast("请输入手机号！");
+            return;
+        }
+        AddUserRequest request = new AddUserRequest();
+        request.setPhone(phone);
+        if (isNeiBu) {
+            if (buMenFlowBO == null && labelsBean == null && customLabelsBean == null) {
+                showToast("请至少填写两项！");
+                return;
+            }
+            if (buMenFlowBO != null) {
+                request.setDepartId(Integer.parseInt(buMenFlowBO.getId()));
+            }
+            if (isFirst) {
+                if (labelsBean != null)
+                    request.setLabelId(labelsBean.getId());
+            } else {
+                if (customLabelsBean != null)
+                    request.setLabelId(customLabelsBean.getId());
+            }
+        } else {
+            if (labelsBean == null && customLabelsBean == null) {
+                showToast("请选择外部联系人标签！");
+                return;
+            }
+            if (isFirst) {
+                if (labelsBean != null)
+                    request.setLabelId(labelsBean.getId());
+            } else {
+                if (customLabelsBean != null)
+                    request.setLabelId(customLabelsBean.getId());
+            }
+        }
+        mPresenter.addUser(request);
     }
 
 
@@ -105,6 +152,27 @@ public class MoveAddPersonActivity extends MVPBaseActivity<MoveAddPersonContract
                 buMenFlowBO = (BuMenFlowBO) data.getSerializableExtra("bumen");
                 bumenName.setText(buMenFlowBO.getName());
                 break;
+            case 0x22:
+                isFirst = data.getBooleanExtra("isFirst", true);
+                if (isFirst) {
+                    labelsBean = (LableBo.SysLabelsBean) data.getSerializableExtra("lable");
+                    waibuFlowName.setText(labelsBean.getName());
+                } else {
+                    customLabelsBean = (LableBo.CustomLabelsBean) data.getSerializableExtra("lable");
+                    waibuFlowName.setText(customLabelsBean.getName());
+                }
+                break;
         }
+    }
+
+    @Override
+    public void addUserSuress() {
+        showToast("添加成功,已发送添加好友请求！");
+        finish();
+    }
+
+    @Override
+    public void onRequestError(String msg) {
+        showToast(msg);
     }
 }

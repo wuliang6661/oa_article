@@ -31,11 +31,13 @@ public class PopPersonAdd extends PopupWindow {
 
         piliang_add.setOnClickListener(view -> {
             if (listener != null) {
+                dismiss();
                 listener.piliangAdd();
             }
         });
         shoudong_add.setOnClickListener(view -> {
             if (listener != null) {
+                dismiss();
                 listener.shoudongAdd();
             }
         });

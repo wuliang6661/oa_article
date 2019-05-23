@@ -34,6 +34,7 @@ public class NoneFragment3 extends SupportFragment {
             loadRootFragment(R.id.fl_first_container, listFragment);
         }
         listFragment.setTitleVisiable();
+        listFragment.setIsSelectPerson(false);
     }
 
     @Override

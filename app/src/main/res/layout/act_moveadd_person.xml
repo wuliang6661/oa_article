@@ -17,22 +17,30 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/zhongdian"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="*"
-            android:textColor="#DB2E2E"
-            android:textSize="12sp"
-            android:visibility="visible" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="手机号"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/zhongdian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="#DB2E2E"
+                android:textSize="12sp"
+                android:visibility="visible" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="手机号"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+        </LinearLayout>
 
 
         <EditText
@@ -43,6 +51,8 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="请输入手机号"
+            android:inputType="number"
+            android:maxLength="11"
             android:textColor="@color/white"
             android:textColorHint="@color/hint_color"
             android:textSize="15sp" />
@@ -59,6 +69,7 @@
 
 
     <LinearLayout
+        android:id="@+id/bumen_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="20dp"
@@ -105,6 +116,7 @@
 
 
     <View
+        android:id="@+id/bumen_line"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_marginLeft="20dp"
@@ -113,7 +125,6 @@
 
 
     <LinearLayout
-        android:id="@+id/waibu_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="20dp"
@@ -122,13 +133,30 @@
         android:orientation="horizontal">
 
 
-        <TextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="外部联系人"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/waibu_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="#DB2E2E"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="外部联系人"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+        </LinearLayout>
 
 
         <RelativeLayout
@@ -160,7 +188,6 @@
 
 
     <View
-        android:id="@+id/waibu_line"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_marginLeft="20dp"

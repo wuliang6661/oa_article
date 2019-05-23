@@ -6,148 +6,135 @@
     android:orientation="vertical">
 
 
-    <android.support.v4.widget.NestedScrollView
+    <LinearLayout
+        android:id="@+id/complan_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="37dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/bar_color"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <ImageView
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginLeft="18dp"
+            android:src="@drawable/gongsi_bar" />
 
-            <LinearLayout
-                android:id="@+id/complan_bar"
-                android:layout_width="match_parent"
-                android:layout_height="37dp"
-                android:layout_marginTop="2dp"
-                android:background="@color/bar_color"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="19dp"
-                    android:layout_height="19dp"
-                    android:layout_marginLeft="18dp"
-                    android:src="@drawable/gongsi_bar" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:text="公司信息"
-                    android:textColor="#b8b8b8"
-                    android:textSize="15sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text="公司信息"
+            android:textColor="#b8b8b8"
+            android:textSize="15sp" />
 
 
-                <CheckBox
-                    android:id="@+id/kehu_order_check"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginLeft="6dp"
-                    android:background="@drawable/bar_check_box"
-                    android:button="@null"
-                    android:checked="true"
-                    android:enabled="false" />
+        <CheckBox
+            android:id="@+id/kehu_order_check"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="6dp"
+            android:background="@drawable/bar_check_box"
+            android:button="@null"
+            android:checked="true"
+            android:enabled="false" />
 
 
-            </LinearLayout>
+    </LinearLayout>
 
 
-            <FrameLayout
-                android:id="@+id/complan_details"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+    <FrameLayout
+        android:id="@+id/complan_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
-            <LinearLayout
-                android:id="@+id/complan_ziyuan_bar"
-                android:layout_width="match_parent"
-                android:layout_height="37dp"
-                android:layout_marginTop="2dp"
-                android:background="@color/bar_color"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+    <LinearLayout
+        android:id="@+id/complan_ziyuan_bar"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/bar_color"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="19dp"
-                    android:layout_height="19dp"
-                    android:layout_marginLeft="18dp"
-                    android:src="@drawable/gongsi_ziyuan" />
+        <ImageView
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginLeft="18dp"
+            android:src="@drawable/gongsi_ziyuan" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:text="公司资源"
-                    android:textColor="#b8b8b8"
-                    android:textSize="15sp" />
-
-
-                <CheckBox
-                    android:id="@+id/gongsi_ziyuan_check"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginLeft="6dp"
-                    android:background="@drawable/bar_check_box"
-                    android:button="@null"
-                    android:checked="true"
-                    android:enabled="false" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text="公司资源"
+            android:textColor="#b8b8b8"
+            android:textSize="15sp" />
 
 
-            </LinearLayout>
+        <CheckBox
+            android:id="@+id/gongsi_ziyuan_check"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="6dp"
+            android:background="@drawable/bar_check_box"
+            android:button="@null"
+            android:checked="true"
+            android:enabled="false" />
 
 
-            <FrameLayout
-                android:id="@+id/complan_zizhi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+    </LinearLayout>
 
 
-            <LinearLayout
-                android:id="@+id/shili_bar"
-                android:layout_width="match_parent"
-                android:layout_height="37dp"
-                android:layout_marginTop="2dp"
-                android:background="@color/bar_color"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="19dp"
-                    android:layout_height="19dp"
-                    android:layout_marginLeft="18dp"
-                    android:src="@drawable/shili" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:text="实力展示"
-                    android:textColor="#b8b8b8"
-                    android:textSize="15sp" />
+    <FrameLayout
+        android:id="@+id/complan_zizhi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
-                <CheckBox
-                    android:id="@+id/shili_check"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginLeft="6dp"
-                    android:background="@drawable/bar_check_box"
-                    android:button="@null"
-                    android:checked="true"
-                    android:enabled="false" />
+    <LinearLayout
+        android:id="@+id/shili_bar"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/bar_color"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginLeft="18dp"
+            android:src="@drawable/shili" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text="实力展示"
+            android:textColor="#b8b8b8"
+            android:textSize="15sp" />
 
 
-            </LinearLayout>
+        <CheckBox
+            android:id="@+id/shili_check"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="6dp"
+            android:background="@drawable/bar_check_box"
+            android:button="@null"
+            android:checked="true"
+            android:enabled="false" />
 
-            <FrameLayout
-                android:id="@+id/complan_shili"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
+    </LinearLayout>
 
-        </LinearLayout>
+    <FrameLayout
+        android:id="@+id/complan_shili"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

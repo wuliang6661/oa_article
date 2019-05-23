@@ -25,6 +25,8 @@
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- 震动权限 -->
     <uses-feature android:name="android.hardware.camera.autofocus" /> <!-- 自动聚焦权限 -->
 
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
 
     <application
         android:name="com.article.oa_article.base.MyApplication"
@@ -180,7 +182,6 @@
             android:name=".view.personmanager.PersonManagerActivity"
             android:screenOrientation="portrait" />
 
-
         <!--意见反馈-->
         <activity
             android:name=".view.optionsfankui.OptionsFankuiActivity"
@@ -189,6 +190,11 @@
         <!--反馈类型-->
         <activity
             android:name=".view.optionsfankui.OptionsTypeActivity"
+            android:screenOrientation="portrait" />
+
+        <!--批量从通讯录添加-->
+        <activity
+            android:name=".view.addusers.AddUsersActivity"
             android:screenOrientation="portrait" />
 
 

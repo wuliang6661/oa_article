@@ -1,11 +1,30 @@
 package com.article.oa_article.view.lablecustom;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.article.oa_article.R;
+import com.article.oa_article.bean.LableBo;
 import com.article.oa_article.mvp.MVPBaseActivity;
+import com.article.oa_article.widget.AlertDialog;
+import com.article.oa_article.widget.PopTaskMsg;
+import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
+import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 
 /**
@@ -15,6 +34,25 @@ import com.article.oa_article.mvp.MVPBaseActivity;
 
 public class LableCustomActivity extends MVPBaseActivity<LableCustomContract.View, LableCustomPresenter>
         implements LableCustomContract.View {
+
+    @BindView(R.id.flow_layout)
+    RecyclerView flowLayout;
+    @BindView(R.id.lable_flow_layout)
+    RecyclerView lableFlowLayout;
+    @BindView(R.id.add_pinglei)
+    LinearLayout addPinglei;
+    @BindView(R.id.next_button)
+    Button nextButton;
+
+    LableBo lableBo;
+
+    boolean isFirst = true;   //默认选中上面的第一个
+
+    LableBo.SysLabelsBean labelsBean;
+    LableBo.CustomLabelsBean customLabelsBean;
+
+    SysAdapter sysAdapter;
+    MyLableAdapter adapter;
 
     @Override
     protected int getLayout() {
@@ -28,8 +66,161 @@ public class LableCustomActivity extends MVPBaseActivity<LableCustomContract.Vie
         goBack();
         setTitleText("标签选择");
 
+        initView();
+        mPresenter.getAllLables();
     }
 
+
+    private void initView() {
+        GridLayoutManager manager = new GridLayoutManager(this, 3);
+        flowLayout.setLayoutManager(manager);
+
+        GridLayoutManager manager1 = new GridLayoutManager(this, 3);
+        lableFlowLayout.setLayoutManager(manager1);
+    }
+
+
+    @OnClick(R.id.next_button)
+    public void nextClick() {
+        if (isFirst) {
+            Intent intent = new Intent();
+            intent.putExtra("lable", labelsBean);
+            intent.putExtra("isFirst", isFirst);
+            setResult(0x22, intent);
+        } else {
+            Intent intent = new Intent();
+            intent.putExtra("lable", customLabelsBean);
+            intent.putExtra("isFirst", isFirst);
+            setResult(0x22, intent);
+        }
+        finish();
+    }
+
+
+    @OnClick(R.id.add_pinglei)
+    public void addClick() {
+        PopTaskMsg popTaskMsg = new PopTaskMsg(this, "新增标签", "标签名", "请输入标签名");
+        popTaskMsg.setListener(text -> mPresenter.addLable(text));
+        popTaskMsg.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+    }
+
+
+    @Override
+    public void onRequestError(String msg) {
+        showToast(msg);
+    }
+
+    @Override
+    public void getLable(LableBo lableBo) {
+        this.lableBo = lableBo;
+        setSysAdapter();
+        setMyLableAdapter();
+    }
+
+    /**
+     * 设置常用标签列表
+     */
+    private void setSysAdapter() {
+        sysAdapter = new SysAdapter(lableBo.getSysLabels());
+        sysAdapter.setOnItemClickListener(R.id.flow_text, (view, position) -> {
+            sysAdapter.setSelectPosition(position);
+            sysAdapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
+            isFirst = true;
+            labelsBean = lableBo.getSysLabels().get(position);
+        });
+        flowLayout.setAdapter(sysAdapter);
+        labelsBean = lableBo.getSysLabels().get(0);
+    }
+
+
+    /**
+     * 设置自定义标签列表
+     */
+    private void setMyLableAdapter() {
+        adapter = new MyLableAdapter(lableBo.getCustomLabels());
+        adapter.setOnItemClickListener(R.id.flow_text, (view, position) -> {
+            adapter.setSelectPosition(position);
+            adapter.notifyDataSetChanged();
+            sysAdapter.notifyDataSetChanged();
+            isFirst = false;
+            customLabelsBean = lableBo.getCustomLabels().get(position);
+        });
+        adapter.setOnItemClickListener(R.id.flow_delete, (view, position) ->
+                new AlertDialog(LableCustomActivity.this).builder().setGone().setMsg("是否确定删除标签？")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确定", v -> mPresenter.deleteLable(lableBo.getCustomLabels().get(position).getId())).show());
+
+        lableFlowLayout.setAdapter(adapter);
+    }
+
+
+    class SysAdapter extends LGRecycleViewAdapter<LableBo.SysLabelsBean> {
+
+        SysAdapter(List<LableBo.SysLabelsBean> dataList) {
+            super(dataList);
+        }
+
+        int selectPosition = 0;
+
+        void setSelectPosition(int selectPosition) {
+            this.selectPosition = selectPosition;
+        }
+
+
+        @Override
+        public int getLayoutId(int viewType) {
+            return R.layout.item_bumen_flow;
+        }
+
+        @Override
+        public void convert(LGViewHolder holder, LableBo.SysLabelsBean sysLabelsBean, int position) {
+            TextView bumenText = (TextView) holder.getView(R.id.flow_text);
+            bumenText.setText(sysLabelsBean.getName());
+            if (isFirst && position == selectPosition) {
+                bumenText.setTextColor(ContextCompat.getColor(LableCustomActivity.this, R.color.blue_color));
+                bumenText.setBackgroundResource(R.drawable.menu_item_select);
+            } else {
+                bumenText.setTextColor(ContextCompat.getColor(LableCustomActivity.this, R.color.tab_txt_color));
+                bumenText.setBackgroundResource(R.drawable.menu_item_bg);
+            }
+        }
+    }
+
+
+    class MyLableAdapter extends LGRecycleViewAdapter<LableBo.CustomLabelsBean> {
+
+        MyLableAdapter(List<LableBo.CustomLabelsBean> dataList) {
+            super(dataList);
+        }
+
+        int selectPosition = 0;
+
+        void setSelectPosition(int selectPosition) {
+            this.selectPosition = selectPosition;
+        }
+
+
+        @Override
+        public int getLayoutId(int viewType) {
+            return R.layout.item_bumen_flow;
+        }
+
+        @Override
+        public void convert(LGViewHolder holder, LableBo.CustomLabelsBean sysLabelsBean, int position) {
+            TextView bumenText = (TextView) holder.getView(R.id.flow_text);
+            bumenText.setText(sysLabelsBean.getName());
+            if (!isFirst && position == selectPosition) {
+                bumenText.setTextColor(ContextCompat.getColor(LableCustomActivity.this, R.color.blue_color));
+                bumenText.setBackgroundResource(R.drawable.menu_item_select);
+
+            } else {
+                bumenText.setTextColor(ContextCompat.getColor(LableCustomActivity.this, R.color.tab_txt_color));
+                bumenText.setBackgroundResource(R.drawable.menu_item_bg);
+            }
+            holder.getView(R.id.flow_delete).setVisibility(View.VISIBLE);
+        }
+    }
 
 
 }
