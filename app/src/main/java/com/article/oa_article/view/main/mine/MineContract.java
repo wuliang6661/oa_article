@@ -13,6 +13,8 @@ public class MineContract {
     interface View extends BaseRequestView {
 
         void getUser(UserBo userBo);
+
+        void addComplanSuress();
     }
 
     interface  Presenter extends BasePresenter<View> {

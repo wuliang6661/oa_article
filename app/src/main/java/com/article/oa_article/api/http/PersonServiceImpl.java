@@ -29,6 +29,7 @@ import com.article.oa_article.bean.request.PersonPhoneRequest;
 import com.article.oa_article.bean.request.PhoneRequest;
 import com.article.oa_article.bean.request.ScopeRequest;
 import com.article.oa_article.bean.request.TokenRequest;
+import com.article.oa_article.bean.request.UpdateDepartRequest;
 import com.article.oa_article.bean.request.UserInInfoRequest;
 import com.article.oa_article.bean.request.UserOutRequest;
 import com.article.oa_article.util.rx.RxResultHelper;
@@ -304,6 +305,28 @@ public class PersonServiceImpl {
         request.setId(Integer.parseInt(MyApplication.getCommonId()));
         request.setToken(MyApplication.token);
         return getService().addDepart(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 修改联系人部门
+     */
+    public static Observable<String> updateDeart(int userId, int deartId) {
+        UpdateDepartRequest request = new UpdateDepartRequest();
+        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setDepartId(deartId);
+        request.setToken(MyApplication.token);
+        request.setUserId(userId);
+        return getService().updateUserDepart(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 新增企业
+     */
+    public static Observable<String> addComplanName(String name) {
+        IdRequest request = new IdRequest();
+        request.setName(name);
+        request.setToken(MyApplication.token);
+        return getService().addComplanName(request).compose(RxResultHelper.httpRusult());
     }
 
 }

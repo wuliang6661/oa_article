@@ -1,9 +1,8 @@
 package com.article.oa_article.view.main.mine;
 
-import android.content.Context;
-
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.HttpServerImpl;
+import com.article.oa_article.api.http.PersonServiceImpl;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.UserBo;
 import com.article.oa_article.mvp.BasePresenterImpl;
@@ -38,5 +37,22 @@ public class MinePresenter extends BasePresenterImpl<MineContract.View> implemen
         });
     }
 
+    public void addComplan(String name) {
+        PersonServiceImpl.addComplanName(name).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if (mView != null) {
+                    mView.addComplanSuress();
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
 
 }

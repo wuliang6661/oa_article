@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import com.article.oa_article.R;
@@ -26,6 +27,8 @@ public class PopSwitchComplan extends PopupWindow {
     Activity activity;
     RecyclerView recyclerView;
     View dialogView;
+
+    LinearLayout add_complan;
 
 
     public PopSwitchComplan(Activity activity) {
@@ -67,6 +70,13 @@ public class PopSwitchComplan extends PopupWindow {
         DividerItemDecoration itemDecoration = new DividerItemDecoration(activity, DividerItemDecoration.VERTICAL);
         itemDecoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(activity, R.drawable.divider_inset)));
         recyclerView.addItemDecoration(itemDecoration);
+
+        add_complan = dialogView.findViewById(R.id.add_complan);
+        add_complan.setOnClickListener(view -> {
+            if(listener != null){
+                listener.addComplan();
+            }
+        });
 
         setAdapter();
     }
@@ -160,6 +170,8 @@ public class PopSwitchComplan extends PopupWindow {
     interface OnSelectComplan {
 
         void selectComplan(int position);
+
+        void addComplan();
     }
 
 }

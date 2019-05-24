@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.article.oa_article.R;
 import com.article.oa_article.base.GlideApp;
 import com.article.oa_article.base.MyApplication;
+import com.article.oa_article.bean.LableBo;
 import com.article.oa_article.bean.UserBo;
 import com.article.oa_article.module.chatline.ChatLineFragment;
 import com.article.oa_article.module.complanmsg.ComplanMsgFragment;
@@ -27,6 +28,7 @@ import com.article.oa_article.module.taskcenter.TaskCenterFragment;
 import com.article.oa_article.module.tempmanager.TempManagerFragment;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.setting.SettingActivity;
+import com.article.oa_article.widget.PopTaskMsg;
 import com.blankj.utilcode.util.FragmentUtils;
 
 import java.util.ArrayList;
@@ -159,10 +161,30 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
     @OnClick(R.id.title_layout)
     public void switchComplan() {
         PopSwitchComplan popSwitchComplan = new PopSwitchComplan(getActivity());
-        popSwitchComplan.setListener(position -> {
-            MyApplication.selectComplan = position;
-            initView();
-            mPresenter.getUserInfo();
+        popSwitchComplan.setListener(new PopSwitchComplan.OnSelectComplan() {
+            @Override
+            public void selectComplan(int position) {
+                MyApplication.selectComplan = position;
+                initView();
+                mPresenter.getUserInfo();
+            }
+
+            @Override
+            public void addComplan() {
+                PopTaskMsg popTaskMsg = new PopTaskMsg(getActivity(), "新增企业", "企业名称", "请输入企业名称");
+                popTaskMsg.setListener(new PopTaskMsg.onCommitListener() {
+                    @Override
+                    public void commit(String text) {
+                        mPresenter.addComplan(text);
+                    }
+
+                    @Override
+                    public void update(String text, LableBo.CustomLabelsBean customLabelsBean) {
+
+                    }
+                });
+                popTaskMsg.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+            }
         });
         popSwitchComplan.setOnDismissListener(() -> {
             complanCheck.setChecked(false);
@@ -185,6 +207,12 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
         personPhone.setText(userBo.getPhone());
         GlideApp.with(getActivity()).load(userBo.getImage()).error(R.drawable.person_img_defailt)
                 .placeholder(R.drawable.person_img_defailt).into(personImg);
+    }
+
+    @Override
+    public void addComplanSuress() {
+        showToast("新建企业成功！");
+        mPresenter.getUserInfo();
     }
 
     @Override

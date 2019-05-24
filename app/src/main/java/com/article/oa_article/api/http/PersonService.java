@@ -27,6 +27,7 @@ import com.article.oa_article.bean.request.PersonPhoneRequest;
 import com.article.oa_article.bean.request.PhoneRequest;
 import com.article.oa_article.bean.request.ScopeRequest;
 import com.article.oa_article.bean.request.TokenRequest;
+import com.article.oa_article.bean.request.UpdateDepartRequest;
 import com.article.oa_article.bean.request.UserInInfoRequest;
 import com.article.oa_article.bean.request.UserOutRequest;
 
@@ -194,5 +195,17 @@ public interface PersonService {
      */
     @POST("industry_webservice/app/depart/addDepart")
     Observable<BaseResult<String>> addDepart(@Body IdRequest request);
+
+    /**
+     * 修改内部联系人的部门
+     */
+    @POST("industry_webservice/app/userInfo/updateUserDepart")
+    Observable<BaseResult<String>> updateUserDepart(@Body UpdateDepartRequest request);
+
+    /**
+     * 新增企业
+     */
+    @POST("industry_webservice/app/companyInfo/addCompanyName")
+    Observable<BaseResult<String>> addComplanName(@Body IdRequest request);
 
 }

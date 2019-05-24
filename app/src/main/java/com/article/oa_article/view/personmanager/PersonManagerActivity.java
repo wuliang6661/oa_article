@@ -1,6 +1,7 @@
 package com.article.oa_article.view.personmanager;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 
 import com.article.oa_article.R;
+import com.article.oa_article.bean.BuMenFlowBO;
 import com.article.oa_article.bean.BumenBO;
 import com.article.oa_article.mvp.MVPBaseActivity;
 import com.article.oa_article.view.addusers.AddUsersActivity;
@@ -39,6 +41,10 @@ public class PersonManagerActivity extends MVPBaseActivity<PersonManagerContract
     @BindView(R.id.person_list)
     ExpandableListView personList;
 
+    List<BumenBO> bumenBOS;
+    private BuMenFlowBO buMenFlowBO;
+    PopSwitchLable popSwitchLable;
+
     @Override
     protected int getLayout() {
         return R.layout.act_person_manager;
@@ -53,6 +59,7 @@ public class PersonManagerActivity extends MVPBaseActivity<PersonManagerContract
         btnAlbum.setVisibility(View.VISIBLE);
         btnAlbum.setText("邀请同事");
 
+        popSwitchLable = new PopSwitchLable(this);
         setListener();
         mPresenter.getNeiUsers("");
     }
@@ -74,6 +81,15 @@ public class PersonManagerActivity extends MVPBaseActivity<PersonManagerContract
             public void afterTextChanged(Editable editable) {
                 mPresenter.getNeiUsers(editName.getText().toString().trim());
             }
+        });
+        personList.setOnChildClickListener((expandableListView, view, i, i1, l) -> {
+            popSwitchLable.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+            popSwitchLable.setText(bumenBOS.get(i).getUser().get(i1));
+            return true;
+        });
+        popSwitchLable.setListener((personBO, text) -> {
+            editName.setText("");
+            mPresenter.updateDeart(personBO.getId(), Integer.parseInt(text.getId()));
         });
     }
 
@@ -102,6 +118,7 @@ public class PersonManagerActivity extends MVPBaseActivity<PersonManagerContract
 
     @Override
     public void getPersonListByNeiBu(List<BumenBO> list) {
+        this.bumenBOS = list;
         PersonExpandAdapter adapter = new PersonExpandAdapter(this, list, false);
         personList.setAdapter(adapter);
         for (int i = 0; i < list.size(); i++) {
@@ -113,4 +130,16 @@ public class PersonManagerActivity extends MVPBaseActivity<PersonManagerContract
     public void onRequestError(String msg) {
         showToast(msg);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case 0x11:
+                buMenFlowBO = (BuMenFlowBO) data.getSerializableExtra("bumen");
+                popSwitchLable.setFlow(buMenFlowBO);
+                break;
+        }
+    }
+
 }

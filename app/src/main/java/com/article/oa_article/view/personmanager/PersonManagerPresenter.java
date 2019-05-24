@@ -39,5 +39,20 @@ public class PersonManagerPresenter extends BasePresenterImpl<PersonManagerContr
         });
     }
 
+    public void updateDeart(int userId, int deartId) {
+        PersonServiceImpl.updateDeart(userId, deartId).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                getNeiUsers("");
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
 
 }
