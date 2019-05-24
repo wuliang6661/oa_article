@@ -43,7 +43,7 @@ public class LableBo {
         private String name;
         private int orderNum;
         private String remark;
-        private int Id;
+        private int id;
 
         public String getName() {
             return name;
@@ -70,11 +70,11 @@ public class LableBo {
         }
 
         public int getId() {
-            return Id;
+            return id;
         }
 
-        public void setId(int Id) {
-            this.Id = Id;
+        public void setId(int id) {
+            this.id = id;
         }
     }
 

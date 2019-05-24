@@ -195,7 +195,9 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
 
             @Override
             public void piliangAdd() {
-                gotoActivity(AddUsersActivity.class, false);
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("isNeiBu", selectMenu == 1);
+                gotoActivity(AddUsersActivity.class, bundle, false);
             }
         });
         addPop.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);

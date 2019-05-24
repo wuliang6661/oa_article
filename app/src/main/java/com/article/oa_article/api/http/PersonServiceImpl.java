@@ -16,6 +16,7 @@ import com.article.oa_article.bean.UserInInfoBo;
 import com.article.oa_article.bean.UserOutInfo;
 import com.article.oa_article.bean.request.AddLableRequest;
 import com.article.oa_article.bean.request.AddUserRequest;
+import com.article.oa_article.bean.request.AddUsersRequest;
 import com.article.oa_article.bean.request.BuMenRequest;
 import com.article.oa_article.bean.request.ChartRequest;
 import com.article.oa_article.bean.request.FanKuiRequest;
@@ -262,6 +263,20 @@ public class PersonServiceImpl {
 
 
     /**
+     * 更新标签
+     */
+    public static Observable<String> updateLable(String name, int orderNum, int id) {
+        AddLableRequest request = new AddLableRequest();
+        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setName(name);
+        request.setOrderNum(orderNum);
+        request.setId(id);
+        request.setToken(MyApplication.token);
+        return getService().updateLable(request).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
      * 添加好友
      */
     public static Observable<String> addUser(AddUserRequest request) {
@@ -270,5 +285,14 @@ public class PersonServiceImpl {
         return getService().addUser(request).compose(RxResultHelper.httpRusult());
     }
 
+    /**
+     * 添加多个好友
+     */
+    public static Observable<String> addUsers(List<AddUserRequest> request) {
+        AddUsersRequest requests = new AddUsersRequest();
+        requests.setToken(MyApplication.token);
+        requests.setUsers(request);
+        return getService().addUsers(requests).compose(RxResultHelper.httpRusult());
+    }
 
 }

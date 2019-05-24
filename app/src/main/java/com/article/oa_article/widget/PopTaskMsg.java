@@ -10,6 +10,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
+import com.article.oa_article.bean.LableBo;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
@@ -27,6 +28,8 @@ public class PopTaskMsg extends PopupWindow {
     private EditText photoName;
     private Button commit;
     private TextView cancle, txTitle, txLineTitle;
+
+    LableBo.CustomLabelsBean customLabelsBean;
 
     public PopTaskMsg(Activity activity, String title, String lineTitle, String hintMessage) {
         super(activity);
@@ -48,7 +51,11 @@ public class PopTaskMsg extends PopupWindow {
                 ToastUtils.showShort(hintMessage);
             } else {
                 if (listener != null) {
-                    listener.commit(name);
+                    if (customLabelsBean == null) {
+                        listener.commit(name);
+                    } else {
+                        listener.update(name, customLabelsBean);
+                    }
                 }
                 dismiss();
             }
@@ -84,6 +91,12 @@ public class PopTaskMsg extends PopupWindow {
     }
 
 
+    public void setText(String text, LableBo.CustomLabelsBean customLabelsBean) {
+        photoName.setText(text);
+        this.customLabelsBean = customLabelsBean;
+    }
+
+
     /**
      * 设置添加屏幕的背景透明度
      */
@@ -103,5 +116,7 @@ public class PopTaskMsg extends PopupWindow {
     public interface onCommitListener {
 
         void commit(String text);
+
+        void update(String text, LableBo.CustomLabelsBean customLabelsBean);
     }
 }

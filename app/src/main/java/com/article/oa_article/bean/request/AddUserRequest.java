@@ -1,5 +1,7 @@
 package com.article.oa_article.bean.request;
 
+import java.io.Serializable;
+
 /**
  * author : wuliang
  * e-mail : wuliang6661@163.com
@@ -7,7 +9,7 @@ package com.article.oa_article.bean.request;
  * desc   :
  * version: 1.0
  */
-public class AddUserRequest {
+public class AddUserRequest implements Serializable {
 
 
     /**
@@ -23,6 +25,24 @@ public class AddUserRequest {
     private int labelId;
     private String phone;
     private String token;
+    private String photo;
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 
     public int getCompanyId() {
         return companyId;

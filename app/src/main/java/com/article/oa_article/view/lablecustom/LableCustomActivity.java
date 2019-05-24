@@ -100,7 +100,17 @@ public class LableCustomActivity extends MVPBaseActivity<LableCustomContract.Vie
     @OnClick(R.id.add_pinglei)
     public void addClick() {
         PopTaskMsg popTaskMsg = new PopTaskMsg(this, "新增标签", "标签名", "请输入标签名");
-        popTaskMsg.setListener(text -> mPresenter.addLable(text));
+        popTaskMsg.setListener(new PopTaskMsg.onCommitListener() {
+            @Override
+            public void commit(String text) {
+                mPresenter.addLable(text);
+            }
+
+            @Override
+            public void update(String text, LableBo.CustomLabelsBean customLabelsBean) {
+
+            }
+        });
         popTaskMsg.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
     }
 
@@ -219,6 +229,23 @@ public class LableCustomActivity extends MVPBaseActivity<LableCustomContract.Vie
                 bumenText.setBackgroundResource(R.drawable.menu_item_bg);
             }
             holder.getView(R.id.flow_delete).setVisibility(View.VISIBLE);
+            bumenText.setOnLongClickListener(view -> {
+                PopTaskMsg popTaskMsg = new PopTaskMsg(LableCustomActivity.this, "修改标签", "标签名", "请输入标签名");
+                popTaskMsg.setListener(new PopTaskMsg.onCommitListener() {
+                    @Override
+                    public void commit(String text) {
+                        mPresenter.addLable(text);
+                    }
+
+                    @Override
+                    public void update(String text, LableBo.CustomLabelsBean customLabelsBean) {
+                        mPresenter.updateLable(text, customLabelsBean.getOrderNum(), customLabelsBean.getId());
+                    }
+                });
+                popTaskMsg.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+                popTaskMsg.setText(sysLabelsBean.getName(), sysLabelsBean);
+                return true;
+            });
         }
     }
 

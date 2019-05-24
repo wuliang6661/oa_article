@@ -66,4 +66,21 @@ public class LableCustomPresenter extends BasePresenterImpl<LableCustomContract.
         });
     }
 
+
+    public void updateLable(String name, int orderNum, int id) {
+        PersonServiceImpl.updateLable(name, orderNum, id).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                getAllLables();
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
+
 }

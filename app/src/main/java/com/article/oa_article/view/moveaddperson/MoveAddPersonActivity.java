@@ -53,6 +53,8 @@ public class MoveAddPersonActivity extends MVPBaseActivity<MoveAddPersonContract
     View bumenLine;
     @BindView(R.id.waibu_point)
     TextView waibuPoint;
+    @BindView(R.id.btn_album)
+    Button btnAlbum;
 
     private boolean isNeiBu = true;   //默认添加内部联系人
 
@@ -62,6 +64,10 @@ public class MoveAddPersonActivity extends MVPBaseActivity<MoveAddPersonContract
     LableBo.CustomLabelsBean customLabelsBean;
 
     boolean isFirst;
+
+    boolean isEdit;
+
+    private AddUserRequest editRequest;
 
     @Override
     protected int getLayout() {
@@ -76,6 +82,7 @@ public class MoveAddPersonActivity extends MVPBaseActivity<MoveAddPersonContract
         setTitleText("手动添加");
 
         isNeiBu = getIntent().getExtras().getBoolean("isNeiBu");
+        isEdit = getIntent().getExtras().getBoolean("isEdit", false);
         if (isNeiBu) {
             hintMessageLayout.setVisibility(View.VISIBLE);
             bumenLayout.setVisibility(View.VISIBLE);
@@ -86,6 +93,14 @@ public class MoveAddPersonActivity extends MVPBaseActivity<MoveAddPersonContract
             bumenLayout.setVisibility(View.GONE);
             bumenLine.setVisibility(View.GONE);
             waibuPoint.setVisibility(View.VISIBLE);
+        }
+        if (isEdit) {
+            hintMessageLayout.setVisibility(View.GONE);
+            nextButton.setVisibility(View.GONE);
+            btnAlbum.setText("保存");
+            btnAlbum.setVisibility(View.VISIBLE);
+            editRequest = (AddUserRequest) getIntent().getSerializableExtra("user");
+            editPhoneNum.setText(editRequest.getPhone().replaceAll(" ", ""));
         }
     }
 
@@ -131,7 +146,22 @@ public class MoveAddPersonActivity extends MVPBaseActivity<MoveAddPersonContract
                     request.setLabelId(customLabelsBean.getId());
             }
         }
-        mPresenter.addUser(request);
+        if (isEdit) {
+            request.setName(editRequest.getName());
+            request.setPhoto(editRequest.getPhoto());
+            Intent intent = new Intent();
+            intent.putExtra("user", request);
+            setResult(0x11, intent);
+            finish();
+        } else {
+            mPresenter.addUser(request);
+        }
+    }
+
+
+    @OnClick(R.id.btn_album)
+    public void save() {
+        savePerson();
     }
 
 

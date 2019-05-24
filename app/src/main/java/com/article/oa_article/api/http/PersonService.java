@@ -14,6 +14,7 @@ import com.article.oa_article.bean.UserInInfoBo;
 import com.article.oa_article.bean.UserOutInfo;
 import com.article.oa_article.bean.request.AddLableRequest;
 import com.article.oa_article.bean.request.AddUserRequest;
+import com.article.oa_article.bean.request.AddUsersRequest;
 import com.article.oa_article.bean.request.BuMenRequest;
 import com.article.oa_article.bean.request.ChartRequest;
 import com.article.oa_article.bean.request.FanKuiRequest;
@@ -175,5 +176,17 @@ public interface PersonService {
      */
     @POST("industry_webservice/app/userInfo/addFriendUser")
     Observable<BaseResult<String>> addUser(@Body AddUserRequest request);
+
+    /**
+     * 添加多个好友
+     */
+    @POST("industry_webservice/app/userInfo/addFriendUsers")
+    Observable<BaseResult<String>> addUsers(@Body AddUsersRequest requests);
+
+    /**
+     * 修改自定义标签
+     */
+    @POST("industry_webservice/app/label/updateCustomLabel")
+    Observable<BaseResult<String>> updateLable(@Body AddLableRequest request);
 
 }
