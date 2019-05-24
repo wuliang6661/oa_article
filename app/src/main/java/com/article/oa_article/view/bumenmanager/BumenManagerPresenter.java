@@ -12,11 +12,11 @@ import java.util.List;
 
 /**
  * MVPPlugin
- *  邮箱 784787081@qq.com
+ * 邮箱 784787081@qq.com
  */
 
 public class BumenManagerPresenter extends BasePresenterImpl<BumenManagerContract.View>
-        implements BumenManagerContract.Presenter{
+        implements BumenManagerContract.Presenter {
 
 
     public void getBumenList(String name) {
@@ -28,6 +28,23 @@ public class BumenManagerPresenter extends BasePresenterImpl<BumenManagerContrac
                 if (mView != null) {
                     mView.getBumenList(s);
                 }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
+
+
+    public void addBuMen(String name) {
+        PersonServiceImpl.addDeart(name).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                getBumenList("");
             }
 
             @Override

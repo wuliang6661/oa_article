@@ -9,17 +9,21 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.widget.EditText;
 
 import com.article.oa_article.R;
 import com.article.oa_article.bean.BuMenFlowBO;
+import com.article.oa_article.bean.LableBo;
 import com.article.oa_article.mvp.MVPBaseActivity;
+import com.article.oa_article.widget.PopTaskMsg;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 
 /**
@@ -61,6 +65,25 @@ public class BumenManagerActivity extends MVPBaseActivity<BumenManagerContract.V
         DividerItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         itemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider_inset));
         bumenRecycle.addItemDecoration(itemDecoration);
+    }
+
+
+    @OnClick(R.id.add_bumen)
+    public void addBuMen() {
+        PopTaskMsg popTaskMsg = new PopTaskMsg(this, "新增部门", "部门名", "请输入部门名");
+        popTaskMsg.setListener(new PopTaskMsg.onCommitListener() {
+            @Override
+            public void commit(String text) {
+                editName.setText("");
+                mPresenter.addBuMen(text);
+            }
+
+            @Override
+            public void update(String text, LableBo.CustomLabelsBean customLabelsBean) {
+
+            }
+        });
+        popTaskMsg.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
     }
 
 

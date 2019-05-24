@@ -295,4 +295,15 @@ public class PersonServiceImpl {
         return getService().addUsers(requests).compose(RxResultHelper.httpRusult());
     }
 
+    /**
+     * 新增部门
+     */
+    public static Observable<String> addDeart(String name) {
+        IdRequest request = new IdRequest();
+        request.setName(name);
+        request.setId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setToken(MyApplication.token);
+        return getService().addDepart(request).compose(RxResultHelper.httpRusult());
+    }
+
 }

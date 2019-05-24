@@ -189,4 +189,10 @@ public interface PersonService {
     @POST("industry_webservice/app/label/updateCustomLabel")
     Observable<BaseResult<String>> updateLable(@Body AddLableRequest request);
 
+    /**
+     * 新增部门
+     */
+    @POST("industry_webservice/app/depart/addDepart")
+    Observable<BaseResult<String>> addDepart(@Body IdRequest request);
+
 }
