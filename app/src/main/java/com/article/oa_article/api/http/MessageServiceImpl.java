@@ -7,6 +7,7 @@ import com.article.oa_article.bean.AggentUserBO;
 import com.article.oa_article.bean.MsgBO;
 import com.article.oa_article.bean.request.AgreeUserRequest;
 import com.article.oa_article.bean.request.IdRequest;
+import com.article.oa_article.bean.request.MsgTypeRequest;
 import com.article.oa_article.bean.request.PageRequest;
 import com.article.oa_article.util.rx.RxResultHelper;
 
@@ -76,6 +77,17 @@ public class MessageServiceImpl {
         request.setToken(MyApplication.token);
         request.setObjectId(id);
         return getService().agreeFriendUser(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 设置消息已读未读
+     */
+    public static Observable<String> readMsgType(String ids, int readStatus) {
+        MsgTypeRequest request = new MsgTypeRequest();
+        request.setIds(ids);
+        request.setToken(MyApplication.token);
+        request.setReadStatus(readStatus);
+        return getService().readManyMessage(request).compose(RxResultHelper.httpRusult());
     }
 
 }

@@ -78,7 +78,8 @@
             android:layout_alignParentBottom="true"
             android:background="#95080910"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
 
             <LinearLayout

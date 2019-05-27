@@ -17,6 +17,8 @@ public class MessageContract {
         void getNoReadCount(Integer num);
 
         void getMsgList(List<MsgBO> msgBOS);
+
+        void readSuress();
     }
 
     interface Presenter extends BasePresenter<View> {

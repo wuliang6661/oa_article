@@ -5,6 +5,7 @@ import com.article.oa_article.bean.BaseResult;
 import com.article.oa_article.bean.MsgBO;
 import com.article.oa_article.bean.request.AgreeUserRequest;
 import com.article.oa_article.bean.request.IdRequest;
+import com.article.oa_article.bean.request.MsgTypeRequest;
 import com.article.oa_article.bean.request.PageRequest;
 
 import java.util.List;
@@ -47,5 +48,11 @@ public interface MessageService {
      */
     @POST("industry_webservice/app/userInfo/agreeAddFriendUser")
     Observable<BaseResult<String>> agreeFriendUser(@Body AgreeUserRequest request);
+
+    /**
+     * 设置多个消息已读或者未读
+     */
+    @POST("industry_webservice/app/userMessage/readManyUserMessage")
+    Observable<BaseResult<String>> readManyMessage(@Body MsgTypeRequest request);
 
 }

@@ -12,7 +12,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
@@ -51,6 +53,12 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
     Unbinder unbinder;
     @BindView(R.id.all_select)
     TextView allSelect;
+    @BindView(R.id.yidu_layout)
+    LinearLayout yiduLayout;
+    @BindView(R.id.weidu_layout)
+    LinearLayout weiduLayout;
+    @BindView(R.id.operate_layout)
+    LinearLayout operateLayout;
 
     MessageAdapter adapter;
 
@@ -104,15 +112,40 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
                     allSelect.setVisibility(View.GONE);
                     editMode.setText("编辑");
                     isEdit = false;
+                    operateLayout.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.share_pop_out));
+                    operateLayout.setVisibility(View.GONE);
                 } else {
                     adapter.setEdit(true);
                     allSelect.setVisibility(View.VISIBLE);
                     editMode.setText("取消");
                     isEdit = true;
+                    operateLayout.setVisibility(View.VISIBLE);
+                    operateLayout.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.share_pop_in));
                 }
                 break;
             case R.id.all_select:
                 adapter.setIsAllSelect();
+                break;
+        }
+    }
+
+
+    @OnClick({R.id.yidu_layout, R.id.weidu_layout})
+    public void buttomClick(View view) {
+        StringBuilder builder = new StringBuilder();
+        if (adapter.selectList.isEmpty()) {
+            showToast("请选择需要操作的消息！");
+            return;
+        }
+        for (MsgBO msgBO : adapter.selectList.values()) {
+            builder.append(msgBO.getId()).append(",");
+        }
+        switch (view.getId()) {
+            case R.id.yidu_layout:
+                mPresenter.setMsgRead(builder.toString().substring(0, builder.length() - 1), 1);
+                break;
+            case R.id.weidu_layout:
+                mPresenter.setMsgRead(builder.toString().substring(0, builder.length() - 1), 0);
                 break;
         }
     }
@@ -145,6 +178,13 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
         setAdapter(msgBOS);
     }
 
+    @Override
+    public void readSuress() {
+        mPresenter.getMessageList(Integer.parseInt(MyApplication.getCommonId()));
+        mPresenter.getReadCount(Integer.parseInt(MyApplication.getCommonId()));
+        titleClick(editMode);
+    }
+
 
     private void setAdapter(List<MsgBO> msgBOS) {
         if (adapter != null) {
@@ -166,7 +206,7 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
         private List<MsgBO> msgBOS;
 
         private boolean isEdit;
-        private Map<Integer, MsgBO> selectList;
+        Map<Integer, MsgBO> selectList;
 
         @SuppressLint("UseSparseArrays")
         MessageAdapter(List<MsgBO> dataList) {
@@ -203,11 +243,6 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
 
         @Override
         public void convert(LGViewHolder holder, MsgBO msgBO, int position) {
-            if (msgBO.getReadStatus() == 0) {
-                holder.getView(R.id.point).setVisibility(View.INVISIBLE);
-            } else {
-                holder.getView(R.id.point).setVisibility(View.VISIBLE);
-            }
             holder.setImageUrl(getActivity(), R.id.person_img, msgBO.getImage());
             CheckBox box = (CheckBox) holder.getView(R.id.checkbox);
             if (isEdit) {
@@ -220,7 +255,11 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
                 }
             } else {
                 box.setVisibility(View.GONE);
-                holder.getView(R.id.point).setVisibility(View.VISIBLE);
+                if (msgBO.getReadStatus() == 0) {
+                    holder.getView(R.id.point).setVisibility(View.VISIBLE);
+                } else {
+                    holder.getView(R.id.point).setVisibility(View.INVISIBLE);
+                }
             }
             if (msgBO.getMessageType() == 0) {
                 holder.setText(R.id.msg_message, msgBO.getNickName() + "  " + msgBO.getContent());

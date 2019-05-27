@@ -59,4 +59,23 @@ public class MessagePresenter extends BasePresenterImpl<MessageContract.View>
         });
     }
 
+
+    public void setMsgRead(String ids, int readStatus) {
+        MessageServiceImpl.readMsgType(ids, readStatus).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if (mView != null) {
+                    mView.readSuress();
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
+
 }
