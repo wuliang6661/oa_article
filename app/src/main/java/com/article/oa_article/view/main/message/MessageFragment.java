@@ -1,6 +1,7 @@
 package com.article.oa_article.view.main.message;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
@@ -21,11 +23,14 @@ import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 import com.blankj.utilcode.util.TimeUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -44,6 +49,13 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
     @BindView(R.id.message_recycle)
     RecyclerView messageRecycle;
     Unbinder unbinder;
+    @BindView(R.id.all_select)
+    TextView allSelect;
+
+    MessageAdapter adapter;
+
+    private boolean isEdit;
+
 
     @Nullable
     @Override
@@ -83,6 +95,29 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
     }
 
 
+    @OnClick({R.id.edit_mode, R.id.all_select})
+    public void titleClick(View view) {
+        switch (view.getId()) {
+            case R.id.edit_mode:
+                if (isEdit) {   //已经是编辑状态,则点击取消
+                    adapter.setEdit(false);
+                    allSelect.setVisibility(View.GONE);
+                    editMode.setText("编辑");
+                    isEdit = false;
+                } else {
+                    adapter.setEdit(true);
+                    allSelect.setVisibility(View.VISIBLE);
+                    editMode.setText("取消");
+                    isEdit = true;
+                }
+                break;
+            case R.id.all_select:
+                adapter.setIsAllSelect();
+                break;
+        }
+    }
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -112,47 +147,109 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
 
 
     private void setAdapter(List<MsgBO> msgBOS) {
-        LGRecycleViewAdapter<MsgBO> adapter = new LGRecycleViewAdapter<MsgBO>(msgBOS) {
-            @Override
-            public int getLayoutId(int viewType) {
-                if (viewType == 0) {  //好友申请通知
-                    return R.layout.item_msg_person;
-                } else {      //任务进度
-                    return R.layout.item_msg_order;
-                }
+        if (adapter != null) {
+            adapter.setData(msgBOS);
+            return;
+        }
+        adapter = new MessageAdapter(msgBOS);
+        adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
+            if (msgBOS.get(position).getMessageType() == 0) {   //好友申请
+                gotoActivity(FriendApplyActivity.class, false);
             }
-
-            @Override
-            public void convert(LGViewHolder holder, MsgBO msgBO, int position) {
-                if (msgBO.getReadStatus() == 0) {
-                    holder.getView(R.id.point).setVisibility(View.INVISIBLE);
-                } else {
-                    holder.getView(R.id.point).setVisibility(View.VISIBLE);
-                }
-                holder.setImageUrl(getActivity(), R.id.person_img, msgBO.getImage());
-                if (msgBO.getMessageType() == 0) {
-                    holder.setText(R.id.msg_message, msgBO.getNickName() + "  " + msgBO.getContent());
-                } else {
-                    holder.setText(R.id.msg_message, msgBO.getNickName() + "  " + msgBO.getContent());
-                    switch (msgBO.getTaskStatus()) {
-                        case "2":
-                            holder.setText(R.id.msg_type, "已完成");
-                            break;
-                        case "3":
-                            holder.setText(R.id.msg_type, "已取消");
-                            break;
-                    }
-                    holder.setText(R.id.msg_order_name, msgBO.getOrderName() + "  " + msgBO.getOrderNum());
-                    holder.setText(R.id.msg_level, msgBO.getTaskLevel() + "级任务");
-                    holder.setText(R.id.order_date, TimeUtils.getFriendlyTimeSpanByNow(msgBO.getCreateDate()));
-                }
-            }
-
-            @Override
-            public int getItemViewType(int position) {
-                return msgBOS.get(position).getMessageType();
-            }
-        };
+        });
         messageRecycle.setAdapter(adapter);
+    }
+
+
+    class MessageAdapter extends LGRecycleViewAdapter<MsgBO> {
+
+        private List<MsgBO> msgBOS;
+
+        private boolean isEdit;
+        private Map<Integer, MsgBO> selectList;
+
+        @SuppressLint("UseSparseArrays")
+        MessageAdapter(List<MsgBO> dataList) {
+            super(dataList);
+            msgBOS = dataList;
+            selectList = new HashMap<>();
+        }
+
+        @Override
+        public int getLayoutId(int viewType) {
+            if (viewType == 0) {  //好友申请通知
+                return R.layout.item_msg_person;
+            } else {      //任务进度
+                return R.layout.item_msg_order;
+            }
+        }
+
+        /**
+         * 设置是否可选中
+         */
+        void setEdit(boolean isEdit) {
+            this.isEdit = isEdit;
+            notifyDataSetChanged();
+        }
+
+        void setIsAllSelect() {
+            selectList.clear();
+            for (int i = 0; i < msgBOS.size(); i++) {
+                selectList.put(i, msgBOS.get(i));
+            }
+            notifyDataSetChanged();
+        }
+
+
+        @Override
+        public void convert(LGViewHolder holder, MsgBO msgBO, int position) {
+            if (msgBO.getReadStatus() == 0) {
+                holder.getView(R.id.point).setVisibility(View.INVISIBLE);
+            } else {
+                holder.getView(R.id.point).setVisibility(View.VISIBLE);
+            }
+            holder.setImageUrl(getActivity(), R.id.person_img, msgBO.getImage());
+            CheckBox box = (CheckBox) holder.getView(R.id.checkbox);
+            if (isEdit) {
+                box.setVisibility(View.VISIBLE);
+                holder.getView(R.id.point).setVisibility(View.GONE);
+                if (selectList.get(position) == null) {
+                    box.setChecked(false);
+                } else {
+                    box.setChecked(true);
+                }
+            } else {
+                box.setVisibility(View.GONE);
+                holder.getView(R.id.point).setVisibility(View.VISIBLE);
+            }
+            if (msgBO.getMessageType() == 0) {
+                holder.setText(R.id.msg_message, msgBO.getNickName() + "  " + msgBO.getContent());
+            } else {
+                holder.setText(R.id.msg_message, msgBO.getNickName() + "  " + msgBO.getContent());
+                switch (msgBO.getTaskStatus()) {
+                    case "2":
+                        holder.setText(R.id.msg_type, "已完成");
+                        break;
+                    case "3":
+                        holder.setText(R.id.msg_type, "已取消");
+                        break;
+                }
+                holder.setText(R.id.msg_order_name, msgBO.getOrderName() + "  " + msgBO.getOrderNum());
+                holder.setText(R.id.msg_level, msgBO.getTaskLevel() + "级任务");
+                holder.setText(R.id.order_date, TimeUtils.getFriendlyTimeSpanByNow(msgBO.getCreateDate()));
+            }
+            box.setOnCheckedChangeListener((compoundButton, b) -> {
+                if (b) {
+                    selectList.put(position, msgBOS.get(position));
+                } else {
+                    selectList.remove(position);
+                }
+            });
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return msgBOS.get(position).getMessageType();
+        }
     }
 }

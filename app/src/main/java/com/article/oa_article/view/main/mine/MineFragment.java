@@ -98,7 +98,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
     private void initView() {
         tabLayout.removeAllTabs();
         fragments.clear();
-        if (MyApplication.getCommon().getIsAdmin() == 1) {  //管理员
+        if (MyApplication.getCommon() != null && MyApplication.getCommon().getIsAdmin() == 1) {  //管理员
             tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[0]));
             tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[1]));
             tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[2]));
@@ -125,7 +125,11 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
             fragments.add(new ComplanMsgFragment());
             fragments.add(new SystemSettingFragment());
         }
-        complanName.setText(MyApplication.getCommon().getCompanyName());
+        if (MyApplication.getCommon() == null) {
+            complanName.setText("暂无企业");
+        } else {
+            complanName.setText(MyApplication.getCommon().getCompanyName());
+        }
         FragmentUtils.replace(getFragmentManager(), fragments.get(0), R.id.mine_fragment);
     }
 

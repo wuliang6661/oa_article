@@ -3,7 +3,9 @@ package com.article.oa_article.api.http;
 import com.article.oa_article.api.ApiManager;
 import com.article.oa_article.api.HttpService;
 import com.article.oa_article.base.MyApplication;
+import com.article.oa_article.bean.AggentUserBO;
 import com.article.oa_article.bean.MsgBO;
+import com.article.oa_article.bean.request.AgreeUserRequest;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.PageRequest;
 import com.article.oa_article.util.rx.RxResultHelper;
@@ -44,5 +46,36 @@ public class MessageServiceImpl {
         return getService().getNoReadCounts(request).compose(RxResultHelper.httpRusult());
     }
 
+
+    /**
+     * 未同意的好友申请列表
+     */
+    public static Observable<List<AggentUserBO>> getToAggentUser() {
+        IdRequest request = new IdRequest();
+        request.setId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setToken(MyApplication.token);
+        return getService().getAgreeUserInfo(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查看更多
+     */
+    public static Observable<List<AggentUserBO>> getMoreInfo() {
+        IdRequest request = new IdRequest();
+        request.setId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setToken(MyApplication.token);
+        return getService().getMoreInfo(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 同意好友请求
+     */
+    public static Observable<String> agreeUser(int id) {
+        AgreeUserRequest request = new AgreeUserRequest();
+        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setToken(MyApplication.token);
+        request.setObjectId(id);
+        return getService().agreeFriendUser(request).compose(RxResultHelper.httpRusult());
+    }
 
 }

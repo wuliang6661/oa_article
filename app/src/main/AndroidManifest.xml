@@ -202,6 +202,11 @@
             android:name=".view.addusers.alluseredit.AllUserEditActivity"
             android:screenOrientation="portrait" />
 
+        <!--同意好友申请-->
+        <activity
+            android:name=".view.main.message.FriendApplyActivity"
+            android:screenOrientation="portrait" />
+
 
         <!--扫一扫-->
         <activity android:name="com.article.oa_article.zxing.activity.CaptureActivity" />

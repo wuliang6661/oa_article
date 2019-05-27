@@ -1,7 +1,9 @@
 package com.article.oa_article.api.http;
 
+import com.article.oa_article.bean.AggentUserBO;
 import com.article.oa_article.bean.BaseResult;
 import com.article.oa_article.bean.MsgBO;
+import com.article.oa_article.bean.request.AgreeUserRequest;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.PageRequest;
 
@@ -25,5 +27,25 @@ public interface MessageService {
      */
     @POST("industry_webservice/app/userMessage/getNoReadCounts")
     Observable<BaseResult<Integer>> getNoReadCounts(@Body IdRequest request);
+
+
+    /**
+     * 获取所有未同意的好友信息
+     */
+    @POST("industry_webservice/app/userMessage/getToAgreeUserInfo")
+    Observable<BaseResult<List<AggentUserBO>>> getAgreeUserInfo(@Body IdRequest request);
+
+    /**
+     * 查看更多
+     */
+    @POST("industry_webservice/app/userMessage/getMoreInfo")
+    Observable<BaseResult<List<AggentUserBO>>> getMoreInfo(@Body IdRequest request);
+
+
+    /**
+     * 同意好友请求
+     */
+    @POST("industry_webservice/app/userInfo/agreeAddFriendUser")
+    Observable<BaseResult<String>> agreeFriendUser(@Body AgreeUserRequest request);
 
 }

@@ -167,6 +167,10 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
                 }
                 break;
         }
+        if (MyApplication.getCommon() == null) {
+            addImg.setVisibility(View.GONE);
+            return;
+        }
         if (isSelectPerson) {
             addImg.setVisibility(View.GONE);
         } else {
@@ -207,8 +211,13 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
     public void setTitleVisiable() {
         new Handler().post(() -> {
             titleLayout.setVisibility(View.VISIBLE);
-            complanName.setText(MyApplication.getCommon().getCompanyName());
             complanyImg.setVisibility(View.GONE);
+            if (MyApplication.getCommon() == null) {
+                complanName.setText("暂无企业");
+                addImg.setVisibility(View.GONE);
+                return;
+            }
+            complanName.setText(MyApplication.getCommon().getCompanyName());
 //                Glide.with(getActivity()).load(MyApplication.getCommon().)
         });
     }
@@ -249,6 +258,11 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
     public void setIsSelectPerson(boolean isSelectPerson) {
         this.isSelectPerson = isSelectPerson;
         new Handler().post(() -> {
+            if (MyApplication.getCommon() == null) {
+                complanName.setText("暂无企业");
+                addImg.setVisibility(View.GONE);
+                return;
+            }
             if (isSelectPerson) {
                 addImg.setVisibility(View.GONE);
             } else {
