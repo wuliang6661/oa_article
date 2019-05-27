@@ -62,7 +62,7 @@ public class MyApplication extends Application {
      */
     public static UserBo.CompanysBean getCommon() {
         if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
-            return null;
+            return new UserBo.CompanysBean();
         } else {
             return MyApplication.userBo.getCompanys().get(selectComplan);
         }
