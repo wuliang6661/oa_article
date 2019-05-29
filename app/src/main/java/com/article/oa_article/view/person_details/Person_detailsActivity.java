@@ -191,6 +191,7 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
         ChatLineFragment fragment = ChatLineFragment.getInstance(1);
         fragment.setUserBo(userId, Integer.parseInt(MyApplication.getCommonId()));
         FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.chanlian);
+        fragment.setUnit(inInfoBo.getUnit());
     }
 
     @Override
@@ -208,6 +209,7 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
         ChatLineFragment fragment = ChatLineFragment.getInstance(1);
         fragment.setUserBo(userId, info.getCompanys().get(0).getCompanyId());
         FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.chanlian);
+        fragment.setUnit(info.getCompanys().get(0).getUnit());
     }
 
     @Override

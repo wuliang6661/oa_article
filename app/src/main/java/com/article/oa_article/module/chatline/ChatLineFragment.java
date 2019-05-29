@@ -24,18 +24,20 @@ import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static android.content.ContentValues.TAG;
@@ -65,17 +67,30 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
     Unbinder unbinder;
     @BindView(R.id.complan_bar)
     LinearLayout complanBar;
+    @BindView(R.id.date_text)
+    TextView dateText;
+    @BindView(R.id.date_select_layout)
+    LinearLayout dateSelectLayout;
 
     private int userId;
     private int complanId;
-    private String beginDate;
-    private String endDate;
 
     private int month = 1;  //1 :月表 0：季表  2：年表
     private YAxis leftAxis;
+    private XAxis xAxis;
 
     int type = 0;  //默认是取公司产能，  1为个人
 
+    TextView[] texts;
+
+    private String monthBegenDate;   //默认月开始日期
+    private String monthEndDate;     //默认月结束日期
+
+    private String weekBegenDate;    //默认周开始日期
+    private String weekEndDate;      //默认周结束日期
+
+    private String yearBegenDate;     //默认年开始日期
+    private String yearEndDate;       //默认年结束日期
 
     public static ChatLineFragment getInstance(int type) {
         ChatLineFragment fragment = new ChatLineFragment();
@@ -102,8 +117,6 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
         initView();
         initChatLine();
 
-        beginDate = "2018-05";
-        endDate = "2019-05";
         type = getArguments().getInt("type");
         if (type == 0) {
             userId = MyApplication.userBo.getId();
@@ -112,8 +125,8 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
             ChartRequest request = new ChartRequest();
             request.setUserId(userId);
             request.setCompanyId(complanId);
-            request.setBeginDate(beginDate);
-            request.setEndDate(endDate);
+            request.setBeginDate(monthBegenDate);
+            request.setEndDate(monthEndDate);
             request.setMethod(month);
             mPresenter.getChartData(request);
         }
@@ -123,6 +136,83 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recycleView.setLayoutManager(manager);
+        texts = new TextView[]{weekLine, monthLine, yearLine};
+
+        Date date = new Date();
+        monthBegenDate = date.getYear() + 1900 + "-01";
+        monthEndDate = date.getYear() + 1900 + "-12";
+        yearBegenDate = date.getYear() + 1900 - 12 + "";
+        yearEndDate = date.getYear() + 1900 + "";
+        weekBegenDate = date.getYear() + 1900 - 3 + "-01";
+        weekEndDate = date.getYear() + 1900 + "-10";
+        setBar(1);
+    }
+
+    @OnClick({R.id.week_line, R.id.month_line, R.id.year_line})
+    public void barClick(View view) {
+        ChartRequest request = new ChartRequest();
+        request.setUserId(userId);
+        request.setCompanyId(complanId);
+        switch (view.getId()) {
+            case R.id.week_line:
+                setBar(0);
+                if (month != 0) {
+                    month = 0;
+                    request.setBeginDate(weekBegenDate);
+                    request.setEndDate(weekEndDate);
+                    request.setMethod(month);
+                    mPresenter.getChartData(request);
+                }
+                break;
+            case R.id.month_line:
+                setBar(1);
+                if (month != 1) {
+                    month = 1;
+                    request.setBeginDate(monthBegenDate);
+                    request.setEndDate(monthEndDate);
+                    request.setMethod(month);
+                    mPresenter.getChartData(request);
+                }
+                break;
+            case R.id.year_line:
+                setBar(2);
+                if (month != 2) {
+                    month = 2;
+                    request.setBeginDate(yearBegenDate);
+                    request.setEndDate(yearEndDate);
+                    request.setMethod(month);
+                    mPresenter.getChartData(request);
+                }
+                break;
+        }
+    }
+
+    private void setBar(int position) {
+        for (int i = 0; i < texts.length; i++) {
+            if (position == i) {
+                texts[i].setTextColor(ContextCompat.getColor(getActivity(), R.color.blue_color));
+            } else {
+                texts[i].setTextColor(ContextCompat.getColor(getActivity(), R.color.hint_color));
+            }
+        }
+        switch (position) {
+            case 0:  //季表
+                dateText.setText(weekBegenDate + " - " + weekEndDate);
+                break;
+            case 1:    //月表
+                dateText.setText(monthBegenDate + " - " + monthEndDate);
+                break;
+            case 2:    //年表
+                dateText.setText(yearBegenDate + " - " + yearEndDate);
+                break;
+        }
+    }
+
+
+    @OnClick(R.id.date_select_layout)
+    public void dateSelect() {
+        PopMonthDialog popMonthDialog = new PopMonthDialog(getActivity());
+        popMonthDialog.showAtLocation(getActivity().getWindow().getDecorView());
     }
 
 
@@ -146,7 +236,7 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
         chart.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.layout_bg));
 
         setData(new ArrayList<>());
-        chart.animateX(1000);
+        chart.animateY(1000);
 
         leftAxis = chart.getAxisLeft();
         leftAxis.setTextColor(Color.parseColor("#6F6F6F"));
@@ -159,8 +249,10 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
         YAxis rightAxis = chart.getAxisRight();
         //设置图表右边的y轴禁用
         rightAxis.setEnabled(false);
+        Legend legend = chart.getLegend();
+        legend.setEnabled(false);
         //设置x轴
-        XAxis xAxis = chart.getXAxis();
+        xAxis = chart.getXAxis();
         xAxis.setTextColor(Color.parseColor("#6F6F6F"));
         xAxis.setTextSize(11f);
         xAxis.setAxisMinimum(0);
@@ -168,8 +260,24 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
         xAxis.setDrawAxisLine(true);//是否绘制轴线
         xAxis.setDrawGridLines(false);//设置x轴上每个点对应的线
         xAxis.setDrawLabels(true);//绘制标签  指x轴上的对应数值
+        xAxis.setAvoidFirstLastClipping(true);
+        xAxis.setLabelRotationAngle(40);
+        xAxis.setLabelCount(12);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//设置x轴的显示位置
-        xAxis.setGranularity(1f);//禁止放大后x轴标签重绘
+
+        // 设置x轴的LimitLine，index是从0开始的
+//        LimitLine xLimitLine = new LimitLine(4f,"xL 测试");
+//        xLimitLine.setLineColor(Color.GREEN);
+//        xLimitLine.setTextColor(Color.GREEN);
+//        xAxis.addLimitLine(xLimitLine);
+//
+//        // 设置x轴的LimitLine
+//        LimitLine yLimitLine = new LimitLine(50f,"yLimit 测试");
+//        yLimitLine.setLineColor(Color.RED);
+//        yLimitLine.setTextColor(Color.RED);
+//        // 获得左侧侧坐标轴
+//        YAxis leftAxis = chart.getAxisLeft();
+//        leftAxis.addLimitLine(yLimitLine);
     }
 
 
@@ -200,53 +308,37 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
             chart.getData().notifyDataChanged();
             chart.notifyDataSetChanged();
             chart.invalidate();
+            chart.animateY(1000);
         } else {
             set1 = new LineDataSet(yVals1, "");
             set1.setAxisDependency(YAxis.AxisDependency.LEFT);
-            set1.setColor(ColorTemplate.getHoloBlue());
-            set1.setCircleColor(Color.parseColor("#49baff"));
+            set1.setColor(Color.parseColor("#49baff"));
+            set1.setCircleColor(Color.WHITE);
             set1.setLineWidth(2f);
             set1.setCircleRadius(3f);
-            set1.setFillAlpha(65);
-            set1.setFillColor(ColorTemplate.getHoloBlue());
-            set1.setHighLightColor(Color.rgb(244, 117, 117));
-            set1.setDrawCircleHole(false);
-            set1.setDrawCircles(false);
             set1.setDrawValues(false);
-            set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+//            set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
             // create a data object with the datasets
             // create a dataset and give it a type
             set2 = new LineDataSet(yVals2, "");
             set2.setAxisDependency(YAxis.AxisDependency.LEFT);
-            set2.setColor(Color.RED);
+            set2.setColor(Color.parseColor("#F4CA40"));
             set2.setCircleColor(Color.WHITE);
             set2.setLineWidth(2f);
             set2.setCircleRadius(3f);
-            set2.setFillAlpha(65);
-            set2.setFillColor(Color.RED);
-            set1.setDrawCircleHole(false);
-            set1.setDrawCircles(false);
             set1.setDrawValues(false);
-            set2.setHighLightColor(Color.rgb(244, 117, 117));
-            //set2.setFillFormatter(new MyFillFormatter(900f));
 
             set3 = new LineDataSet(yVals3, "");
             set3.setAxisDependency(YAxis.AxisDependency.LEFT);
-            set3.setColor(Color.YELLOW);
+            set3.setColor(Color.parseColor("#71EA45"));
             set3.setCircleColor(Color.WHITE);
             set3.setLineWidth(2f);
             set3.setCircleRadius(3f);
-            set3.setFillAlpha(65);
-            set3.setFillColor(ColorTemplate.colorWithAlpha(Color.YELLOW, 200));
-            set1.setDrawCircleHole(false);
-            set1.setDrawCircles(false);
             set1.setDrawValues(false);
-            set3.setHighLightColor(Color.rgb(244, 117, 117));
 
             // create a data object with the data sets
             LineData data = new LineData(set1, set2, set3);
-            data.setValueTextColor(Color.WHITE);
-            data.setValueTextSize(9f);
+            data.setDrawValues(false);
             // set data
             chart.setData(data);
         }
@@ -260,11 +352,16 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
             ChartRequest request = new ChartRequest();
             request.setUserId(userId);
             request.setCompanyId(complanyId);
-            request.setBeginDate(beginDate);
-            request.setEndDate(endDate);
+            request.setBeginDate(monthBegenDate);
+            request.setEndDate(monthEndDate);
             request.setMethod(month);
             mPresenter.getChartData(request);
         });
+    }
+
+
+    public void setUnit(String text) {
+        new Handler().post(() -> unitText.setText(text));
     }
 
 
@@ -308,7 +405,8 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
         }
         Log.e(TAG, maxNum + "       " + minNum);
         leftAxis.setAxisMaximum(maxNum + 200);
-        leftAxis.setAxisMinimum(minNum - 100);
+        leftAxis.setAxisMinimum(0);
+        xAxis.setValueFormatter(new XValues(1, chartBOS));
         setData(chartBOS);
     }
 

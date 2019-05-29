@@ -67,6 +67,15 @@ public class UserBo {
         private int id;
         private String companyName;
         private int isAdmin;
+        private String unit;
+
+        public String getUnit() {
+            return unit;
+        }
+
+        public void setUnit(String unit) {
+            this.unit = unit;
+        }
 
         public int getId() {
             return id;
