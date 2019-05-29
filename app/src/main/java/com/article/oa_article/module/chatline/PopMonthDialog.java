@@ -9,7 +9,7 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 import com.article.oa_article.R;
-import com.article.oa_article.widget.WheelView;
+import com.article.oa_article.widget.wheelview.WheelView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +27,9 @@ public class PopMonthDialog extends PopupWindow {
     private View dialogView;
 
     private WheelView startYear;
-//    private WheelView startMonth;
-//    private WheelView endYear;
-//    private WheelView endMonth;
+    private WheelView startMonth;
+    private WheelView endYear;
+    private WheelView endMonth;
 
     public PopMonthDialog(Activity activity) {
         super(activity);
@@ -58,19 +58,14 @@ public class PopMonthDialog extends PopupWindow {
 
     private void initView() {
         startYear = dialogView.findViewById(R.id.start_year);
-//        startMonth = dialogView.findViewById(R.id.start_month);
-//        endYear = dialogView.findViewById(R.id.end_year);
-//        endMonth = dialogView.findViewById(R.id.end_month);
+        startMonth = dialogView.findViewById(R.id.start_month);
+        endYear = dialogView.findViewById(R.id.end_year);
+        endMonth = dialogView.findViewById(R.id.end_month);
 
-        startYear.setOffset(1);
-//        startMonth.setOffset(1);
-//        endYear.setOffset(1);
-//        endMonth.setOffset(1);
-        startYear.setItems(getYear());
-//        startMonth.setItems(getYear());
-//        endYear.setItems(getYear());
-//        endMonth.setItems(getYear());
-        startYear.setOnWheelViewListener(new WheelView.OnWheelViewListener());
+        startYear.setItems(getYear(), 1);
+        startMonth.setItems(getMonth(), 1);
+        endYear.setItems(getYear(), 1);
+        endMonth.setItems(getMonth(), 1);
     }
 
 
@@ -82,6 +77,16 @@ public class PopMonthDialog extends PopupWindow {
         }
         return year;
     }
+
+    private List<String> getMonth() {
+        List<String> month = new ArrayList<>();
+        int start = 1;
+        for (int i = 0; i < 12; i++) {
+            month.add(start++ + "");
+        }
+        return month;
+    }
+
 
     /***
      * 显示时将屏幕置为透明
