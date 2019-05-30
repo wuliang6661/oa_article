@@ -109,7 +109,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
             fragments.add(chatLineFragment);
             fragments.add(new ScopeCenterFragment());
             fragments.add(new TaskCenterFragment());
-            fragments.add(new Fragment());
+            fragments.add(new ComplanMsgFragment());
             fragments.add(new TempManagerFragment());
         } else {
             tabLayout.addTab(tabLayout.newTab().setText(tabs[0]));

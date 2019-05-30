@@ -38,7 +38,7 @@
 
 
         <activity
-            android:name="com.article.oa_article.view.login.LoginActivity"
+            android:name="com.article.oa_article.view.splash.SplashActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
@@ -49,6 +49,13 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.article.oa_article.view.splash.GuideActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.article.oa_article.view.login.LoginActivity"
+            android:screenOrientation="portrait" />
 
         <!--注册页面-->
         <activity
