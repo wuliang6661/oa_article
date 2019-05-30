@@ -15,6 +15,7 @@ import com.article.oa_article.bean.ScopeBO;
 import com.article.oa_article.bean.UserInInfoBo;
 import com.article.oa_article.bean.UserOutInfo;
 import com.article.oa_article.bean.request.AddLableRequest;
+import com.article.oa_article.bean.request.AddOutRequest;
 import com.article.oa_article.bean.request.AddUserRequest;
 import com.article.oa_article.bean.request.AddUsersRequest;
 import com.article.oa_article.bean.request.BuMenRequest;
@@ -138,6 +139,16 @@ public class PersonServiceImpl {
         request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
         return getService().getOutPutByUserId(request).compose(RxResultHelper.httpRusult());
     }
+
+    /**
+     * 修改计划产量
+     */
+    public static Observable<String> addOutPut(AddOutRequest request) {
+        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setToken(MyApplication.token);
+        return getService().addOutPut(request).compose(RxResultHelper.httpRusult());
+    }
+
 
     /**
      * 获取内部联系人详情

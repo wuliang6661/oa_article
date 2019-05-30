@@ -23,11 +23,11 @@ import java.util.List;
 /**
  * author : wuliang
  * e-mail : wuliang6661@163.com
- * date   : 2019/5/2916:26
+ * date   : 2019/5/3010:31
  * desc   :
  * version: 1.0
  */
-public class PopMonthDialog extends PopupWindow {
+public class PopQuarterDialog extends PopupWindow {
 
     private Activity activity;
     private View dialogView;
@@ -42,7 +42,7 @@ public class PopMonthDialog extends PopupWindow {
 
     private int todayPosition;
 
-    public PopMonthDialog(Activity activity) {
+    public PopQuarterDialog(Activity activity) {
         super(activity);
         this.activity = activity;
         dialogView = LayoutInflater.from(activity).inflate(R.layout.dialog_month_picker, null);
@@ -82,11 +82,41 @@ public class PopMonthDialog extends PopupWindow {
 
         iv_cancel.setOnClickListener(view -> dismiss());
         tv_finish.setOnClickListener(view -> {
-            String startDate = startYear.getSelectedItem() + "-" + startMonth.getSelectedItem();
-            String endDate = endYear.getSelectedItem() + "-" + endMonth.getSelectedItem();
+            String strStartMonth = null;
+            switch (startMonth.getSelectedPosition()) {
+                case 0:
+                    strStartMonth = "01";
+                    break;
+                case 1:
+                    strStartMonth = "04";
+                    break;
+                case 2:
+                    strStartMonth = "07";
+                    break;
+                case 3:
+                    strStartMonth = "10";
+                    break;
+            }
+            String strEndMonth = null;
+            switch (endMonth.getSelectedPosition()) {
+                case 0:
+                    strEndMonth = "03";
+                    break;
+                case 1:
+                    strEndMonth = "06";
+                    break;
+                case 2:
+                    strEndMonth = "09";
+                    break;
+                case 3:
+                    strEndMonth = "12";
+                    break;
+            }
+            String startDate = startYear.getSelectedItem() + "-" + strStartMonth;
+            String endDate = endYear.getSelectedItem() + "-" + strEndMonth;
             if (DateUtils.dayCompare(TimeUtils.string2Date(startDate, new SimpleDateFormat("yyyy-MM")),
-                    TimeUtils.string2Date(endDate, new SimpleDateFormat("yyyy-MM"))) > 12) {
-                ToastUtils.showShort("月份间隔时间不能超过12个月");
+                    TimeUtils.string2Date(endDate, new SimpleDateFormat("yyyy-MM"))) > 36) {
+                ToastUtils.showShort("季度间隔不能超过12个季度");
                 return;
             }
             if (listener != null) {
@@ -112,15 +142,10 @@ public class PopMonthDialog extends PopupWindow {
 
     private List<String> getMonth() {
         List<String> month = new ArrayList<>();
-        int start = 0;
-        for (int i = 0; i < 12; i++) {
-            start++;
-            if (start < 10) {
-                month.add("0" + start);
-            } else {
-                month.add(start + "");
-            }
-        }
+        month.add("一季度");
+        month.add("二季度");
+        month.add("三季度");
+        month.add("四季度");
         return month;
     }
 
@@ -154,5 +179,4 @@ public class PopMonthDialog extends PopupWindow {
 
         void commit(String startTime, String endTime);
     }
-
 }

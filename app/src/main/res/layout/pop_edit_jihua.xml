@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bar_color"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="18dp"
+            android:gravity="center_vertical"
+            android:text="取消"
+            android:textColor="@color/blue_color"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="计划产量"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:text="1月"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/one_month"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入计划产量"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#2b2b2b" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:text="2月"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/two_month"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入计划产量"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#2b2b2b" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:text="3月"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/three_month"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入计划产量"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#2b2b2b" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:text="4月"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/four_month"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入计划产量"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#2b2b2b" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:text="5月"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/five_month"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入计划产量"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#2b2b2b" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:text="6月"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/six_month"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入计划产量"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#2b2b2b" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:text="7月"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/seven_month"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入计划产量"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#2b2b2b" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:text="8月"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/eight_month"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入计划产量"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#2b2b2b" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:text="9月"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/nine_month"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入计划产量"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#2b2b2b" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:text="10月"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/ten_month"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入计划产量"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#2b2b2b" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:text="11月"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/shiyi_month"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入计划产量"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#2b2b2b" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:text="12月"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/shier_month"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入计划产量"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/button_bg"
+        android:text="确定"
+        android:textColor="@color/text_white"
+        android:textSize="18sp" />
+
+</LinearLayout>

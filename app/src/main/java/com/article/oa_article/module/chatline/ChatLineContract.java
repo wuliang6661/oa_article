@@ -15,6 +15,10 @@ public class ChatLineContract {
     interface View extends BaseRequestView {
 
         void getChatLine(List<ChartBO> chartBOS);
+
+        void addOutSoress();
+
+        void getBiaoData(List<ChartBO> chartBOS);
     }
 
     interface Presenter extends BasePresenter<View> {

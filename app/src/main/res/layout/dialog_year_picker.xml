@@ -84,36 +84,7 @@
 
 
         <com.article.oa_article.widget.wheelview.WheelView
-            android:id="@+id/start_month"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:isLoop="false"
-            app:itemVisibleNum="3"
-            app:lineColor="#3B5BA5"
-            app:lineSpaceingDimens="10dp"
-            app:textColorCenter="@color/f_white"
-            app:textColorOuter="@color/hint_color"
-            app:textSizeCenter="15sp"
-            app:textSizeOuter="13sp" />
-
-
-        <com.article.oa_article.widget.wheelview.WheelView
             android:id="@+id/end_year"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:isLoop="false"
-            app:itemVisibleNum="3"
-            app:lineColor="#3B5BA5"
-            app:lineSpaceingDimens="10dp"
-            app:textColorCenter="@color/f_white"
-            app:textColorOuter="@color/hint_color"
-            app:textSizeCenter="15sp"
-            app:textSizeOuter="13sp" />
-
-        <com.article.oa_article.widget.wheelview.WheelView
-            android:id="@+id/end_month"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

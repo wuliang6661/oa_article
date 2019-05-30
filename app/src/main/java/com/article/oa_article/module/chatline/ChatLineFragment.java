@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.article.oa_article.R;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.ChartBO;
+import com.article.oa_article.bean.request.AddOutRequest;
 import com.article.oa_article.bean.request.ChartRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
@@ -71,6 +72,8 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
     TextView dateText;
     @BindView(R.id.date_select_layout)
     LinearLayout dateSelectLayout;
+    @BindView(R.id.edit_jihua)
+    TextView editJihua;
 
     private int userId;
     private int complanId;
@@ -122,13 +125,12 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
             userId = MyApplication.userBo.getId();
             complanId = Integer.parseInt(MyApplication.getCommonId());
             complanBar.setVisibility(View.GONE);
-            ChartRequest request = new ChartRequest();
-            request.setUserId(userId);
-            request.setCompanyId(complanId);
-            request.setBeginDate(monthBegenDate);
-            request.setEndDate(monthEndDate);
-            request.setMethod(month);
-            mPresenter.getChartData(request);
+            getChartData();
+            unitText.setText(MyApplication.getCommon().getUnit());
+            if (MyApplication.getCommon().getIsAdmin() == 1) {   //管理员
+                editJihua.setVisibility(View.VISIBLE);
+            }
+            getBiaoNum();
         }
     }
 
@@ -148,40 +150,69 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
         setBar(1);
     }
 
-    @OnClick({R.id.week_line, R.id.month_line, R.id.year_line})
-    public void barClick(View view) {
+    /**
+     * 获取表格数据
+     */
+    private void getBiaoNum() {
+        Date date = new Date();
         ChartRequest request = new ChartRequest();
         request.setUserId(userId);
         request.setCompanyId(complanId);
+        request.setBeginDate(date.getYear() + 1900 + "-01");
+        request.setEndDate(date.getYear() + 1900 + "-12");
+        request.setMethod(1);
+        mPresenter.getbiaoData(request);
+    }
+
+
+    /**
+     * 获取折线图数据
+     */
+    private void getChartData() {
+        ChartRequest request = new ChartRequest();
+        request.setUserId(userId);
+        request.setCompanyId(complanId);
+        request.setMethod(month);
+        switch (month) {
+            case 0:   //季表
+                request.setBeginDate(weekBegenDate);
+                request.setEndDate(weekEndDate);
+                break;
+            case 1:   //月表
+                request.setBeginDate(monthBegenDate);
+                request.setEndDate(monthEndDate);
+                break;
+            case 2:    //年表
+                request.setBeginDate(yearBegenDate);
+                request.setEndDate(yearEndDate);
+                break;
+        }
+        mPresenter.getChartData(request);
+    }
+
+
+    @OnClick({R.id.week_line, R.id.month_line, R.id.year_line})
+    public void barClick(View view) {
         switch (view.getId()) {
             case R.id.week_line:
                 setBar(0);
                 if (month != 0) {
                     month = 0;
-                    request.setBeginDate(weekBegenDate);
-                    request.setEndDate(weekEndDate);
-                    request.setMethod(month);
-                    mPresenter.getChartData(request);
+                    getChartData();
                 }
                 break;
             case R.id.month_line:
                 setBar(1);
                 if (month != 1) {
                     month = 1;
-                    request.setBeginDate(monthBegenDate);
-                    request.setEndDate(monthEndDate);
-                    request.setMethod(month);
-                    mPresenter.getChartData(request);
+                    getChartData();
                 }
                 break;
             case R.id.year_line:
                 setBar(2);
                 if (month != 2) {
                     month = 2;
-                    request.setBeginDate(yearBegenDate);
-                    request.setEndDate(yearEndDate);
-                    request.setMethod(month);
-                    mPresenter.getChartData(request);
+                    getChartData();
                 }
                 break;
         }
@@ -211,8 +242,60 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
 
     @OnClick(R.id.date_select_layout)
     public void dateSelect() {
-        PopMonthDialog popMonthDialog = new PopMonthDialog(getActivity());
-        popMonthDialog.showAtLocation(getActivity().getWindow().getDecorView());
+        switch (month) {
+            case 0:   //季表
+                PopQuarterDialog dialog = new PopQuarterDialog(getActivity());
+                dialog.setListener((startTime, endTime) -> {
+                    weekBegenDate = startTime;
+                    weekEndDate = endTime;
+                    getChartData();
+                    dateText.setText(weekBegenDate + " - " + weekEndDate);
+                });
+                dialog.showAtLocation(getActivity().getWindow().getDecorView());
+                break;
+            case 1:    //月表
+                PopMonthDialog popMonthDialog = new PopMonthDialog(getActivity());
+                popMonthDialog.setListener((startTime, endTime) -> {
+                    monthBegenDate = startTime;
+                    monthEndDate = endTime;
+                    getChartData();
+                    dateText.setText(monthBegenDate + " - " + monthEndDate);
+                });
+                popMonthDialog.showAtLocation(getActivity().getWindow().getDecorView());
+                break;
+            case 2:     //年表
+                PopYearDialog dialog1 = new PopYearDialog(getActivity());
+                dialog1.setListener((startTime, endTime) -> {
+                    yearBegenDate = startTime;
+                    yearEndDate = endTime;
+                    getChartData();
+                    dateText.setText(yearBegenDate + " - " + yearEndDate);
+                });
+                dialog1.showAtLocation(getActivity().getWindow().getDecorView());
+                break;
+        }
+    }
+
+    @OnClick(R.id.edit_jihua)
+    public void editJihua() {
+        PopJiHuaNumDialog dialog = new PopJiHuaNumDialog(getActivity());
+        dialog.setCommitListener((one, two, three, four, five, six, seven, eight, nine, ten, shiyi, shier) -> {
+            AddOutRequest request = new AddOutRequest();
+            request.setOne(Integer.parseInt(one));
+            request.setTwo(Integer.parseInt(two));
+            request.setThree(Integer.parseInt(three));
+            request.setFour(Integer.parseInt(four));
+            request.setFive(Integer.parseInt(five));
+            request.setSix(Integer.parseInt(six));
+            request.setSeven(Integer.parseInt(seven));
+            request.setEight(Integer.parseInt(eight));
+            request.setNine(Integer.parseInt(nine));
+            request.setTen(Integer.parseInt(ten));
+            request.setEleven(Integer.parseInt(shiyi));
+            request.setTwelve(Integer.parseInt(shier));
+            mPresenter.addOutPut(request);
+        });
+        dialog.showAtLocation(getActivity().getWindow().getDecorView());
     }
 
 
@@ -312,7 +395,7 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
         } else {
             set1 = new LineDataSet(yVals1, "");
             set1.setAxisDependency(YAxis.AxisDependency.LEFT);
-            set1.setColor(Color.parseColor("#49baff"));
+            set1.setColor(Color.parseColor("#5678FF"));
             set1.setCircleColor(Color.WHITE);
             set1.setLineWidth(2f);
             set1.setCircleRadius(3f);
@@ -349,13 +432,8 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
         new Handler().post(() -> {
             ChatLineFragment.this.userId = userId;
             ChatLineFragment.this.complanId = complanyId;
-            ChartRequest request = new ChartRequest();
-            request.setUserId(userId);
-            request.setCompanyId(complanyId);
-            request.setBeginDate(monthBegenDate);
-            request.setEndDate(monthEndDate);
-            request.setMethod(month);
-            mPresenter.getChartData(request);
+            getChartData();
+            getBiaoNum();
         });
     }
 
@@ -378,9 +456,6 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
 
     @Override
     public void getChatLine(List<ChartBO> chartBOS) {
-        if (month == 1) {
-            setRecycleAdapter(chartBOS);
-        }
         int maxNum = 0;
         int minNum = 0;
         for (ChartBO chartBO : chartBOS) {
@@ -408,6 +483,17 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
         leftAxis.setAxisMinimum(0);
         xAxis.setValueFormatter(new XValues(1, chartBOS));
         setData(chartBOS);
+    }
+
+    @Override
+    public void addOutSoress() {
+        getBiaoNum();
+        getChartData();
+    }
+
+    @Override
+    public void getBiaoData(List<ChartBO> chartBOS) {
+        setRecycleAdapter(chartBOS);
     }
 
     private void setRecycleAdapter(List<ChartBO> chartBOS) {

@@ -13,6 +13,7 @@ import com.article.oa_article.bean.ScopeBO;
 import com.article.oa_article.bean.UserInInfoBo;
 import com.article.oa_article.bean.UserOutInfo;
 import com.article.oa_article.bean.request.AddLableRequest;
+import com.article.oa_article.bean.request.AddOutRequest;
 import com.article.oa_article.bean.request.AddUserRequest;
 import com.article.oa_article.bean.request.AddUsersRequest;
 import com.article.oa_article.bean.request.BuMenRequest;
@@ -93,6 +94,12 @@ public interface PersonService {
      */
     @POST("industry_webservice/app/output/getOutPutByUserId")
     Observable<BaseResult<List<ChartBO>>> getOutPutByUserId(@Body ChartRequest request);
+
+    /**
+     * 修改计划产量
+     */
+    @POST("industry_webservice/app/output/addOutput")
+    Observable<BaseResult<String>> addOutPut(@Body AddOutRequest request);
 
     /**
      * 获取内部联系人详情

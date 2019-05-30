@@ -10,12 +10,9 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
-import com.article.oa_article.util.DateUtils;
 import com.article.oa_article.widget.wheelview.WheelView;
-import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,29 +20,28 @@ import java.util.List;
 /**
  * author : wuliang
  * e-mail : wuliang6661@163.com
- * date   : 2019/5/2916:26
+ * date   : 2019/5/3010:44
  * desc   :
  * version: 1.0
  */
-public class PopMonthDialog extends PopupWindow {
+public class PopYearDialog extends PopupWindow {
+
 
     private Activity activity;
     private View dialogView;
 
     private WheelView startYear;
-    private WheelView startMonth;
     private WheelView endYear;
-    private WheelView endMonth;
 
     private TextView iv_cancel;
     private TextView tv_finish;
 
     private int todayPosition;
 
-    public PopMonthDialog(Activity activity) {
+    public PopYearDialog(Activity activity) {
         super(activity);
         this.activity = activity;
-        dialogView = LayoutInflater.from(activity).inflate(R.layout.dialog_month_picker, null);
+        dialogView = LayoutInflater.from(activity).inflate(R.layout.dialog_year_picker, null);
 
         initView();
         this.setBackgroundDrawable(new ColorDrawable(0));
@@ -69,24 +65,19 @@ public class PopMonthDialog extends PopupWindow {
 
     private void initView() {
         startYear = dialogView.findViewById(R.id.start_year);
-        startMonth = dialogView.findViewById(R.id.start_month);
         endYear = dialogView.findViewById(R.id.end_year);
-        endMonth = dialogView.findViewById(R.id.end_month);
         iv_cancel = dialogView.findViewById(R.id.iv_cancel);
         tv_finish = dialogView.findViewById(R.id.tv_finish);
 
         startYear.setItems(getYear(), todayPosition);
-        startMonth.setItems(getMonth(), 0);
         endYear.setItems(getYear(), todayPosition);
-        endMonth.setItems(getMonth(), getMonth().size() - 1);
 
         iv_cancel.setOnClickListener(view -> dismiss());
         tv_finish.setOnClickListener(view -> {
-            String startDate = startYear.getSelectedItem() + "-" + startMonth.getSelectedItem();
-            String endDate = endYear.getSelectedItem() + "-" + endMonth.getSelectedItem();
-            if (DateUtils.dayCompare(TimeUtils.string2Date(startDate, new SimpleDateFormat("yyyy-MM")),
-                    TimeUtils.string2Date(endDate, new SimpleDateFormat("yyyy-MM"))) > 12) {
-                ToastUtils.showShort("月份间隔时间不能超过12个月");
+            String startDate = startYear.getSelectedItem();
+            String endDate = endYear.getSelectedItem();
+            if (Math.abs(Integer.parseInt(startDate) - Integer.parseInt(endDate)) > 12) {
+                ToastUtils.showShort("年份间隔时间不能超过12年");
                 return;
             }
             if (listener != null) {
