@@ -26,7 +26,7 @@ import butterknife.Unbinder;
 
 /**
  * MVPPlugin
- * 邮箱 784787081@qq.com
+ * 名片企业展示
  */
 
 public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View, ComplanMsgPresenter>
