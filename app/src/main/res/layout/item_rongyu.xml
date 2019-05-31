@@ -69,7 +69,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/line_height"
+        android:layout_height="50dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="20dp"
         android:gravity="center_vertical"
@@ -91,15 +91,15 @@
             android:layout_marginRight="17dp"
             android:background="#939495" />
 
-
         <RelativeLayout
-            android:id="@+id/select_time"
+            android:id="@+id/select_person"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="3">
 
 
             <TextView
-                android:id="@+id/banfa_time"
+                android:id="@+id/person_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"

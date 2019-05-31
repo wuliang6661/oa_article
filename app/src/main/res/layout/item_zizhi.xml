@@ -67,13 +67,58 @@
         android:background="@color/line_default_color" />
 
 
-    <com.article.oa_article.widget.EditMsgText
-        android:id="@+id/youxiao_date"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/line_height"
-        app:edit_max_length="20"
-        app:hint_text="请输入颁发单位"
-        app:title_text="有效期\u3000" />
+        android:layout_height="50dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="有效期\u3000"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="13dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="17dp"
+            android:background="#939495" />
+
+        <RelativeLayout
+            android:id="@+id/select_person"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+
+
+            <TextView
+                android:id="@+id/person_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="请选择有效期"
+                android:textColor="@color/white"
+                android:textColorHint="@color/hint_color"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/next_right" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
 
 
     <View
