@@ -1,9 +1,7 @@
 package com.article.oa_article.module.complanshiliedit;
 
-import android.content.Context;
-
 import com.article.oa_article.mvp.BasePresenter;
-import com.article.oa_article.mvp.BaseView;
+import com.article.oa_article.mvp.BaseRequestView;
 
 /**
  * MVPPlugin
@@ -11,7 +9,9 @@ import com.article.oa_article.mvp.BaseView;
  */
 
 public class ComplanShiliEditContract {
-    interface View extends BaseView {
+    interface View extends BaseRequestView {
+
+        void updateSourss(String name, String imageUrl);
         
     }
 
