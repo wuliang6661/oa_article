@@ -12,6 +12,7 @@ import com.article.oa_article.bean.LableBo;
 import com.article.oa_article.bean.ScopeBO;
 import com.article.oa_article.bean.UserInInfoBo;
 import com.article.oa_article.bean.UserOutInfo;
+import com.article.oa_article.bean.request.AddComplanRequest;
 import com.article.oa_article.bean.request.AddLableRequest;
 import com.article.oa_article.bean.request.AddOutRequest;
 import com.article.oa_article.bean.request.AddUserRequest;
@@ -214,5 +215,11 @@ public interface PersonService {
      */
     @POST("industry_webservice/app/companyInfo/addCompanyName")
     Observable<BaseResult<String>> addComplanName(@Body IdRequest request);
+
+    /**
+     * 新增企业认证
+     */
+    @POST("industry_webservice/app/companyInfo/addCompanyInfo")
+    Observable<BaseResult<String>> addComplanInfo(@Body AddComplanRequest request);
 
 }

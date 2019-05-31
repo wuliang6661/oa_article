@@ -214,6 +214,10 @@
             android:name=".view.main.message.FriendApplyActivity"
             android:screenOrientation="portrait" />
 
+        <!--新增企业-->
+        <activity
+            android:name=".view.newlycomplan.NewlyComplanActivity"
+            android:screenOrientation="portrait" />
 
         <!--扫一扫-->
         <activity android:name="com.article.oa_article.zxing.activity.CaptureActivity" />

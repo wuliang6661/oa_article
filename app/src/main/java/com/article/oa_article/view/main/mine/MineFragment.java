@@ -27,6 +27,7 @@ import com.article.oa_article.module.systemsetting.SystemSettingFragment;
 import com.article.oa_article.module.taskcenter.TaskCenterFragment;
 import com.article.oa_article.module.tempmanager.TempManagerFragment;
 import com.article.oa_article.mvp.MVPBaseFragment;
+import com.article.oa_article.view.newlycomplan.NewlyComplanActivity;
 import com.article.oa_article.view.setting.SettingActivity;
 import com.article.oa_article.widget.PopTaskMsg;
 import com.blankj.utilcode.util.FragmentUtils;
@@ -179,7 +180,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
                 popTaskMsg.setListener(new PopTaskMsg.onCommitListener() {
                     @Override
                     public void commit(String text) {
-                        mPresenter.addComplan(text);
+                        gotoActivity(NewlyComplanActivity.class, false);
                     }
 
                     @Override

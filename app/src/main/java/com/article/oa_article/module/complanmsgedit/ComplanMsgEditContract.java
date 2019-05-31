@@ -1,9 +1,7 @@
 package com.article.oa_article.module.complanmsgedit;
 
-import android.content.Context;
-
 import com.article.oa_article.mvp.BasePresenter;
-import com.article.oa_article.mvp.BaseView;
+import com.article.oa_article.mvp.BaseRequestView;
 
 /**
  * MVPPlugin
@@ -11,8 +9,9 @@ import com.article.oa_article.mvp.BaseView;
  */
 
 public class ComplanMsgEditContract {
-    interface View extends BaseView {
-        
+    interface View extends BaseRequestView {
+
+        void updateSourss(String name, String imageUrl);
     }
 
     interface  Presenter extends BasePresenter<View> {

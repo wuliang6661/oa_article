@@ -23,12 +23,19 @@
         android:textSize="18sp" />
 
 
-    <include
-        layout="@layout/fra_complan_msg"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/next_button"
-        android:layout_below="@+id/title" />
+        android:layout_below="@+id/title"
+        android:fillViewport="true">
+
+        <include
+            layout="@layout/fra_complan_msg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.v4.widget.NestedScrollView>
 
 
 </RelativeLayout>

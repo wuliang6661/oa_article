@@ -13,7 +13,7 @@
         android:layout_height="@dimen/line_height"
         app:edit_max_length="20"
         app:hint_text="请输入公司全称"
-        app:title_text="客户全称" />
+        app:title_text="公司全称" />
 
 
     <View
@@ -30,7 +30,7 @@
         android:layout_height="@dimen/line_height"
         app:edit_max_length="4"
         app:hint_text="请输入公司简称"
-        app:title_text="客户简称" />
+        app:title_text="公司简称" />
 
 
     <View
@@ -111,9 +111,8 @@
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_width="131dp"
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/card_fanmian"
@@ -128,7 +127,8 @@
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/delete_img" />
+                android:src="@drawable/delete_img"
+                android:visibility="gone" />
 
 
             <TextView
@@ -151,10 +151,9 @@
 
 
         <RelativeLayout
-            android:layout_width="0dp"
+            android:layout_width="131dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="13dp"
-            android:layout_weight="1">
+            android:layout_marginLeft="13dp">
 
             <ImageView
                 android:id="@+id/card_zhengmian"
@@ -169,7 +168,8 @@
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/delete_img" />
+                android:src="@drawable/delete_img"
+                android:visibility="gone" />
 
 
             <TextView
@@ -219,9 +219,8 @@
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_width="131dp"
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/zhizhao"
@@ -236,7 +235,8 @@
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/delete_img" />
+                android:src="@drawable/delete_img"
+                android:visibility="gone" />
 
 
             <TextView
@@ -256,13 +256,6 @@
 
 
         </RelativeLayout>
-
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="13dp"
-            android:layout_weight="1" />
 
     </LinearLayout>
 

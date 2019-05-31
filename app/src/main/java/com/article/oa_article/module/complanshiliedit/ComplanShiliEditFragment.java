@@ -2,7 +2,6 @@ package com.article.oa_article.module.complanshiliedit;
 
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.article.oa_article.R;
-import com.article.oa_article.bean.ComplanBO;
 import com.article.oa_article.mvp.MVPBaseFragment;
 
 import butterknife.BindView;
@@ -33,9 +31,6 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
     @BindView(R.id.rongyu_recycle)
     RecyclerView rongyuRecycle;
     Unbinder unbinder;
-
-
-    ComplanBO complanBo;
 
     @Nullable
     @Override
@@ -64,17 +59,6 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
         unbinder.unbind();
     }
 
-
-    public void setComplanBo(ComplanBO complanBo) {
-        this.complanBo = complanBo;
-        new Handler().post(this::setUIMsg);
-    }
-
-
-    private void setUIMsg() {
-
-
-    }
 
 
 }

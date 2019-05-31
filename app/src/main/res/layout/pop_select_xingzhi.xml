@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bar_color"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/bar_color">
+
+
+        <TextView
+            android:id="@+id/iv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="17dp"
+            android:padding="8dp"
+            android:text="取消"
+            android:textColor="@color/blue_color"
+            android:textSize="13sp" />
+
+
+        <TextView
+            android:id="@+id/tv_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="17dp"
+            android:padding="8dp"
+            android:text="完成"
+            android:textColor="@color/blue_color"
+            android:textSize="13sp" />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+
+        <com.article.oa_article.widget.wheelview.WheelView
+            android:id="@+id/select"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:isLoop="false"
+            app:itemVisibleNum="3"
+            app:lineColor="#3B5BA5"
+            app:lineSpaceingDimens="10dp"
+            app:textColorCenter="@color/f_white"
+            app:textColorOuter="@color/hint_color"
+            app:textSizeCenter="15sp"
+            app:textSizeOuter="13sp" />
+    </LinearLayout>
+
+</LinearLayout>

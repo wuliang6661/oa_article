@@ -3,6 +3,7 @@ package com.article.oa_article.module.complanziyuanedit;
 import android.content.Context;
 
 import com.article.oa_article.mvp.BasePresenter;
+import com.article.oa_article.mvp.BaseRequestView;
 import com.article.oa_article.mvp.BaseView;
 
 /**
@@ -11,7 +12,9 @@ import com.article.oa_article.mvp.BaseView;
  */
 
 public class ComplanZiyuanEditContract {
-    interface View extends BaseView {
+    interface View extends BaseRequestView {
+
+        void updateSourss(String name, String imageUrl);
         
     }
 
