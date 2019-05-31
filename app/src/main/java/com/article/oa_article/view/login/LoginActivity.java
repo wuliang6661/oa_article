@@ -79,7 +79,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         if (BuildConfig.DEBUG) {
             editPhone.setText("18368163483");
             // 15726818192
-            editPassword.setText("111111");
+            editPassword.setText("123456");
         }
     }
 

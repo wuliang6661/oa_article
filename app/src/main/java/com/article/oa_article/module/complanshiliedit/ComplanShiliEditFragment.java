@@ -19,17 +19,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.article.oa_article.R;
-import com.article.oa_article.bean.request.AddComplanRequest;
 import com.article.oa_article.module.create_order.ImageBO;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.util.PhotoFromPhotoAlbum;
-import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
-import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 import com.blankj.utilcode.util.LogUtils;
 import com.guoqi.actionsheet.ActionSheet;
 
 import java.io.File;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -79,7 +76,28 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
         LinearLayoutManager manager1 = new LinearLayoutManager(getActivity());
         manager1.setOrientation(LinearLayoutManager.HORIZONTAL);
         rongyuRecycle.setLayoutManager(manager1);
+
+        setZiZhiAdapter();
+        setRongYuAdapter();
     }
+
+
+    /**
+     * 设置资质的适配器
+     */
+    private void setZiZhiAdapter() {
+        ZiZhiAdapter adapter = new ZiZhiAdapter(getActivity(), new ArrayList<>());
+        zizhiRecycle.setAdapter(adapter);
+    }
+
+    /**
+     * 设置荣誉的适配器
+     */
+    private void setRongYuAdapter() {
+        RongYuAdapter adapter = new RongYuAdapter(getActivity(), new ArrayList<>());
+        rongyuRecycle.setAdapter(adapter);
+    }
+
 
     @Override
     public void onDestroyView() {
@@ -182,35 +200,6 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
     public void onRequestError(String msg) {
         showToast(msg);
         stopProgress();
-    }
-
-
-    class ZiZhiAdapter extends LGRecycleViewAdapter<AddComplanRequest.CompanyQualificationsBean> {
-
-        List<AddComplanRequest.CompanyQualificationsBean> dataList;
-
-        public ZiZhiAdapter(List<AddComplanRequest.CompanyQualificationsBean> dataList) {
-            super(dataList);
-            this.dataList = dataList;
-        }
-
-        @Override
-        public int getItemCount() {
-            if (dataList.isEmpty()) {
-                return 1;
-            }
-            return dataList.size() + 1;
-        }
-
-        @Override
-        public int getLayoutId(int viewType) {
-            return R.layout.item_zizhi;
-        }
-
-        @Override
-        public void convert(LGViewHolder holder, AddComplanRequest.CompanyQualificationsBean companyQualificationsBean, int position) {
-
-        }
     }
 
 }
