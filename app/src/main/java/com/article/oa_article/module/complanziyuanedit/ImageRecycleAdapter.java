@@ -62,6 +62,9 @@ public class ImageRecycleAdapter extends RecyclerView.Adapter<ImageRecycleAdapte
         });
         holder.deleteImage.setOnClickListener(view -> {
             imageBOS.remove(position);
+            if (deleteImageListener != null) {
+                deleteImageListener.deleteImage(imageBOS);
+            }
             notifyDataSetChanged();
         });
     }
@@ -101,14 +104,24 @@ public class ImageRecycleAdapter extends RecyclerView.Adapter<ImageRecycleAdapte
     }
 
     private onImageMakeListener listener;
+    private onDeleteImageListener deleteImageListener;
 
     public void setImageMakeListener(onImageMakeListener listener) {
         this.listener = listener;
     }
 
+    public void setDeleteImageListener(onDeleteImageListener listener) {
+        deleteImageListener = listener;
+    }
 
-    interface onImageMakeListener {
+
+    public interface onImageMakeListener {
 
         void addImage();
+    }
+
+
+    public interface onDeleteImageListener {
+        void deleteImage(List<ImageBO> imageBOS);
     }
 }

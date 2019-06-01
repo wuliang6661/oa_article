@@ -134,7 +134,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_height"
         app:edit_max_length="20"
-        app:hint_text="请输入颁发编号"
+        app:hint_text="请输入证书编号"
         app:title_text="证书编号" />
 
 
@@ -159,7 +159,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/image_recycle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp" />
 
 
 </LinearLayout>
