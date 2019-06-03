@@ -16,6 +16,7 @@ import com.article.oa_article.R;
 import com.article.oa_article.bean.ComplanBO;
 import com.article.oa_article.bean.event.UpdateComplanEvent;
 import com.article.oa_article.module.complanmsgedit.ComplanMsgEditFragment;
+import com.article.oa_article.module.complanshiliedit.ComplanShiliEditFragment;
 import com.article.oa_article.module.complanydetails.ComplanyDetailsFragment;
 import com.article.oa_article.module.complanyshili.ComplanyshiliFragment;
 import com.article.oa_article.module.complanyzizhi.ComplanyZizhiFragment;
@@ -148,11 +149,13 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
                 break;
             case R.id.edit_ziyuan:
                 ComplanZiyuanEditFragment fragment1 = new ComplanZiyuanEditFragment();
-                FragmentUtils.replace(getFragmentManager(), fragment1, R.id.complan_details);
+                FragmentUtils.replace(getFragmentManager(), fragment1, R.id.complan_zizhi);
                 fragment1.setData(complanBO);
                 break;
             case R.id.edit_shili:
-
+                ComplanShiliEditFragment fragment2 = new ComplanShiliEditFragment();
+                FragmentUtils.replace(getFragmentManager(), fragment2, R.id.complan_shili);
+                fragment2.setEditCommon(complanBO);
                 break;
         }
     }

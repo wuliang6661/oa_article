@@ -264,6 +264,16 @@ public class ComplanBO {
         private String remark;
         private long validDate;
         private List<ImageBO> qualificationImage;
+        private int qualificationId;
+
+
+        public int getQualificationId() {
+            return qualificationId;
+        }
+
+        public void setQualificationId(int qualificationId) {
+            this.qualificationId = qualificationId;
+        }
 
         public long getIssueDate() {
             return issueDate;

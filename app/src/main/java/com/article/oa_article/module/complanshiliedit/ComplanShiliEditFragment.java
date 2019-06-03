@@ -2,11 +2,13 @@ package com.article.oa_article.module.complanshiliedit;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,20 +19,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
+import com.article.oa_article.bean.ComplanBO;
 import com.article.oa_article.bean.request.AddComplanRequest;
+import com.article.oa_article.bean.request.UpdateShiliRequest;
 import com.article.oa_article.module.create_order.ImageBO;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.util.PhotoFromPhotoAlbum;
 import com.article.oa_article.widget.EditMsgText;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.guoqi.actionsheet.ActionSheet;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -59,6 +66,8 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
     LinearLayout addZizhi;
     @BindView(R.id.add_rongyu)
     LinearLayout addRongyu;
+    @BindView(R.id.next_button)
+    Button nextButton;
 
     private File cameraSavePath;//拍照照片路径
     private Uri uri;
@@ -178,6 +187,17 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
     }
 
 
+    @OnClick(R.id.next_button)
+    public void commitEdit() {
+        if(getData() != null && getHonorDatas() != null){
+            UpdateShiliRequest request = new UpdateShiliRequest();
+            request.setCompanyHonors(getHonorDatas());
+            request.setCompanyQualifications(getData());
+            mPresenter.updateShiliInfo(request);
+        }
+    }
+
+
     public List<AddComplanRequest.CompanyQualificationsBean> getData() {
         for (int i = 0; i < zizhiRecycle.getChildCount(); i++) {
             View view = zizhiRecycle.getChildAt(i);
@@ -194,6 +214,9 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
             qualificationsBean.setQualificationNumber(num.getText());
             qualificationsBean.setIssueUnit(danwei.getText());
             qualificationsBean.setIssueDate(date.getText().toString().trim().replaceAll("/", "-"));
+            if(qualificationsBeans.size() > i){
+                qualificationsBean.setQualificationId(qualificationsBeans.get(i).getQualificationId());
+            }
             qualificationsBeans.set(i, qualificationsBean);
         }
         return qualificationsBeans;
@@ -248,6 +271,9 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
             qualificationsBean.setHonorImage(adapter.getImageByPosition(i));
             qualificationsBean.setIssueUnit(danwei.getText());
             qualificationsBean.setIssueDate(date.getText().toString().trim().replaceAll("/", "-"));
+            if(honorsBeans.size() > i){
+                qualificationsBean.setHonorId(honorsBeans.get(i).getHonorId());
+            }
             honorsBeans.set(i, qualificationsBean);
         }
         return honorsBeans;
@@ -379,6 +405,50 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
     public void onRequestError(String msg) {
         showToast(msg);
         stopProgress();
+    }
+
+
+    /**
+     * 设置修改公司实力时显示
+     */
+    public void setEditCommon(ComplanBO commonBo) {
+        new Handler().post(new Runnable() {
+            @SuppressLint("SimpleDateFormat")
+            @Override
+            public void run() {
+                if (!commonBo.getCompanyQualifications().isEmpty()) {
+                    qualificationsBeans.clear();
+                }
+                if (!commonBo.getCompanyHonors().isEmpty()) {
+                    honorsBeans.clear();
+                }
+                for (int i = 0; i < commonBo.getCompanyQualifications().size(); i++) {
+                    AddComplanRequest.CompanyQualificationsBean qualificationsBean =
+                            new AddComplanRequest.CompanyQualificationsBean();
+                    qualificationsBean.setIssueDate(TimeUtils.millis2String(commonBo.getCompanyQualifications().get(i).getIssueDate(),
+                            new SimpleDateFormat("yyyy/MM/dd")));
+                    qualificationsBean.setIssueUnit(commonBo.getCompanyQualifications().get(i).getIssueUnit());
+                    qualificationsBean.setQualificationNumber(commonBo.getCompanyQualifications().get(i).getQualificationNumber());
+                    qualificationsBean.setQualificationImage(commonBo.getCompanyQualifications().get(i).getQualificationImage());
+                    qualificationsBean.setQualificationName(commonBo.getCompanyQualifications().get(i).getQualificationName());
+                    qualificationsBean.setQualificationId(commonBo.getCompanyQualifications().get(i).getQualificationId());
+                    qualificationsBeans.add(qualificationsBean);
+                }
+                setZiZhiAdapter();
+                for (int i = 0; i < commonBo.getCompanyHonors().size(); i++) {
+                    AddComplanRequest.CompanyHonorsBean honorsBean = new AddComplanRequest.CompanyHonorsBean();
+                    honorsBean.setHonorImage(commonBo.getCompanyHonors().get(i).getHonorImage());
+                    honorsBean.setHonorId(commonBo.getCompanyHonors().get(i).getHonorId());
+                    honorsBean.setHonorName(commonBo.getCompanyHonors().get(i).getHonorName());
+                    honorsBean.setIssueDate(TimeUtils.millis2String(commonBo.getCompanyHonors().get(i).getIssueDate(),
+                            new SimpleDateFormat("yyyy/MM/dd")));
+                    honorsBean.setIssueUnit(commonBo.getCompanyHonors().get(i).getIssueUnit());
+                    honorsBeans.add(honorsBean);
+                }
+                setRongYuAdapter();
+                nextButton.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
 }
