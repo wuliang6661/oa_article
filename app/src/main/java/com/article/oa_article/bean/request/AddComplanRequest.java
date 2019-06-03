@@ -110,6 +110,15 @@ public class AddComplanRequest {
         private int technicalNumber;
         private int userId;
         private List<ImageBO> plantImage;
+        private String token;
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
 
         public int getAdminNumber() {
             return adminNumber;

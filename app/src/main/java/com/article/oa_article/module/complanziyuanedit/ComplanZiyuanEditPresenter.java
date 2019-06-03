@@ -4,7 +4,12 @@ import android.content.Context;
 
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.HttpServerImpl;
+import com.article.oa_article.api.http.PersonServiceImpl;
+import com.article.oa_article.bean.event.UpdateComplanEvent;
+import com.article.oa_article.bean.request.UpdateZiYuanRequest;
 import com.article.oa_article.mvp.BasePresenterImpl;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 
@@ -33,4 +38,23 @@ public class ComplanZiyuanEditPresenter extends BasePresenterImpl<ComplanZiyuanE
             }
         });
     }
+
+    public void updateComlanInfo2(UpdateZiYuanRequest request) {
+        PersonServiceImpl.updateComplanInfo2(request).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if (mView != null) {
+                    EventBus.getDefault().post(new UpdateComplanEvent());
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
+
 }

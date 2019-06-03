@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
@@ -54,6 +55,10 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
     @BindView(R.id.rongyu_recycle)
     RecyclerView rongyuRecycle;
     Unbinder unbinder;
+    @BindView(R.id.add_zizhi)
+    LinearLayout addZizhi;
+    @BindView(R.id.add_rongyu)
+    LinearLayout addRongyu;
 
     private File cameraSavePath;//拍照照片路径
     private Uri uri;
@@ -62,6 +67,12 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
     private ZiZhiAdapter adapter;
     private List<AddComplanRequest.CompanyQualificationsBean> qualificationsBeans;
     private int zizhiPosition;
+
+    private RongYuAdapter rongYuAdapter;
+    private List<AddComplanRequest.CompanyHonorsBean> honorsBeans;
+    private int rongyuPosition;
+
+    boolean isAddZiZhi = true;   //true 为上传资质图片   false 为上传荣誉图片
 
     @Nullable
     @Override
@@ -79,7 +90,12 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
         cameraSavePath = new File(Environment.getExternalStorageDirectory().getPath() + "/" +
                 System.currentTimeMillis() + ".jpg");
         qualificationsBeans = new ArrayList<>();
+        qualificationsBeans.add(new AddComplanRequest.CompanyQualificationsBean());
+        honorsBeans = new ArrayList<>();
+        honorsBeans.add(new AddComplanRequest.CompanyHonorsBean());
 
+        addZizhi.setVisibility(View.VISIBLE);
+        addRongyu.setVisibility(View.VISIBLE);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         zizhiRecycle.setLayoutManager(manager);
@@ -99,12 +115,11 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
      * 设置资质的适配器
      */
     private void setZiZhiAdapter() {
-        List<AddComplanRequest.CompanyQualificationsBean> qualificationsBeans = new ArrayList<>();
-        qualificationsBeans.add(new AddComplanRequest.CompanyQualificationsBean());
         adapter = new ZiZhiAdapter(getActivity(), qualificationsBeans);
         adapter.setListener(new ZiZhiAdapter.onMakeZizhi() {
             @Override
             public void addImage(int position) {
+                isAddZiZhi = true;
                 zizhiPosition = position;
                 ActionSheet.showSheet(getActivity(), ComplanShiliEditFragment.this, null);
             }
@@ -121,8 +136,21 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
      * 设置荣誉的适配器
      */
     private void setRongYuAdapter() {
-        RongYuAdapter adapter = new RongYuAdapter(getActivity(), new ArrayList<>());
-        rongyuRecycle.setAdapter(adapter);
+        rongYuAdapter = new RongYuAdapter(getActivity(), honorsBeans);
+        rongYuAdapter.setListener(new RongYuAdapter.onMakeZizhi() {
+            @Override
+            public void addImage(int position) {
+                isAddZiZhi = false;
+                rongyuPosition = position;
+                ActionSheet.showSheet(getActivity(), ComplanShiliEditFragment.this, null);
+            }
+
+            @Override
+            public void deleteImage(int position, List<ImageBO> imageBOS) {
+                honorsBeans.get(position).setHonorImage(imageBOS);
+            }
+        });
+        rongyuRecycle.setAdapter(rongYuAdapter);
     }
 
 
@@ -136,48 +164,119 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
     public void addZizhi() {
         if (getData() != null) {
             qualificationsBeans.add(new AddComplanRequest.CompanyQualificationsBean());
-            adapter.setDataList(qualificationsBeans);
+            setZiZhiAdapter();
+        }
+    }
+
+
+    @OnClick(R.id.add_rongyu)
+    public void addRongyu() {
+        if (getHonorDatas() != null) {
+            honorsBeans.add(new AddComplanRequest.CompanyHonorsBean());
+            setRongYuAdapter();
         }
     }
 
 
     public List<AddComplanRequest.CompanyQualificationsBean> getData() {
-        qualificationsBeans.clear();
         for (int i = 0; i < zizhiRecycle.getChildCount(); i++) {
             View view = zizhiRecycle.getChildAt(i);
+            if (!isGiveZiZhi(i, view)) {
+                return null;
+            }
             EditMsgText name = view.findViewById(R.id.zizhi_name);
-            if (StringUtils.isEmpty(name.getText())) {
-                showToast("请补全资质名称！");
-                return null;
-            }
             EditMsgText danwei = view.findViewById(R.id.banfa_danwei);
-            if (StringUtils.isEmpty(danwei.getText())) {
-                showToast("请补全颁发单位！");
-                return null;
-            }
             TextView date = view.findViewById(R.id.person_name);
-            if (StringUtils.isEmpty(date.getText().toString())) {
-                showToast("请补全有效期！");
-                return null;
-            }
             EditMsgText num = view.findViewById(R.id.certificate_num);
-            if (StringUtils.isEmpty(num.getText())) {
-                showToast("请补全证书编号！");
-                return null;
-            }
-            if (adapter.getImageByPosition(i) == null || adapter.getImageByPosition(i).isEmpty()) {
-                showToast("请补全证书图片！");
-                return null;
-            }
             AddComplanRequest.CompanyQualificationsBean qualificationsBean = new AddComplanRequest.CompanyQualificationsBean();
             qualificationsBean.setQualificationName(name.getText());
             qualificationsBean.setQualificationImage(adapter.getImageByPosition(i));
             qualificationsBean.setQualificationNumber(num.getText());
             qualificationsBean.setIssueUnit(danwei.getText());
-            qualificationsBean.setIssueDate(date.getText().toString().trim());
-            qualificationsBeans.add(qualificationsBean);
+            qualificationsBean.setIssueDate(date.getText().toString().trim().replaceAll("/", "-"));
+            qualificationsBeans.set(i, qualificationsBean);
         }
         return qualificationsBeans;
+    }
+
+    /**
+     * 判断是否可增加一个新的资质
+     */
+    public boolean isGiveZiZhi(int i, View view) {
+        EditMsgText name = view.findViewById(R.id.zizhi_name);
+        EditMsgText danwei = view.findViewById(R.id.banfa_danwei);
+        TextView date = view.findViewById(R.id.person_name);
+        EditMsgText num = view.findViewById(R.id.certificate_num);
+        if (StringUtils.isEmpty(name.getText())) {
+            showToast("请补全资质名称！");
+            return false;
+        }
+        if (StringUtils.isEmpty(danwei.getText())) {
+            showToast("请补全颁发单位！");
+            return false;
+        }
+        if (StringUtils.isEmpty(date.getText().toString())) {
+            showToast("请补全有效期！");
+            return false;
+        }
+        if (StringUtils.isEmpty(num.getText())) {
+            showToast("请补全证书编号！");
+            return false;
+        }
+        if (adapter.getImageByPosition(i) == null || adapter.getImageByPosition(i).isEmpty()) {
+            showToast("请补全证书图片！");
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
+     * 返回荣誉列表
+     */
+    public List<AddComplanRequest.CompanyHonorsBean> getHonorDatas() {
+        for (int i = 0; i < rongyuRecycle.getChildCount(); i++) {
+            View view = rongyuRecycle.getChildAt(i);
+            if (!isGiveRongYu(i, view)) {
+                return null;
+            }
+            EditMsgText name = view.findViewById(R.id.rongyu_name);
+            EditMsgText danwei = view.findViewById(R.id.banfa_danwei);
+            TextView date = view.findViewById(R.id.person_name);
+            AddComplanRequest.CompanyHonorsBean qualificationsBean = new AddComplanRequest.CompanyHonorsBean();
+            qualificationsBean.setHonorName(name.getText());
+            qualificationsBean.setHonorImage(adapter.getImageByPosition(i));
+            qualificationsBean.setIssueUnit(danwei.getText());
+            qualificationsBean.setIssueDate(date.getText().toString().trim().replaceAll("/", "-"));
+            honorsBeans.set(i, qualificationsBean);
+        }
+        return honorsBeans;
+    }
+
+    /**
+     * 判断是否可以新增一个荣誉
+     */
+    public boolean isGiveRongYu(int i, View view) {
+        EditMsgText name = view.findViewById(R.id.rongyu_name);
+        EditMsgText danwei = view.findViewById(R.id.banfa_danwei);
+        TextView date = view.findViewById(R.id.person_name);
+        if (StringUtils.isEmpty(name.getText())) {
+            showToast("请补全资质名称！");
+            return false;
+        }
+        if (StringUtils.isEmpty(danwei.getText())) {
+            showToast("请补全颁发单位！");
+            return false;
+        }
+        if (StringUtils.isEmpty(date.getText().toString())) {
+            showToast("请补全有效期！");
+            return false;
+        }
+        if (rongYuAdapter.getImageByPosition(i) == null || rongYuAdapter.getImageByPosition(i).isEmpty()) {
+            showToast("请补全荣誉图片！");
+            return false;
+        }
+        return true;
     }
 
 
@@ -269,7 +368,11 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
         ImageBO imageBO = new ImageBO();
         imageBO.name = name;
         imageBO.url = imageUrl;
-        adapter.addImage(zizhiPosition, imageBO);
+        if (isAddZiZhi) {
+            adapter.addImage(zizhiPosition, imageBO);
+        } else {
+            rongYuAdapter.addImage(rongyuPosition, imageBO);
+        }
     }
 
     @Override

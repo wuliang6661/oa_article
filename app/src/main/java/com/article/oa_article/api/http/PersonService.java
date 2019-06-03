@@ -30,6 +30,8 @@ import com.article.oa_article.bean.request.PhoneRequest;
 import com.article.oa_article.bean.request.ScopeRequest;
 import com.article.oa_article.bean.request.TokenRequest;
 import com.article.oa_article.bean.request.UpdateDepartRequest;
+import com.article.oa_article.bean.request.UpdateShiliRequest;
+import com.article.oa_article.bean.request.UpdateZiYuanRequest;
 import com.article.oa_article.bean.request.UserInInfoRequest;
 import com.article.oa_article.bean.request.UserOutRequest;
 
@@ -221,5 +223,23 @@ public interface PersonService {
      */
     @POST("industry_webservice/app/companyInfo/addCompanyInfo")
     Observable<BaseResult<String>> addComplanInfo(@Body AddComplanRequest request);
+
+    /**
+     * 编辑公司信息
+     */
+    @POST("industry_webservice/app/companyInfo/updateCompanyInfo1")
+    Observable<BaseResult<String>> updateCompanyInfo1(@Body AddComplanRequest.CompanyInfoBean request);
+
+    /**
+     * 编辑公司资源信息
+     */
+    @POST("industry_webservice/app/companyInfo/updateCompanyInfo2")
+    Observable<BaseResult<String>> updateCompanyInfo2(@Body UpdateZiYuanRequest request);
+
+    /**
+     * 编辑公司实力信息
+     */
+    @POST("industry_webservice/app/companyInfo/updateCompanyInfo3")
+    Observable<BaseResult<String>> updateCompanyInfo3(@Body UpdateShiliRequest request);
 
 }

@@ -110,7 +110,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
             fragments.add(chatLineFragment);
             fragments.add(new ScopeCenterFragment());
             fragments.add(new TaskCenterFragment());
-            fragments.add(new ComplanMsgFragment());
+            fragments.add(ComplanMsgFragment.getInstance(1));
             fragments.add(new TempManagerFragment());
         } else {
             tabLayout.addTab(tabLayout.newTab().setText(tabs[0]));
@@ -176,6 +176,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
 
             @Override
             public void addComplan() {
+                popSwitchComplan.dismiss();
                 PopTaskMsg popTaskMsg = new PopTaskMsg(getActivity(), "新增企业", "企业名称", "请输入企业名称");
                 popTaskMsg.setListener(new PopTaskMsg.onCommitListener() {
                     @Override

@@ -32,6 +32,8 @@ import com.article.oa_article.bean.request.PhoneRequest;
 import com.article.oa_article.bean.request.ScopeRequest;
 import com.article.oa_article.bean.request.TokenRequest;
 import com.article.oa_article.bean.request.UpdateDepartRequest;
+import com.article.oa_article.bean.request.UpdateShiliRequest;
+import com.article.oa_article.bean.request.UpdateZiYuanRequest;
 import com.article.oa_article.bean.request.UserInInfoRequest;
 import com.article.oa_article.bean.request.UserOutRequest;
 import com.article.oa_article.util.rx.RxResultHelper;
@@ -349,4 +351,31 @@ public class PersonServiceImpl {
         return getService().addComplanInfo(request).compose(RxResultHelper.httpRusult());
     }
 
+
+    /**
+     * 修改公司信息
+     */
+    public static Observable<String> updateComplanyinfo1(AddComplanRequest.CompanyInfoBean request) {
+        request.setToken(MyApplication.token);
+        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+        return getService().updateCompanyInfo1(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 修改公司资源
+     */
+    public static Observable<String> updateComplanInfo2(UpdateZiYuanRequest request) {
+        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setToken(MyApplication.token);
+        return getService().updateCompanyInfo2(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 修改公司实力
+     */
+    public static Observable<String> updateComplanInfo3(UpdateShiliRequest request) {
+        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setToken(MyApplication.token);
+        return getService().updateCompanyInfo3(request).compose(RxResultHelper.httpRusult());
+    }
 }
