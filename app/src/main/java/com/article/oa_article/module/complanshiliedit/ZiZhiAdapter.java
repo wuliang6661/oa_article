@@ -145,7 +145,7 @@ public class ZiZhiAdapter extends RecyclerView.Adapter<ZiZhiAdapter.ViewHodler> 
      * 获取第N项的图片列表
      */
     public List<ImageBO> getImageByPosition(int position) {
-        return dataList.get(position).getQualificationImage();
+         return dataList.get(position).getQualificationImage();
     }
 
 
