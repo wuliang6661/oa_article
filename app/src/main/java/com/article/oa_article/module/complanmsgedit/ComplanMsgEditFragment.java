@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,9 +16,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.article.oa_article.R;
+import com.article.oa_article.bean.ComplanBO;
+import com.article.oa_article.bean.event.UpdateComplanEvent;
 import com.article.oa_article.bean.request.AddComplanRequest;
 import com.article.oa_article.module.create_order.ImageBO;
 import com.article.oa_article.mvp.MVPBaseFragment;
@@ -27,6 +31,8 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.Glide;
 import com.guoqi.actionsheet.ActionSheet;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.Objects;
@@ -68,6 +74,8 @@ public class ComplanMsgEditFragment extends MVPBaseFragment<ComplanMsgEditContra
     @BindView(R.id.delete_zhizhao)
     ImageView deleteZhizhao;
     Unbinder unbinder;
+    @BindView(R.id.next_button)
+    Button nextButton;
 
     private File cameraSavePath;//拍照照片路径
     private Uri uri;
@@ -148,6 +156,14 @@ public class ComplanMsgEditFragment extends MVPBaseFragment<ComplanMsgEditContra
                 fanmianUrl = null;
                 fanmianName = null;
                 break;
+        }
+    }
+
+    @OnClick(R.id.next_button)
+    public void editCommit() {
+        if (isCommit()) {
+            AddComplanRequest request = getData(new AddComplanRequest());
+            mPresenter.updateComlanInfo1(request.getCompanyInfo());
         }
     }
 
@@ -260,9 +276,37 @@ public class ComplanMsgEditFragment extends MVPBaseFragment<ComplanMsgEditContra
     }
 
     @Override
+    public void updateSourss() {
+        EventBus.getDefault().post(new UpdateComplanEvent());
+    }
+
+    @Override
     public void onRequestError(String msg) {
         showToast(msg);
         stopProgress();
+    }
+
+    /**
+     * 修改时设置数据
+     */
+    public void setData(ComplanBO complanBO) {
+        new Handler().post(() -> {
+            complanName.setText(complanBO.getCompanyInfos().getCompanyName());
+            complanJiancheng.setText(complanBO.getCompanyInfos().getShortName());
+            complanAddress.setText(complanBO.getCompanyInfos().getCompanyAddress());
+            complanPhone.setText(complanBO.getCompanyInfos().getContactWay());
+            complanEmail.setText(complanBO.getCompanyInfos().getCompanyEmail());
+            zhengmianUrl = complanBO.getCompanyInfos().getIdFrontImage().url;
+            zhengmianName = complanBO.getCompanyInfos().getIdFrontImage().name;
+            Glide.with(getActivity()).load(zhengmianUrl).into(cardZhengmian);
+            fanmianName = complanBO.getCompanyInfos().getIdBackImage().name;
+            fanmianUrl = complanBO.getCompanyInfos().getIdBackImage().url;
+            Glide.with(getActivity()).load(fanmianUrl).into(cardFanmian);
+            zhizhaoName = complanBO.getCompanyInfos().getBusinessLicense().name;
+            zhizhaoUrl = complanBO.getCompanyInfos().getBusinessLicense().url;
+            Glide.with(getActivity()).load(zhizhaoUrl).into(zhizhao);
+            nextButton.setVisibility(View.VISIBLE);
+        });
     }
 
 

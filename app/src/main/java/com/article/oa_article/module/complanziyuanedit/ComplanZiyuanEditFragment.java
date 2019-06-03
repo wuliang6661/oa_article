@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,10 +20,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
+import com.article.oa_article.bean.ComplanBO;
 import com.article.oa_article.bean.request.AddComplanRequest;
+import com.article.oa_article.bean.request.UpdateZiYuanRequest;
 import com.article.oa_article.module.create_order.ImageBO;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.util.PhotoFromPhotoAlbum;
@@ -68,6 +72,8 @@ public class ComplanZiyuanEditFragment extends MVPBaseFragment<ComplanZiyuanEdit
     Unbinder unbinder;
     @BindView(R.id.person_name)
     TextView personName;
+    @BindView(R.id.next_button)
+    Button nextButton;
 
     private File cameraSavePath;//拍照照片路径
     private Uri uri;
@@ -80,6 +86,8 @@ public class ComplanZiyuanEditFragment extends MVPBaseFragment<ComplanZiyuanEdit
     private String jishuNum;
     private String pugongNum;
     private String changfangmianji;
+
+    List<ImageBO> devicesImage;
 
 
     @Nullable
@@ -95,6 +103,7 @@ public class ComplanZiyuanEditFragment extends MVPBaseFragment<ComplanZiyuanEdit
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        devicesImage = new ArrayList<>();
         initView();
         getPermission();
         cameraSavePath = new File(Environment.getExternalStorageDirectory().getPath() + "/" +
@@ -122,8 +131,9 @@ public class ComplanZiyuanEditFragment extends MVPBaseFragment<ComplanZiyuanEdit
 
 
     private void setImageRecycleAdapter() {
-        adapter = new ImageRecycleAdapter(getActivity(), new ArrayList<>());
-        adapter.setImageMakeListener(() -> ActionSheet.showSheet(getActivity(), ComplanZiyuanEditFragment.this, null));
+        adapter = new ImageRecycleAdapter(getActivity(), devicesImage);
+        adapter.setDelete(false);
+        adapter.setImageMakeListener((i) -> ActionSheet.showSheet(getActivity(), ComplanZiyuanEditFragment.this, null));
         imageRecycle.setAdapter(adapter);
     }
 
@@ -199,6 +209,31 @@ public class ComplanZiyuanEditFragment extends MVPBaseFragment<ComplanZiyuanEdit
         PopXingZhi xingZhi = new PopXingZhi(getActivity());
         xingZhi.setListener((position, item) -> personName.setText(item));
         xingZhi.showAtLocation(getActivity().getWindow().getDecorView());
+    }
+
+
+    @OnClick(R.id.next_button)
+    public void editZiYuan() {
+        if (isCommit()) {
+            UpdateZiYuanRequest request = new UpdateZiYuanRequest();
+            request.setPlantImage(adapter.getImageBOS());
+            request.setAdminNumber(Integer.parseInt(guanliNum));
+            request.setTechnicalNumber(Integer.parseInt(jishuNum));
+            request.setOrdinaryNumber(Integer.parseInt(pugongNum));
+            request.setPlantArea(Double.parseDouble(changfangmianji));
+            String nature = personName.getText().toString().trim();
+            request.setPlantNature("自建".equals(nature) ? 0 : 1);
+            List<UpdateZiYuanRequest.CompanyDevicesBean> list = new ArrayList<>();
+            for (int i = 0; i < devices.size(); i++) {
+                UpdateZiYuanRequest.CompanyDevicesBean bean = new UpdateZiYuanRequest.CompanyDevicesBean();
+                bean.setId(devices.get(i).getDeviceId());
+                bean.setName(devices.get(i).getDeviceName());
+                bean.setNum(devices.get(i).getDeviceNum());
+                list.add(bean);
+            }
+            request.setCompanyDevices(list);
+            mPresenter.updateComlanInfo2(request);
+        }
     }
 
 
@@ -351,6 +386,32 @@ public class ComplanZiyuanEditFragment extends MVPBaseFragment<ComplanZiyuanEdit
             return false;
         }
         return true;
+    }
+
+
+    /**
+     * 设置数据
+     */
+    public void setData(ComplanBO complanBO) {
+        new Handler().post(() -> {
+            complanGuanliNum.setText(complanBO.getCompanyInfos().getAdminNumber() + "");
+            complanJishuNum.setText(complanBO.getCompanyInfos().getTechnicalNumber() + "");
+            complanPugongNum.setText(complanBO.getCompanyInfos().getOrdinaryNumber() + "");
+            complanChangfangMianji.setText(complanBO.getCompanyInfos().getPlantArea() + "");
+            devicesImage = complanBO.getCompanyInfos().getPlantImage();
+            personName.setText(complanBO.getCompanyInfos().getPlantNature() == 0 ? "自建" : "租赁");
+            devices.clear();
+            for (int i = 0; i < complanBO.getDevices().size(); i++) {
+                AddComplanRequest.CompanyDevicesBean bean = new AddComplanRequest.CompanyDevicesBean();
+                bean.setDeviceNum(complanBO.getDevices().get(i).getNum());
+                bean.setDeviceId(complanBO.getDevices().get(i).getId());
+                bean.setDeviceName(complanBO.getDevices().get(i).getName());
+                devices.add(bean);
+            }
+            setDeviceAdapter();
+            setImageRecycleAdapter();
+            nextButton.setVisibility(View.VISIBLE);
+        });
     }
 
 }

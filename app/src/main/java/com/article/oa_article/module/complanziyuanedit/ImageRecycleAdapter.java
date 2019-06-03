@@ -27,9 +27,18 @@ public class ImageRecycleAdapter extends RecyclerView.Adapter<ImageRecycleAdapte
     private Context context;
     private List<ImageBO> imageBOS;
 
+
+    private int clickPosition = 0;   //用于添加公司实力时，记录每个adpter的下标
+    private boolean isDelete = true;
+
     public ImageRecycleAdapter(Context context, List<ImageBO> imageBOS) {
         this.context = context;
         this.imageBOS = imageBOS;
+    }
+
+
+    public void setDelete(boolean isDelete) {
+        this.isDelete = isDelete;
     }
 
 
@@ -52,18 +61,21 @@ public class ImageRecycleAdapter extends RecyclerView.Adapter<ImageRecycleAdapte
             holder.title.setVisibility(View.VISIBLE);
             holder.title.setText(imageBOS.get(position).name);
         }
+        if (!isDelete) {
+            holder.deleteImage.setVisibility(View.GONE);
+        }
 
         holder.imageView.setOnClickListener(view -> {
             if (position >= imageBOS.size()) {
                 if (listener != null) {
-                    listener.addImage();
+                    listener.addImage(clickPosition);
                 }
             }
         });
         holder.deleteImage.setOnClickListener(view -> {
             imageBOS.remove(position);
             if (deleteImageListener != null) {
-                deleteImageListener.deleteImage(imageBOS);
+                deleteImageListener.deleteImage(clickPosition, imageBOS);
             }
             notifyDataSetChanged();
         });
@@ -98,6 +110,10 @@ public class ImageRecycleAdapter extends RecyclerView.Adapter<ImageRecycleAdapte
         notifyDataSetChanged();
     }
 
+    public void setClickPosition(int position) {
+        clickPosition = position;
+    }
+
 
     public List<ImageBO> getImageBOS() {
         return imageBOS;
@@ -117,11 +133,11 @@ public class ImageRecycleAdapter extends RecyclerView.Adapter<ImageRecycleAdapte
 
     public interface onImageMakeListener {
 
-        void addImage();
+        void addImage(int position);
     }
 
 
     public interface onDeleteImageListener {
-        void deleteImage(List<ImageBO> imageBOS);
+        void deleteImage(int position, List<ImageBO> imageBOS);
     }
 }

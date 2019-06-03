@@ -10,14 +10,22 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.article.oa_article.R;
 import com.article.oa_article.bean.ComplanBO;
+import com.article.oa_article.bean.event.UpdateComplanEvent;
+import com.article.oa_article.module.complanmsgedit.ComplanMsgEditFragment;
 import com.article.oa_article.module.complanydetails.ComplanyDetailsFragment;
 import com.article.oa_article.module.complanyshili.ComplanyshiliFragment;
 import com.article.oa_article.module.complanyzizhi.ComplanyZizhiFragment;
+import com.article.oa_article.module.complanziyuanedit.ComplanZiyuanEditFragment;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.blankj.utilcode.util.FragmentUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,12 +59,41 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
     LinearLayout shiliBar;
     @BindView(R.id.complan_shili)
     FrameLayout complanShili;
+    @BindView(R.id.edit_complan)
+    TextView editComplan;
+    @BindView(R.id.edit_ziyuan)
+    TextView editZiyuan;
+    @BindView(R.id.edit_shili)
+    TextView editShili;
+
+    private int type = 0;   //默认不显示修改
+
+    private ComplanBO complanBO;
+
+
+    public static ComplanMsgFragment getInstance(int type) {
+        ComplanMsgFragment fragment = new ComplanMsgFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("type", type);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        EventBus.getDefault().register(this);
 
         mPresenter.getComplanMsg();
+        if (getArguments() != null) {
+            type = getArguments().getInt("type", 0);
+            if (type == 1) {   //管理员可修改
+                editComplan.setVisibility(View.VISIBLE);
+                editShili.setVisibility(View.VISIBLE);
+                editZiyuan.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
 
@@ -101,9 +138,34 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
         }
     }
 
+    @OnClick({R.id.edit_complan, R.id.edit_shili, R.id.edit_ziyuan})
+    public void editInfos(View view) {
+        switch (view.getId()) {
+            case R.id.edit_complan:
+                ComplanMsgEditFragment fragment = new ComplanMsgEditFragment();
+                FragmentUtils.replace(getFragmentManager(), fragment, R.id.complan_details);
+                fragment.setData(complanBO);
+                break;
+            case R.id.edit_ziyuan:
+                ComplanZiyuanEditFragment fragment1 = new ComplanZiyuanEditFragment();
+                FragmentUtils.replace(getFragmentManager(), fragment1, R.id.complan_details);
+                fragment1.setData(complanBO);
+                break;
+            case R.id.edit_shili:
+
+                break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void editSuress(UpdateComplanEvent event) {
+        mPresenter.getComplanMsg();
+    }
+
 
     @Override
     public void getComplanInfo(ComplanBO complanBO) {
+        this.complanBO = complanBO;
         ComplanyDetailsFragment fragment = new ComplanyDetailsFragment();
         ComplanyshiliFragment shiliFragment = new ComplanyshiliFragment();
         ComplanyZizhiFragment zizhiFragment = new ComplanyZizhiFragment();
@@ -126,5 +188,6 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
 }

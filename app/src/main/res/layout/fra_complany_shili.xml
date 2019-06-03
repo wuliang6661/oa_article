@@ -18,7 +18,8 @@
         android:layout_height="35dp"
         android:layout_marginLeft="28dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="15dp"
@@ -55,7 +56,8 @@
         android:layout_height="35dp"
         android:layout_marginLeft="28dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="15dp"
@@ -72,6 +74,22 @@
 
 
     </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/button_bg"
+        android:text="完成"
+        android:textColor="@color/text_white"
+        android:textSize="18sp"
+        android:visibility="gone" />
 
 
 </LinearLayout>

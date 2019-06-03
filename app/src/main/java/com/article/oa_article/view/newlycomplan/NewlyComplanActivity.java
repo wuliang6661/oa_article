@@ -110,9 +110,25 @@ public class NewlyComplanActivity extends MVPBaseActivity<NewlyComplanContract.V
             request = fragment.getData(request);
             if (fragment1.isCommit()) {
                 request = fragment1.getData(request);
-
+                if (fragment2.getData() != null) {
+                    request.setCompanyQualifications(fragment2.getData());
+                    if (fragment2.getHonorDatas() != null) {
+                        request.setCompanyHonors(fragment2.getHonorDatas());
+                        mPresenter.addComplan(request);
+                    }
+                }
             }
         }
     }
 
+    @Override
+    public void addSourss() {
+        showToast("新增企业成功！");
+        finish();
+    }
+
+    @Override
+    public void onRequestError(String msg) {
+        showToast(msg);
+    }
 }

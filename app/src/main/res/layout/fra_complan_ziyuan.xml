@@ -178,6 +178,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_height"
         app:edit_max_length="9"
+        app:edit_type="1"
         app:hint_text="请输入厂房面积"
         app:title_text="厂房面积" />
 
@@ -267,6 +268,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp" />
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/button_bg"
+        android:text="完成"
+        android:textColor="@color/text_white"
+        android:textSize="18sp"
+        android:visibility="gone" />
 
 
 </LinearLayout>

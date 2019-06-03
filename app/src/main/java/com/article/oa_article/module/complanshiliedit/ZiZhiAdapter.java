@@ -83,13 +83,15 @@ public class ZiZhiAdapter extends RecyclerView.Adapter<ZiZhiAdapter.ViewHodler> 
                 holder.certificate_num.setText(dataList.get(position).getQualificationNumber());
             }
         }
-        adapter.setImageMakeListener(() -> {
+        adapter.setClickPosition(position);
+        adapter.setDelete(false);
+        adapter.setImageMakeListener((i) -> {
             if (listener != null) {
-                listener.addImage(position);
+                listener.addImage(i);
             }
         });
-        adapter.setDeleteImageListener(imageBOS -> {
-            dataList.get(position).setQualificationImage(imageBOS);
+        adapter.setDeleteImageListener((i, imageBOS) -> {
+            dataList.get(i).setQualificationImage(imageBOS);
             notifyDataSetChanged();
         });
         holder.image_recycle.setAdapter(adapter);
@@ -130,8 +132,7 @@ public class ZiZhiAdapter extends RecyclerView.Adapter<ZiZhiAdapter.ViewHodler> 
      * 新增一张图片，设置进来
      */
     public void addImage(int position, ImageBO imageBO) {
-        AddComplanRequest.CompanyQualificationsBean qualificationsBean;
-        qualificationsBean = dataList.get(position);
+        AddComplanRequest.CompanyQualificationsBean qualificationsBean = dataList.get(position);
         List<ImageBO> imageBOS = qualificationsBean.getQualificationImage() == null ? new ArrayList<>()
                 : qualificationsBean.getQualificationImage();
         imageBOS.add(imageBO);
@@ -145,7 +146,10 @@ public class ZiZhiAdapter extends RecyclerView.Adapter<ZiZhiAdapter.ViewHodler> 
      * 获取第N项的图片列表
      */
     public List<ImageBO> getImageByPosition(int position) {
-         return dataList.get(position).getQualificationImage();
+        if (dataList.size() > position) {
+            return dataList.get(position).getQualificationImage();
+        }
+        return new ArrayList<>();
     }
 
 

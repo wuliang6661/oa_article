@@ -62,7 +62,7 @@
         android:id="@+id/complan_phone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_height"
-        app:edit_max_length="4"
+        app:edit_max_length="11"
         app:edit_type="1"
         app:hint_text="请输入联系方式"
         app:title_text="联系方式" />
@@ -258,5 +258,21 @@
         </RelativeLayout>
 
     </LinearLayout>
+
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/button_bg"
+        android:text="完成"
+        android:textColor="@color/text_white"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
 
 </LinearLayout>
