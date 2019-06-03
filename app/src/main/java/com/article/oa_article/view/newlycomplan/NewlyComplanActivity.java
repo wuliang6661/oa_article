@@ -123,7 +123,7 @@ public class NewlyComplanActivity extends MVPBaseActivity<NewlyComplanContract.V
 
     @Override
     public void addSourss() {
-        showToast("新增企业成功！");
+        showToast("新增企业成功，已提交审核！");
         finish();
     }
 
