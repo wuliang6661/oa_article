@@ -42,6 +42,12 @@
         <item name="android:windowExitAnimation">@anim/share_pop_out</item>
     </style>
 
+    <!--首页引导页的popwindow弹出动画-->
+    <style name="anim_menu_top">
+        <item name="android:windowEnterAnimation">@anim/splash_pop_in</item>
+        <item name="android:windowExitAnimation">@anim/splash_pop_out</item>
+    </style>
+
 
     <style name="roomRatingBar_1" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/ratting_bg</item>

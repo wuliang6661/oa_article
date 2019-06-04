@@ -4,6 +4,7 @@ package com.article.oa_article.view.main;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -34,7 +35,7 @@ import com.article.oa_article.view.main.none.NoneFragment2;
 import com.article.oa_article.view.main.none.NoneFragment3;
 import com.article.oa_article.view.main.none.NoneFragment4;
 import com.article.oa_article.view.main.none.NoneFragment5;
-import com.article.oa_article.view.splash.guide.GuiDeAct1;
+import com.article.oa_article.widget.PopSplash;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.blankj.utilcode.util.StringUtils;
@@ -152,7 +153,14 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         request.setType("1");
         mPresenter.getCommplayList(request);
 
-        gotoActivity(GuiDeAct1.class, false);
+        new Handler().post(() -> {
+            if (MyApplication.spUtils.getBoolean("isSplash", true)) {
+                PopSplash popSplash = new PopSplash(MainActivity.this);
+                popSplash.showAtLocation(drawerLayout, Gravity.TOP, 0, 0);
+                MyApplication.spUtils.put("isSplash", false);
+            }
+        });
+
     }
 
     @Override
@@ -160,6 +168,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
 
     /**
      * 初始化fragment
