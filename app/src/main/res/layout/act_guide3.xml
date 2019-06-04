@@ -1,49 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/guide5_bg"
+    android:background="@color/layout_bg"
     android:gravity="bottom|center_horizontal"
     android:orientation="vertical">
 
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/guide3_bg" />
+
+
     <LinearLayout
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <TextView
+
+        <LinearLayout
+            android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="上一页"
-            android:textColor="#2760C3"
-            android:textSize="17sp" />
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="45dp"
+                android:src="@drawable/guide_back" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp"
+                android:text="上一页"
+                android:textColor="#2760C3"
+                android:textSize="17sp" />
+
+        </LinearLayout>
+
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="21dp"
-            android:src="@drawable/guide_back2" />
+            android:layout_width="152dp"
+            android:layout_height="81dp"
+            android:layout_marginTop="45dp"
+            android:src="@drawable/guide3_hint" />
 
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/button_bg"
+            android:text="创建"
+            android:textColor="@color/text_white"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
 
-    <ImageView
-        android:layout_width="152dp"
-        android:layout_height="81dp"
-        android:layout_marginTop="45dp"
-        android:src="@drawable/guide5_hint" />
-
-
-    <ImageView
-        android:id="@+id/next"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_marginTop="18dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/guide5_message" />
-
-</LinearLayout>
+</RelativeLayout>

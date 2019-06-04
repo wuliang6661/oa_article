@@ -38,7 +38,7 @@ public class GuiDeAct2 extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        hintImg.setOnClickListener(view -> gotoActivity(GuiDe4Act.class, false));
+        hintImg.setOnClickListener(view -> gotoActivity(GuiDeAct3.class, false));
         back.setOnClickListener(view -> finish());
     }
 }
