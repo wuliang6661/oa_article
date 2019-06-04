@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/guide12_bg"
+    android:gravity="bottom|center_horizontal"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上一页"
+            android:textColor="#2760C3"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="21dp"
+            android:src="@drawable/guide_back2" />
+
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_width="193dp"
+        android:layout_height="77dp"
+        android:layout_marginTop="120dp"
+        android:src="@drawable/guide12_hint" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="14dp"
+            android:layout_weight="1"
+            android:src="@drawable/guide12_btn1_hint" />
+
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="14dp"
+            android:layout_weight="1"
+            android:src="@drawable/guide12_btn2_hint" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/next"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/guide12_btn1" />
+
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/guide12_btn2" />
+
+    </LinearLayout>
+
+</LinearLayout>

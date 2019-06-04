@@ -222,6 +222,71 @@
         <!--扫一扫-->
         <activity android:name="com.article.oa_article.zxing.activity.CaptureActivity" />
 
+        <!--引导页1-->
+        <activity
+            android:name=".view.splash.guide.GuiDeAct1"
+            android:screenOrientation="portrait" />
+
+        <!--引导页2-->
+        <activity
+            android:name=".view.splash.guide.GuiDeAct2"
+            android:screenOrientation="portrait" />
+
+        <!--引导页3-->
+        <activity
+            android:name=".view.splash.guide.GuiDeAct3"
+            android:screenOrientation="portrait" />
+
+        <!--引导页4-->
+        <activity
+            android:name=".view.splash.guide.GuiDe4Act"
+            android:screenOrientation="portrait" />
+
+        <!--引导页5-->
+        <activity
+            android:name=".view.splash.guide.GuideAct5"
+            android:screenOrientation="portrait" />
+
+        <!--引导页6-->
+        <activity
+            android:name=".view.splash.guide.GuideAct6"
+            android:screenOrientation="portrait" />
+
+        <!--引导页7-->
+        <activity
+            android:name=".view.splash.guide.GuideAct7"
+            android:screenOrientation="portrait" />
+
+        <!--引导页8-->
+        <activity
+            android:name=".view.splash.guide.GuideAct8"
+            android:screenOrientation="portrait" />
+
+        <!--引导页9-->
+        <activity
+            android:name=".view.splash.guide.GuideAct9"
+            android:screenOrientation="portrait" />
+
+        <!--引导页10-->
+        <activity
+            android:name=".view.splash.guide.GuideAct10"
+            android:screenOrientation="portrait" />
+
+        <!--引导页11-->
+        <activity
+            android:name=".view.splash.guide.GuideAct11"
+            android:screenOrientation="portrait" />
+
+        <!--引导页12-->
+        <activity
+            android:name=".view.splash.guide.GuideAct12"
+            android:screenOrientation="portrait" />
+
+        <!--引导页13-->
+        <activity
+            android:name=".view.splash.guide.GuideAct13"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name="com.article.oa_article.wxapi.WXEntryActivity"
             android:exported="true"

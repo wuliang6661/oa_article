@@ -34,6 +34,7 @@ import com.article.oa_article.view.main.none.NoneFragment2;
 import com.article.oa_article.view.main.none.NoneFragment3;
 import com.article.oa_article.view.main.none.NoneFragment4;
 import com.article.oa_article.view.main.none.NoneFragment5;
+import com.article.oa_article.view.splash.guide.GuiDeAct1;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.blankj.utilcode.util.StringUtils;
@@ -150,6 +151,8 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         request.setCompanyId(MyApplication.getCommonId());
         request.setType("1");
         mPresenter.getCommplayList(request);
+
+        gotoActivity(GuiDeAct1.class, false);
     }
 
     @Override
