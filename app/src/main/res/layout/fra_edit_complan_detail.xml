@@ -45,7 +45,7 @@
         android:id="@+id/complan_address"
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_height"
-        app:edit_max_length="20"
+        app:edit_max_length="50"
         app:hint_text="请输入公司详细地址"
         app:title_text="详细地址" />
 

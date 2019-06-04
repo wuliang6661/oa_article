@@ -63,6 +63,7 @@
             android:gravity="center_vertical"
             android:hint="请输入顺延天数"
             android:inputType="number"
+            android:maxLength="4"
             android:textColor="@color/white"
             android:textColorHint="@color/hint_color"
             android:textSize="15sp" />

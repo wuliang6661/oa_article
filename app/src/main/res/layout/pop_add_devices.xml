@@ -63,6 +63,7 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="请输入设备名称"
+            android:maxLength="20"
             android:textColor="@color/white"
             android:textColorHint="@color/hint_color"
             android:textSize="15sp" />
@@ -106,6 +107,7 @@
             android:gravity="center_vertical"
             android:hint="请输入设备数量"
             android:inputType="number"
+            android:maxLength="9"
             android:textColor="@color/white"
             android:textColorHint="@color/hint_color"
             android:textSize="15sp" />

@@ -125,6 +125,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:hint="请输入其中一个号码"
+                        android:maxLength="20"
                         android:textColor="@color/f_white"
                         android:textColorHint="@color/text_hint_color"
                         android:textSize="15sp" />

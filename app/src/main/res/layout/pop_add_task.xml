@@ -61,6 +61,7 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="请输入任务名称"
+            android:maxLength="20"
             android:textColor="@color/white"
             android:textColorHint="@color/hint_color"
             android:textSize="15sp" />
@@ -200,6 +201,7 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="请输入单位"
+            android:maxLength="4"
             android:textColor="@color/white"
             android:textColorHint="@color/hint_color"
             android:textSize="15sp" />
@@ -296,6 +298,7 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="请添加备注"
+            android:maxLength="20"
             android:textColor="@color/white"
             android:textColorHint="@color/hint_color"
             android:textSize="15sp" />
