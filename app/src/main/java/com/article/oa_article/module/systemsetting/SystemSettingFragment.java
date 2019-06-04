@@ -14,6 +14,7 @@ import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.util.AppManager;
 import com.article.oa_article.view.login.LoginActivity;
 import com.article.oa_article.view.optionsfankui.OptionsFankuiActivity;
+import com.article.oa_article.view.splash.guide.GuiDeAct1;
 import com.article.oa_article.widget.AlertDialog;
 
 import butterknife.BindView;
@@ -34,8 +35,6 @@ public class SystemSettingFragment extends MVPBaseFragment<SystemSettingContract
     LinearLayout xianshangZixun;
     @BindView(R.id.options_fankui)
     LinearLayout optionsFankui;
-    @BindView(R.id.loginout)
-    LinearLayout loginout;
     Unbinder unbinder;
 
     @Nullable
@@ -74,4 +73,11 @@ public class SystemSettingFragment extends MVPBaseFragment<SystemSettingContract
                 break;
         }
     }
+
+
+    @OnClick(R.id.xinshou_layout)
+    public void xinshou() {
+        gotoActivity(GuiDeAct1.class, false);
+    }
+
 }

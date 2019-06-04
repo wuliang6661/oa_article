@@ -716,6 +716,7 @@
             android:background="@drawable/beizhu_edit_bg"
             android:gravity="start"
             android:hint="请输入您要备注的信息"
+            android:maxLength="200"
             android:minLines="4"
             android:padding="13dp"
             android:textColor="@color/f_white"
