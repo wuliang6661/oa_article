@@ -9,11 +9,11 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.StringUtils;
 import com.article.oa_article.R;
 import com.article.oa_article.base.GlideApp;
 import com.article.oa_article.bean.BumenBO;
 import com.article.oa_article.bean.PersonBO;
+import com.blankj.utilcode.util.StringUtils;
 
 import java.util.List;
 
@@ -86,6 +86,7 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
         } else {
             hodler.checkBox.setVisibility(View.VISIBLE);
         }
+        hodler.checkBox.setChecked(b);
         return view;
     }
 

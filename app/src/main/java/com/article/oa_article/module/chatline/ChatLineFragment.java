@@ -396,7 +396,8 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
             set1 = new LineDataSet(yVals1, "");
             set1.setAxisDependency(YAxis.AxisDependency.LEFT);
             set1.setColor(Color.parseColor("#5678FF"));
-            set1.setCircleColor(Color.WHITE);
+            set1.setCircleColor(Color.parseColor("#5678FF"));
+            set1.setCircleHoleColor(Color.parseColor("#5678FF"));
             set1.setLineWidth(2f);
             set1.setCircleRadius(3f);
             set1.setDrawValues(false);
@@ -406,15 +407,17 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
             set2 = new LineDataSet(yVals2, "");
             set2.setAxisDependency(YAxis.AxisDependency.LEFT);
             set2.setColor(Color.parseColor("#F4CA40"));
-            set2.setCircleColor(Color.WHITE);
+            set2.setCircleColor(Color.parseColor("#F4CA40"));
             set2.setLineWidth(2f);
             set2.setCircleRadius(3f);
+            set2.setCircleHoleColor(Color.parseColor("#F4CA40"));
             set1.setDrawValues(false);
 
             set3 = new LineDataSet(yVals3, "");
             set3.setAxisDependency(YAxis.AxisDependency.LEFT);
             set3.setColor(Color.parseColor("#71EA45"));
-            set3.setCircleColor(Color.WHITE);
+            set3.setCircleColor(Color.parseColor("#71EA45"));
+            set3.setCircleHoleColor(Color.parseColor("#71EA45"));
             set3.setLineWidth(2f);
             set3.setCircleRadius(3f);
             set1.setDrawValues(false);

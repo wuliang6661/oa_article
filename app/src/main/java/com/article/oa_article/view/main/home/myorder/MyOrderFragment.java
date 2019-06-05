@@ -124,9 +124,9 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
      * 初始化布局
      */
     private void initView() {
-        tab1 = tabLayout.newTab().setText("--\n所有任务");
-        tab2 = tabLayout.newTab().setText("--\n我自己的");
-        tab3 = tabLayout.newTab().setText("--\n我分派的");
+        tab1 = tabLayout.newTab().setText("--\n已接受");
+        tab2 = tabLayout.newTab().setText("--\n自己做");
+        tab3 = tabLayout.newTab().setText("--\n派人做");
         tab4 = tabLayout.newTab().setText("--\n已完成");
         tabLayout.addTab(tab1);
         tabLayout.addTab(tab2);
@@ -194,13 +194,13 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                 stopProgress();
                 switch (position) {
                     case 0:
-                        tab1.setText(s.size() + "\n所有任务");
+                        tab1.setText(s.size() + "\n已接受");
                         break;
                     case 1:
-                        tab2.setText(s.size() + "\n我自己的");
+                        tab2.setText(s.size() + "\n自己做");
                         break;
                     case 2:
-                        tab3.setText(s.size() + "\n我分派的");
+                        tab3.setText(s.size() + "\n派人做");
                         break;
                     case 3:
                         tab4.setText(s.size() + "\n已完成");
@@ -365,9 +365,9 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
 
     @Override
     public void getTaskNum(TaskNumBO taskNumBO) {
-        tab1.setText(taskNumBO.getAll() + "\n所有任务");
-        tab2.setText(taskNumBO.getMy() + "\n我自己的");
-        tab3.setText(taskNumBO.getICreate() + "\n我分派的");
+        tab1.setText(taskNumBO.getAll() + "\n已接受");
+        tab2.setText(taskNumBO.getMy() + "\n自己做");
+        tab3.setText(taskNumBO.getICreate() + "\n派人做");
         tab4.setText(taskNumBO.getComplete() + "\n已完成");
     }
 }

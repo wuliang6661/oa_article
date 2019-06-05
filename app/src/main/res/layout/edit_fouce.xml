@@ -39,7 +39,7 @@
             android:layout_height="13dp"
             android:layout_marginLeft="17dp"
             android:layout_marginRight="17dp"
-            android:background="#939495" />
+            android:background="#13939495" />
 
         <EditText
             android:id="@+id/edit_text"

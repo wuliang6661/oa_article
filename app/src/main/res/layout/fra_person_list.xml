@@ -48,7 +48,6 @@
             android:layout_width="0dp"
             android:layout_height="33dp"
             android:layout_marginLeft="18dp"
-            android:layout_marginRight="18dp"
             android:layout_weight="1"
             android:background="@drawable/select_edit_bg"
             android:gravity="center_vertical"
@@ -77,11 +76,18 @@
 
         </LinearLayout>
 
+        <View
+            android:id="@+id/jiange_line"
+            android:layout_width="18dp"
+            android:layout_height="3dp"
+            android:visibility="visible" />
+
 
         <ImageView
             android:id="@+id/add_img"
             android:layout_width="40dp"
             android:layout_height="23dp"
+            android:layout_marginLeft="6dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/add_circle"
             android:visibility="gone" />

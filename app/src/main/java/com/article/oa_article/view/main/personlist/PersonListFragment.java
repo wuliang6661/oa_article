@@ -71,6 +71,8 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
     boolean isSelectPerson = false;   //是选择联系人进入
     @BindView(R.id.edit_name)
     EditText editName;
+    @BindView(R.id.jiange_line)
+    View jiangeLine;
 
 
     private List<BumenBO> bumenBOS;
@@ -112,7 +114,7 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
                 bundle.putString("departName", bumenBOS.get(i).getUser().get(i1).getDepart());
                 gotoActivity(Person_detailsActivity.class, bundle, false);
             }
-            return true;
+            return false;
         });
         editName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -169,19 +171,24 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
         }
         if (MyApplication.getCommon() == null) {
             addImg.setVisibility(View.GONE);
+            jiangeLine.setVisibility(View.VISIBLE);
             return;
         }
         if (isSelectPerson) {
             addImg.setVisibility(View.GONE);
+            jiangeLine.setVisibility(View.VISIBLE);
         } else {
             if (selectMenu == 1) {
                 if (MyApplication.getCommon().getIsAdmin() == 1) {
                     addImg.setVisibility(View.VISIBLE);
+                    jiangeLine.setVisibility(View.GONE);
                 } else {
                     addImg.setVisibility(View.GONE);
+                    jiangeLine.setVisibility(View.VISIBLE);
                 }
             } else {
                 addImg.setVisibility(View.VISIBLE);
+                jiangeLine.setVisibility(View.GONE);
             }
         }
     }
@@ -215,6 +222,7 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
             if (MyApplication.getCommon() == null) {
                 complanName.setText("暂无企业");
                 addImg.setVisibility(View.GONE);
+                jiangeLine.setVisibility(View.VISIBLE);
                 return;
             }
             complanName.setText(MyApplication.getCommon().getCompanyName());
@@ -261,19 +269,24 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
             if (MyApplication.getCommon() == null) {
                 complanName.setText("暂无企业");
                 addImg.setVisibility(View.GONE);
+                jiangeLine.setVisibility(View.VISIBLE);
                 return;
             }
             if (isSelectPerson) {
                 addImg.setVisibility(View.GONE);
+                jiangeLine.setVisibility(View.VISIBLE);
             } else {
                 if (selectMenu == 1) {
                     if (MyApplication.getCommon().getIsAdmin() == 1) {
                         addImg.setVisibility(View.VISIBLE);
+                        jiangeLine.setVisibility(View.GONE);
                     } else {
                         addImg.setVisibility(View.GONE);
+                        jiangeLine.setVisibility(View.VISIBLE);
                     }
                 } else {
                     addImg.setVisibility(View.VISIBLE);
+                    jiangeLine.setVisibility(View.GONE);
                 }
             }
         });

@@ -56,11 +56,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:background="@drawable/lable_bg"
-                    android:paddingLeft="8dp"
+                    android:paddingLeft="5dp"
                     android:paddingTop="2dp"
-                    android:paddingRight="8dp"
+                    android:paddingRight="5dp"
                     android:paddingBottom="2dp"
                     android:textColor="@color/blue_color"
+                    android:textSize="8sp"
                     tools:text="销售部" />
 
             </LinearLayout>

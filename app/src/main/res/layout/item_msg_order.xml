@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/msg_order_name"
-                android:background="@drawable/button_list"
+                android:background="@drawable/lable_bg1"
                 android:gravity="center"
                 android:maxLength="15"
                 android:paddingLeft="7dp"

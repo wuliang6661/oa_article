@@ -2,6 +2,7 @@ package com.article.oa_article.view.main.message;
 
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -265,12 +266,15 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
                 holder.setText(R.id.msg_message, msgBO.getNickName() + "  " + msgBO.getContent());
             } else {
                 holder.setText(R.id.msg_message, msgBO.getNickName() + "  " + msgBO.getContent());
+                TextView msgType = (TextView) holder.getView(R.id.msg_type);
                 switch (msgBO.getTaskStatus()) {
                     case "2":
                         holder.setText(R.id.msg_type, "已完成");
+                        msgType.setTextColor(Color.parseColor("#F4CA40"));
                         break;
                     case "3":
                         holder.setText(R.id.msg_type, "已取消");
+                        msgType.setTextColor(Color.parseColor("#E92B2B"));
                         break;
                 }
                 holder.setText(R.id.msg_order_name, msgBO.getOrderName() + "  " + msgBO.getOrderNum());

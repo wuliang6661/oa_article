@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.article.oa_article.R;
 import com.article.oa_article.base.MyApplication;
@@ -118,9 +119,12 @@ public class AlreadyScopeActivity extends MVPBaseActivity<AlreadyScopeContract.V
                 holder.setText(R.id.task_name, alreadyScopeBO.getTaskName());
                 holder.setText(R.id.date_text, alreadyScopeBO.getDulDay() + "天");
                 holder.setText(R.id.scope, "--");
+                holder.getView(R.id.scope).setVisibility(View.GONE);
+                holder.getView(R.id.scope_text).setVisibility(View.GONE);
+                holder.getView(R.id.select_button).setVisibility(View.VISIBLE);
             }
         };
-        adapter.setOnItemClickListener(R.id.scope, (view, position) -> {
+        adapter.setOnItemClickListener(R.id.select_button, (view, position) -> {
             AlreadyScopeBO alreadyScopeBO = alreadyScopeBOS.get(position);
             ScopePopWindow popWindow = new ScopePopWindow(AlreadyScopeActivity.this,
                     alreadyScopeBO.getServiceAttitudeScore(), alreadyScopeBO.getProductQualityScore(),

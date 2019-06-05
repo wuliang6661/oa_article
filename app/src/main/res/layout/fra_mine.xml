@@ -32,7 +32,7 @@
             android:layout_marginLeft="9dp"
             android:background="@drawable/bar_check_box"
             android:button="@null"
-            android:checked="true"
+            android:checked="false"
             android:enabled="false" />
 
 
@@ -78,7 +78,7 @@
                 android:id="@+id/person_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="6dp"
                 android:textColor="@color/hint_color"
                 android:textSize="13sp"
                 tools:text="13551111155151" />
@@ -99,7 +99,7 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:layout_marginTop="1dp"
         app:tabBackground="@color/title_bg"
         app:tabGravity="fill"

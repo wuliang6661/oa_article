@@ -29,7 +29,8 @@
             android:layout_marginLeft="5dp"
             android:background="@drawable/bar_check_box"
             android:button="@null"
-            android:enabled="false" />
+            android:enabled="false"
+            android:focusable="false" />
 
 
     </LinearLayout>

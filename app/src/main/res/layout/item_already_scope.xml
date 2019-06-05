@@ -78,8 +78,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="10dp">
 
             <TextView
                 android:id="@+id/task_name"
@@ -127,12 +128,24 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/scope_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" 分"
                 android:textColor="@color/hint_color"
                 android:textSize="15sp" />
 
+
+            <TextView
+                android:id="@+id/select_button"
+                android:layout_width="44dp"
+                android:layout_height="21dp"
+                android:background="@drawable/button_list"
+                android:gravity="center"
+                android:text="评分"
+                android:textColor="#F9FAFB"
+                android:textSize="13sp"
+                android:visibility="gone" />
 
         </LinearLayout>
 

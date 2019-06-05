@@ -65,7 +65,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
     TabLayout tabLayout;
     Unbinder unbinder;
 
-    private String[] tabsAdmain = new String[]{"产能分析", "评价中心", "任务数据", "企业认证", "管理团队"};
+    private String[] tabsAdmain = new String[]{"产能分析", "评价中心", "任务数据", "企业认证", "管理团队", "系统设置"};
 
     private String[] tabs = new String[]{"产能分析", "评价中心", "任务数据", "企业认证", "系统设置"};
 
@@ -105,6 +105,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
             tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[2]));
             tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[3]));
             tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[4]));
+//            tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[5]));
 
             ChatLineFragment chatLineFragment = ChatLineFragment.getInstance(0);
             fragments.add(chatLineFragment);
@@ -112,6 +113,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
             fragments.add(new TaskCenterFragment());
             fragments.add(ComplanMsgFragment.getInstance(1));
             fragments.add(new TempManagerFragment());
+//            fragments.add(new SystemSettingFragment());
         } else {
             tabLayout.addTab(tabLayout.newTab().setText(tabs[0]));
             tabLayout.addTab(tabLayout.newTab().setText(tabs[1]));
@@ -193,11 +195,11 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
             }
         });
         popSwitchComplan.setOnDismissListener(() -> {
-            complanCheck.setChecked(false);
+            complanCheck.setChecked(true);
             popSwitchComplan.backgroundAlpha(1f);
         });
         popSwitchComplan.showPop(complanName);
-        complanCheck.setChecked(true);
+        complanCheck.setChecked(false);
     }
 
 
