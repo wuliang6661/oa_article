@@ -125,7 +125,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
             tabLayout.addTab(tabLayout.newTab().setText(tabs[4]));
             tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
-            if (MyApplication.getCommon() == null || StringUtils.isEmpty(MyApplication.getCommon().getCompanyName())) {
+            if (!MyApplication.isHaveCommon()) {
                 fragments.add(new NoneFragment());
                 fragments.add(new NoneFragment());
                 fragments.add(new NoneFragment());
@@ -139,7 +139,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
             }
             fragments.add(new SystemSettingFragment());
         }
-        if (MyApplication.getCommon() == null || StringUtils.isEmpty(MyApplication.getCommon().getCompanyName())) {
+        if (!MyApplication.isHaveCommon()) {
             complanName.setText("暂无企业");
         } else {
             complanName.setText(MyApplication.getCommon().getCompanyName());

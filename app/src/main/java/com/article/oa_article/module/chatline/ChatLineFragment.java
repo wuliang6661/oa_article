@@ -508,7 +508,7 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
 
             @Override
             public void convert(LGViewHolder holder, ChartBO chartBO, int position) {
-                holder.setText(R.id.month_text, chartBO.getDay());
+                holder.setText(R.id.month_text, position + 1 + "月");
                 holder.setText(R.id.jihua_num, chartBO.getJihuaNum() + "");
                 holder.setText(R.id.yipai_num, chartBO.getYipaiNum() + "");
                 holder.setText(R.id.shiji_num, chartBO.getShijiNum() + "");

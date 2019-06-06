@@ -69,6 +69,17 @@ public class MyApplication extends Application {
     }
 
 
+    /**
+     * 判断当前用户是否有公司
+     */
+    public static boolean isHaveCommon() {
+        if ("0".equals(getCommonId())) {
+            return false;
+        }
+        return true;
+    }
+
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);

@@ -292,7 +292,10 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
 
         @Override
         public int getItemViewType(int position) {
-            return msgBOS.get(position).getMessageType();
+            if (position < msgBOS.size()) {
+                return msgBOS.get(position).getMessageType();
+            }
+            return 0;
         }
     }
 }
