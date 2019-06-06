@@ -233,10 +233,10 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         this.type = type;
         new Handler().post(() -> {
             if (type == 0) {   //可编辑
-                if (isCreateOrder) {
+                if (tasks.size() == 0) {
                     taskRightButton.setVisibility(View.GONE);
                     addTaskLayout.setVisibility(View.VISIBLE);
-                } else {
+                }else{
                     taskRightButton.setVisibility(View.VISIBLE);
                 }
 //                addTaskLayout.setVisibility(View.VISIBLE);
@@ -245,13 +245,6 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 addTaskLayout.setVisibility(View.GONE);
             }
         });
-    }
-
-    /**
-     * 是否是创建订单进入的
-     */
-    public void isCreate() {
-
     }
 
 
@@ -466,6 +459,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         isTaskEdit = false;
         isShunYan = false;
         taskRightButton.setText("编辑");
+        taskRightButton.setVisibility(View.VISIBLE);
         addTaskLayout.setVisibility(View.GONE);
         EventBus.getDefault().post(new UpdateTaskEvent());
 //        setTaskAdapter();
@@ -547,8 +541,13 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        DataBean dataBean = (DataBean) data.getSerializableExtra("data");
-        onEvent(dataBean.getMubans());
+        if (data == null) {
+            return;
+        }
+        if (resultCode == 0x11) {
+            DataBean dataBean = (DataBean) data.getSerializableExtra("data");
+            onEvent(dataBean.getMubans());
+        }
     }
 
     // 开始扫码
