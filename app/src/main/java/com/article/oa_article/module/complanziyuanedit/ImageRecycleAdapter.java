@@ -61,9 +61,9 @@ public class ImageRecycleAdapter extends RecyclerView.Adapter<ImageRecycleAdapte
             holder.title.setVisibility(View.VISIBLE);
             holder.title.setText(imageBOS.get(position).name);
         }
-        if (!isDelete) {
-            holder.deleteImage.setVisibility(View.GONE);
-        }
+//        if (!isDelete) {
+//            holder.deleteImage.setVisibility(View.GONE);
+//        }
 
         holder.imageView.setOnClickListener(view -> {
             if (position >= imageBOS.size()) {

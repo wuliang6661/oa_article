@@ -28,6 +28,7 @@ import com.article.oa_article.view.addusers.AddUsersActivity;
 import com.article.oa_article.view.moveaddperson.MoveAddPersonActivity;
 import com.article.oa_article.view.person_details.Person_detailsActivity;
 import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.StringUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -219,7 +220,7 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
         new Handler().post(() -> {
             titleLayout.setVisibility(View.VISIBLE);
             complanyImg.setVisibility(View.GONE);
-            if (MyApplication.getCommon() == null) {
+            if (MyApplication.getCommon() == null || StringUtils.isEmpty(MyApplication.getCommon().getCompanyName())) {
                 complanName.setText("暂无企业");
                 addImg.setVisibility(View.GONE);
                 jiangeLine.setVisibility(View.VISIBLE);

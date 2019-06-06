@@ -298,13 +298,22 @@ public class ComplanMsgEditFragment extends MVPBaseFragment<ComplanMsgEditContra
             complanEmail.setText(complanBO.getCompanyInfos().getCompanyEmail());
             zhengmianUrl = complanBO.getCompanyInfos().getIdFrontImage().url;
             zhengmianName = complanBO.getCompanyInfos().getIdFrontImage().name;
-            Glide.with(getActivity()).load(zhengmianUrl).into(cardZhengmian);
+            if (!StringUtils.isEmpty(zhengmianUrl)) {
+                Glide.with(getActivity()).load(zhengmianUrl).into(cardZhengmian);
+                deleteImg.setVisibility(View.VISIBLE);
+            }
             fanmianName = complanBO.getCompanyInfos().getIdBackImage().name;
             fanmianUrl = complanBO.getCompanyInfos().getIdBackImage().url;
-            Glide.with(getActivity()).load(fanmianUrl).into(cardFanmian);
+            if (!StringUtils.isEmpty(fanmianUrl)) {
+                Glide.with(getActivity()).load(fanmianUrl).into(cardFanmian);
+                deleteFanmian.setVisibility(View.VISIBLE);
+            }
             zhizhaoName = complanBO.getCompanyInfos().getBusinessLicense().name;
             zhizhaoUrl = complanBO.getCompanyInfos().getBusinessLicense().url;
-            Glide.with(getActivity()).load(zhizhaoUrl).into(zhizhao);
+            if (!StringUtils.isEmpty(zhizhaoUrl)) {
+                Glide.with(getActivity()).load(zhizhaoUrl).into(zhizhao);
+                deleteZhizhao.setVisibility(View.VISIBLE);
+            }
             nextButton.setVisibility(View.VISIBLE);
         });
     }

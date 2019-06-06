@@ -32,7 +32,7 @@
             android:layout_marginLeft="9dp"
             android:background="@drawable/bar_check_box"
             android:button="@null"
-            android:checked="false"
+            android:checked="true"
             android:enabled="false" />
 
 

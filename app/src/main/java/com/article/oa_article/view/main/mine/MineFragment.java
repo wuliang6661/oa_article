@@ -27,10 +27,12 @@ import com.article.oa_article.module.systemsetting.SystemSettingFragment;
 import com.article.oa_article.module.taskcenter.TaskCenterFragment;
 import com.article.oa_article.module.tempmanager.TempManagerFragment;
 import com.article.oa_article.mvp.MVPBaseFragment;
+import com.article.oa_article.view.NoneFragment;
 import com.article.oa_article.view.newlycomplan.NewlyComplanActivity;
 import com.article.oa_article.view.setting.SettingActivity;
 import com.article.oa_article.widget.PopTaskMsg;
 import com.blankj.utilcode.util.FragmentUtils;
+import com.blankj.utilcode.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +107,8 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
             tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[2]));
             tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[3]));
             tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[4]));
-//            tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[5]));
+            tabLayout.addTab(tabLayout.newTab().setText(tabsAdmain[5]));
+            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
             ChatLineFragment chatLineFragment = ChatLineFragment.getInstance(0);
             fragments.add(chatLineFragment);
@@ -113,22 +116,30 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
             fragments.add(new TaskCenterFragment());
             fragments.add(ComplanMsgFragment.getInstance(1));
             fragments.add(new TempManagerFragment());
-//            fragments.add(new SystemSettingFragment());
+            fragments.add(new SystemSettingFragment());
         } else {
             tabLayout.addTab(tabLayout.newTab().setText(tabs[0]));
             tabLayout.addTab(tabLayout.newTab().setText(tabs[1]));
             tabLayout.addTab(tabLayout.newTab().setText(tabs[2]));
             tabLayout.addTab(tabLayout.newTab().setText(tabs[3]));
             tabLayout.addTab(tabLayout.newTab().setText(tabs[4]));
+            tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
-            ChatLineFragment chatLineFragment = ChatLineFragment.getInstance(0);
-            fragments.add(chatLineFragment);
-            fragments.add(new ScopeCenterFragment());
-            fragments.add(new TaskCenterFragment());
-            fragments.add(new ComplanMsgFragment());
+            if (MyApplication.getCommon() == null || StringUtils.isEmpty(MyApplication.getCommon().getCompanyName())) {
+                fragments.add(new NoneFragment());
+                fragments.add(new NoneFragment());
+                fragments.add(new NoneFragment());
+                fragments.add(new NoneFragment());
+            } else {
+                ChatLineFragment chatLineFragment = ChatLineFragment.getInstance(0);
+                fragments.add(chatLineFragment);
+                fragments.add(new ScopeCenterFragment());
+                fragments.add(new TaskCenterFragment());
+                fragments.add(new ComplanMsgFragment());
+            }
             fragments.add(new SystemSettingFragment());
         }
-        if (MyApplication.getCommon() == null) {
+        if (MyApplication.getCommon() == null || StringUtils.isEmpty(MyApplication.getCommon().getCompanyName())) {
             complanName.setText("暂无企业");
         } else {
             complanName.setText(MyApplication.getCommon().getCompanyName());

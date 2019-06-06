@@ -94,6 +94,7 @@ public class PersonExpandAdapter extends BaseExpandableListAdapter {
         } else {
             hodler.checkBox.setVisibility(View.VISIBLE);
         }
+        hodler.checkBox.setChecked(b);
         return view;
     }
 

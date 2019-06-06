@@ -131,7 +131,7 @@
                     android:layout_marginLeft="12dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="请输入密码"
+                    android:hint="请输入6位数密码"
                     android:maxLength="6"
                     android:password="true"
                     android:textColor="@color/white"

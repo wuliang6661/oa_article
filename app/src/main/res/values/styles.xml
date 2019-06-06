@@ -19,7 +19,7 @@
 
 
     <style name="MyTablayoutstyleText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textSize">17sp</item>
+        <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/tab_txt_color</item>
     </style>
 
