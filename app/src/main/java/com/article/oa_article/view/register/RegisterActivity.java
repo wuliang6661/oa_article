@@ -153,7 +153,7 @@ public class RegisterActivity extends MVPBaseActivity<RegisterContract.View, Reg
             return;
         }
         if (StringUtils.isEmpty(password)) {
-            showToast("请输入密码！");
+            showToast("请输入6位数密码！");
             return;
         }
         if (!checkbox.isChecked()) {

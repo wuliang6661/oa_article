@@ -93,8 +93,8 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
 
 
     int taskIsEdit = 0;   //可编辑
-
     private boolean isEditOrder = false;  //是否是修改订单
+    private boolean isCreateOrder = false;  //是否创建订单进入
 
     @Override
     protected int getLayout() {
@@ -113,6 +113,7 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         isOrder = getIntent().getExtras().getBoolean("isOrder", true);
         id = getIntent().getExtras().getInt("id");
         isEditOrder = getIntent().getExtras().getBoolean("isEditOrder", false);
+        isCreateOrder = getIntent().getExtras().getBoolean("isCreateOrder", false);
 
         fragment = new Task_allotFragment();
         request = new IdTypeRequest();
@@ -233,7 +234,7 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.task_allot);
         fragment.setTaskList(taskIsEdit, taskBOList);
         fragment.setIsOrder(isOrder, id);
-        fragment.isEdit(taskIsEdit);
+        fragment.isEdit(taskIsEdit, isCreateOrder);
     }
 
     @SuppressLint("SimpleDateFormat")

@@ -355,14 +355,14 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         fourRadioLayout.setVisibility(View.VISIBLE);
         switch (type) {
             case 0:// 我的任务（全部）
-                taskUnfinish.setText("已分派");
-                taskWay.setText("未分派");
+                taskUnfinish.setText("未接受");
+                taskWay.setText("进行中");
                 taskOff.setText("已完成");
                 setMenu(all);
                 break;
             case 1:   // 我的任务（我自己的）
-                taskUnfinish.setText("已分派");
-                taskWay.setText("未分派");
+                taskUnfinish.setText("未接受");
+                taskWay.setText("进行中");
                 taskOff.setText("已完成");
                 setMenu(myziji);
                 if (!StringUtils.isEmpty(myziji.getTaskType())) {
@@ -601,9 +601,11 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         request.setStartDate(stopTimeStart.getText().toString().replaceAll("/", "-"));
         request.setEndDate(stopTimeEnd.getText().toString().replaceAll("/", "-"));
         request.setKeyWord(editKeybord.getText().toString().trim());
-        if (event.type == 2 && "0".equals(taskRadio)) {
+        //event.type == 2 &&
+        if ("0".equals(taskRadio)) {
             request.setTaskType("3");
-        } else if (event.type == 2 && "1".equals(taskRadio)) {
+            //event.type == 2 &&
+        } else if ("1".equals(taskRadio)) {
             request.setTaskType("4");
         } else {
             request.setTaskType(taskRadio);

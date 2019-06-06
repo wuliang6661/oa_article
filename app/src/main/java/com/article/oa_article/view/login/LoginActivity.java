@@ -141,7 +141,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
             return;
         }
         if (StringUtils.isEmpty(password)) {
-            showToast("请输入密码！");
+            showToast("请输入6位数密码！");
             return;
         }
 //        gotoActivity(CreateActivity.class, true);

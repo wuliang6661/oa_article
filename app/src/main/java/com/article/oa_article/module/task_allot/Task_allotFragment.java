@@ -229,17 +229,29 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     /**
      * 设置是否可编辑
      */
-    public void isEdit(int type) {
+    public void isEdit(int type, boolean isCreateOrder) {
         this.type = type;
         new Handler().post(() -> {
             if (type == 0) {   //可编辑
-                taskRightButton.setVisibility(View.VISIBLE);
+                if (isCreateOrder) {
+                    taskRightButton.setVisibility(View.GONE);
+                    addTaskLayout.setVisibility(View.VISIBLE);
+                } else {
+                    taskRightButton.setVisibility(View.VISIBLE);
+                }
 //                addTaskLayout.setVisibility(View.VISIBLE);
             } else {
                 taskRightButton.setVisibility(View.GONE);
                 addTaskLayout.setVisibility(View.GONE);
             }
         });
+    }
+
+    /**
+     * 是否是创建订单进入的
+     */
+    public void isCreate() {
+
     }
 
 
