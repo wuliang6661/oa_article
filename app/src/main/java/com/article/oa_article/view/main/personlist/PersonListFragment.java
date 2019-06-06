@@ -94,12 +94,22 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
         line.setLayoutParams(params);
 
         request = new IdRequest();
-        request.setId(Integer.parseInt(MyApplication.getCommonId()));
         mPresenter.getNeiUsers(request);
 
         initView();
     }
 
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        if(selectMenu == 1){
+            mPresenter.getNeiUsers(request);
+        }else{
+            mPresenter.getOutUsers(request);
+        }
+        setAddVisiable();
+    }
 
     private void initView() {
         expandList.setOnChildClickListener((expandableListView, view, i, i1, l) -> {
@@ -169,6 +179,11 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
                 }
                 break;
         }
+        setAddVisiable();
+    }
+
+
+    private void setAddVisiable() {
         if (!MyApplication.isHaveCommon()) {
             addImg.setVisibility(View.GONE);
             jiangeLine.setVisibility(View.VISIBLE);

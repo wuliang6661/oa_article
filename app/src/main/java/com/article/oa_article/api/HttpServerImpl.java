@@ -164,6 +164,8 @@ public class HttpServerImpl {
      */
     public static Observable<List<MyOrderBO>> getOrderByTask(OrderRequest request) {
         request.setToken(MyApplication.token);
+        request.setCompanyId(MyApplication.getCommonId());
+        request.setUserId(MyApplication.userBo.getId() + "");
         return getService().getOrderByTask(request).compose(RxResultHelper.httpRusult());
     }
 
@@ -173,6 +175,7 @@ public class HttpServerImpl {
      */
     public static Observable<List<ComplanOrderBo>> getComplayList(ComplayRequest request) {
         request.setToken(MyApplication.token);
+        request.setCompanyId(MyApplication.getCommonId());
         return getService().getComplayList(request).compose(RxResultHelper.httpRusult());
     }
 
@@ -181,6 +184,7 @@ public class HttpServerImpl {
      */
     public static Observable<List<AcceptedOrderBo>> getAsseptOrder(AsseptRequest request) {
         request.setToken(MyApplication.token);
+        request.setId(MyApplication.getCommonId());
         return getService().getAcceptOrder(request).compose(RxResultHelper.httpRusult());
     }
 
@@ -189,6 +193,7 @@ public class HttpServerImpl {
      */
     public static Observable<List<HistoryBO>> selectHistory(SelectRequest request) {
         request.setToken(MyApplication.token);
+        request.setCompanyId(MyApplication.getCommonId());
         return getService().getSearchHistory(request).compose(RxResultHelper.httpRusult());
     }
 

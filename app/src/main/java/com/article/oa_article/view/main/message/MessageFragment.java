@@ -62,7 +62,6 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
     LinearLayout operateLayout;
 
     MessageAdapter adapter;
-
     private boolean isEdit;
 
 
@@ -141,6 +140,7 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
         for (MsgBO msgBO : adapter.selectList.values()) {
             builder.append(msgBO.getId()).append(",");
         }
+        isClick =false;
         switch (view.getId()) {
             case R.id.yidu_layout:
                 mPresenter.setMsgRead(builder.toString().substring(0, builder.length() - 1), 1);
@@ -183,8 +183,12 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
     public void readSuress() {
         mPresenter.getMessageList(Integer.parseInt(MyApplication.getCommonId()));
         mPresenter.getReadCount(Integer.parseInt(MyApplication.getCommonId()));
-        titleClick(editMode);
+        if(!isClick){
+            titleClick(editMode);
+        }
     }
+
+    boolean isClick = false;
 
 
     private void setAdapter(List<MsgBO> msgBOS) {
@@ -194,8 +198,12 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
         }
         adapter = new MessageAdapter(msgBOS);
         adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
-            if (msgBOS.get(position).getMessageType() == 0) {   //好友申请
-                gotoActivity(FriendApplyActivity.class, false);
+            if (position < msgBOS.size()) {
+                if (msgBOS.get(position).getMessageType() == 0) {   //好友申请
+                    isClick = true;
+                    gotoActivity(FriendApplyActivity.class, false);
+                    mPresenter.setMsgRead(msgBOS.get(position).getId() + "", 1);
+                }
             }
         });
         messageRecycle.setAdapter(adapter);

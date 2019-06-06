@@ -32,7 +32,6 @@ import com.article.oa_article.view.newlycomplan.NewlyComplanActivity;
 import com.article.oa_article.view.setting.SettingActivity;
 import com.article.oa_article.widget.PopTaskMsg;
 import com.blankj.utilcode.util.FragmentUtils;
-import com.blankj.utilcode.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -152,7 +151,9 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                FragmentUtils.replace(getFragmentManager(), fragments.get(tab.getPosition()), R.id.mine_fragment);
+                if (tab.getPosition() < fragments.size()) {
+                    FragmentUtils.replace(getFragmentManager(), fragments.get(tab.getPosition()), R.id.mine_fragment);
+                }
             }
 
             @Override
@@ -226,6 +227,12 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
         personPhone.setText(userBo.getPhone());
         GlideApp.with(getActivity()).load(userBo.getImage()).error(R.drawable.person_img_defailt)
                 .placeholder(R.drawable.person_img_defailt).into(personImg);
+        if (MyApplication.isHaveCommon()) {
+            complanName.setText("暂无企业");
+        } else {
+            complanName.setText(MyApplication.getCommon().getCompanyName());
+        }
+        initView();
     }
 
     @Override

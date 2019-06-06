@@ -64,7 +64,12 @@ public class MyApplication extends Application {
         if (MyApplication.userBo.getCompanys() == null || MyApplication.userBo.getCompanys().size() == 0) {
             return new UserBo.CompanysBean();
         } else {
-            return MyApplication.userBo.getCompanys().get(selectComplan);
+            if (selectComplan > MyApplication.userBo.getCompanys().size()) {
+                return MyApplication.userBo.getCompanys().get(selectComplan);
+            } else {
+                selectComplan = 0;
+                return MyApplication.userBo.getCompanys().get(selectComplan);
+            }
         }
     }
 

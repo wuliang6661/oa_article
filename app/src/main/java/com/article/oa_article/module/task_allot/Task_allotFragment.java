@@ -363,7 +363,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
             @Override
             public void convert(LGViewHolder holder, AddTaskRequest.OrderTasksBean s, int position) {
                 holder.setText(R.id.task_name, s.getTaskName());
-                holder.setText(R.id.task_person_name, s.getNickName());
+                holder.setText(R.id.task_person_name, s.getNickName().length() > 3 ? s.getNickName().substring(0, 3) + "..." : s.getNickName());
                 holder.setText(R.id.task_shiji_num, s.getActualNum() + "");
                 if (StringUtils.isEmpty(s.getUnit())) {
                     holder.setText(R.id.task_jihua_num, s.getPlanNum() == 0 ? "--" : s.getPlanNum() + "");

@@ -61,6 +61,7 @@ public class PersonServiceImpl {
      */
     public static Observable<List<BumenBO>> getNeiPersonList(IdRequest request) {
         request.setToken(MyApplication.token);
+        request.setId(Integer.parseInt(MyApplication.getCommonId()));
         return getService().getInUsers(request).compose(RxResultHelper.httpRusult());
     }
 
