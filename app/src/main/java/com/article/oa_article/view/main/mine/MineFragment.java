@@ -72,6 +72,8 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
 
     List<Fragment> fragments = new ArrayList<>();
 
+    private boolean isCheckComplan = false;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -183,8 +185,8 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
         popSwitchComplan.setListener(new PopSwitchComplan.OnSelectComplan() {
             @Override
             public void selectComplan(int position) {
+                isCheckComplan = true;
                 MyApplication.selectComplan = position;
-                initView();
                 mPresenter.getUserInfo();
             }
 
@@ -223,16 +225,22 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
 
     @Override
     public void getUser(UserBo userBo) {
+        MyApplication.userBo = userBo;
         personName.setText(userBo.getName());
         personPhone.setText(userBo.getPhone());
         GlideApp.with(getActivity()).load(userBo.getImage()).error(R.drawable.person_img_defailt)
                 .placeholder(R.drawable.person_img_defailt).into(personImg);
-        if (MyApplication.isHaveCommon()) {
+        if (!MyApplication.isHaveCommon()) {
             complanName.setText("暂无企业");
+            initView();
         } else {
-            complanName.setText(MyApplication.getCommon().getCompanyName());
+            if ("暂无企业".equals(complanName.getText().toString().trim()) || isCheckComplan) {
+                complanName.setText(MyApplication.getCommon().getCompanyName());
+                initView();
+                isCheckComplan = false;
+            }
         }
-        initView();
+
     }
 
     @Override

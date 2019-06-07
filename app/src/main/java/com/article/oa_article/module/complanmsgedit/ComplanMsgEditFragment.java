@@ -76,12 +76,16 @@ public class ComplanMsgEditFragment extends MVPBaseFragment<ComplanMsgEditContra
     Unbinder unbinder;
     @BindView(R.id.next_button)
     Button nextButton;
+    @BindView(R.id.complan_logo)
+    ImageView complanLogo;
+    @BindView(R.id.delete_logo)
+    ImageView deleteLogo;
 
     private File cameraSavePath;//拍照照片路径
     private Uri uri;
     private String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
-    private int selectPosition = 0;  //0：身份证正面 1：身份证反面 2：执照
+    private int selectPosition = 0;  //0：身份证正面 1：身份证反面 2：执照,3:公司Logo
 
     private String strName;
     private String strJiancheng;
@@ -89,7 +93,7 @@ public class ComplanMsgEditFragment extends MVPBaseFragment<ComplanMsgEditContra
     private String phone;
     private String email;
 
-    private String zhengmianUrl, fanmianUrl, zhizhaoUrl;
+    private String zhengmianUrl, fanmianUrl, zhizhaoUrl, logoUrl;
     private String zhengmianName, fanmianName, zhizhaoName;
 
 
@@ -118,9 +122,12 @@ public class ComplanMsgEditFragment extends MVPBaseFragment<ComplanMsgEditContra
         unbinder.unbind();
     }
 
-    @OnClick({R.id.zhizhao, R.id.card_fanmian, R.id.card_zhengmian})
+    @OnClick({R.id.zhizhao, R.id.card_fanmian, R.id.card_zhengmian, R.id.complan_logo})
     public void imageSelect(View view) {
         switch (view.getId()) {
+            case R.id.complan_logo:
+                selectPosition = 3;
+                break;
             case R.id.zhizhao:
                 selectPosition = 2;
                 break;
@@ -135,7 +142,7 @@ public class ComplanMsgEditFragment extends MVPBaseFragment<ComplanMsgEditContra
     }
 
 
-    @OnClick({R.id.delete_fanmian, R.id.delete_img, R.id.delete_zhizhao})
+    @OnClick({R.id.delete_fanmian, R.id.delete_img, R.id.delete_zhizhao, R.id.delete_logo})
     public void deleteImage(View view) {
         switch (view.getId()) {
             case R.id.delete_zhizhao:
@@ -155,6 +162,11 @@ public class ComplanMsgEditFragment extends MVPBaseFragment<ComplanMsgEditContra
                 deleteFanmian.setVisibility(View.GONE);
                 fanmianUrl = null;
                 fanmianName = null;
+                break;
+            case R.id.delete_logo:
+                complanLogo.setImageResource(R.drawable.image_update_add);
+                deleteLogo.setVisibility(View.GONE);
+                logoUrl = null;
                 break;
         }
     }
@@ -272,6 +284,11 @@ public class ComplanMsgEditFragment extends MVPBaseFragment<ComplanMsgEditContra
                 zhizhaoUrl = imageUrl;
                 zhizhaoName = name;
                 break;
+            case 3:
+                Glide.with(getActivity()).load(imageUrl).into(complanLogo);
+                deleteLogo.setVisibility(View.VISIBLE);
+                logoUrl = imageUrl;
+                break;
         }
     }
 
@@ -314,6 +331,11 @@ public class ComplanMsgEditFragment extends MVPBaseFragment<ComplanMsgEditContra
                 Glide.with(getActivity()).load(zhizhaoUrl).into(zhizhao);
                 deleteZhizhao.setVisibility(View.VISIBLE);
             }
+            logoUrl = complanBO.getCompanyInfos().getCompanyImage();
+            if (!StringUtils.isEmpty(logoUrl)) {
+                Glide.with(getActivity()).load(logoUrl).into(complanLogo);
+                deleteLogo.setVisibility(View.VISIBLE);
+            }
             nextButton.setVisibility(View.VISIBLE);
         });
     }
@@ -345,6 +367,7 @@ public class ComplanMsgEditFragment extends MVPBaseFragment<ComplanMsgEditContra
         ImageBO zhizhao = new ImageBO();
         zhizhao.name = zhizhaoName;
         zhizhao.url = zhizhaoUrl;
+        companyInfoBean.setCompanyImage(logoUrl);
         companyInfoBean.setBusinessLicense(zhizhao);
         request.setCompanyInfo(companyInfoBean);
         return request;
@@ -390,6 +413,10 @@ public class ComplanMsgEditFragment extends MVPBaseFragment<ComplanMsgEditContra
         }
         if (StringUtils.isEmpty(zhizhaoUrl)) {
             showToast("请上传企业执照！");
+            return false;
+        }
+        if (StringUtils.isEmpty(logoUrl)) {
+            showToast("请上传企业Logo！");
             return false;
         }
         return true;
