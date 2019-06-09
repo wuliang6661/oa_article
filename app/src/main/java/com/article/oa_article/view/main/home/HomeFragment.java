@@ -16,8 +16,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
+import com.article.oa_article.api.HttpResultSubscriber;
+import com.article.oa_article.api.HttpServerImpl;
+import com.article.oa_article.bean.AcceptedOrderBo;
 import com.article.oa_article.bean.event.MsgNumEvent;
 import com.article.oa_article.bean.event.OpenDrawableEvent;
+import com.article.oa_article.bean.request.AsseptRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.CreateActivity;
 import com.article.oa_article.view.FragmentPaerAdapter;
@@ -102,6 +106,13 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
 
         texts = new TextView[]{myOrder, gongsiOrder, unknowOrder};
         setPagerListener();
+    }
+
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        getAsseptOrder();
     }
 
     /**
@@ -214,6 +225,29 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
             msgText.setVisibility(View.GONE);
             msgText.setText("");
         }
+    }
+
+
+    /**
+     * 获取待接受的订单列表
+     */
+    private void getAsseptOrder() {
+        AsseptRequest request = new AsseptRequest();
+        request.setPageNum(1);
+        request.setPageSize(1000);
+        HttpServerImpl.getAsseptOrder(request).subscribe(new HttpResultSubscriber<List<AcceptedOrderBo>>() {
+            @Override
+            public void onSuccess(List<AcceptedOrderBo> s) {
+                MsgNumEvent event = new MsgNumEvent();
+                event.num = s.size();
+                onEvent(event);
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
     }
 
 

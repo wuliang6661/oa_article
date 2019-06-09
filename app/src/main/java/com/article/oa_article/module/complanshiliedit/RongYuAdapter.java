@@ -62,23 +62,19 @@ public class RongYuAdapter extends RecyclerView.Adapter<RongYuAdapter.ViewHodler
     @Override
     public void onBindViewHolder(@NonNull ViewHodler holder, int position) {
         ImageRecycleAdapter adapter;
-        if (position >= dataList.size()) {
+        if (dataList.get(position).getHonorImage() == null) {
             adapter = new ImageRecycleAdapter(context, new ArrayList<>());
         } else {
-            if (dataList.get(position).getHonorImage() == null) {
-                adapter = new ImageRecycleAdapter(context, new ArrayList<>());
-            } else {
-                adapter = new ImageRecycleAdapter(context, dataList.get(position).getHonorImage());
-            }
-            if (!StringUtils.isEmpty(dataList.get(position).getHonorName())) {
-                holder.rongyu_name.setText(dataList.get(position).getHonorName());
-            }
-            if (!StringUtils.isEmpty(dataList.get(position).getIssueUnit())) {
-                holder.banfa_danwei.setText(dataList.get(position).getIssueUnit());
-            }
-            if (!StringUtils.isEmpty(dataList.get(position).getIssueDate())) {
-                holder.personName.setText(dataList.get(position).getIssueDate());
-            }
+            adapter = new ImageRecycleAdapter(context, dataList.get(position).getHonorImage());
+        }
+        if (!StringUtils.isEmpty(dataList.get(position).getHonorName())) {
+            holder.rongyu_name.setText(dataList.get(position).getHonorName());
+        }
+        if (!StringUtils.isEmpty(dataList.get(position).getIssueUnit())) {
+            holder.banfa_danwei.setText(dataList.get(position).getIssueUnit());
+        }
+        if (!StringUtils.isEmpty(dataList.get(position).getIssueDate())) {
+            holder.personName.setText(dataList.get(position).getIssueDate());
         }
         adapter.setClickPosition(position);
         adapter.setDelete(false);

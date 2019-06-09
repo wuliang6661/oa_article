@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
@@ -76,7 +75,9 @@ public class BumenActivity extends MVPBaseActivity<BumenContract.View, BumenPres
             buMenFlowBO = buMenFlowBOS.get(position);
         });
         tagRecycle.setAdapter(adapter);
-        buMenFlowBO = buMenFlowBOS.get(0);
+        if (!buMenFlowBOS.isEmpty()) {
+            buMenFlowBO = buMenFlowBOS.get(0);
+        }
     }
 
 

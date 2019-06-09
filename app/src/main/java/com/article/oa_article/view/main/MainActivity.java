@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.article.oa_article.R;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.SalesBo;
+import com.article.oa_article.bean.event.MsgFragmentEvent;
 import com.article.oa_article.bean.event.MsgNumEvent;
 import com.article.oa_article.bean.event.OpenDrawableEvent;
 import com.article.oa_article.bean.request.AsseptRequest;
@@ -742,7 +743,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(MsgNumEvent event) {
+    public void onEvent(MsgFragmentEvent event) {
         if (event.num > 0) {
             todayPoint.setVisibility(View.VISIBLE);
         } else {

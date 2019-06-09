@@ -268,7 +268,7 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
             TextView date = view.findViewById(R.id.person_name);
             AddComplanRequest.CompanyHonorsBean qualificationsBean = new AddComplanRequest.CompanyHonorsBean();
             qualificationsBean.setHonorName(name.getText());
-            qualificationsBean.setHonorImage(adapter.getImageByPosition(i));
+            qualificationsBean.setHonorImage(rongYuAdapter.getImageByPosition(i));
             qualificationsBean.setIssueUnit(danwei.getText());
             qualificationsBean.setIssueDate(date.getText().toString().trim().replaceAll("/", "-"));
             if(honorsBeans.size() > i){
@@ -287,7 +287,7 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
         EditMsgText danwei = view.findViewById(R.id.banfa_danwei);
         TextView date = view.findViewById(R.id.person_name);
         if (StringUtils.isEmpty(name.getText())) {
-            showToast("请补全资质名称！");
+            showToast("请补全荣誉名称！");
             return false;
         }
         if (StringUtils.isEmpty(danwei.getText())) {

@@ -21,10 +21,13 @@ import android.widget.TextView;
 import com.article.oa_article.R;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.MsgBO;
+import com.article.oa_article.bean.event.MsgFragmentEvent;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 import com.blankj.utilcode.util.TimeUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.List;
@@ -140,7 +143,7 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
         for (MsgBO msgBO : adapter.selectList.values()) {
             builder.append(msgBO.getId()).append(",");
         }
-        isClick =false;
+        isClick = false;
         switch (view.getId()) {
             case R.id.yidu_layout:
                 mPresenter.setMsgRead(builder.toString().substring(0, builder.length() - 1), 1);
@@ -172,6 +175,7 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
             msgNum.setVisibility(View.VISIBLE);
             msgNum.setText(notNum + "");
         }
+        EventBus.getDefault().post(new MsgFragmentEvent(notNum));
     }
 
     @Override
@@ -183,7 +187,7 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
     public void readSuress() {
         mPresenter.getMessageList(Integer.parseInt(MyApplication.getCommonId()));
         mPresenter.getReadCount(Integer.parseInt(MyApplication.getCommonId()));
-        if(!isClick){
+        if (!isClick) {
             titleClick(editMode);
         }
     }
@@ -270,25 +274,6 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
                     holder.getView(R.id.point).setVisibility(View.INVISIBLE);
                 }
             }
-            if (msgBO.getMessageType() == 0) {
-                holder.setText(R.id.msg_message, msgBO.getNickName() + "  " + msgBO.getContent());
-            } else {
-                holder.setText(R.id.msg_message, msgBO.getNickName() + "  " + msgBO.getContent());
-                TextView msgType = (TextView) holder.getView(R.id.msg_type);
-                switch (msgBO.getTaskStatus()) {
-                    case "2":
-                        holder.setText(R.id.msg_type, "已完成");
-                        msgType.setTextColor(Color.parseColor("#F4CA40"));
-                        break;
-                    case "3":
-                        holder.setText(R.id.msg_type, "已取消");
-                        msgType.setTextColor(Color.parseColor("#E92B2B"));
-                        break;
-                }
-                holder.setText(R.id.msg_order_name, msgBO.getOrderName() + "  " + msgBO.getOrderNum());
-                holder.setText(R.id.msg_level, msgBO.getTaskLevel() + "级任务");
-                holder.setText(R.id.order_date, TimeUtils.getFriendlyTimeSpanByNow(msgBO.getCreateDate()));
-            }
             box.setOnCheckedChangeListener((compoundButton, b) -> {
                 if (b) {
                     selectList.put(position, msgBOS.get(position));
@@ -296,6 +281,27 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
                     selectList.remove(position);
                 }
             });
+            if (msgBO.getMessageType() == 0) {
+                holder.setText(R.id.msg_message, msgBO.getNickName() + "  " + msgBO.getContent());
+            } else {
+                holder.setText(R.id.msg_message, msgBO.getNickName() + "  " + msgBO.getContent());
+                TextView msgType = (TextView) holder.getView(R.id.msg_type);
+                if (msgType != null) {
+                    switch (msgBO.getTaskStatus()) {
+                        case "2":
+                            msgType.setText("已完成");
+                            msgType.setTextColor(Color.parseColor("#F4CA40"));
+                            break;
+                        case "3":
+                            msgType.setText("已取消");
+                            msgType.setTextColor(Color.parseColor("#E92B2B"));
+                            break;
+                    }
+                }
+                holder.setText(R.id.msg_order_name, msgBO.getOrderName() + "  " + msgBO.getOrderNum());
+                holder.setText(R.id.msg_level, msgBO.getTaskLevel() + "级任务");
+                holder.setText(R.id.order_date, TimeUtils.getFriendlyTimeSpanByNow(msgBO.getCreateDate()));
+            }
         }
 
         @Override

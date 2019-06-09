@@ -106,6 +106,12 @@ public class AllUserEditActivity extends MVPBaseActivity<AllUserEditContract.Vie
     }
 
 
+    @OnClick(R.id.add_pinglei)
+    public void add() {
+        finish();
+    }
+
+
     private void setAdapter() {
         LGRecycleViewAdapter<AddUserRequest> adapter = new LGRecycleViewAdapter<AddUserRequest>(requests) {
             @Override

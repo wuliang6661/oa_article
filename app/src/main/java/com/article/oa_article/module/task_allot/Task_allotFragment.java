@@ -239,6 +239,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 }else{
                     taskRightButton.setVisibility(View.VISIBLE);
                 }
+
 //                addTaskLayout.setVisibility(View.VISIBLE);
             } else {
                 taskRightButton.setVisibility(View.GONE);
@@ -368,14 +369,16 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 } else {
                     holder.setText(R.id.task_date, s.getPlanCompleteDate().replaceAll("-", "/"));
                 }
+                TextView surplus_time = (TextView) holder.getView(R.id.surplus_time);
                 if (s.getRemainingDate() != 0) {
-                    TextView surplus_time = (TextView) holder.getView(R.id.surplus_time);
                     surplus_time.setText(s.getRemainingDate() + "天");
                     if (s.getRemainingDate() > 0) {
                         surplus_time.setTextColor(Color.parseColor("#71EA45"));
                     } else {
                         surplus_time.setTextColor(Color.parseColor("#E92B2B"));
                     }
+                }else{
+                    surplus_time.setText("--");
                 }
                 TextView taskType = (TextView) holder.getView(R.id.task_type);
                 switch (s.getStatus()) {

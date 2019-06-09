@@ -140,7 +140,9 @@ public class LableCustomActivity extends MVPBaseActivity<LableCustomContract.Vie
             labelsBean = lableBo.getSysLabels().get(position);
         });
         flowLayout.setAdapter(sysAdapter);
-        labelsBean = lableBo.getSysLabels().get(0);
+        if (!lableBo.getSysLabels().isEmpty()) {
+            labelsBean = lableBo.getSysLabels().get(0);
+        }
     }
 
 
