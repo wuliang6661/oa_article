@@ -16,6 +16,15 @@ public class PersonBO {
     private int id;
     private String depart;
     private String label;
+    private int taskType;
+
+    public int getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(int taskType) {
+        this.taskType = taskType;
+    }
 
     public String getImage() {
         return image;

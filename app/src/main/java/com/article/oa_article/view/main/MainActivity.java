@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
@@ -23,7 +24,6 @@ import com.article.oa_article.R;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.SalesBo;
 import com.article.oa_article.bean.event.MsgFragmentEvent;
-import com.article.oa_article.bean.event.MsgNumEvent;
 import com.article.oa_article.bean.event.OpenDrawableEvent;
 import com.article.oa_article.bean.request.AsseptRequest;
 import com.article.oa_article.bean.request.ComplayRequest;
@@ -115,6 +115,8 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     TagFlowLayout idFlowlayout;
     @BindView(R.id.today_point)
     TextView todayPoint;
+    @BindView(R.id.last_radio)
+    RadioButton lastRadio;
 
     private int selectPosition = 0;
     private BottmTabItem[] buttms;
@@ -309,6 +311,13 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                     taskRadio = null;
                     break;
             }
+            lastRadio.setChecked(false);
+        });
+        lastRadio.setOnCheckedChangeListener((compoundButton, b) -> {
+            taskUnfinish.setChecked(false);
+            taskWay.setChecked(false);
+            taskOff.setChecked(false);
+            taskRadio = "3";
         });
         fourRadioLayout.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
@@ -326,6 +335,33 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             }
         });
     }
+
+    CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            switch (compoundButton.getId()) {
+                case R.id.task_unfinish:
+                    taskRadio = "0";
+                    break;
+                case R.id.task_way:
+                    taskRadio = "1";
+                    break;
+                case R.id.task_off:
+                    taskRadio = "2";
+                    break;
+                case R.id.last_radio:
+                    taskRadio = "3";
+                    break;
+                case -1:
+                    taskUnfinish.setChecked(false);
+                    taskWay.setChecked(false);
+                    taskOff.setChecked(false);
+                    lastRadio.setChecked(false);
+                    taskRadio = null;
+                    break;
+            }
+        }
+    };
 
 
     OpenDrawableEvent event;
@@ -354,42 +390,34 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         radioGroupTask.setVisibility(View.VISIBLE);
         fourText.setVisibility(View.VISIBLE);
         fourRadioLayout.setVisibility(View.VISIBLE);
+        lastRadio.setVisibility(View.GONE);
         switch (type) {
             case 0:// 我的任务（全部）
-                taskUnfinish.setText("未接受");
+                taskUnfinish.setText("未分派");
                 taskWay.setText("进行中");
-                taskOff.setText("已完成");
-                setMenu(all);
+                taskOff.setText("已取消");
+                lastRadio.setText("已完成");
+                lastRadio.setVisibility(View.VISIBLE);
+                setMenu(all, type);
                 break;
             case 1:   // 我的任务（我自己的）
-                taskUnfinish.setText("未接受");
-                taskWay.setText("进行中");
+                taskUnfinish.setText("进行中");
+                taskWay.setText("已取消");
                 taskOff.setText("已完成");
-                setMenu(myziji);
-                if (!StringUtils.isEmpty(myziji.getTaskType())) {
-                    switch (myziji.getTaskType()) {
-                        case "3":
-                            taskUnfinish.setChecked(true);
-                            break;
-                        case "4":
-                            taskWay.setChecked(true);
-                            break;
-                        case "2":
-                            taskOff.setChecked(true);
-                            break;
-                    }
-                }
+                setMenu(myziji, type);
                 break;
             case 2:    //我的任务（我分派的）
                 taskUnfinish.setText("未接受");
                 taskWay.setText("进行中");
-                taskOff.setText("已完成");
-                setMenu(myfenpai);
+                taskOff.setText("已取消");
+                lastRadio.setText("已完成");
+                lastRadio.setVisibility(View.VISIBLE);
+                setMenu(myfenpai, type);
                 break;
             case 3:    //我的任务 （已完成）
                 threeText.setVisibility(View.GONE);
                 radioGroupTask.setVisibility(View.GONE);
-                setMenu(wancheng);
+                setMenu(wancheng, type);
                 break;
             case 4:    // 公司订单
                 stopTimeText.setText("交货日期");
@@ -454,7 +482,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     }
 
 
-    private void setMenu(OrderRequest request) {
+    private void setMenu(OrderRequest request, int type) {
         editKeybord.setText(request.getKeyWord());
         createTimeStart.setText(request.getCreatStartDate());
         createTimeEnd.setText(request.getCreatEndDate());
@@ -462,19 +490,40 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         stopTimeEnd.setText(request.getEndDate());
         radioGroupTask.clearCheck();
         fourRadioLayout.clearCheck();
+        lastRadio.setChecked(false);
         idFlowlayout.onChanged();
         if (!StringUtils.isEmpty(request.getTaskType())) {
-            switch (request.getTaskType()) {
-                case "0":
-                case "3":
-                    taskUnfinish.setChecked(true);
+            switch (type) {
+                case 0:
+                    if ("1".equals(request.getTaskType())) {  //未分派
+                        taskUnfinish.setChecked(true);
+                    } else if ("4".equals(request.getTaskType())) {  //进行中
+                        taskWay.setChecked(true);
+                    } else if ("5".equals(request.getTaskType())) {   //已取消
+                        taskOff.setChecked(true);
+                    } else {                        //已完成
+                        lastRadio.setChecked(true);
+                    }
                     break;
-                case "1":
-                case "4":
-                    taskWay.setChecked(true);
+                case 1:
+                    if ("4".equals(request.getTaskType())) {  //未分派
+                        taskUnfinish.setChecked(true);
+                    } else if ("5".equals(request.getTaskType())) {  //进行中
+                        taskWay.setChecked(true);
+                    } else if ("2".equals(request.getTaskType())) {   //已取消
+                        taskOff.setChecked(true);
+                    }
                     break;
-                case "2":
-                    taskOff.setChecked(true);
+                case 2:
+                    if ("3".equals(request.getTaskType())) {  //未分派
+                        taskUnfinish.setChecked(true);
+                    } else if ("4".equals(request.getTaskType())) {  //进行中
+                        taskWay.setChecked(true);
+                    } else if ("5".equals(request.getTaskType())) {   //已取消
+                        taskOff.setChecked(true);
+                    } else {                        //已完成
+                        lastRadio.setChecked(true);
+                    }
                     break;
             }
         }
@@ -602,14 +651,41 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         request.setStartDate(stopTimeStart.getText().toString().replaceAll("/", "-"));
         request.setEndDate(stopTimeEnd.getText().toString().replaceAll("/", "-"));
         request.setKeyWord(editKeybord.getText().toString().trim());
-        //event.type == 2 &&
-        if ("0".equals(taskRadio)) {
-            request.setTaskType("3");
-            //event.type == 2 &&
-        } else if ("1".equals(taskRadio)) {
-            request.setTaskType("4");
-        } else {
-            request.setTaskType(taskRadio);
+        switch (event.type) {
+            case 0:
+                if ("0".equals(taskRadio)) {  //未分派
+                    request.setTaskType("1");
+                } else if ("1".equals(taskRadio)) {  //进行中
+                    request.setTaskType("4");
+                } else if ("2".equals(taskRadio)) {   //已取消
+                    request.setTaskType("5");
+                } else {                        //已完成
+                    request.setTaskType("2");
+                }
+                break;
+            case 1:
+                if ("0".equals(taskRadio)) {  //进行中
+                    request.setTaskType("4");
+                } else if ("1".equals(taskRadio)) {  //已取消
+                    request.setTaskType("5");
+                } else if ("2".equals(taskRadio)) {   //已完成
+                    request.setTaskType("2");
+                }
+                break;
+            case 2:
+                if ("0".equals(taskRadio)) {  //未分派
+                    request.setTaskType("3");
+                } else if ("1".equals(taskRadio)) {  //进行中
+                    request.setTaskType("4");
+                } else if ("2".equals(taskRadio)) {   //已取消
+                    request.setTaskType("5");
+                } else {                        //已完成
+                    request.setTaskType("2");
+                }
+                break;
+            default:
+                request.setTaskType(null);
+                break;
         }
         request.setDays(fourSelector);
         request.setType(position + "");

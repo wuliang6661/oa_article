@@ -236,7 +236,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 if (tasks.size() == 0) {
                     taskRightButton.setVisibility(View.GONE);
                     addTaskLayout.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     taskRightButton.setVisibility(View.VISIBLE);
                 }
 
@@ -377,7 +377,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                     } else {
                         surplus_time.setTextColor(Color.parseColor("#E92B2B"));
                     }
-                }else{
+                } else {
                     surplus_time.setText("--");
                 }
                 TextView taskType = (TextView) holder.getView(R.id.task_type);
@@ -497,6 +497,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
             bean.setUnit(danwei);
             bean.setTaskType(0);
             bean.setUserId(personId.getId());
+            bean.setTaskType(personId.getTaskType());
             bean.setNickName(personId.getName());
             if (oldbean != null) {
                 bean.setId(oldbean.getId());

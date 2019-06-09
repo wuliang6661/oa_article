@@ -103,9 +103,9 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        if(selectMenu == 1){
+        if (selectMenu == 1) {
             mPresenter.getNeiUsers(request);
-        }else{
+        } else {
             mPresenter.getOutUsers(request);
         }
         setAddVisiable();
@@ -115,6 +115,7 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
         expandList.setOnChildClickListener((expandableListView, view, i, i1, l) -> {
             if (isSelectPerson) {
                 PersonBO personBO = bumenBOS.get(i).getUser().get(i1);
+                personBO.setTaskType(selectMenu == 1 ? 0 : 1);
                 EventBus.getDefault().post(personBO);
                 Objects.requireNonNull(getActivity()).finish();
             } else {

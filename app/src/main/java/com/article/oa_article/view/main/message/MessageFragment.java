@@ -217,7 +217,6 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
     class MessageAdapter extends LGRecycleViewAdapter<MsgBO> {
 
         private List<MsgBO> msgBOS;
-
         private boolean isEdit;
         Map<Integer, MsgBO> selectList;
 
@@ -253,6 +252,11 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
             notifyDataSetChanged();
         }
 
+        @Override
+        public void setData(List<MsgBO> dataList) {
+            super.setData(dataList);
+            this.msgBOS = dataList;
+        }
 
         @Override
         public void convert(LGViewHolder holder, MsgBO msgBO, int position) {
