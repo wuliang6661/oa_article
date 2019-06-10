@@ -123,7 +123,18 @@ public class OptionsFankuiActivity extends MVPBaseActivity<OptionsFankuiContract
 
     private void setImagesAdapter() {
         ImageAdapter adapter = new ImageAdapter(this, images);
-        adapter.setListener(() -> ActionSheet.showSheet(OptionsFankuiActivity.this, OptionsFankuiActivity.this, null));
+        adapter.setListener(new ImageAdapter.onAddImageAdapterListener() {
+            @Override
+            public void addImage() {
+                ActionSheet.showSheet(OptionsFankuiActivity.this, OptionsFankuiActivity.this, null);
+            }
+
+            @Override
+            public void deleteImage(int position) {
+                images.remove(position);
+                setImagesAdapter();
+            }
+        });
         imageRecycle.setAdapter(adapter);
     }
 

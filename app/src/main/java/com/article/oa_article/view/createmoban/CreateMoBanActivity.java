@@ -205,5 +205,6 @@ public class CreateMoBanActivity extends MVPBaseActivity<CreateMoBanContract.Vie
     @Override
     public void onSuress() {
         showToast("操作成功！");
+        finish();
     }
 }

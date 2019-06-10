@@ -411,7 +411,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
             }
         };
         adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
-            if (type == 0 && isShunYan) {   //可编辑
+            if ((type == 0 && isShunYan) || isTaskEdit) {   //可编辑
                 PopAddTaskWindow window = getPopWindow();
                 window.setData(position, tasks.get(position));
                 window.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
@@ -508,6 +508,8 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 tasks.set(position, bean);
             }
             isTaskEdit = true;
+            isShunYan = true;
+            taskRightButton.setText("一键顺延");
             setTaskAdapter();
         });
         return window;
@@ -538,6 +540,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
             tasks.add(bean);
         }
         isTaskEdit = true;
+        taskRightButton.setText("一键顺延");
         setTaskAdapter();
     }
 
