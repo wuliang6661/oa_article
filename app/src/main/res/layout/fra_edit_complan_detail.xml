@@ -201,8 +201,9 @@
         android:layout_marginRight="16dp"
         android:background="@color/line_default_color" />
 
+
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/line_height"
         android:layout_marginLeft="40dp"
         android:gravity="center_vertical"
@@ -211,53 +212,46 @@
         android:textSize="13sp" />
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="131dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:orientation="horizontal">
+        android:layout_marginLeft="40dp">
 
-        <RelativeLayout
-            android:layout_width="131dp"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/zhizhao"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/image_update_add" />
+        <ImageView
+            android:id="@+id/zhizhao"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/image_update_add" />
 
 
-            <ImageView
-                android:id="@+id/delete_zhizhao"
-                android:layout_width="17dp"
-                android:layout_height="17dp"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/delete_img"
-                android:visibility="gone" />
+        <ImageView
+            android:id="@+id/delete_zhizhao"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/delete_img"
+            android:visibility="gone" />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/zhizhao"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="8dp"
-                android:background="@null"
-                android:singleLine="true"
-                android:text="执照.jpg"
-                android:textColor="#B8B8B8"
-                android:textSize="12sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/zhizhao"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="8dp"
+            android:background="@null"
+            android:singleLine="true"
+            android:text="执照.jpg"
+            android:textColor="#B8B8B8"
+            android:textSize="12sp" />
 
 
-        </RelativeLayout>
+    </RelativeLayout>
 
-    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

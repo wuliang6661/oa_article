@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -116,7 +117,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     @BindView(R.id.today_point)
     TextView todayPoint;
     @BindView(R.id.last_radio)
-    RadioButton lastRadio;
+    CheckBox lastRadio;
 
     private int selectPosition = 0;
     private BottmTabItem[] buttms;
@@ -314,10 +315,11 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             lastRadio.setChecked(false);
         });
         lastRadio.setOnCheckedChangeListener((compoundButton, b) -> {
-            taskUnfinish.setChecked(false);
-            taskWay.setChecked(false);
-            taskOff.setChecked(false);
-            taskRadio = "3";
+            if (b) {
+                radioGroupTask.clearCheck();
+                lastRadio.setChecked(true);
+                taskRadio = "3";
+            }
         });
         fourRadioLayout.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {

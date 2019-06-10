@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.article.oa_article.R;
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.HttpServerImpl;
+import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.AcceptedOrderBo;
 import com.article.oa_article.bean.event.MsgNumEvent;
 import com.article.oa_article.bean.event.OpenDrawableEvent;
@@ -200,6 +201,10 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
         popWindow.setListener(new HomeAddPopWindow.OnClickListener() {
             @Override
             public void clickCreateOrder() {
+                if (!MyApplication.isHaveCommon()) {
+                    showToast("暂无企业，不能操作！");
+                    return;
+                }
                 Bundle bundle = new Bundle();
                 bundle.putBoolean("isWaibu", false);
                 gotoActivity(CreateActivity.class, bundle, false);
@@ -207,6 +212,10 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
 
             @Override
             public void clickCreateMoBan() {
+                if (!MyApplication.isHaveCommon()) {
+                    showToast("暂无企业，不能操作！");
+                    return;
+                }
                 Intent intent = new Intent(getActivity(), MobanManagerActivity.class);
                 intent.putExtra("isShowMake", false);
                 startActivity(intent);

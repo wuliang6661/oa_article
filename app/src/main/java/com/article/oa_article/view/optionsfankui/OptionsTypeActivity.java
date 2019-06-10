@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.view.View;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,9 +14,8 @@ import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.http.PersonServiceImpl;
 import com.article.oa_article.base.BaseActivity;
 import com.article.oa_article.bean.FankuiTypeBO;
-import com.zhy.view.flowlayout.FlowLayout;
-import com.zhy.view.flowlayout.TagAdapter;
-import com.zhy.view.flowlayout.TagFlowLayout;
+import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
+import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
 import java.util.List;
 
@@ -27,8 +27,8 @@ public class OptionsTypeActivity extends BaseActivity {
 
     @BindView(R.id.recycle_title)
     TextView recycleTitle;
-    @BindView(R.id.flow_layout)
-    TagFlowLayout flowLayout;
+    @BindView(R.id.tag_recycle)
+    RecyclerView tagRecycle;
     @BindView(R.id.next_button)
     Button nextButton;
 
@@ -47,6 +47,8 @@ public class OptionsTypeActivity extends BaseActivity {
         goBack();
         setTitleText("意见反馈");
         recycleTitle.setText("反馈类型");
+        GridLayoutManager manager = new GridLayoutManager(this, 3);
+        tagRecycle.setLayoutManager(manager);
         getFeedType();
     }
 
@@ -68,16 +70,15 @@ public class OptionsTypeActivity extends BaseActivity {
             @Override
             public void onSuccess(List<FankuiTypeBO> s) {
                 FlowAdapter adapter = new FlowAdapter(s);
-                flowLayout.setAdapter(adapter);
+                adapter.setOnItemClickListener(R.id.flow_text, (view, position) -> {
+                    adapter.setSelectPosition(position);
+                    adapter.notifyDataSetChanged();
+                    fankuiTypeBO = s.get(position);
+                });
+                tagRecycle.setAdapter(adapter);
                 if (!s.isEmpty()) {
                     fankuiTypeBO = s.get(0);
                 }
-                flowLayout.setOnTagClickListener((view, position, parent) -> {
-                    adapter.setSelectPosition(position);
-                    adapter.notifyDataChanged();
-                    fankuiTypeBO = s.get(position);
-                    return true;
-                });
             }
 
             @Override
@@ -88,7 +89,7 @@ public class OptionsTypeActivity extends BaseActivity {
     }
 
 
-    class FlowAdapter extends TagAdapter<FankuiTypeBO> {
+    class FlowAdapter extends LGRecycleViewAdapter<FankuiTypeBO> {
 
         int selectPosition = 0;
 
@@ -102,10 +103,13 @@ public class OptionsTypeActivity extends BaseActivity {
         }
 
         @Override
-        public View getView(FlowLayout parent, int position, FankuiTypeBO buMenFlowBO) {
-            View view = getLayoutInflater().inflate(R.layout.item_bumen_flow,
-                    null);
-            TextView bumenText = view.findViewById(R.id.flow_text);
+        public int getLayoutId(int viewType) {
+            return R.layout.item_bumen_flow;
+        }
+
+        @Override
+        public void convert(LGViewHolder holder, FankuiTypeBO buMenFlowBO, int position) {
+            TextView bumenText = (TextView) holder.getView(R.id.flow_text);
             bumenText.setText(buMenFlowBO.getName());
             if (position == selectPosition) {
                 bumenText.setTextColor(ContextCompat.getColor(OptionsTypeActivity.this, R.color.blue_color));
@@ -114,7 +118,6 @@ public class OptionsTypeActivity extends BaseActivity {
                 bumenText.setTextColor(ContextCompat.getColor(OptionsTypeActivity.this, R.color.tab_txt_color));
                 bumenText.setBackgroundResource(R.drawable.menu_item_bg);
             }
-            return view;
         }
     }
 

@@ -170,7 +170,7 @@
 
     </RadioGroup>
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/last_radio"
         android:layout_width="68dp"
         android:layout_height="25dp"
