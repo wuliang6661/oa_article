@@ -51,7 +51,7 @@ public class ImageRecycleAdapter extends RecyclerView.Adapter<ImageRecycleAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHodler holder, int position) {
-        if (position >= imageBOS.size()) {
+        if (imageBOS.size() == 0 || position >= imageBOS.size()) {
             holder.imageView.setImageResource(R.drawable.image_update_add);
             holder.title.setVisibility(View.INVISIBLE);
             holder.deleteImage.setVisibility(View.GONE);
@@ -61,12 +61,8 @@ public class ImageRecycleAdapter extends RecyclerView.Adapter<ImageRecycleAdapte
             holder.title.setVisibility(View.VISIBLE);
             holder.title.setText(imageBOS.get(position).name);
         }
-//        if (!isDelete) {
-//            holder.deleteImage.setVisibility(View.GONE);
-//        }
-
         holder.imageView.setOnClickListener(view -> {
-            if (position >= imageBOS.size()) {
+            if (imageBOS.size() == 0 || position >= imageBOS.size()) {
                 if (listener != null) {
                     listener.addImage(clickPosition);
                 }
@@ -83,10 +79,13 @@ public class ImageRecycleAdapter extends RecyclerView.Adapter<ImageRecycleAdapte
 
     @Override
     public int getItemCount() {
-        if (imageBOS.isEmpty()) {
+        if (imageBOS.size() == 0) {
             return 1;
         }
-        return imageBOS.size() + 1;
+        if (imageBOS.size() < 6) {
+            return imageBOS.size() + 1;
+        }
+        return 6;
     }
 
 
