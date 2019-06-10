@@ -3,6 +3,7 @@ package com.article.oa_article.view.order_details;
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.HttpServerImpl;
 import com.article.oa_article.api.http.TaskServiceImpl;
+import com.article.oa_article.bean.CanEditTaskBO;
 import com.article.oa_article.bean.OrderInfoBo;
 import com.article.oa_article.bean.PenPaiTaskBO;
 import com.article.oa_article.bean.TaskDetails;
@@ -54,6 +55,27 @@ public class Order_detailsPresenter extends BasePresenterImpl<Order_detailsContr
             public void onSuccess(List<PenPaiTaskBO> orderInfoBo) {
                 if (mView != null) {
                     mView.getTaskList(orderInfoBo);
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
+
+    /**
+     * 获取任务列表是否可编辑
+     */
+    public void tashCanEdit(IdTypeRequest request) {
+        TaskServiceImpl.taskCanEdit(request).subscribe(new HttpResultSubscriber<CanEditTaskBO>() {
+            @Override
+            public void onSuccess(CanEditTaskBO s) {
+                if (mView != null) {
+                    mView.taskCanEdit(s.getCanEdit() == 1);
                 }
             }
 

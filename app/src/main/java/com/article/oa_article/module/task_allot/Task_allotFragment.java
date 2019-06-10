@@ -180,7 +180,6 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
             case R.id.moban_add:
                 Intent intent = new Intent(getActivity(), MobanManagerActivity.class);
                 startActivityForResult(intent, 0x11);
-//                gotoActivity(MobanManagerActivity.class, false);
                 break;
             case R.id.task_suress:   //完成
                 if ("电脑上传".equals(taskSuress.getText().toString().trim())) {
@@ -229,7 +228,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     /**
      * 设置是否可编辑
      */
-    public void isEdit(int type, boolean isCreateOrder) {
+    public void isEdit(int type) {
         this.type = type;
         new Handler().post(() -> {
             if (type == 0) {   //可编辑
@@ -465,7 +464,6 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         taskRightButton.setVisibility(View.VISIBLE);
         addTaskLayout.setVisibility(View.GONE);
         EventBus.getDefault().post(new UpdateTaskEvent());
-//        setTaskAdapter();
     }
 
     @Override
@@ -515,19 +513,6 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         return window;
     }
 
-//    private boolean isVisiable = false;
-//
-//    @Override
-//    public void onSupportInvisible() {
-//        super.onSupportInvisible();
-//        isVisiable = true;
-//    }
-//
-//    @Override
-//    public void onPause() {
-//        super.onPause();
-//        isVisiable = false;
-//    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(List<MuBanTaskBO> muBanTaskBOS) {

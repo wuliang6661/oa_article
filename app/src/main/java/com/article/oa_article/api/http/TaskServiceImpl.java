@@ -3,18 +3,18 @@ package com.article.oa_article.api.http;
 import com.article.oa_article.api.ApiManager;
 import com.article.oa_article.api.HttpService;
 import com.article.oa_article.base.MyApplication;
+import com.article.oa_article.bean.CanEditTaskBO;
 import com.article.oa_article.bean.TaskCenterBo;
 import com.article.oa_article.bean.TaskDetails;
 import com.article.oa_article.bean.request.AddTaskRequest;
 import com.article.oa_article.bean.request.CommitTaskRequest;
 import com.article.oa_article.bean.request.IdRequest;
+import com.article.oa_article.bean.request.IdTypeRequest;
 import com.article.oa_article.bean.request.PageRequest;
 import com.article.oa_article.bean.request.ShunYanRequest;
 import com.article.oa_article.bean.request.TaskModeRequest;
 import com.article.oa_article.bean.request.TaskNumRequest;
-import com.article.oa_article.bean.request.TokenRequest;
 import com.article.oa_article.util.rx.RxResultHelper;
-import com.article.oa_article.view.myscope.MyScopeActivity;
 
 import java.util.List;
 
@@ -114,5 +114,14 @@ public class TaskServiceImpl {
         return getService().getTaskCenterList(request).compose(RxResultHelper.httpRusult());
     }
 
+    /**
+     * 任务列表是否可编辑
+     */
+    public static Observable<CanEditTaskBO> taskCanEdit(IdTypeRequest request) {
+        request.setToken(MyApplication.token);
+        request.setPageNum(1);
+        request.setPageSize(1000);
+        return getService().taskCanEdit(request).compose(RxResultHelper.httpRusult());
+    }
 
 }

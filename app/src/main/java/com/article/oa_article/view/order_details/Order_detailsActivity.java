@@ -217,24 +217,25 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
             btnAlbum.setText("取消订单");
             btnAlbum.setVisibility(View.VISIBLE);
         }
-        if (orderInfoBo.getOrderInfo().getCanEdit() == 0) {  //不可编辑
-            taskIsEdit = 1;
-        } else {  //可编辑
-            taskIsEdit = 0;
-        }
+//        if (orderInfoBo.getOrderInfo().getCanEdit() == 0) {  //不可编辑
+//            taskIsEdit = 1;
+//        } else {  //可编辑
+//            taskIsEdit = 0;
+//        }
         mPresenter.getTaskList(request);
     }
 
+    List<PenPaiTaskBO> taskBOS;
 
     /**
      * 任务列表
      */
     @Override
     public void getTaskList(List<PenPaiTaskBO> taskBOList) {
+        taskBOS = taskBOList;
         FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.task_allot);
-        fragment.setTaskList(taskIsEdit, taskBOList);
         fragment.setIsOrder(isOrder, id);
-        fragment.isEdit(taskIsEdit, isCreateOrder);
+        mPresenter.tashCanEdit(request);
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -254,6 +255,17 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
             taskPersonName.setText(details.getTaskInfo().getNickName());
             parentTask = details;
         }
+    }
+
+    @Override
+    public void taskCanEdit(boolean isCanEdit) {
+        if (isCanEdit) {
+            taskIsEdit = 0;
+        } else {
+            taskIsEdit = 1;
+        }
+        fragment.setTaskList(taskIsEdit, taskBOS);
+        fragment.isEdit(taskIsEdit);
     }
 
 

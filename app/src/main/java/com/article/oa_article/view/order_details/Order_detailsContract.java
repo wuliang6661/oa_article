@@ -21,6 +21,8 @@ public class Order_detailsContract {
         void getTaskList(List<PenPaiTaskBO> taskBOList);
 
         void getTaskInfo(TaskDetails details);
+
+        void taskCanEdit(boolean isCanEdit);
     }
 
     interface Presenter extends BasePresenter<View> {
