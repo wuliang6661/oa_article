@@ -77,9 +77,9 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         });
         requestPermission();
         if (BuildConfig.DEBUG) {
-            editPhone.setText("18368163483");
+            editPhone.setText("15151977426");
             // 15726818192
-            editPassword.setText("123456");
+            editPassword.setText("111111");
         }
     }
 

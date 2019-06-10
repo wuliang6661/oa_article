@@ -22,8 +22,12 @@ import com.article.oa_article.module.complanydetails.ComplanyDetailsFragment;
 import com.article.oa_article.module.complanyshili.ComplanyshiliFragment;
 import com.article.oa_article.module.complanyzizhi.ComplanyZizhiFragment;
 import com.article.oa_article.mvp.MVPBaseActivity;
+import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
+import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.makeramen.roundedimageview.RoundedImageView;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -76,10 +80,20 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
     FrameLayout chanlian;
     @BindView(R.id.pingfen_layout)
     LinearLayout pingfenLayout;
+    @BindView(R.id.complan_name_switch)
+    TextView complanNameSwitch;
+    @BindView(R.id.complan_check)
+    CheckBox complanCheck;
+    @BindView(R.id.title_layout)
+    LinearLayout titleLayout;
 
     private boolean isNeiBu = false;   //是否是内部员工
     private int userId;    //人员Id
     private String departName;   //部门名称
+
+    private List<UserOutInfo.CompanysBean> outComplans;
+    private int selectPosition = 0;
+    UserOutInfo info;
 
 
     @Override
@@ -93,7 +107,6 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
         super.onCreate(savedInstanceState);
 
         goBack();
-        setTitleText("");
 
         isNeiBu = getIntent().getExtras().getBoolean("isNeiBu");
         userId = getIntent().getExtras().getInt("personId");
@@ -109,7 +122,6 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
             UserOutRequest request = new UserOutRequest();
             request.setUserId(userId);
             mPresenter.getOutUserInfo(request);
-            mPresenter.getComplanMsg();
         }
     }
 
@@ -172,6 +184,32 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
     }
 
 
+    @OnClick(R.id.title_layout)
+    public void switchComplan() {
+        showAleatDialog();
+    }
+
+
+    private void showAleatDialog() {
+        SwitchPop switchPop = new SwitchPop(this, outComplans);
+        switchPop.setListener(new SwitchPop.OnSelectComplan() {
+            @Override
+            public void selectComplan(int position) {
+                selectPosition = position;
+                mPresenter.getComplanMsg(outComplans.get(selectPosition).getCompanyId());
+                showComplanInfo();
+            }
+
+            @Override
+            public void addComplan() {
+
+            }
+        });
+        switchPop.setSelect(selectPosition);
+        switchPop.showPop(complanNameSwitch);
+    }
+
+
     @Override
     public void onRequestError(String msg) {
         showToast(msg);
@@ -196,21 +234,38 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
 
     @Override
     public void getUserOutInfo(UserOutInfo info) {
+        this.info = info;
         GlideApp.with(this).load(info.getImage()).error(R.drawable.person_img_defailt)
                 .placeholder(R.drawable.person_img_defailt).into(personImg);
         userName.setText(info.getNickName());
         userPhone.setText(info.getPhone());
-        complanName.setText(info.getCompanys().get(0).getCompanyName());
-//        userLable.setText(inInfoBo.getDepartName());
-        wanchenglv.setText(info.getCompanys().get(0).getCompleteRate());
         pingfen.setText(info.getScore() + "");
-        yuqilv.setText(info.getCompanys().get(0).getOverdueRate());
+        userLable.setVisibility(View.GONE);
+//        userLable.setText(info.get());
+
+        outComplans = info.getCompanys();
+        mPresenter.getComplanMsg(info.getCompanys().isEmpty() ? 0 : info.getCompanys().get(selectPosition).getCompanyId());
+        titleLayout.setVisibility(View.VISIBLE);
+
+        showComplanInfo();
+    }
+
+
+    /**
+     * 根据切换显示不同公司信息
+     */
+    public void showComplanInfo() {
+        complanName.setText(info.getCompanys().get(selectPosition).getCompanyName());
+        wanchenglv.setText(info.getCompanys().get(selectPosition).getCompleteRate());
+        yuqilv.setText(info.getCompanys().get(selectPosition).getOverdueRate());
+        complanNameSwitch.setText(info.getCompanys().get(selectPosition).getCompanyName());
 
         ChatLineFragment fragment = ChatLineFragment.getInstance(1);
-        fragment.setUserBo(userId, info.getCompanys().get(0).getCompanyId());
         FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.chanlian);
-        fragment.setUnit(info.getCompanys().get(0).getUnit());
+        fragment.setUserBo(userId, info.getCompanys().get(selectPosition).getCompanyId());
+        fragment.setUnit(info.getCompanys().get(selectPosition).getUnit());
     }
+
 
     @Override
     public void getComplanInfo(ComplanBO complanBO) {
@@ -226,4 +281,36 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
         zizhiFragment.setComplanBo(complanBO);
         shiliFragment.setComplanBo(complanBO);
     }
+
+
+    class DlalogAdapter extends LGRecycleViewAdapter<UserOutInfo.CompanysBean> {
+
+        int select = 0;
+
+
+        public DlalogAdapter(List<UserOutInfo.CompanysBean> dataList) {
+            super(dataList);
+        }
+
+        public void setPosition(int select) {
+            this.select = select;
+        }
+
+        @Override
+        public int getLayoutId(int viewType) {
+            return R.layout.item_complany;
+        }
+
+        @Override
+        public void convert(LGViewHolder holder, UserOutInfo.CompanysBean companysBean, int position) {
+            holder.setText(R.id.complny_name, companysBean.getCompanyName());
+            CheckBox checkBox = (CheckBox) holder.getView(R.id.checkbox);
+            if (select == position) {
+                checkBox.setChecked(true);
+            } else {
+                checkBox.setChecked(false);
+            }
+        }
+    }
+
 }

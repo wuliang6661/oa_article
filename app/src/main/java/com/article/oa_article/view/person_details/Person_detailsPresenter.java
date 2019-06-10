@@ -57,8 +57,8 @@ public class Person_detailsPresenter extends BasePresenterImpl<Person_detailsCon
     /**
      * 查询企业认证信息
      */
-    public void getComplanMsg() {
-        PersonServiceImpl.getComplanMsg().subscribe(new HttpResultSubscriber<ComplanBO>() {
+    public void getComplanMsg(int complanId) {
+        PersonServiceImpl.getOutComplanInfo(complanId).subscribe(new HttpResultSubscriber<ComplanBO>() {
             @Override
             public void onSuccess(ComplanBO s) {
                 if (mView != null) {

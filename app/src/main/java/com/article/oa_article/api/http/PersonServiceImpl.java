@@ -246,6 +246,16 @@ public class PersonServiceImpl {
     }
 
     /**
+     * 查询外部联系人详情
+     */
+    public static Observable<ComplanBO> getOutComplanInfo(int complanId) {
+        IdRequest request = new IdRequest();
+        request.setId(complanId);
+        request.setToken(MyApplication.token);
+        return getService().getComplanMsg(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
      * 获取外部联系人标签
      */
     public static Observable<LableBo> getAllLables() {
