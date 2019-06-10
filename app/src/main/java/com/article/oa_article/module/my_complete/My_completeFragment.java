@@ -118,7 +118,7 @@ public class My_completeFragment extends MVPBaseFragment<My_completeContract.Vie
 
     @OnClick(R.id.next_button)
     public void commitTask() {
-        new AlertDialog(Objects.requireNonNull(getActivity())).builder().setGone().setMsg("确认完成任务？")
+        new AlertDialog(Objects.requireNonNull(getActivity())).builder().setGone().setMsg("点击任务完成后无法更改，\n确认是否已完成该任务？")
                 .setNegativeButton("取消", null)
                 .setPositiveButton("确定", v -> mPresenter.commitTask(taskBean.getTaskInfo().getId())).show();
 

@@ -22,8 +22,6 @@ import com.article.oa_article.module.complanydetails.ComplanyDetailsFragment;
 import com.article.oa_article.module.complanyshili.ComplanyshiliFragment;
 import com.article.oa_article.module.complanyzizhi.ComplanyZizhiFragment;
 import com.article.oa_article.mvp.MVPBaseActivity;
-import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
-import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -281,36 +279,4 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
         zizhiFragment.setComplanBo(complanBO);
         shiliFragment.setComplanBo(complanBO);
     }
-
-
-    class DlalogAdapter extends LGRecycleViewAdapter<UserOutInfo.CompanysBean> {
-
-        int select = 0;
-
-
-        public DlalogAdapter(List<UserOutInfo.CompanysBean> dataList) {
-            super(dataList);
-        }
-
-        public void setPosition(int select) {
-            this.select = select;
-        }
-
-        @Override
-        public int getLayoutId(int viewType) {
-            return R.layout.item_complany;
-        }
-
-        @Override
-        public void convert(LGViewHolder holder, UserOutInfo.CompanysBean companysBean, int position) {
-            holder.setText(R.id.complny_name, companysBean.getCompanyName());
-            CheckBox checkBox = (CheckBox) holder.getView(R.id.checkbox);
-            if (select == position) {
-                checkBox.setChecked(true);
-            } else {
-                checkBox.setChecked(false);
-            }
-        }
-    }
-
 }
