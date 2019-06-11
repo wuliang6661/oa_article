@@ -74,10 +74,10 @@ public class ImageAddAdapter extends RecyclerView.Adapter<ImageAddAdapter.ViewHo
         if (imageBOS.size() == 0) {
             return 1;
         }
-        if (imageBOS.size() < 9) {
+        if (imageBOS.size() < 4) {
             return imageBOS.size() + 1;
         }
-        return 9;
+        return 4;
     }
 
     class ViewHodler extends RecyclerView.ViewHolder {
