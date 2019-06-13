@@ -30,6 +30,9 @@ public class RxResultHelper {
                         return createData(mDYResponse.getData());
                     } else if (mDYResponse.getCode() == 421) {   //重新登录
                         Activity activity = AppManager.getAppManager().curremtActivity();
+                        if (activity instanceof LoginActivity) {
+                            return Observable.error(new RuntimeException(mDYResponse.getMsg()));
+                        }
                         Intent intent = new Intent(activity, LoginActivity.class);
                         ToastUtils.showShort("登录已过期，请重新登录！");
                         AppManager.getAppManager().finishAllActivity();

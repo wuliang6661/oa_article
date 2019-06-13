@@ -94,7 +94,6 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
 
     int taskIsEdit = 0;   //可编辑
     private boolean isEditOrder = false;  //是否是修改订单
-    private boolean isCreateOrder = false;  //是否创建订单进入
 
     @Override
     protected int getLayout() {
@@ -113,7 +112,6 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         isOrder = getIntent().getExtras().getBoolean("isOrder", true);
         id = getIntent().getExtras().getInt("id");
         isEditOrder = getIntent().getExtras().getBoolean("isEditOrder", false);
-        isCreateOrder = getIntent().getExtras().getBoolean("isCreateOrder", false);
 
         fragment = new Task_allotFragment();
         request = new IdTypeRequest();
@@ -161,9 +159,19 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         if (fragment.getIsTaskEdit()) {
             new AlertDialog(this).builder().setGone().setMsg("您还未保存已分派的任务\n确定继续退出？")
                     .setNegativeButton("取消", null)
-                    .setPositiveButton("确定", v -> AppManager.getAppManager().goHome()).show();
+                    .setPositiveButton("确定", v -> {
+                        if (isEditOrder) {
+                            finish();
+                        } else {
+                            AppManager.getAppManager().goHome();
+                        }
+                    }).show();
         } else {
-            AppManager.getAppManager().goHome();
+            if (isEditOrder) {
+                finish();
+            } else {
+                AppManager.getAppManager().goHome();
+            }
         }
     }
 
