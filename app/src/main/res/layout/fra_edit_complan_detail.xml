@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_height"
         app:edit_max_length="4"
-        app:hint_text="请输入公司简称"
+        app:hint_text="请填写4字内企业简称"
         app:title_text="公司简称" />
 
 
@@ -80,7 +80,6 @@
         android:id="@+id/complan_email"
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_height"
-        app:edit_max_length="20"
         app:hint_text="请输入企业邮箱"
         app:title_text="企业邮箱" />
 
@@ -327,7 +326,7 @@
         android:layout_marginRight="3dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/button_bg"
-        android:text="完成"
+        android:text="保存"
         android:textColor="@color/text_white"
         android:textSize="18sp"
         android:visibility="gone" />

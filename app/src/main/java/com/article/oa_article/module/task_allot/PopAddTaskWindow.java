@@ -137,10 +137,6 @@ public class PopAddTaskWindow extends PopupWindow {
                         ToastUtils.showShort("请输入分派数量!");
                         return;
                     }
-                    if (StringUtils.isEmpty(strDanwei)) {
-                        ToastUtils.showShort("请输入单位!");
-                        return;
-                    }
                     if (StringUtils.isEmpty(strDate)) {
                         ToastUtils.showShort("请选择任务时限!");
                         return;

@@ -278,7 +278,7 @@
         android:layout_marginRight="3dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/button_bg"
-        android:text="完成"
+        android:text="保存"
         android:textColor="@color/text_white"
         android:textSize="18sp"
         android:visibility="gone" />

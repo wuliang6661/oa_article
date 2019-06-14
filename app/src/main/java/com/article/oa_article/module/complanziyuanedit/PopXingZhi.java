@@ -76,9 +76,14 @@ public class PopXingZhi extends PopupWindow {
 
     private List<String> getData() {
         List<String> data = new ArrayList<>();
-        data.add("租赁");
         data.add("自建");
+        data.add("租赁");
         return data;
+    }
+
+
+    public void setSelectPosition(int position) {
+        startYear.setItems(getData(), position);
     }
 
 

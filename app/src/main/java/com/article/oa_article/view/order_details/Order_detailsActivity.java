@@ -157,7 +157,7 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
     @OnClick(R.id.back)
     public void back() {
         if (fragment.getIsTaskEdit()) {
-            new AlertDialog(this).builder().setGone().setMsg("您还未保存已分派的任务\n确定继续退出？")
+            new AlertDialog(this).builder().setGone().setMsg("您分派的任务还未保存\n是否确认放弃分派任务？")
                     .setNegativeButton("取消", null)
                     .setPositiveButton("确定", v -> {
                         if (isEditOrder) {
@@ -208,8 +208,8 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
     @Override
     public void getOrderInfo(OrderInfoBo orderInfoBo) {
         this.infoBo = orderInfoBo;
-        setTitleText(orderInfoBo.getOrderInfo().getCompanyOrderName());
-        orderNum.setText(orderInfoBo.getOrderInfo().getCompanyOrderNum());
+        setTitleText(orderInfoBo.getOrderInfo().getClientOrderName());
+        orderNum.setText(orderInfoBo.getOrderInfo().getClientOrderNum());
         orderNum.setVisibility(View.VISIBLE);
         if (!isEditOrder) {   //显示订单详情
             if (detailsFragment == null) {

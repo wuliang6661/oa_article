@@ -89,6 +89,8 @@ public class ComplanZiyuanEditFragment extends MVPBaseFragment<ComplanZiyuanEdit
 
     List<ImageBO> devicesImage;
 
+    private int selectXingZhi = 0;   //0：自建  1 租赁
+
 
     @Nullable
     @Override
@@ -207,7 +209,11 @@ public class ComplanZiyuanEditFragment extends MVPBaseFragment<ComplanZiyuanEdit
     @OnClick(R.id.select_person)
     public void selectXingzhi() {
         PopXingZhi xingZhi = new PopXingZhi(getActivity());
-        xingZhi.setListener((position, item) -> personName.setText(item));
+        xingZhi.setSelectPosition(selectXingZhi);
+        xingZhi.setListener((position, item) -> {
+            personName.setText(item);
+            selectXingZhi = "自建".equals(item) ? 0 : 1;
+        });
         xingZhi.showAtLocation(getActivity().getWindow().getDecorView());
     }
 
@@ -400,6 +406,7 @@ public class ComplanZiyuanEditFragment extends MVPBaseFragment<ComplanZiyuanEdit
             complanChangfangMianji.setText(complanBO.getCompanyInfos().getPlantArea() + "");
             devicesImage = complanBO.getCompanyInfos().getPlantImage();
             personName.setText(complanBO.getCompanyInfos().getPlantNature() == 0 ? "自建" : "租赁");
+            selectXingZhi = complanBO.getCompanyInfos().getPlantNature();
             devices.clear();
             for (int i = 0; i < complanBO.getDevices().size(); i++) {
                 AddComplanRequest.CompanyDevicesBean bean = new AddComplanRequest.CompanyDevicesBean();

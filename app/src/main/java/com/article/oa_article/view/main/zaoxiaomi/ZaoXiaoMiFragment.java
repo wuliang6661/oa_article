@@ -151,10 +151,10 @@ public class ZaoXiaoMiFragment extends MVPBaseFragment<ZaoXiaoMiContract.View, Z
             View inflate = View.inflate(getActivity(), R.layout.tab_zaoxiaomi_layout, null);
             TextView textView = inflate.findViewById(R.id.today_text);
             if (i == 0) {
-                textView.setText("已逾期");
+                textView.setText("已逾期任务");
                 textView.setTextColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.blue_color));
             } else {
-                textView.setText("今日到期");
+                textView.setText("今日到期任务");
             }
             tab.setCustomView(inflate);
             tabLayout.addTab(tab);
