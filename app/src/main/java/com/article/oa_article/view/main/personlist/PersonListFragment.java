@@ -185,32 +185,40 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
 
 
     private void setAddVisiable() {
-        if (!MyApplication.isHaveCommon()) {
-            addImg.setVisibility(View.GONE);
-            jiangeLine.setVisibility(View.VISIBLE);
-            return;
-        }
         if (isSelectPerson) {
             addImg.setVisibility(View.GONE);
             jiangeLine.setVisibility(View.VISIBLE);
         } else {
-            if (selectMenu == 1) {
-                if (MyApplication.getCommon().getIsAdmin() == 1) {
-                    addImg.setVisibility(View.VISIBLE);
-                    jiangeLine.setVisibility(View.GONE);
-                } else {
-                    addImg.setVisibility(View.GONE);
-                    jiangeLine.setVisibility(View.VISIBLE);
-                }
-            } else {
-                addImg.setVisibility(View.VISIBLE);
-                jiangeLine.setVisibility(View.GONE);
-            }
+//            if (selectMenu == 1) {
+//                if (MyApplication.getCommon().getIsAdmin() == 1) {
+            addImg.setVisibility(View.VISIBLE);
+            jiangeLine.setVisibility(View.GONE);
+//                } else {
+//                    addImg.setVisibility(View.GONE);
+//                    jiangeLine.setVisibility(View.VISIBLE);
+//                }
+//            } else {
+//                addImg.setVisibility(View.VISIBLE);
+//                jiangeLine.setVisibility(View.GONE);
+//            }
+//            if (!MyApplication.isHaveCommon()) {
+//                addImg.setVisibility(View.GONE);
+//                jiangeLine.setVisibility(View.VISIBLE);
+//                return;
+//            }
         }
     }
 
     @OnClick(R.id.add_img)
     public void addImage() {
+        if (!MyApplication.isHaveCommon()) {
+            showToast("暂无企业，无法添加好友！");
+            return;
+        }
+        if (selectMenu == 1 && MyApplication.getCommon().getIsAdmin() != 1) {
+            showToast("您不是管理员，无法添加内部联系人");
+            return;
+        }
         PopPersonAdd addPop = new PopPersonAdd(getActivity());
         addPop.setListener(new PopPersonAdd.onCommitListener() {
             @Override
@@ -237,8 +245,6 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
             complanyImg.setVisibility(View.GONE);
             if (!MyApplication.isHaveCommon()) {
                 complanName.setText("暂无企业");
-                addImg.setVisibility(View.GONE);
-                jiangeLine.setVisibility(View.VISIBLE);
                 return;
             }
             complanName.setText(MyApplication.getCommon().getCompanyName());
@@ -282,28 +288,27 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
     public void setIsSelectPerson(boolean isSelectPerson) {
         this.isSelectPerson = isSelectPerson;
         new Handler().post(() -> {
-            if (MyApplication.getCommon() == null || MyApplication.getCommonId().equals("0")) {
-                complanName.setText("暂无企业");
-                addImg.setVisibility(View.GONE);
-                jiangeLine.setVisibility(View.VISIBLE);
-                return;
-            }
             if (isSelectPerson) {
                 addImg.setVisibility(View.GONE);
                 jiangeLine.setVisibility(View.VISIBLE);
             } else {
-                if (selectMenu == 1) {
-                    if (MyApplication.getCommon().getIsAdmin() == 1) {
-                        addImg.setVisibility(View.VISIBLE);
-                        jiangeLine.setVisibility(View.GONE);
-                    } else {
-                        addImg.setVisibility(View.GONE);
-                        jiangeLine.setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    addImg.setVisibility(View.VISIBLE);
-                    jiangeLine.setVisibility(View.GONE);
+                addImg.setVisibility(View.VISIBLE);
+                jiangeLine.setVisibility(View.GONE);
+                if (!MyApplication.isHaveCommon()) {
+                    complanName.setText("暂无企业");
                 }
+//                if (selectMenu == 1) {
+//                    if (MyApplication.getCommon().getIsAdmin() == 1) {
+//                        addImg.setVisibility(View.VISIBLE);
+//                        jiangeLine.setVisibility(View.GONE);
+//                    } else {
+//                        addImg.setVisibility(View.GONE);
+//                        jiangeLine.setVisibility(View.VISIBLE);
+//                    }
+//                } else {
+//                    addImg.setVisibility(View.VISIBLE);
+//                    jiangeLine.setVisibility(View.GONE);
+//                }
             }
         });
     }
