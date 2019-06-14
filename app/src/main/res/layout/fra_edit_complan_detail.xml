@@ -80,6 +80,7 @@
         android:id="@+id/complan_email"
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_height"
+        app:edit_max_length="200"
         app:hint_text="请输入企业邮箱"
         app:title_text="企业邮箱" />
 

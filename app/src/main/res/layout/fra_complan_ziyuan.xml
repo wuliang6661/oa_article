@@ -33,16 +33,63 @@
 
     </LinearLayout>
 
-
-    <com.article.oa_article.widget.EditMsgText
-        android:id="@+id/complan_guanli_num"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/line_height"
-        app:edit_max_length="9"
-        app:edit_type="1"
-        app:hint_text="请输入管理人员数"
-        app:title_text="管理人员" />
+        android:layout_height="50dp">
 
+        <com.article.oa_article.widget.EditMsgText
+            android:id="@+id/complan_guanli_num"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            app:edit_max_length="9"
+            app:edit_type="1"
+            app:hint_text="请输入管理人员数"
+            app:title_text="管理人员" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:text="个"
+            android:textColor="@color/hint_color"
+            android:textSize="13sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/line_default_color" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+
+        <com.article.oa_article.widget.EditMsgText
+            android:id="@+id/complan_jishu_num"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            app:edit_max_length="9"
+            app:edit_type="1"
+            app:hint_text="请输入技术人员数"
+            app:title_text="技术人员" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:text="个"
+            android:textColor="@color/hint_color"
+            android:textSize="13sp" />
+
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
@@ -52,32 +99,31 @@
         android:background="@color/line_default_color" />
 
 
-    <com.article.oa_article.widget.EditMsgText
-        android:id="@+id/complan_jishu_num"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/line_height"
-        app:edit_max_length="9"
-        app:edit_type="1"
-        app:hint_text="请输入技术人员数"
-        app:title_text="技术人员" />
+        android:layout_height="50dp">
+
+        <com.article.oa_article.widget.EditMsgText
+            android:id="@+id/complan_pugong_num"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            app:edit_max_length="9"
+            app:edit_type="1"
+            app:hint_text="请输入普工人员数"
+            app:title_text="普工人员" />
 
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@color/line_default_color" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:text="个"
+            android:textColor="@color/hint_color"
+            android:textSize="13sp" />
 
-
-    <com.article.oa_article.widget.EditMsgText
-        android:id="@+id/complan_pugong_num"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/line_height"
-        app:edit_max_length="9"
-        app:edit_type="1"
-        app:hint_text="请输入普工人员数"
-        app:title_text="普工人员" />
+    </RelativeLayout>
 
 
     <View
@@ -173,14 +219,33 @@
     </LinearLayout>
 
 
-    <com.article.oa_article.widget.EditMsgText
-        android:id="@+id/complan_changfang_mianji"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/line_height"
-        app:edit_max_length="9"
-        app:edit_type="1"
-        app:hint_text="请输入厂房面积"
-        app:title_text="厂房面积" />
+        android:layout_height="50dp">
+
+
+        <com.article.oa_article.widget.EditMsgText
+            android:id="@+id/complan_changfang_mianji"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            app:edit_max_length="9"
+            app:edit_type="1"
+            app:hint_text="请输入厂房面积"
+            app:title_text="厂房面积" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:text="平方米"
+            android:textColor="@color/hint_color"
+            android:textSize="13sp" />
+
+
+    </RelativeLayout>
 
 
     <View

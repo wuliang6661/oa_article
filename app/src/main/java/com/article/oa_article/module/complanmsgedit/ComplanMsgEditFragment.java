@@ -113,7 +113,6 @@ public class ComplanMsgEditFragment extends MVPBaseFragment<ComplanMsgEditContra
         getPermission();
         cameraSavePath = new File(Environment.getExternalStorageDirectory().getPath() + "/" +
                 System.currentTimeMillis() + ".jpg");
-
     }
 
     @Override
