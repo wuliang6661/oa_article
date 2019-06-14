@@ -122,6 +122,7 @@
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@color/tab_select"
                 app:tabIndicatorHeight="2dp"
+                app:tabMaxWidth="0dp"
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/tab_select"
                 app:tabTextAppearance="@style/MyTablayoutstyleText"
