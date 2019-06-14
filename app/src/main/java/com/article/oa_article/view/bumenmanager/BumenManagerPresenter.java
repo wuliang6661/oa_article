@@ -1,7 +1,5 @@
 package com.article.oa_article.view.bumenmanager;
 
-import android.content.Context;
-
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.http.PersonServiceImpl;
 import com.article.oa_article.bean.BuMenFlowBO;
@@ -56,5 +54,38 @@ public class BumenManagerPresenter extends BasePresenterImpl<BumenManagerContrac
         });
     }
 
+
+    public void deleteDeart(String id) {
+        PersonServiceImpl.deleteDeart(Integer.parseInt(id)).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                getBumenList("");
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
+
+
+    public void updateBumenName(String id, String name) {
+        PersonServiceImpl.updateDeartName(Integer.parseInt(id), name).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                getBumenList("");
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
 
 }

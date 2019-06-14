@@ -88,6 +88,16 @@
             android:background="#2B2B2B" />
 
 
+        <ImageView
+            android:id="@+id/edit_img"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/edit_task_num"
+            android:visibility="gone" />
+
     </RelativeLayout>
 
 

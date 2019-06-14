@@ -33,6 +33,7 @@ import com.article.oa_article.bean.request.ScopeRequest;
 import com.article.oa_article.bean.request.TokenRequest;
 import com.article.oa_article.bean.request.UpdateDepartRequest;
 import com.article.oa_article.bean.request.UpdateShiliRequest;
+import com.article.oa_article.bean.request.UpdateUnitRequest;
 import com.article.oa_article.bean.request.UpdateZiYuanRequest;
 import com.article.oa_article.bean.request.UserInInfoRequest;
 import com.article.oa_article.bean.request.UserOutRequest;
@@ -388,5 +389,37 @@ public class PersonServiceImpl {
         request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
         request.setToken(MyApplication.token);
         return getService().updateCompanyInfo3(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 修改公司单位
+     */
+    public static Observable<String> updateUnit(String unit) {
+        UpdateUnitRequest request = new UpdateUnitRequest();
+        request.setId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setUnit(unit);
+        request.setToken(MyApplication.token);
+        return getService().updateUnit(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 删除部门
+     */
+    public static Observable<String> deleteDeart(int id) {
+        IdRequest request = new IdRequest();
+        request.setId(id);
+        request.setToken(MyApplication.token);
+        return getService().deleteDepart(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 修改部门名称
+     */
+    public static Observable<String> updateDeartName(int id, String name) {
+        IdRequest request = new IdRequest();
+        request.setToken(MyApplication.token);
+        request.setId(id);
+        request.setName(name);
+        return getService().updateDepartName(request).compose(RxResultHelper.httpRusult());
     }
 }

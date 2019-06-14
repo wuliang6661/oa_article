@@ -20,6 +20,8 @@ import com.article.oa_article.base.GlideApp;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.LableBo;
 import com.article.oa_article.bean.UserBo;
+import com.article.oa_article.bean.event.UnitEvent;
+import com.article.oa_article.bean.event.UpdateUnitEvent;
 import com.article.oa_article.module.chatline.ChatLineFragment;
 import com.article.oa_article.module.complanmsg.ComplanMsgFragment;
 import com.article.oa_article.module.scopecenter.ScopeCenterFragment;
@@ -32,6 +34,10 @@ import com.article.oa_article.view.newlycomplan.NewlyComplanActivity;
 import com.article.oa_article.view.setting.SettingActivity;
 import com.article.oa_article.widget.PopTaskMsg;
 import com.blankj.utilcode.util.FragmentUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +85,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fra_mine, null);
         unbinder = ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
         return view;
     }
 
@@ -217,10 +224,17 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
     }
 
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(UpdateUnitEvent event) {
+        mPresenter.getUserInfo();
+    }
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -230,6 +244,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
         personPhone.setText(userBo.getPhone());
         GlideApp.with(getActivity()).load(userBo.getImage()).error(R.drawable.person_img_defailt)
                 .placeholder(R.drawable.person_img_defailt).into(personImg);
+        EventBus.getDefault().post(new UnitEvent());
         if (!MyApplication.isHaveCommon()) {
             complanName.setText("暂无企业");
             initView();

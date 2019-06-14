@@ -31,6 +31,7 @@ import com.article.oa_article.bean.request.ScopeRequest;
 import com.article.oa_article.bean.request.TokenRequest;
 import com.article.oa_article.bean.request.UpdateDepartRequest;
 import com.article.oa_article.bean.request.UpdateShiliRequest;
+import com.article.oa_article.bean.request.UpdateUnitRequest;
 import com.article.oa_article.bean.request.UpdateZiYuanRequest;
 import com.article.oa_article.bean.request.UserInInfoRequest;
 import com.article.oa_article.bean.request.UserOutRequest;
@@ -91,6 +92,18 @@ public interface PersonService {
      */
     @POST("industry_webservice/app/depart/getDepartsByName")
     Observable<BaseResult<List<BuMenFlowBO>>> getDeparts(@Body BuMenRequest request);
+
+    /**
+     * 删除部门
+     */
+    @POST("industry_webservice/app/depart/deleteDepart")
+    Observable<BaseResult<String>> deleteDepart(@Body IdRequest request);
+
+    /**
+     * 修改部门名称
+     */
+    @POST("industry_webservice/app/depart/updateDepartName")
+    Observable<BaseResult<String>> updateDepartName(@Body IdRequest request);
 
     /**
      * 查询产能折线图
@@ -241,5 +254,11 @@ public interface PersonService {
      */
     @POST("industry_webservice/app/companyInfo/updateCompanyInfo3")
     Observable<BaseResult<String>> updateCompanyInfo3(@Body UpdateShiliRequest request);
+
+    /**
+     * 编辑单位
+     */
+    @POST("industry_webservice/app/companyInfo/updateUnit")
+    Observable<BaseResult<String>> updateUnit(@Body UpdateUnitRequest request);
 
 }

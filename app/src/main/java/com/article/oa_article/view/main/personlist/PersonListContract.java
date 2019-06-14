@@ -17,6 +17,8 @@ public class PersonListContract {
         void getPersonListByNeiBu(List<BumenBO> bumenBOS);
 
         void getPersonListByWaiBu(List<BumenBO> bumenBOS);
+
+        void updateDeats();
     }
 
     interface Presenter extends BasePresenter<View> {

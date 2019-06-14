@@ -141,21 +141,40 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
 
     @OnClick({R.id.edit_complan, R.id.edit_shili, R.id.edit_ziyuan})
     public void editInfos(View view) {
+        String text = ((TextView) view).getText().toString().trim();
         switch (view.getId()) {
             case R.id.edit_complan:
-                ComplanMsgEditFragment fragment = new ComplanMsgEditFragment();
-                FragmentUtils.replace(getFragmentManager(), fragment, R.id.complan_details);
-                fragment.setData(complanBO);
+                if ("编辑".equals(text)) {
+                    ComplanMsgEditFragment fragment = new ComplanMsgEditFragment();
+                    FragmentUtils.replace(getFragmentManager(), fragment, R.id.complan_details);
+                    fragment.setData(complanBO);
+                    editComplan.setText("取消");
+                } else {
+                    mPresenter.getComplanMsg();
+                    editComplan.setText("编辑");
+                }
                 break;
             case R.id.edit_ziyuan:
-                ComplanZiyuanEditFragment fragment1 = new ComplanZiyuanEditFragment();
-                FragmentUtils.replace(getFragmentManager(), fragment1, R.id.complan_zizhi);
-                fragment1.setData(complanBO);
+                if ("编辑".equals(text)) {
+                    ComplanZiyuanEditFragment fragment1 = new ComplanZiyuanEditFragment();
+                    FragmentUtils.replace(getFragmentManager(), fragment1, R.id.complan_zizhi);
+                    fragment1.setData(complanBO);
+                    editZiyuan.setText("取消");
+                } else {
+                    mPresenter.getComplanMsg();
+                    editZiyuan.setText("编辑");
+                }
                 break;
             case R.id.edit_shili:
-                ComplanShiliEditFragment fragment2 = new ComplanShiliEditFragment();
-                FragmentUtils.replace(getFragmentManager(), fragment2, R.id.complan_shili);
-                fragment2.setEditCommon(complanBO);
+                if ("编辑".equals(text)) {
+                    ComplanShiliEditFragment fragment2 = new ComplanShiliEditFragment();
+                    FragmentUtils.replace(getFragmentManager(), fragment2, R.id.complan_shili);
+                    fragment2.setEditCommon(complanBO);
+                    editShili.setText("取消");
+                } else {
+                    mPresenter.getComplanMsg();
+                    editShili.setText("编辑");
+                }
                 break;
         }
     }

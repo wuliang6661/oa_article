@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.article.oa_article.R;
 import com.article.oa_article.base.GlideApp;
+import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.BumenBO;
 import com.article.oa_article.bean.PersonBO;
 import com.blankj.utilcode.util.StringUtils;
@@ -109,6 +110,7 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
             holder.lableText = view.findViewById(R.id.lable_text);
             holder.bumenText = view.findViewById(R.id.bumen_name);
             holder.child_line = view.findViewById(R.id.child_line);
+            holder.editImage = view.findViewById(R.id.edit_img);
             view.setTag(holder);
         } else {
             holder = (ChildHolder) view.getTag();
@@ -138,7 +140,15 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
         } else {
             holder.lableText.setVisibility(View.GONE);
             holder.bumenText.setText(personBO.getDepart());
+            if (MyApplication.getCommon().getIsAdmin() == 1) {
+                holder.editImage.setVisibility(View.VISIBLE);
+            }
         }
+        holder.editImage.setOnClickListener(view1 -> {
+            if (listener != null) {
+                listener.editDeats(i, i1);
+            }
+        });
         return view;
     }
 
@@ -150,6 +160,7 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
         TextView lableText;
         TextView bumenText;
         View child_line;
+        ImageView editImage;
 
     }
 
@@ -158,4 +169,17 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int i, int i1) {
         return true;
     }
+
+    onEditListener listener;
+
+    public void setListener(onEditListener listener) {
+        this.listener = listener;
+    }
+
+
+    interface onEditListener {
+
+        void editDeats(int groupPosition, int childPosition);
+    }
+
 }

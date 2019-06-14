@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +20,15 @@ import android.widget.TextView;
 import com.article.oa_article.R;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.ChartBO;
+import com.article.oa_article.bean.LableBo;
+import com.article.oa_article.bean.event.UnitEvent;
 import com.article.oa_article.bean.request.AddOutRequest;
 import com.article.oa_article.bean.request.ChartRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
+import com.article.oa_article.widget.PopTaskMsg;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
+import com.blankj.utilcode.util.StringUtils;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -31,6 +36,10 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -109,6 +118,7 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fra_chat_line, null);
         unbinder = ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
         return view;
     }
 
@@ -126,7 +136,8 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
             complanId = Integer.parseInt(MyApplication.getCommonId());
             complanBar.setVisibility(View.GONE);
             getChartData();
-            unitText.setText(MyApplication.getCommon().getUnit());
+            unitText.setText(StringUtils.isEmpty(MyApplication.getCommon().getUnit()) ? "请输入单位" :
+                    MyApplication.getCommon().getUnit());
             if (MyApplication.getCommon().getIsAdmin() == 1) {   //管理员
                 editJihua.setVisibility(View.VISIBLE);
             }
@@ -298,6 +309,29 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
         dialog.showAtLocation(getActivity().getWindow().getDecorView());
     }
 
+    /**
+     * 修改单位
+     */
+    @OnClick(R.id.unit_text)
+    public void editUnit() {
+        if (type != 0) {
+            return;
+        }
+        PopTaskMsg popTaskMsg = new PopTaskMsg(getActivity(), "单位", "单位名称", "请输入单位名称");
+        popTaskMsg.setListener(new PopTaskMsg.onCommitListener() {
+            @Override
+            public void commit(String text) {
+                mPresenter.updateUnit(text);
+            }
+
+            @Override
+            public void update(String text, LableBo.CustomLabelsBean customLabelsBean) {
+
+            }
+        });
+        popTaskMsg.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+    }
+
 
     /**
      * 初始化折线图布局
@@ -445,11 +479,18 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
         new Handler().post(() -> unitText.setText(text));
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(UnitEvent event) {
+        unitText.setText(StringUtils.isEmpty(MyApplication.getCommon().getUnit()) ? "请输入单位" :
+                MyApplication.getCommon().getUnit());
+    }
+
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

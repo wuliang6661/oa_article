@@ -19,6 +19,7 @@ public class ChatLineContract {
         void addOutSoress();
 
         void getBiaoData(List<ChartBO> chartBOS);
+
     }
 
     interface Presenter extends BasePresenter<View> {

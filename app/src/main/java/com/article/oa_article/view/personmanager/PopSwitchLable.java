@@ -3,6 +3,7 @@ package com.article.oa_article.view.personmanager;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -73,6 +74,48 @@ public class PopSwitchLable extends PopupWindow {
         // this.setBackgroundDrawable(dw);
         this.setOnDismissListener(() -> backgroundAlpha(1f));
     }
+
+
+    public PopSwitchLable(Fragment fragment){
+        super(fragment.getActivity());
+
+        this.activity = fragment.getActivity();
+        View dialogView = activity.getLayoutInflater().inflate(R.layout.pop_switch_lable, null);
+        commit = dialogView.findViewById(R.id.next_button);
+        cancle = dialogView.findViewById(R.id.cancle);
+        selectLable = dialogView.findViewById(R.id.select_person);
+        bumenText = dialogView.findViewById(R.id.bumen_name);
+
+        commit.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.commit(personBO, buMenFlowBO);
+            }
+            dismiss();
+        });
+        cancle.setOnClickListener(v -> dismiss());
+        selectLable.setOnClickListener(view -> {
+            Intent intent = new Intent(activity, BumenActivity.class);
+            fragment.startActivityForResult(intent, 0x11);
+        });
+
+        this.setBackgroundDrawable(new ColorDrawable(0));
+        this.setContentView(dialogView);
+        //设置PopupWindow弹出窗体的宽
+        this.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        //设置PopupWindow弹出窗体的高
+        this.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        //设置PopupWindow弹出窗体可点击
+        this.setFocusable(true);
+        this.setOutsideTouchable(true);
+        //设置SelectPicPopupWindow弹出窗体动画效果
+        this.setAnimationStyle(R.style.anim_menu_bottombar);
+        //实例化一个ColorDrawable颜色为半透明
+        // ColorDrawable dw = new ColorDrawable(0x808080);
+        //设置SelectPicPopupWindow弹出窗体的背景
+        // this.setBackgroundDrawable(dw);
+        this.setOnDismissListener(() -> backgroundAlpha(1f));
+    }
+
 
 
     /***
