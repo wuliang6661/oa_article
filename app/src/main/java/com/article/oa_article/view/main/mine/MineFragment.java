@@ -30,7 +30,6 @@ import com.article.oa_article.module.taskcenter.TaskCenterFragment;
 import com.article.oa_article.module.tempmanager.TempManagerFragment;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.NoneFragment;
-import com.article.oa_article.view.newlycomplan.NewlyComplanActivity;
 import com.article.oa_article.view.setting.SettingActivity;
 import com.article.oa_article.widget.PopTaskMsg;
 import com.blankj.utilcode.util.FragmentUtils;
@@ -71,6 +70,12 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
     Unbinder unbinder;
+    @BindView(R.id.complan_status)
+    TextView complanStatus;
+    @BindView(R.id.complan_status_img)
+    ImageView complanStatusImg;
+    @BindView(R.id.complan_status_layout)
+    LinearLayout complanStatusLayout;
 
     private String[] tabsAdmain = new String[]{"产能分析", "评价中心", "任务数据", "企业认证", "管理团队", "系统设置"};
 
@@ -204,7 +209,8 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
                 popTaskMsg.setListener(new PopTaskMsg.onCommitListener() {
                     @Override
                     public void commit(String text) {
-                        gotoActivity(NewlyComplanActivity.class, false);
+//                        gotoActivity(NewlyComplanActivity.class, false);
+                        mPresenter.addComplan(text);
                     }
 
                     @Override
@@ -247,15 +253,33 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
         EventBus.getDefault().post(new UnitEvent());
         if (!MyApplication.isHaveCommon()) {
             complanName.setText("暂无企业");
+            complanStatusLayout.setVisibility(View.GONE);
             initView();
         } else {
+            switch (MyApplication.getCommon().getStatus()) {
+                case 0:
+                    complanStatus.setText("企业未认证");
+                    complanStatusImg.setImageResource(R.drawable.complan_jinggao);
+                    break;
+                case 1:
+                    complanStatus.setText("企业认证中");
+                    complanStatusImg.setImageResource(R.drawable.complan_shenhezhong);
+                    break;
+                case 2:
+                    complanStatus.setText("企业已认证");
+                    complanStatusImg.setImageResource(R.drawable.complan_tongguo);
+                    break;
+                case 3:
+                    complanStatus.setText("企业认证失败");
+                    complanStatusImg.setImageResource(R.drawable.complan_weitongguo);
+                    break;
+            }
             if ("暂无企业".equals(complanName.getText().toString().trim()) || isCheckComplan) {
                 complanName.setText(MyApplication.getCommon().getCompanyName());
                 initView();
                 isCheckComplan = false;
             }
         }
-
     }
 
     @Override

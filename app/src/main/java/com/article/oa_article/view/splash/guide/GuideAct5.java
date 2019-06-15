@@ -40,6 +40,6 @@ public class GuideAct5 extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         back.setOnClickListener(view -> finish());
-        next.setOnClickListener(view -> gotoActivity(GuideAct6.class, false));
+        next.setOnClickListener(view -> finish());
     }
 }

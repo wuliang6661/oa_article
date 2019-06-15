@@ -37,7 +37,7 @@ public class GuideAct8 extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        next.setOnClickListener(view -> gotoActivity(GuideAct9.class, false));
+        next.setOnClickListener(view -> gotoActivity(GuideAct10.class, false));
         back.setOnClickListener(view -> finish());
     }
 

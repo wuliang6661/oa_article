@@ -20,10 +20,23 @@ import butterknife.BindView;
  * version: 1.0
  */
 public class GuiDe4Act extends BaseActivity {
-    @BindView(R.id.next)
-    ImageView next;
+
     @BindView(R.id.back)
     LinearLayout back;
+    @BindView(R.id.next1)
+    ImageView next1;
+    @BindView(R.id.next2)
+    ImageView next2;
+    @BindView(R.id.next3)
+    ImageView next3;
+    @BindView(R.id.hint1)
+    ImageView hint1;
+    @BindView(R.id.hint2)
+    ImageView hint2;
+    @BindView(R.id.hint3)
+    ImageView hint3;
+
+    private int shunxu = 0; //默认是第一步
 
     @Override
     protected int getLayout() {
@@ -38,7 +51,29 @@ public class GuiDe4Act extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        next.setOnClickListener(view -> gotoActivity(GuideAct5.class, false));
+        next1.setOnClickListener(view -> {
+            if (shunxu == 0) {
+                gotoActivity(GuideAct5.class, false);
+                shunxu = 1;
+                hint1.setVisibility(View.GONE);
+                hint2.setVisibility(View.VISIBLE);
+                hint3.setVisibility(View.GONE);
+            }
+        });
+        next2.setOnClickListener(view -> {
+            if (shunxu == 1) {
+                gotoActivity(GuideAct9.class, false);
+                shunxu = 2;
+                hint1.setVisibility(View.GONE);
+                hint2.setVisibility(View.GONE);
+                hint3.setVisibility(View.VISIBLE);
+            }
+        });
+        next3.setOnClickListener(view -> {
+            if (shunxu == 2) {
+                gotoActivity(GuideAct6.class, false);
+            }
+        });
         back.setOnClickListener(view -> finish());
     }
 }
