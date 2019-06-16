@@ -369,6 +369,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                     holder.setText(R.id.task_date, s.getPlanCompleteDate().replaceAll("-", "/"));
                 }
                 TextView surplus_time = (TextView) holder.getView(R.id.surplus_time);
+                surplus_time.setTextSize(17);
                 if (s.getRemainingDate() != 0) {
                     surplus_time.setText(s.getRemainingDate() + "天");
                     if (s.getRemainingDate() > 0) {
@@ -392,10 +393,16 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                     case 2:   //已完成
                         taskType.setTextColor(Color.parseColor("#8D8C91"));
                         taskType.setText("已完成");
+                        surplus_time.setTextColor(Color.parseColor("#8D8C91"));
+                        surplus_time.setText(s.getPlanCompleteDate().replaceAll("-", "/"));
+                        surplus_time.setTextSize(11);
                         break;
                     case 3:
                         taskType.setTextColor(Color.parseColor("#8D8C91"));
                         taskType.setText("已取消");
+                        surplus_time.setTextColor(Color.parseColor("#8D8C91"));
+                        surplus_time.setText(s.getPlanCompleteDate().replaceAll("-", "/"));
+                        surplus_time.setTextSize(11);
                         break;
                     default:
                         taskType.setTextColor(Color.parseColor("#8D8C91"));

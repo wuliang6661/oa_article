@@ -5,6 +5,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.DividerItemDecoration;
@@ -49,7 +51,6 @@ import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.view.TimePickerView;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.guoqi.actionsheet.ActionSheet;
@@ -67,7 +68,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import pub.devrel.easypermissions.EasyPermissions;
 
 
 /**
@@ -479,15 +479,19 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
 
     //获取权限
     private void getPermission() {
-        if (EasyPermissions.hasPermissions(Objects.requireNonNull(getActivity()), permissions)) {
-            //已经打开权限
-            LogUtils.d("已经申请相关权限");
-        } else {
-            //没有打开相关权限、申请权限
-            EasyPermissions.requestPermissions(this, "需要获取您的相册、照相使用权限", 1, permissions);
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.CAMERA
+                    }, 1);
+
         }
     }
-
 
     //激活相册操作
     private void goPhotoAlbum() {
@@ -510,14 +514,6 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
         }
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         startActivityForResult(intent, 1);
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        //框架要求必须这么写
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
 
@@ -658,6 +654,7 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     public void updateSuress() {
         stopProgress();
         showToast("修改成功！");
+        getActivity().finish();
     }
 
     @Override

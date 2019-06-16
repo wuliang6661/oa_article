@@ -83,7 +83,6 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         }
     }
 
-
     private void requestPermission() {
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
@@ -93,6 +92,8 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                 || ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
                 != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions(this,
@@ -100,7 +101,8 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                             Manifest.permission.READ_PHONE_STATE,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE,
                             Manifest.permission.CALL_PHONE,
-                            Manifest.permission.READ_CONTACTS
+                            Manifest.permission.READ_CONTACTS,
+                            Manifest.permission.CAMERA
                     }, 1);
 
         }
