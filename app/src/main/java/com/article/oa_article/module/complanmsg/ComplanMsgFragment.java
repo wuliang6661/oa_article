@@ -151,7 +151,6 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
                     editComplan.setText("取消");
                 } else {
                     mPresenter.getComplanMsg();
-                    editComplan.setText("编辑");
                 }
                 break;
             case R.id.edit_ziyuan:
@@ -162,7 +161,6 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
                     editZiyuan.setText("取消");
                 } else {
                     mPresenter.getComplanMsg();
-                    editZiyuan.setText("编辑");
                 }
                 break;
             case R.id.edit_shili:
@@ -173,7 +171,6 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
                     editShili.setText("取消");
                 } else {
                     mPresenter.getComplanMsg();
-                    editShili.setText("编辑");
                 }
                 break;
         }
@@ -188,6 +185,9 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
     @Override
     public void getComplanInfo(ComplanBO complanBO) {
         this.complanBO = complanBO;
+        editShili.setText("编辑");
+        editZiyuan.setText("编辑");
+        editComplan.setText("编辑");
         ComplanyDetailsFragment fragment = new ComplanyDetailsFragment();
         ComplanyshiliFragment shiliFragment = new ComplanyshiliFragment();
         ComplanyZizhiFragment zizhiFragment = new ComplanyZizhiFragment();
