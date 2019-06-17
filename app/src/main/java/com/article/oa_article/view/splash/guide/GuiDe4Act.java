@@ -1,6 +1,7 @@
 package com.article.oa_article.view.splash.guide;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.WindowManager;
@@ -55,18 +56,28 @@ public class GuiDe4Act extends BaseActivity {
             if (shunxu == 0) {
                 gotoActivity(GuideAct5.class, false);
                 shunxu = 1;
-                hint1.setVisibility(View.GONE);
-                hint2.setVisibility(View.VISIBLE);
-                hint3.setVisibility(View.GONE);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        hint1.setVisibility(View.GONE);
+                        hint2.setVisibility(View.VISIBLE);
+                        hint3.setVisibility(View.GONE);
+                    }
+                }, 500);
             }
         });
         next2.setOnClickListener(view -> {
             if (shunxu == 1) {
                 gotoActivity(GuideAct9.class, false);
                 shunxu = 2;
-                hint1.setVisibility(View.GONE);
-                hint2.setVisibility(View.GONE);
-                hint3.setVisibility(View.VISIBLE);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        hint1.setVisibility(View.GONE);
+                        hint2.setVisibility(View.GONE);
+                        hint3.setVisibility(View.VISIBLE);
+                    }
+                }, 500);
             }
         });
         next3.setOnClickListener(view -> {

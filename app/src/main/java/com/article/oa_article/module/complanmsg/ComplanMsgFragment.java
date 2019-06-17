@@ -13,8 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
+import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.ComplanBO;
+import com.article.oa_article.bean.UserBo;
 import com.article.oa_article.bean.event.UpdateComplanEvent;
+import com.article.oa_article.bean.event.UpdateUnitEvent;
 import com.article.oa_article.module.complanmsgedit.ComplanMsgEditFragment;
 import com.article.oa_article.module.complanshiliedit.ComplanShiliEditFragment;
 import com.article.oa_article.module.complanydetails.ComplanyDetailsFragment;
@@ -93,6 +96,21 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
                 editComplan.setVisibility(View.VISIBLE);
                 editShili.setVisibility(View.VISIBLE);
                 editZiyuan.setVisibility(View.VISIBLE);
+                if (MyApplication.getCommon().getStatus() == 1) {
+                    editComplan.setText("认证正在审核中，请耐心等待");
+                    editShili.setText("认证正在审核中，请耐心等待");
+                    editZiyuan.setText("认证正在审核中，请耐心等待");
+                    editShili.setTextSize(10);
+                    editZiyuan.setTextSize(10);
+                    editComplan.setTextSize(10);
+                } else {
+                    editComplan.setText("编辑");
+                    editShili.setText("编辑");
+                    editZiyuan.setText("编辑");
+                    editShili.setTextSize(15);
+                    editZiyuan.setTextSize(15);
+                    editComplan.setTextSize(15);
+                }
             }
         }
     }
@@ -149,7 +167,7 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
                     FragmentUtils.replace(getFragmentManager(), fragment, R.id.complan_details);
                     fragment.setData(complanBO);
                     editComplan.setText("取消");
-                } else {
+                } else if ("取消".equals(text)) {
                     mPresenter.getComplanMsg();
                 }
                 break;
@@ -159,7 +177,7 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
                     FragmentUtils.replace(getFragmentManager(), fragment1, R.id.complan_zizhi);
                     fragment1.setData(complanBO);
                     editZiyuan.setText("取消");
-                } else {
+                } else if ("取消".equals(text)) {
                     mPresenter.getComplanMsg();
                 }
                 break;
@@ -169,7 +187,7 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
                     FragmentUtils.replace(getFragmentManager(), fragment2, R.id.complan_shili);
                     fragment2.setEditCommon(complanBO);
                     editShili.setText("取消");
-                } else {
+                } else if ("取消".equals(text)) {
                     mPresenter.getComplanMsg();
                 }
                 break;
@@ -184,10 +202,14 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
 
     @Override
     public void getComplanInfo(ComplanBO complanBO) {
+        mPresenter.getUserInfo();
         this.complanBO = complanBO;
-        editShili.setText("编辑");
-        editZiyuan.setText("编辑");
-        editComplan.setText("编辑");
+        if ("取消".equals(editComplan.getText().toString()) || "取消".equals(editZiyuan.getText().toString())
+                || "取消".equals(editShili.getText().toString())) {
+            editShili.setText("编辑");
+            editZiyuan.setText("编辑");
+            editComplan.setText("编辑");
+        }
         ComplanyDetailsFragment fragment = new ComplanyDetailsFragment();
         ComplanyshiliFragment shiliFragment = new ComplanyshiliFragment();
         ComplanyZizhiFragment zizhiFragment = new ComplanyZizhiFragment();
@@ -199,6 +221,27 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
         fragment.setComplanBo(complanBO);
         zizhiFragment.setComplanBo(complanBO);
         shiliFragment.setComplanBo(complanBO);
+    }
+
+    @Override
+    public void getUser(UserBo userBo) {
+        MyApplication.userBo = userBo;
+        if (MyApplication.getCommon().getStatus() == 1) {
+            editComplan.setText("认证正在审核中，请耐心等待");
+            editShili.setText("认证正在审核中，请耐心等待");
+            editZiyuan.setText("认证正在审核中，请耐心等待");
+            editShili.setTextSize(10);
+            editZiyuan.setTextSize(10);
+            editComplan.setTextSize(10);
+        } else {
+            editComplan.setText("编辑");
+            editShili.setText("编辑");
+            editZiyuan.setText("编辑");
+            editShili.setTextSize(15);
+            editZiyuan.setTextSize(15);
+            editComplan.setTextSize(15);
+        }
+        EventBus.getDefault().post(new UpdateUnitEvent());
     }
 
     @Override

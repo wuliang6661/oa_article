@@ -1,6 +1,7 @@
 package com.article.oa_article.module.complanmsg;
 
 import com.article.oa_article.bean.ComplanBO;
+import com.article.oa_article.bean.UserBo;
 import com.article.oa_article.mvp.BasePresenter;
 import com.article.oa_article.mvp.BaseRequestView;
 
@@ -13,6 +14,8 @@ public class ComplanMsgContract {
     interface View extends BaseRequestView {
 
         void getComplanInfo(ComplanBO complanBO);
+
+        void getUser(UserBo userBo);
     }
 
     interface  Presenter extends BasePresenter<View> {
