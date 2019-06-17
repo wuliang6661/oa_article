@@ -119,6 +119,11 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
             mPresenter.getOutUsers(request);
         }
         setAddVisiable();
+        if (!MyApplication.isHaveCommon()) {
+            complanName.setText("暂无企业");
+            return;
+        }
+        complanName.setText(MyApplication.getCommon().getCompanyName());
     }
 
     private void initView() {

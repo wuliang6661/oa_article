@@ -92,29 +92,34 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
         mPresenter.getComplanMsg();
         if (getArguments() != null) {
             type = getArguments().getInt("type", 0);
-            if (type == 1) {   //管理员可修改
-                editComplan.setVisibility(View.VISIBLE);
-                editShili.setVisibility(View.VISIBLE);
-                editZiyuan.setVisibility(View.VISIBLE);
-                if (MyApplication.getCommon().getStatus() == 1) {
-                    editComplan.setText("认证正在审核中，请耐心等待");
-                    editShili.setText("认证正在审核中，请耐心等待");
-                    editZiyuan.setText("认证正在审核中，请耐心等待");
-                    editShili.setTextSize(10);
-                    editZiyuan.setTextSize(10);
-                    editComplan.setTextSize(10);
-                } else {
-                    editComplan.setText("编辑");
-                    editShili.setText("编辑");
-                    editZiyuan.setText("编辑");
-                    editShili.setTextSize(15);
-                    editZiyuan.setTextSize(15);
-                    editComplan.setTextSize(15);
-                }
-            }
         }
     }
 
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        if (type == 1) {   //管理员可修改
+            editComplan.setVisibility(View.VISIBLE);
+            editShili.setVisibility(View.VISIBLE);
+            editZiyuan.setVisibility(View.VISIBLE);
+            if (MyApplication.getCommon().getStatus() == 1) {
+                editComplan.setText("认证正在审核中，请耐心等待");
+                editShili.setText("认证正在审核中，请耐心等待");
+                editZiyuan.setText("认证正在审核中，请耐心等待");
+                editShili.setTextSize(10);
+                editZiyuan.setTextSize(10);
+                editComplan.setTextSize(10);
+            } else {
+                editComplan.setText("编辑");
+                editShili.setText("编辑");
+                editZiyuan.setText("编辑");
+                editShili.setTextSize(15);
+                editZiyuan.setTextSize(15);
+                editComplan.setTextSize(15);
+            }
+        }
+    }
 
     @Nullable
     @Override
@@ -169,6 +174,7 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
                     editComplan.setText("取消");
                 } else if ("取消".equals(text)) {
                     mPresenter.getComplanMsg();
+                    editComplan.setEnabled(false);
                 }
                 break;
             case R.id.edit_ziyuan:
@@ -179,6 +185,7 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
                     editZiyuan.setText("取消");
                 } else if ("取消".equals(text)) {
                     mPresenter.getComplanMsg();
+                    editZiyuan.setEnabled(false);
                 }
                 break;
             case R.id.edit_shili:
@@ -188,6 +195,7 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
                     fragment2.setEditCommon(complanBO);
                     editShili.setText("取消");
                 } else if ("取消".equals(text)) {
+                    editShili.setEnabled(false);
                     mPresenter.getComplanMsg();
                 }
                 break;
@@ -204,6 +212,9 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
     public void getComplanInfo(ComplanBO complanBO) {
         mPresenter.getUserInfo();
         this.complanBO = complanBO;
+        editShili.setEnabled(true);
+        editComplan.setEnabled(true);
+        editZiyuan.setEnabled(true);
         if ("取消".equals(editComplan.getText().toString()) || "取消".equals(editZiyuan.getText().toString())
                 || "取消".equals(editShili.getText().toString())) {
             editShili.setText("编辑");
@@ -247,6 +258,9 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
     @Override
     public void onRequestError(String msg) {
         showToast(msg);
+        editShili.setEnabled(true);
+        editComplan.setEnabled(true);
+        editZiyuan.setEnabled(true);
     }
 
     @Override
