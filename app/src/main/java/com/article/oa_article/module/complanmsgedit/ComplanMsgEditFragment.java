@@ -29,6 +29,7 @@ import com.article.oa_article.util.PhotoFromPhotoAlbum;
 import com.article.oa_article.widget.EditMsgText;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.guoqi.actionsheet.ActionSheet;
 
@@ -293,6 +294,7 @@ public class ComplanMsgEditFragment extends MVPBaseFragment<ComplanMsgEditContra
 
     @Override
     public void updateSourss() {
+        ToastUtils.showShort("认证正在审核中，请耐心等待");
         EventBus.getDefault().post(new UpdateComplanEvent());
     }
 

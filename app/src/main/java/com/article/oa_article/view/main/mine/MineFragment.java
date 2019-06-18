@@ -256,23 +256,28 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
             complanStatusLayout.setVisibility(View.GONE);
             initView();
         } else {
-            switch (MyApplication.getCommon().getStatus()) {
-                case 0:
-                    complanStatus.setText("企业未认证");
-                    complanStatusImg.setImageResource(R.drawable.complan_jinggao);
-                    break;
-                case 1:
-                    complanStatus.setText("企业认证中");
-                    complanStatusImg.setImageResource(R.drawable.complan_shenhezhong);
-                    break;
-                case 2:
-                    complanStatus.setText("企业已认证");
-                    complanStatusImg.setImageResource(R.drawable.complan_tongguo);
-                    break;
-                case 3:
-                    complanStatus.setText("企业认证失败");
-                    complanStatusImg.setImageResource(R.drawable.complan_weitongguo);
-                    break;
+            if (MyApplication.getCommon().getIsAdmin() != 1) {
+                complanStatusLayout.setVisibility(View.GONE);
+            } else {
+                complanStatusLayout.setVisibility(View.VISIBLE);
+                switch (MyApplication.getCommon().getStatus()) {
+                    case 0:
+                        complanStatus.setText("企业未认证");
+                        complanStatusImg.setImageResource(R.drawable.complan_jinggao);
+                        break;
+                    case 1:
+                        complanStatus.setText("企业认证中");
+                        complanStatusImg.setImageResource(R.drawable.complan_shenhezhong);
+                        break;
+                    case 2:
+                        complanStatus.setText("企业已认证");
+                        complanStatusImg.setImageResource(R.drawable.complan_tongguo);
+                        break;
+                    case 3:
+                        complanStatus.setText("企业认证失败");
+                        complanStatusImg.setImageResource(R.drawable.complan_weitongguo);
+                        break;
+                }
             }
             if ("暂无企业".equals(complanName.getText().toString().trim()) || isCheckComplan) {
                 complanName.setText(MyApplication.getCommon().getCompanyName());

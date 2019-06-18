@@ -130,8 +130,8 @@ public class AllUserEditActivity extends MVPBaseActivity<AllUserEditContract.Vie
             }
         };
         adapter.setOnItemClickListener(R.id.delete_person, (view, position) -> {
-            selectPerson.remove(position);
-            adapter.notifyDataSetChanged();
+            requests.remove(position);
+            adapter.setData(requests);
         });
         adapter.setOnItemClickListener(R.id.edit_person, (view, position) -> {
             selectPosition = position;

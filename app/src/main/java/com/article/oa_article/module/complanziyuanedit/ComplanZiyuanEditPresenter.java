@@ -1,13 +1,12 @@
 package com.article.oa_article.module.complanziyuanedit;
 
-import android.content.Context;
-
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.HttpServerImpl;
 import com.article.oa_article.api.http.PersonServiceImpl;
 import com.article.oa_article.bean.event.UpdateComplanEvent;
 import com.article.oa_article.bean.request.UpdateZiYuanRequest;
 import com.article.oa_article.mvp.BasePresenterImpl;
+import com.blankj.utilcode.util.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -44,6 +43,7 @@ public class ComplanZiyuanEditPresenter extends BasePresenterImpl<ComplanZiyuanE
             @Override
             public void onSuccess(String s) {
                 if (mView != null) {
+                    ToastUtils.showShort("认证正在审核中，请耐心等待");
                     EventBus.getDefault().post(new UpdateComplanEvent());
                 }
             }

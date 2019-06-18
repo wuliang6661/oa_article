@@ -378,7 +378,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                         surplus_time.setTextColor(Color.parseColor("#E92B2B"));
                     }
                 } else {
-                    surplus_time.setText("0");
+                    surplus_time.setText("0天");
                 }
                 TextView taskType = (TextView) holder.getView(R.id.task_type);
                 switch (s.getStatus()) {

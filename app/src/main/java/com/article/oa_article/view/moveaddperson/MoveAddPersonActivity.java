@@ -185,7 +185,9 @@ public class MoveAddPersonActivity extends MVPBaseActivity<MoveAddPersonContract
         switch (resultCode) {
             case 0x11:
                 buMenFlowBO = (BuMenFlowBO) data.getSerializableExtra("bumen");
-                bumenName.setText(buMenFlowBO.getName());
+                if (buMenFlowBO != null) {
+                    bumenName.setText(buMenFlowBO.getName());
+                }
                 break;
             case 0x22:
                 isFirst = data.getBooleanExtra("isFirst", true);
