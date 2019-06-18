@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/layout_bg"
+    android:orientation="horizontal">
+
+
+    <TextView
+        android:id="@+id/complan_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="23dp"
+        android:text="ssssss"
+        android:textColor="@color/f_white"
+        android:textSize="15sp" />
+
+
+    <TextView
+        android:id="@+id/select_button"
+        android:layout_width="44dp"
+        android:layout_height="21dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="23dp"
+        android:background="@drawable/button_list"
+        android:gravity="center"
+        android:text="加入"
+        android:textColor="#F9FAFB"
+        android:textSize="13sp" />
+
+
+</RelativeLayout>

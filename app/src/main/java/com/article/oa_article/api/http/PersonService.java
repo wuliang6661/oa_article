@@ -1,6 +1,7 @@
 package com.article.oa_article.api.http;
 
 import com.article.oa_article.bean.AlreadyScopeBO;
+import com.article.oa_article.bean.ApplyComplanBO;
 import com.article.oa_article.bean.BaseResult;
 import com.article.oa_article.bean.BuMenFlowBO;
 import com.article.oa_article.bean.BumenBO;
@@ -21,6 +22,7 @@ import com.article.oa_article.bean.request.BuMenRequest;
 import com.article.oa_article.bean.request.ChartRequest;
 import com.article.oa_article.bean.request.FanKuiRequest;
 import com.article.oa_article.bean.request.IdRequest;
+import com.article.oa_article.bean.request.KeyRequest;
 import com.article.oa_article.bean.request.LableRequest;
 import com.article.oa_article.bean.request.PersonImgRequest;
 import com.article.oa_article.bean.request.PersonNameRequest;
@@ -260,5 +262,17 @@ public interface PersonService {
      */
     @POST("industry_webservice/app/companyInfo/updateUnit")
     Observable<BaseResult<String>> updateUnit(@Body UpdateUnitRequest request);
+
+    /**
+     * 模糊查询公司
+     */
+    @POST("industry_webservice/app/companyInfo/getCompanyListByName")
+    Observable<BaseResult<List<ApplyComplanBO>>> getCompanyList(@Body KeyRequest request);
+
+    /**
+     * 申请加入公司
+     */
+    @POST("industry_webservice/app/companyInfo/applyRorAddCompany")
+    Observable<BaseResult<String>> applyAddComplan(@Body IdRequest request);
 
 }

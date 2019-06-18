@@ -4,6 +4,7 @@ import com.article.oa_article.api.ApiManager;
 import com.article.oa_article.api.HttpService;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.AlreadyScopeBO;
+import com.article.oa_article.bean.ApplyComplanBO;
 import com.article.oa_article.bean.BuMenFlowBO;
 import com.article.oa_article.bean.BumenBO;
 import com.article.oa_article.bean.ChartBO;
@@ -23,6 +24,7 @@ import com.article.oa_article.bean.request.BuMenRequest;
 import com.article.oa_article.bean.request.ChartRequest;
 import com.article.oa_article.bean.request.FanKuiRequest;
 import com.article.oa_article.bean.request.IdRequest;
+import com.article.oa_article.bean.request.KeyRequest;
 import com.article.oa_article.bean.request.LableRequest;
 import com.article.oa_article.bean.request.PersonImgRequest;
 import com.article.oa_article.bean.request.PersonNameRequest;
@@ -422,4 +424,25 @@ public class PersonServiceImpl {
         request.setName(name);
         return getService().updateDepartName(request).compose(RxResultHelper.httpRusult());
     }
+
+    /**
+     * 模糊查询公司列表
+     */
+    public static Observable<List<ApplyComplanBO>> getComplanList(String name) {
+        KeyRequest request = new KeyRequest();
+        request.setName(name);
+        request.setToken(MyApplication.token);
+        return getService().getCompanyList(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 申请加入公司
+     */
+    public static Observable<String> addComplan(int id) {
+        IdRequest request = new IdRequest();
+        request.setId(id);
+        request.setToken(MyApplication.token);
+        return getService().applyAddComplan(request).compose(RxResultHelper.httpRusult());
+    }
+
 }

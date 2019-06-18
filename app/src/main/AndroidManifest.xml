@@ -219,6 +219,16 @@
             android:name=".view.newlycomplan.NewlyComplanActivity"
             android:screenOrientation="portrait" />
 
+        <!--加入企业-->
+        <activity
+            android:name=".view.addcomplan.AddComplanActivity"
+            android:screenOrientation="portrait" />
+
+        <!--加入企业成功-->
+        <activity
+            android:name=".view.addcomplan.SuressActivity"
+            android:screenOrientation="portrait" />
+
         <!--扫一扫-->
         <activity android:name="com.article.oa_article.zxing.activity.CaptureActivity" />
 

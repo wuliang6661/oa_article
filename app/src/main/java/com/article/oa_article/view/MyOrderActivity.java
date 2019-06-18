@@ -167,6 +167,12 @@ public class MyOrderActivity extends BaseActivity {
 
 
     public void getTaskInfo(TaskDetails details) {
+        if (isUpdate) {
+            isUpdate = false;
+            if (details != null && details.getTaskInfo() != null) {
+                completeFragment.setTask(details);
+            }
+        }
         if (parentId == 0) {   //当前没有取过父级任务
             if (details != null && details.getTaskInfo() != null) {
                 completeFragment.setTask(details);
@@ -182,6 +188,7 @@ public class MyOrderActivity extends BaseActivity {
                 shangjiLayout.setVisibility(View.GONE);
                 shangjiTaskBar.setVisibility(View.GONE);
             } else {
+//                completeFragment.setTask(details);
                 shangjiLayout.setVisibility(View.VISIBLE);
                 shangjiTaskBar.setVisibility(View.VISIBLE);
                 taskName.setText(details.getTaskInfo().getTaskName());
@@ -193,9 +200,11 @@ public class MyOrderActivity extends BaseActivity {
         }
     }
 
+    private boolean isUpdate = false;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateTask(UpdateTaskEvent event) {
+        isUpdate = true;
         getTaskInfo(id);
     }
 

@@ -29,6 +29,7 @@ public class PopSwitchComplan extends PopupWindow {
     View dialogView;
 
     LinearLayout add_complan;
+    LinearLayout applyComplan;
 
 
     public PopSwitchComplan(Activity activity) {
@@ -72,9 +73,15 @@ public class PopSwitchComplan extends PopupWindow {
         recyclerView.addItemDecoration(itemDecoration);
 
         add_complan = dialogView.findViewById(R.id.add_complan);
+        applyComplan = dialogView.findViewById(R.id.apply_complan);
         add_complan.setOnClickListener(view -> {
-            if(listener != null){
+            if (listener != null) {
                 listener.addComplan();
+            }
+        });
+        applyComplan.setOnClickListener(view -> {
+            if (listener != null) {
+                listener.applyComplan();
             }
         });
 
@@ -113,7 +120,7 @@ public class PopSwitchComplan extends PopupWindow {
         int[] location = new int[2];
         view.getLocationOnScreen(location);
         showAtLocation(view, Gravity.NO_GRAVITY, (location[0] + view.getWidth() / 2) - popupWidth / 2,
-                location[1]+location[1]);
+                location[1] + location[1]);
         backgroundAlpha(0.5f);
     }
 
@@ -172,6 +179,8 @@ public class PopSwitchComplan extends PopupWindow {
         void selectComplan(int position);
 
         void addComplan();
+
+        void applyComplan();
     }
 
 }

@@ -21,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
-import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.TaskDetails;
 import com.article.oa_article.bean.event.UpdateTaskEvent;
 import com.article.oa_article.mvp.MVPBaseFragment;

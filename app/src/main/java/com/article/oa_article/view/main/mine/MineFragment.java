@@ -30,6 +30,7 @@ import com.article.oa_article.module.taskcenter.TaskCenterFragment;
 import com.article.oa_article.module.tempmanager.TempManagerFragment;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.NoneFragment;
+import com.article.oa_article.view.addcomplan.AddComplanActivity;
 import com.article.oa_article.view.setting.SettingActivity;
 import com.article.oa_article.widget.PopTaskMsg;
 import com.blankj.utilcode.util.FragmentUtils;
@@ -219,6 +220,12 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
                     }
                 });
                 popTaskMsg.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+            }
+
+            @Override
+            public void applyComplan() {
+                popSwitchComplan.dismiss();
+                gotoActivity(AddComplanActivity.class, false);
             }
         });
         popSwitchComplan.setOnDismissListener(() -> {

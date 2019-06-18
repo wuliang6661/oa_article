@@ -36,4 +36,37 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:visibility="visible"
+        android:background="@drawable/shape_line" />
+
+    <LinearLayout
+        android:id="@+id/apply_complan"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:visibility="visible"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/add_img" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:text="加入企业"
+            android:textColor="@color/blue_color"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
 </LinearLayout>
