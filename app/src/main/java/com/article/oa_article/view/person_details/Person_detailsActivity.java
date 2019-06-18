@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -84,6 +85,8 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
     CheckBox complanCheck;
     @BindView(R.id.title_layout)
     LinearLayout titleLayout;
+    @BindView(R.id.complan_stutas_img)
+    ImageView complanStutasImg;
 
     private boolean isNeiBu = false;   //是否是内部员工
     private int userId;    //人员Id
@@ -223,6 +226,11 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
         userLable.setText(inInfoBo.getDepartName());
         wanchenglv.setText(inInfoBo.getCompleteRate());
         yuqilv.setText(inInfoBo.getOverdueRate());
+        if (inInfoBo.getStatus() == 2) {
+            complanStutasImg.setImageResource(R.drawable.person_details_renzheng);
+        } else {
+            complanStutasImg.setImageResource(R.drawable.complan_weitongguo);
+        }
 
         ChatLineFragment fragment = ChatLineFragment.getInstance(1);
         fragment.setUserBo(userId, Integer.parseInt(MyApplication.getCommonId()));
@@ -262,6 +270,11 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
         FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.chanlian);
         fragment.setUserBo(userId, info.getCompanys().get(selectPosition).getCompanyId());
         fragment.setUnit(info.getCompanys().get(selectPosition).getUnit());
+        if (info.getCompanys().get(selectPosition).getStatus() == 2) {
+            complanStutasImg.setImageResource(R.drawable.person_details_renzheng);
+        } else {
+            complanStutasImg.setImageResource(R.drawable.complan_weitongguo);
+        }
     }
 
 

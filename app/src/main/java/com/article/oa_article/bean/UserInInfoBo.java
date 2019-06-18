@@ -28,6 +28,15 @@ public class UserInInfoBo {
     private String completeRate;
     private String departName;
     private String unit;
+    private int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public String getUnit() {
         return unit;

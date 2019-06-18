@@ -155,6 +155,7 @@
                     tools:text="杭州阿里巴巴公司" />
 
                 <ImageView
+                    android:id="@+id/complan_stutas_img"
                     android:layout_width="11dp"
                     android:layout_height="12dp"
                     android:layout_marginLeft="7dp"

@@ -80,6 +80,15 @@ public class UserOutInfo {
         private String overdueRate;
         private String companyName;
         private String completeRate;
+        private int status;
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
 
         public int getCompanyId() {
             return companyId;
