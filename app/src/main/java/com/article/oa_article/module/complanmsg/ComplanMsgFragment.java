@@ -103,21 +103,21 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
             editComplan.setVisibility(View.VISIBLE);
             editShili.setVisibility(View.VISIBLE);
             editZiyuan.setVisibility(View.VISIBLE);
-            if (MyApplication.getCommon().getStatus() == 1) {
-                editComplan.setText("认证正在审核中，请耐心等待");
-                editShili.setText("认证正在审核中，请耐心等待");
-                editZiyuan.setText("认证正在审核中，请耐心等待");
-                editShili.setTextSize(10);
-                editZiyuan.setTextSize(10);
-                editComplan.setTextSize(10);
-            } else {
-                editComplan.setText("编辑");
-                editShili.setText("编辑");
-                editZiyuan.setText("编辑");
-                editShili.setTextSize(15);
-                editZiyuan.setTextSize(15);
-                editComplan.setTextSize(15);
-            }
+//            if (MyApplication.getCommon().getStatus() == 1) {
+//                editComplan.setText("认证正在审核中，请耐心等待");
+//                editShili.setText("认证正在审核中，请耐心等待");
+//                editZiyuan.setText("认证正在审核中，请耐心等待");
+//                editShili.setTextSize(10);
+//                editZiyuan.setTextSize(10);
+//                editComplan.setTextSize(10);
+//            } else {
+//                editComplan.setText("编辑");
+//                editShili.setText("编辑");
+//                editZiyuan.setText("编辑");
+//                editShili.setTextSize(15);
+//                editZiyuan.setTextSize(15);
+//                editComplan.setTextSize(15);
+//            }
         }
     }
 
@@ -237,21 +237,21 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
     @Override
     public void getUser(UserBo userBo) {
         MyApplication.userBo = userBo;
-        if (MyApplication.getCommon().getStatus() == 1) {
-            editComplan.setText("认证正在审核中，请耐心等待");
-            editShili.setText("认证正在审核中，请耐心等待");
-            editZiyuan.setText("认证正在审核中，请耐心等待");
-            editShili.setTextSize(10);
-            editZiyuan.setTextSize(10);
-            editComplan.setTextSize(10);
-        } else {
-            editComplan.setText("编辑");
-            editShili.setText("编辑");
-            editZiyuan.setText("编辑");
-            editShili.setTextSize(15);
-            editZiyuan.setTextSize(15);
-            editComplan.setTextSize(15);
-        }
+//        if (MyApplication.getCommon().getStatus() == 1) {
+//            editComplan.setText("认证正在审核中，请耐心等待");
+//            editShili.setText("认证正在审核中，请耐心等待");
+//            editZiyuan.setText("认证正在审核中，请耐心等待");
+//            editShili.setTextSize(10);
+//            editZiyuan.setTextSize(10);
+//            editComplan.setTextSize(10);
+//        } else {
+//            editComplan.setText("编辑");
+//            editShili.setText("编辑");
+//            editZiyuan.setText("编辑");
+//            editShili.setTextSize(15);
+//            editZiyuan.setTextSize(15);
+//            editComplan.setTextSize(15);
+//        }
         EventBus.getDefault().post(new UpdateUnitEvent());
     }
 
