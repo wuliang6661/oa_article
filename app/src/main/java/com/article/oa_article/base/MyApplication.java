@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 
 import com.article.oa_article.Config;
 import com.article.oa_article.bean.UserBo;
+import com.article.oa_article.wxapi.WxShareUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -45,6 +46,7 @@ public class MyApplication extends Application {
 //        Fragmentation.getDefault().setMode(Fragmentation.BUBBLE);
         WXapi = WXAPIFactory.createWXAPI(this, Config.WX_APP_ID, true);
         WXapi.registerApp(Config.WX_APP_ID);
+        WxShareUtils.get().init();
     }
 
 

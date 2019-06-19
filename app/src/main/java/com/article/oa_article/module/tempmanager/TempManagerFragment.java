@@ -4,7 +4,6 @@ package com.article.oa_article.module.tempmanager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +12,11 @@ import android.widget.TextView;
 
 import com.article.oa_article.R;
 import com.article.oa_article.bean.CountNumBO;
+import com.article.oa_article.bean.ShareBo;
 import com.article.oa_article.mvp.MVPBaseFragment;
-import com.article.oa_article.view.addusers.AddUsersActivity;
 import com.article.oa_article.view.bumenmanager.BumenManagerActivity;
-import com.article.oa_article.view.main.personlist.PopPersonAdd;
-import com.article.oa_article.view.moveaddperson.MoveAddPersonActivity;
 import com.article.oa_article.view.personmanager.PersonManagerActivity;
+import com.article.oa_article.wxapi.WxShareUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,23 +71,24 @@ public class TempManagerFragment extends MVPBaseFragment<TempManagerContract.Vie
                 gotoActivity(PersonManagerActivity.class, false);
                 break;
             case R.id.friends_manager:
-                PopPersonAdd addPop = new PopPersonAdd(getActivity());
-                addPop.setListener(new PopPersonAdd.onCommitListener() {
-                    @Override
-                    public void shoudongAdd() {
-                        Bundle bundle = new Bundle();
-                        bundle.putBoolean("isNeiBu", true);
-                        gotoActivity(MoveAddPersonActivity.class, bundle, false);
-                    }
-
-                    @Override
-                    public void piliangAdd() {
-                        Bundle bundle = new Bundle();
-                        bundle.putBoolean("isNeiBu", true);
-                        gotoActivity(AddUsersActivity.class, bundle, false);
-                    }
-                });
-                addPop.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+//                PopPersonAdd addPop = new PopPersonAdd(getActivity());
+//                addPop.setListener(new PopPersonAdd.onCommitListener() {
+//                    @Override
+//                    public void shoudongAdd() {
+//                        Bundle bundle = new Bundle();
+//                        bundle.putBoolean("isNeiBu", true);
+//                        gotoActivity(MoveAddPersonActivity.class, bundle, false);
+//                    }
+//
+//                    @Override
+//                    public void piliangAdd() {
+//                        Bundle bundle = new Bundle();
+//                        bundle.putBoolean("isNeiBu", true);
+//                        gotoActivity(AddUsersActivity.class, bundle, false);
+//                    }
+//                });
+//                addPop.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+                mPresenter.getShareMsg();
                 break;
         }
     }
@@ -111,5 +110,10 @@ public class TempManagerFragment extends MVPBaseFragment<TempManagerContract.Vie
         tempNum.setText(countNumBO.getDeparts() + "");
         personNum.setText(countNumBO.getCompanyUsers() + "");
         orderNum.setText(countNumBO.getOrders() + "");
+    }
+
+    @Override
+    public void getShare(ShareBo shareBo) {
+        WxShareUtils.get().wechatShare(getActivity(), 0, shareBo);
     }
 }

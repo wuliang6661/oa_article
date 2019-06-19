@@ -13,6 +13,7 @@ import com.article.oa_article.bean.CountNumBO;
 import com.article.oa_article.bean.FankuiTypeBO;
 import com.article.oa_article.bean.LableBo;
 import com.article.oa_article.bean.ScopeBO;
+import com.article.oa_article.bean.ShareBo;
 import com.article.oa_article.bean.UserInInfoBo;
 import com.article.oa_article.bean.UserOutInfo;
 import com.article.oa_article.bean.request.AddComplanRequest;
@@ -443,6 +444,15 @@ public class PersonServiceImpl {
         request.setId(id);
         request.setToken(MyApplication.token);
         return getService().applyAddComplan(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取微信分享数据
+     */
+    public static Observable<ShareBo> getShareMsg() {
+        TokenRequest request = new TokenRequest();
+        request.token = MyApplication.token;
+        return getService().getShareMessage(request).compose(RxResultHelper.httpRusult());
     }
 
 }
