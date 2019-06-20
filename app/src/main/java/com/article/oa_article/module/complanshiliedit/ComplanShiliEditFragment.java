@@ -189,7 +189,7 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
 
     @OnClick(R.id.next_button)
     public void commitEdit() {
-        if(getData() != null && getHonorDatas() != null){
+        if (getData() != null && getHonorDatas() != null) {
             UpdateShiliRequest request = new UpdateShiliRequest();
             request.setCompanyHonors(getHonorDatas());
             request.setCompanyQualifications(getData());
@@ -214,7 +214,7 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
             qualificationsBean.setQualificationNumber(num.getText());
             qualificationsBean.setIssueUnit(danwei.getText());
             qualificationsBean.setIssueDate(date.getText().toString().trim().replaceAll("/", "-"));
-            if(qualificationsBeans.size() > i){
+            if (qualificationsBeans.size() > i) {
                 qualificationsBean.setQualificationId(qualificationsBeans.get(i).getQualificationId());
             }
             qualificationsBeans.set(i, qualificationsBean);
@@ -271,7 +271,7 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
             qualificationsBean.setHonorImage(rongYuAdapter.getImageByPosition(i));
             qualificationsBean.setIssueUnit(danwei.getText());
             qualificationsBean.setIssueDate(date.getText().toString().trim().replaceAll("/", "-"));
-            if(honorsBeans.size() > i){
+            if (honorsBeans.size() > i) {
                 qualificationsBean.setHonorId(honorsBeans.get(i).getHonorId());
             }
             honorsBeans.set(i, qualificationsBean);
@@ -395,11 +395,59 @@ public class ComplanShiliEditFragment extends MVPBaseFragment<ComplanShiliEditCo
         imageBO.name = name;
         imageBO.url = imageUrl;
         if (isAddZiZhi) {
-            adapter.addImage(zizhiPosition, imageBO);
+            adapter.addImage(zizhiPosition, imageBO, uiToList());
         } else {
-            rongYuAdapter.addImage(rongyuPosition, imageBO);
+            rongYuAdapter.addImage(rongyuPosition, imageBO,uiToRongYu());
         }
     }
+
+    /**
+     * 将资质界面的数据更新到集合中
+     */
+    private List<AddComplanRequest.CompanyQualificationsBean> uiToList() {
+        for (int i = 0; i < zizhiRecycle.getChildCount(); i++) {
+            View view = zizhiRecycle.getChildAt(i);
+            EditMsgText name = view.findViewById(R.id.zizhi_name);
+            EditMsgText danwei = view.findViewById(R.id.banfa_danwei);
+            TextView date = view.findViewById(R.id.person_name);
+            EditMsgText num = view.findViewById(R.id.certificate_num);
+            AddComplanRequest.CompanyQualificationsBean qualificationsBean = new AddComplanRequest.CompanyQualificationsBean();
+            qualificationsBean.setQualificationName(name.getText());
+            qualificationsBean.setQualificationImage(adapter.getImageByPosition(i));
+            qualificationsBean.setQualificationNumber(num.getText());
+            qualificationsBean.setIssueUnit(danwei.getText());
+            qualificationsBean.setIssueDate(date.getText().toString().trim().replaceAll("/", "-"));
+            if (qualificationsBeans.size() > i) {
+                qualificationsBean.setQualificationId(qualificationsBeans.get(i).getQualificationId());
+            }
+            qualificationsBeans.set(i, qualificationsBean);
+        }
+        return qualificationsBeans;
+    }
+
+    /**
+     * 将荣誉界面的数据更新到界面中
+     */
+    private List<AddComplanRequest.CompanyHonorsBean> uiToRongYu(){
+        for (int i = 0; i < rongyuRecycle.getChildCount(); i++) {
+            View view = rongyuRecycle.getChildAt(i);
+            EditMsgText name = view.findViewById(R.id.rongyu_name);
+            EditMsgText danwei = view.findViewById(R.id.banfa_danwei);
+            TextView date = view.findViewById(R.id.person_name);
+            AddComplanRequest.CompanyHonorsBean qualificationsBean = new AddComplanRequest.CompanyHonorsBean();
+            qualificationsBean.setHonorName(name.getText());
+            qualificationsBean.setHonorImage(rongYuAdapter.getImageByPosition(i));
+            qualificationsBean.setIssueUnit(danwei.getText());
+            qualificationsBean.setIssueDate(date.getText().toString().trim().replaceAll("/", "-"));
+            if (honorsBeans.size() > i) {
+                qualificationsBean.setHonorId(honorsBeans.get(i).getHonorId());
+            }
+            honorsBeans.set(i, qualificationsBean);
+        }
+        return honorsBeans;
+    }
+
+
 
     @Override
     public void onRequestError(String msg) {

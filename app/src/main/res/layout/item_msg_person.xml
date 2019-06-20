@@ -50,6 +50,7 @@
 
 
     <ImageView
+        android:id="@+id/next_img"
         android:layout_width="8dp"
         android:layout_height="15dp"
         android:layout_marginRight="16dp"

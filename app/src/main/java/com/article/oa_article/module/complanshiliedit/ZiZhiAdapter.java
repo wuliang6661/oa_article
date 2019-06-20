@@ -72,15 +72,23 @@ public class ZiZhiAdapter extends RecyclerView.Adapter<ZiZhiAdapter.ViewHodler> 
             }
             if (!StringUtils.isEmpty(dataList.get(position).getQualificationName())) {
                 holder.zizhi_name.setText(dataList.get(position).getQualificationName());
+            }else{
+                holder.zizhi_name.setText("");
             }
             if (!StringUtils.isEmpty(dataList.get(position).getIssueUnit())) {
                 holder.banfa_danwei.setText(dataList.get(position).getIssueUnit());
+            }else{
+                holder.banfa_danwei.setText("");
             }
             if (!StringUtils.isEmpty(dataList.get(position).getIssueDate())) {
                 holder.personName.setText(dataList.get(position).getIssueDate());
+            }else{
+                holder.personName.setText("");
             }
             if (!StringUtils.isEmpty(dataList.get(position).getQualificationNumber())) {
                 holder.certificate_num.setText(dataList.get(position).getQualificationNumber());
+            }else{
+                holder.certificate_num.setText("");
             }
         }
         adapter.setClickPosition(position);
@@ -131,7 +139,8 @@ public class ZiZhiAdapter extends RecyclerView.Adapter<ZiZhiAdapter.ViewHodler> 
     /**
      * 新增一张图片，设置进来
      */
-    public void addImage(int position, ImageBO imageBO) {
+    public void addImage(int position, ImageBO imageBO, List<AddComplanRequest.CompanyQualificationsBean> data) {
+        dataList = data;
         AddComplanRequest.CompanyQualificationsBean qualificationsBean = dataList.get(position);
         List<ImageBO> imageBOS = qualificationsBean.getQualificationImage() == null ? new ArrayList<>()
                 : qualificationsBean.getQualificationImage();

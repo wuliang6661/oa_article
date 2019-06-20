@@ -178,8 +178,11 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
         EventBus.getDefault().post(new MsgFragmentEvent(notNum));
     }
 
+    private List<MsgBO> msg;
+
     @Override
     public void getMsgList(List<MsgBO> msgBOS) {
+        this.msg = msgBOS;
         setAdapter(msgBOS);
     }
 
@@ -202,12 +205,10 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
         }
         adapter = new MessageAdapter(msgBOS);
         adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
-            if (position < msgBOS.size()) {
-                if (msgBOS.get(position).getMessageType() == 0) {   //好友申请
-                    isClick = true;
-                    gotoActivity(FriendApplyActivity.class, false);
-                    mPresenter.setMsgRead(msgBOS.get(position).getId() + "", 1);
-                }
+            if (msg.get(position).getMessageType() == 0 || msg.get(position).getMessageType() == 4) {   //好友申请
+                isClick = true;
+                gotoActivity(FriendApplyActivity.class, false);
+                mPresenter.setMsgRead(msg.get(position).getId() + "", 1);
             }
         });
         messageRecycle.setAdapter(adapter);
@@ -229,7 +230,7 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
 
         @Override
         public int getLayoutId(int viewType) {
-            if (viewType == 0) {  //好友申请通知
+            if (viewType == 0 || viewType == 4) {  //好友申请通知
                 return R.layout.item_msg_person;
             } else {      //任务进度
                 return R.layout.item_msg_order;
@@ -285,7 +286,7 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
                     selectList.remove(position);
                 }
             });
-            if (msgBO.getMessageType() == 0) {
+            if (msgBO.getMessageType() == 0 || msgBO.getMessageType() == 4) {
                 holder.setText(R.id.msg_message, msgBO.getNickName() + "  " + msgBO.getContent());
             } else {
                 holder.setText(R.id.msg_message, msgBO.getNickName() + "  " + msgBO.getContent());
@@ -303,17 +304,19 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
                     }
                 }
                 holder.setText(R.id.msg_order_name, msgBO.getOrderName() + "  " + msgBO.getOrderNum());
-                holder.setText(R.id.msg_level, msgBO.getTaskLevel() + "级任务");
+                if (msgBO.getMessageType() == 2 || msgBO.getMessageType() == 3 || msgBO.getMessageType() == 5) {
+                    holder.getView(R.id.leave_layout).setVisibility(View.GONE);
+                } else {
+                    holder.getView(R.id.leave_layout).setVisibility(View.VISIBLE);
+                    holder.setText(R.id.msg_level, msgBO.getTaskLevel() + "级任务");
+                }
                 holder.setText(R.id.order_date, TimeUtils.getFriendlyTimeSpanByNow(msgBO.getCreateDate()));
             }
         }
 
         @Override
         public int getItemViewType(int position) {
-            if (position < msgBOS.size()) {
-                return msgBOS.get(position).getMessageType();
-            }
-            return 0;
+            return msgBOS.get(position).getMessageType();
         }
     }
 }

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -15,8 +16,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.StringUtils;
 import com.article.oa_article.R;
+import com.blankj.utilcode.util.StringUtils;
 
 public class EditMsgText extends LinearLayout {
 
@@ -102,6 +103,12 @@ public class EditMsgText extends LinearLayout {
         message.setEnabled(isEnable);
         title.setTextColor(ContextCompat.getColor(context, R.color.hint_color));
         message.setTextColor(ContextCompat.getColor(context, R.color.f_white));
+    }
+
+
+
+    public void setTextChangeListener(TextWatcher watcher){
+        message.addTextChangedListener(watcher);
     }
 
 }

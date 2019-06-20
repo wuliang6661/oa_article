@@ -19,6 +19,7 @@ import com.article.oa_article.bean.request.AddLableRequest;
 import com.article.oa_article.bean.request.AddOutRequest;
 import com.article.oa_article.bean.request.AddUserRequest;
 import com.article.oa_article.bean.request.AddUsersRequest;
+import com.article.oa_article.bean.request.ApplyComplanRequest;
 import com.article.oa_article.bean.request.BuMenRequest;
 import com.article.oa_article.bean.request.ChartRequest;
 import com.article.oa_article.bean.request.FanKuiRequest;
@@ -274,12 +275,18 @@ public interface PersonService {
      * 申请加入公司
      */
     @POST("industry_webservice/app/companyInfo/applyRorAddCompany")
-    Observable<BaseResult<String>> applyAddComplan(@Body IdRequest request);
+    Observable<BaseResult<String>> applyAddComplan(@Body ApplyComplanRequest request);
 
     /**
      * 获取微信分享数据
      */
     @POST("industry_webservice/app/companyInfo/getWxShareMessage")
     Observable<BaseResult<ShareBo>> getShareMessage(@Body TokenRequest request);
+
+    /**
+     * 同意加入公司
+     */
+    @POST("industry_webservice/app/companyInfo/agreeAddCompany")
+    Observable<BaseResult<String>> agreeAddCompany(@Body IdRequest request);
 
 }

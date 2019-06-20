@@ -23,6 +23,15 @@ public class AggentUserBO {
     private String nickName;
     private String content;
     private int status;
+    private int messageType;
+
+    public int getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(int messageType) {
+        this.messageType = messageType;
+    }
 
     public String getImage() {
         return image;
