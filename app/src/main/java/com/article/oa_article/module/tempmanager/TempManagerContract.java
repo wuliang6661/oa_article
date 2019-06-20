@@ -15,7 +15,7 @@ public class TempManagerContract {
 
         void getCount(CountNumBO countNumBO);
 
-        void getShare(ShareBo shareBo);
+        void getShare(int flag, ShareBo shareBo);
     }
 
     interface Presenter extends BasePresenter<View> {

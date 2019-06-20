@@ -5,15 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.bigkoo.svprogresshud.SVProgressHUD;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.tencent.mm.opensdk.modelbase.BaseReq;
-import com.tencent.mm.opensdk.modelbase.BaseResp;
-import com.tencent.mm.opensdk.modelmsg.SendAuth;
-import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.article.oa_article.Config;
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.HttpServerImpl;
@@ -23,6 +14,15 @@ import com.article.oa_article.bean.request.WechatRegisterRequest;
 import com.article.oa_article.util.AppManager;
 import com.article.oa_article.view.main.MainActivity;
 import com.article.oa_article.view.register.RegisterActivity;
+import com.bigkoo.svprogresshud.SVProgressHUD;
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.tencent.mm.opensdk.modelbase.BaseReq;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
@@ -64,27 +64,35 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         }
         switch (resp.errCode) {
             case BaseResp.ErrCode.ERR_OK:
-                String code = ((SendAuth.Resp) resp).code;
-                showProgress();
-                /*
-                 * 将你前面得到的AppID、AppSecret、code，拼接成URL 获取access_token等等的信息(微信)
-                 */
-                WxHttpServiceIml.getWxMesage(Config.WX_APP_ID, Config.WX_SCREEN, code, "authorization_code")
-                        .subscribe(new HttpResultSubscriber<WeChatBean>() {
-                            @Override
-                            public void onSuccess(WeChatBean response) {
-                                String access_token = response.getAccess_token();
-                                String openid = response.getOpenid();
-                                getUserInfo(access_token, openid);
-                            }
+                switch (resp.getType()) {
+                    case 1:
+                        String code = ((SendAuth.Resp) resp).code;
+                        showProgress();
+                        /*
+                         * 将你前面得到的AppID、AppSecret、code，拼接成URL 获取access_token等等的信息(微信)
+                         */
+                        WxHttpServiceIml.getWxMesage(Config.WX_APP_ID, Config.WX_SCREEN, code, "authorization_code")
+                                .subscribe(new HttpResultSubscriber<WeChatBean>() {
+                                    @Override
+                                    public void onSuccess(WeChatBean response) {
+                                        String access_token = response.getAccess_token();
+                                        String openid = response.getOpenid();
+                                        getUserInfo(access_token, openid);
+                                    }
 
-                            @Override
-                            public void onFiled(String message) {
-                                stopProgress();
-                                Toast.makeText(WXEntryActivity.this, message, Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-                        });
+                                    @Override
+                                    public void onFiled(String message) {
+                                        stopProgress();
+                                        Toast.makeText(WXEntryActivity.this, message, Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
+                                });
+                        break;
+                    case 2:
+                    default:
+                        finish();
+                        break;
+                }
                 break;
             case BaseResp.ErrCode.ERR_USER_CANCEL:
                 result = "发送取消";
@@ -190,7 +198,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         super.onNewIntent(intent);
         setIntent(intent);
         MyApplication.WXapi.handleIntent(intent, this);
-        finish();
     }
 
 

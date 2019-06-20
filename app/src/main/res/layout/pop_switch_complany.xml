@@ -41,22 +41,22 @@
         android:layout_height="1px"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:visibility="visible"
-        android:background="@drawable/shape_line" />
+        android:background="@drawable/shape_line"
+        android:visibility="visible" />
 
     <LinearLayout
         android:id="@+id/apply_complan"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
-        android:visibility="visible"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="visible">
 
 
         <ImageView
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:src="@drawable/add_img" />
+            android:src="@drawable/apply_complan" />
 
 
         <TextView

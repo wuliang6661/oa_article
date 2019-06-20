@@ -34,12 +34,12 @@ public class TempManagerPresenter extends BasePresenterImpl<TempManagerContract.
     }
 
 
-    public void getShareMsg() {
+    public void getShareMsg(int flag) {
         PersonServiceImpl.getShareMsg().subscribe(new HttpResultSubscriber<ShareBo>() {
             @Override
             public void onSuccess(ShareBo s) {
                 if (mView != null) {
-                    mView.getShare(s);
+                    mView.getShare(flag,s);
                 }
             }
 

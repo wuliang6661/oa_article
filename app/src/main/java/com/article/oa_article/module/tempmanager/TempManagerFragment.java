@@ -4,6 +4,7 @@ package com.article.oa_article.module.tempmanager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.article.oa_article.bean.ShareBo;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.bumenmanager.BumenManagerActivity;
 import com.article.oa_article.view.personmanager.PersonManagerActivity;
+import com.article.oa_article.widget.PopShare;
 import com.article.oa_article.wxapi.WxShareUtils;
 
 import butterknife.BindView;
@@ -88,7 +90,19 @@ public class TempManagerFragment extends MVPBaseFragment<TempManagerContract.Vie
 //                    }
 //                });
 //                addPop.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
-                mPresenter.getShareMsg();
+                PopShare share = new PopShare(getActivity());
+                share.setListener(new PopShare.onCommitListener() {
+                    @Override
+                    public void shareFriend() {
+                        mPresenter.getShareMsg(0);
+                    }
+
+                    @Override
+                    public void shareMenmens() {
+                        mPresenter.getShareMsg(1);
+                    }
+                });
+                share.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
                 break;
         }
     }
@@ -113,7 +127,7 @@ public class TempManagerFragment extends MVPBaseFragment<TempManagerContract.Vie
     }
 
     @Override
-    public void getShare(ShareBo shareBo) {
-        WxShareUtils.get().wechatShare(getActivity(), 0, shareBo);
+    public void getShare(int flag, ShareBo shareBo) {
+        WxShareUtils.get().wechatShare(getActivity(), flag, shareBo);
     }
 }
