@@ -99,7 +99,7 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
         popSwitchLable = new PopSwitchLable(this);
         popSwitchLable.setListener((personBO, text) -> {
             editName.setText("");
-            if(text != null){
+            if (text != null) {
                 mPresenter.updateDeart(personBO.getId(), Integer.parseInt(text.getId()));
             }
         });
@@ -303,7 +303,9 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
         switch (resultCode) {
             case 0x11:
                 buMenFlowBO = (BuMenFlowBO) data.getSerializableExtra("bumen");
-                popSwitchLable.setFlow(buMenFlowBO);
+                if (buMenFlowBO != null) {
+                    popSwitchLable.setFlow(buMenFlowBO);
+                }
                 break;
         }
     }
