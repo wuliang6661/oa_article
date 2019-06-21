@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.article.oa_article.R;
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.http.MessageServiceImpl;
+import com.article.oa_article.api.http.PersonServiceImpl;
 import com.article.oa_article.base.BaseActivity;
 import com.article.oa_article.bean.AggentUserBO;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
@@ -128,7 +129,13 @@ public class FriendApplyActivity extends BaseActivity {
                 }
             }
         };
-        adapter.setOnItemClickListener(R.id.select_button, (view, position) -> agreeUser(aggents.get(position).getObjectId()));
+        adapter.setOnItemClickListener(R.id.select_button, (view, position) -> {
+            if (aggents.get(position).getMessageType() == 0) {
+                agreeUser(aggents.get(position).getObjectId());
+            } else {
+                agreeComplan(aggents.get(position).getObjectId());
+            }
+        });
         friendRecycle.setAdapter(adapter);
     }
 
@@ -140,6 +147,26 @@ public class FriendApplyActivity extends BaseActivity {
         MessageServiceImpl.agreeUser(id).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
+                showToast("已同意！");
+                getAggentUser();
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
+
+
+    /**
+     * 同意公司申请
+     */
+    private void agreeComplan(int id) {
+        PersonServiceImpl.agreeAddComplan(id).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                showToast("已同意！");
                 getAggentUser();
             }
 

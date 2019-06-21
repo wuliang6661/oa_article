@@ -69,12 +69,18 @@ public class RongYuAdapter extends RecyclerView.Adapter<RongYuAdapter.ViewHodler
         }
         if (!StringUtils.isEmpty(dataList.get(position).getHonorName())) {
             holder.rongyu_name.setText(dataList.get(position).getHonorName());
+        } else {
+            holder.rongyu_name.setText("");
         }
         if (!StringUtils.isEmpty(dataList.get(position).getIssueUnit())) {
             holder.banfa_danwei.setText(dataList.get(position).getIssueUnit());
+        } else {
+            holder.banfa_danwei.setText("");
         }
         if (!StringUtils.isEmpty(dataList.get(position).getIssueDate())) {
             holder.personName.setText(dataList.get(position).getIssueDate());
+        } else {
+            holder.personName.setText("");
         }
         adapter.setClickPosition(position);
         adapter.setDelete(false);
@@ -122,7 +128,8 @@ public class RongYuAdapter extends RecyclerView.Adapter<RongYuAdapter.ViewHodler
     /**
      * 新增一张图片，设置进来
      */
-    public void addImage(int position, ImageBO imageBO) {
+    public void addImage(int position, ImageBO imageBO, List<AddComplanRequest.CompanyHonorsBean> data) {
+        dataList = data;
         AddComplanRequest.CompanyHonorsBean qualificationsBean = dataList.get(position);
         List<ImageBO> imageBOS = qualificationsBean.getHonorImage() == null ? new ArrayList<>()
                 : qualificationsBean.getHonorImage();

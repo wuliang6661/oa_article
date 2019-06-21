@@ -21,6 +21,7 @@ import com.article.oa_article.bean.request.AddLableRequest;
 import com.article.oa_article.bean.request.AddOutRequest;
 import com.article.oa_article.bean.request.AddUserRequest;
 import com.article.oa_article.bean.request.AddUsersRequest;
+import com.article.oa_article.bean.request.ApplyComplanRequest;
 import com.article.oa_article.bean.request.BuMenRequest;
 import com.article.oa_article.bean.request.ChartRequest;
 import com.article.oa_article.bean.request.FanKuiRequest;
@@ -440,8 +441,9 @@ public class PersonServiceImpl {
      * 申请加入公司
      */
     public static Observable<String> addComplan(int id) {
-        IdRequest request = new IdRequest();
-        request.setId(id);
+        ApplyComplanRequest request = new ApplyComplanRequest();
+        request.setHisCompanyId(id);
+        request.setMyCompanyId(Integer.parseInt(MyApplication.getCommonId()));
         request.setToken(MyApplication.token);
         return getService().applyAddComplan(request).compose(RxResultHelper.httpRusult());
     }
@@ -453,6 +455,16 @@ public class PersonServiceImpl {
         TokenRequest request = new TokenRequest();
         request.token = MyApplication.token;
         return getService().getShareMessage(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 同意加入公司
+     */
+    public static Observable<String> agreeAddComplan(int id) {
+        IdRequest request = new IdRequest();
+        request.setToken(MyApplication.token);
+        request.setId(id);
+        return getService().agreeAddCompany(request).compose(RxResultHelper.httpRusult());
     }
 
 }

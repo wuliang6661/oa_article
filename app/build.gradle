@@ -19,28 +19,16 @@ android {
         }
     }
 
-    signingConfigs {
-        config {
-            keyAlias 'hit_client'
-            keyPassword '123456'
-            storeFile file('D:/Android_Project/oa_article/hit_client.jks')
-            storePassword '123456'
-        }
-    }
-
     buildTypes {
         release {
             minifyEnabled false
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
         }
         repositories {
             jcenter()
         }
-        debug {
-            signingConfig signingConfigs.config
-        }
+
     }
 
     packagingOptions {
