@@ -83,7 +83,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="所在部门"
+            android:text="内部联系人"
             android:textColor="@color/white"
             android:textSize="15sp" />
 
