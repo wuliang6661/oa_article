@@ -135,6 +135,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.divider_inset));
         taskRecycleView.addItemDecoration(itemDecoration);
 
+
     }
 
 
