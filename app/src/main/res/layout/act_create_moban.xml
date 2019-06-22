@@ -127,7 +127,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:hint="请输入备注"
+                        android:hint="请输入备注信息"
                         android:singleLine="true"
                         android:textColor="@color/f_white"
                         android:textColorHint="@color/hint_color"
@@ -192,7 +192,7 @@
             </LinearLayout>
 
 
-            <android.support.v7.widget.RecyclerView
+            <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
                 android:id="@+id/recycle_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

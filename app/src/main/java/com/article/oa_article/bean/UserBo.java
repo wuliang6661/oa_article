@@ -69,6 +69,15 @@ public class UserBo {
         private int isAdmin;
         private String unit;
         private int status;
+        private String logo;
+
+        public String getLogo() {
+            return logo;
+        }
+
+        public void setLogo(String logo) {
+            this.logo = logo;
+        }
 
         public int getStatus() {
             return status;

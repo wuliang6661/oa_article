@@ -54,9 +54,9 @@
             android:gravity="center_vertical"
             android:paddingRight="15dp"
             android:text="编辑"
-            android:visibility="gone"
             android:textColor="@color/blue_color"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:visibility="gone" />
 
 
     </LinearLayout>
@@ -66,7 +66,7 @@
         android:id="@+id/kehu_order_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"

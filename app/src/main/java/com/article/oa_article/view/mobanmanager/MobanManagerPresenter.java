@@ -2,6 +2,7 @@ package com.article.oa_article.view.mobanmanager;
 
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.HttpServerImpl;
+import com.article.oa_article.api.http.PersonServiceImpl;
 import com.article.oa_article.bean.MuBanTaskBO;
 import com.article.oa_article.bean.TempleteBO;
 import com.article.oa_article.bean.request.IdRequest;
@@ -44,6 +45,25 @@ public class MobanManagerPresenter extends BasePresenterImpl<MobanManagerContrac
             public void onSuccess(List<MuBanTaskBO> s) {
                 if (mView != null) {
                     mView.makeMuBanSoress(s);
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
+
+
+    public void deleteTempter(int id) {
+        PersonServiceImpl.deleteTemple(id).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if (mView != null) {
+                    mView.deleteSourss();
                 }
             }
 

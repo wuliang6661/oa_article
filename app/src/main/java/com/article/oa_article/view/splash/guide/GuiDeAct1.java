@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.article.oa_article.R;
 import com.article.oa_article.base.BaseActivity;
+import com.article.oa_article.util.AppManager;
 
 import butterknife.BindView;
 
@@ -23,6 +24,8 @@ public class GuiDeAct1 extends BaseActivity {
 
     @BindView(R.id.add_img)
     ImageView addImg;
+    @BindView(R.id.close)
+    ImageView close;
 
     @Override
     protected int getLayout() {
@@ -37,6 +40,7 @@ public class GuiDeAct1 extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         addImg.setOnClickListener(view -> gotoActivity(GuiDeAct2.class, false));
+        close.setOnClickListener(view -> AppManager.getAppManager().goHome());
     }
 
 

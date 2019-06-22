@@ -289,4 +289,10 @@ public interface PersonService {
     @POST("industry_webservice/app/companyInfo/agreeAddCompany")
     Observable<BaseResult<String>> agreeAddCompany(@Body IdRequest request);
 
+    /**
+     * 删除模板
+     */
+    @POST("industry_webservice/app/taskTemplate/deleteTemplate")
+    Observable<BaseResult<String>> deleteTemplate(@Body IdRequest request);
+
 }

@@ -99,7 +99,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="预期"
+                android:text="逾期"
                 android:textColor="#A9A6A6"
                 android:textSize="13sp" />
 

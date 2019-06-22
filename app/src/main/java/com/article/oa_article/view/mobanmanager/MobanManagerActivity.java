@@ -2,6 +2,7 @@ package com.article.oa_article.view.mobanmanager;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -21,9 +23,16 @@ import com.article.oa_article.bean.TempleteBO;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.TempleteRequest;
 import com.article.oa_article.mvp.MVPBaseActivity;
+import com.article.oa_article.view.bumenmanager.BumenManagerActivity;
 import com.article.oa_article.view.createmoban.CreateMoBanActivity;
+import com.article.oa_article.widget.AlertDialog;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
+import com.blankj.utilcode.util.SizeUtils;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -43,7 +52,7 @@ public class MobanManagerActivity extends MVPBaseActivity<MobanManagerContract.V
     @BindView(R.id.add_moban)
     TextView addMoban;
     @BindView(R.id.recycle_view)
-    RecyclerView recycleView;
+    SwipeMenuRecyclerView recycleView;
     @BindView(R.id.edit_moban_name)
     EditText editMobanName;
 
@@ -71,6 +80,35 @@ public class MobanManagerActivity extends MVPBaseActivity<MobanManagerContract.V
         request.setPageNum(1);
         request.setPageSize(1000);
         initView();
+        setSwipeMenu();
+    }
+
+
+    private void setSwipeMenu() {
+        // 创建菜单：
+        SwipeMenuCreator mSwipeMenuCreator = (leftMenu, rightMenu, viewType) -> {
+            // 2 删除
+            SwipeMenuItem deleteItem = new SwipeMenuItem(this);
+            deleteItem.setText("删除")
+                    .setBackgroundColor(getResources().getColor(R.color.item_delete))
+                    .setTextColor(Color.WHITE) // 文字颜色。
+                    .setTextSize(15) // 文字大小。
+                    .setWidth(SizeUtils.dp2px(63))
+                    .setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+            rightMenu.addMenuItem(deleteItem);
+            // 注意：哪边不想要菜单，那么不要添加即可。
+        };
+        // 设置监听器。
+        recycleView.setSwipeMenuCreator(mSwipeMenuCreator);
+        SwipeMenuItemClickListener mMenuItemClickListener = menuBridge -> {
+            // 任何操作必须先关闭菜单，否则可能出现Item菜单打开状态错乱。
+            menuBridge.closeMenu();
+            new AlertDialog(MobanManagerActivity.this).builder().setGone().setMsg("是否确认删除该模板？")
+                    .setNegativeButton("取消", null)
+                    .setPositiveButton("确定", v -> mPresenter.deleteTempter(templeteBOS.get(menuBridge.getAdapterPosition()).getId())).show();
+        };
+        // 菜单点击监听。
+        recycleView.setSwipeMenuItemClickListener(mMenuItemClickListener);
     }
 
 
@@ -131,6 +169,11 @@ public class MobanManagerActivity extends MVPBaseActivity<MobanManagerContract.V
         intent.putExtra("data", dataBean);
         setResult(0X11, intent);
         finish();
+    }
+
+    @Override
+    public void deleteSourss() {
+        mPresenter.getTempleteList(request);
     }
 
 

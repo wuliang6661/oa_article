@@ -64,6 +64,15 @@ public class OrderInfoBo implements Serializable {
         private int num;
         private long planCompleteDate;
         private String remark;
+        private int parentOrderTaskId;
+
+        public int getParentOrderTaskId() {
+            return parentOrderTaskId;
+        }
+
+        public void setParentOrderTaskId(int parentOrderTaskId) {
+            this.parentOrderTaskId = parentOrderTaskId;
+        }
 
         /**
          * 状态（0待接受，1进行中，2已完成，3已取消）

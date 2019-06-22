@@ -467,4 +467,14 @@ public class PersonServiceImpl {
         return getService().agreeAddCompany(request).compose(RxResultHelper.httpRusult());
     }
 
+    /**
+     * 删除任务模板
+     */
+    public static Observable<String> deleteTemple(int id) {
+        IdRequest request = new IdRequest();
+        request.setToken(MyApplication.token);
+        request.setId(id);
+        return getService().deleteTemplate(request).compose(RxResultHelper.httpRusult());
+    }
+
 }

@@ -1,7 +1,5 @@
 package com.article.oa_article.view.splash.guide;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.WindowManager;
@@ -11,6 +9,7 @@ import android.widget.LinearLayout;
 
 import com.article.oa_article.R;
 import com.article.oa_article.base.BaseActivity;
+import com.article.oa_article.util.AppManager;
 
 import butterknife.BindView;
 
@@ -28,6 +27,8 @@ public class GuiDeAct3 extends BaseActivity {
     Button next;
     @BindView(R.id.bg_img)
     ImageView bgImg;
+    @BindView(R.id.close)
+    ImageView close;
 
     @Override
     protected int getLayout() {
@@ -47,5 +48,6 @@ public class GuiDeAct3 extends BaseActivity {
 //        bgImg.setImageBitmap(b);
         back.setOnClickListener(view -> finish());
         next.setOnClickListener(view -> gotoActivity(GuiDe4Act.class, false));
+        close.setOnClickListener(view -> AppManager.getAppManager().goHome());
     }
 }

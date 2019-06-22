@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.article.oa_article.R;
 import com.article.oa_article.base.BaseActivity;
+import com.article.oa_article.util.AppManager;
 
 import butterknife.BindView;
 
@@ -36,6 +37,8 @@ public class GuiDe4Act extends BaseActivity {
     ImageView hint2;
     @BindView(R.id.hint3)
     ImageView hint3;
+    @BindView(R.id.close)
+    ImageView close;
 
     private int shunxu = 0; //默认是第一步
 
@@ -86,5 +89,6 @@ public class GuiDe4Act extends BaseActivity {
             }
         });
         back.setOnClickListener(view -> finish());
+        close.setOnClickListener(view -> AppManager.getAppManager().goHome());
     }
 }

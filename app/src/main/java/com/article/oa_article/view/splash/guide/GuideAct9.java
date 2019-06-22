@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 
 import com.article.oa_article.R;
 import com.article.oa_article.base.BaseActivity;
+import com.article.oa_article.util.AppManager;
 
 import butterknife.BindView;
 
@@ -23,6 +24,8 @@ public class GuideAct9 extends BaseActivity {
     ImageView next;
     @BindView(R.id.back)
     LinearLayout back;
+    @BindView(R.id.close)
+    ImageView close;
 
     @Override
     protected int getLayout() {
@@ -39,5 +42,6 @@ public class GuideAct9 extends BaseActivity {
 
         back.setOnClickListener(view -> finish());
         next.setOnClickListener(view -> finish());
+        close.setOnClickListener(view -> AppManager.getAppManager().goHome());
     }
 }

@@ -121,7 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="计划数量/单位"
+                    android:text="计划数量"
                     android:textColor="#8D8C91"
                     android:textSize="9sp" />
 

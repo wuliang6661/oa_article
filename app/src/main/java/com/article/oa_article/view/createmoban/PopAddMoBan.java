@@ -29,16 +29,17 @@ public class PopAddMoBan extends PopupWindow {
     private EditText taskName;
     private TextView personName;
     private PersonBO personBO;
+    private TextView title;
 
     private int selectPosition = -1;
 
-    PopAddMoBan(Activity activity, String name, String person, int userId) {
+    PopAddMoBan(Activity activity, String title, String name, String person, int userId) {
         super(activity);
 
         EventBus.getDefault().register(this);
         this.activity = activity;
         dialogView = activity.getLayoutInflater().inflate(R.layout.pop_add_moban, null);
-        initView(name, person, userId);
+        initView(title, name, person, userId);
         this.setBackgroundDrawable(new ColorDrawable(0));
         this.setContentView(dialogView);
         //设置PopupWindow弹出窗体的宽
@@ -64,12 +65,14 @@ public class PopAddMoBan extends PopupWindow {
     /**
      * 初始化布局
      */
-    private void initView(String name, String person, int userId) {
+    private void initView(String titletext, String name, String person, int userId) {
+        title = dialogView.findViewById(R.id.title);
         taskName = dialogView.findViewById(R.id.edit_task_name);
         RelativeLayout selectPerson = dialogView.findViewById(R.id.select_person);
         personName = dialogView.findViewById(R.id.person_name);
         TextView cancle = dialogView.findViewById(R.id.cancle);
         Button commit = dialogView.findViewById(R.id.next_button);
+        title.setText(titletext);
 
         if (!StringUtils.isEmpty(name)) {
             taskName.setText(name);

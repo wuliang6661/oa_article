@@ -2,13 +2,13 @@ package com.article.oa_article.view.splash.guide;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.article.oa_article.R;
 import com.article.oa_article.base.BaseActivity;
+import com.article.oa_article.util.AppManager;
 
 import butterknife.BindView;
 
@@ -25,6 +25,8 @@ public class GuiDeAct2 extends BaseActivity {
     ImageView hintImg;
     @BindView(R.id.back)
     LinearLayout back;
+    @BindView(R.id.close)
+    ImageView close;
 
     @Override
     protected int getLayout() {
@@ -40,5 +42,6 @@ public class GuiDeAct2 extends BaseActivity {
 
         hintImg.setOnClickListener(view -> gotoActivity(GuiDeAct3.class, false));
         back.setOnClickListener(view -> finish());
+        close.setOnClickListener(view -> AppManager.getAppManager().goHome());
     }
 }

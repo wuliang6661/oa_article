@@ -31,6 +31,7 @@ import com.article.oa_article.view.moveaddperson.MoveAddPersonActivity;
 import com.article.oa_article.view.person_details.Person_detailsActivity;
 import com.article.oa_article.view.personmanager.PopSwitchLable;
 import com.blankj.utilcode.util.ScreenUtils;
+import com.bumptech.glide.Glide;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -257,13 +258,13 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
     public void setTitleVisiable() {
         new Handler().post(() -> {
             titleLayout.setVisibility(View.VISIBLE);
-            complanyImg.setVisibility(View.GONE);
+            complanyImg.setVisibility(View.VISIBLE);
             if (!MyApplication.isHaveCommon()) {
                 complanName.setText("暂无企业");
                 return;
             }
             complanName.setText(MyApplication.getCommon().getCompanyName());
-//                Glide.with(getActivity()).load(MyApplication.getCommon().)
+            Glide.with(getActivity()).load(MyApplication.getCommon().getLogo()).into(complanyImg);
         });
     }
 

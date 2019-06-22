@@ -18,6 +18,8 @@ public class MobanManagerContract {
         void getMoBan(List<TempleteBO> templeteBOS);
 
         void makeMuBanSoress(List<MuBanTaskBO> muBanTaskBOS);
+
+        void deleteSourss();
     }
 
     interface Presenter extends BasePresenter<View> {

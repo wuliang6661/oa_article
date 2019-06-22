@@ -209,7 +209,11 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
         stopProgress();
         this.infoBo = infoBo;
         createName.setText(infoBo.getOrderInfo().getNickName());
+//        if(infoBo.getOrderInfo().getParentOrderTaskId() != 0){
+//
+//        }else{
         kehuName.setText(infoBo.getOrderInfo().getClientName());
+//        }
         kehuOrderName.setText(infoBo.getOrderInfo().getClientOrderName());
         kehuOrderNum.setText(infoBo.getOrderInfo().getClientOrderNum());
         orderDanwei.setText(infoBo.getOrderInfo().getUnit());

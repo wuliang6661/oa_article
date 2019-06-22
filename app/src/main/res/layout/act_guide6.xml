@@ -1,51 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/guide6_bg"
-    android:gravity="center_horizontal|bottom"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-
-    <ImageView
-        android:id="@+id/next"
-        android:layout_width="108dp"
-        android:layout_height="25dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/guide6_msg" />
-
-
-    <ImageView
-        android:layout_width="306dp"
-        android:layout_height="102dp"
-        android:layout_marginTop="12dp"
-        android:src="@drawable/guide6_hint" />
-
-
-    <LinearLayout
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="35dp"
-        android:gravity="center"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/guide6_bg"
+        android:gravity="center_horizontal|bottom"
         android:orientation="vertical">
 
+
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="45dp"
-            android:src="@drawable/guide_back" />
+            android:id="@+id/next"
+            android:layout_width="108dp"
+            android:layout_height="25dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/guide6_msg" />
 
 
-        <TextView
+        <ImageView
+            android:layout_width="306dp"
+            android:layout_height="102dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/guide6_hint" />
+
+
+        <LinearLayout
+            android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="21dp"
-            android:text="上一页"
-            android:textColor="#2760C3"
-            android:textSize="17sp" />
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="35dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="45dp"
+                android:src="@drawable/guide_back" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp"
+                android:text="上一页"
+                android:textColor="#2760C3"
+                android:textSize="17sp" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
-
-</LinearLayout>
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/splash_close" />
+</RelativeLayout>
