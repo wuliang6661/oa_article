@@ -133,11 +133,17 @@ public class LableCustomActivity extends MVPBaseActivity<LableCustomContract.Vie
     private void setSysAdapter() {
         sysAdapter = new SysAdapter(lableBo.getSysLabels());
         sysAdapter.setOnItemClickListener(R.id.flow_text, (view, position) -> {
-            sysAdapter.setSelectPosition(position);
+            isFirst = true;
+            if (position == sysAdapter.selectPosition) {
+                sysAdapter.setSelectPosition(-1);
+                labelsBean = null;
+            } else {
+                sysAdapter.setSelectPosition(position);
+                labelsBean = lableBo.getSysLabels().get(position);
+            }
+            adapter.setSelectPosition(-1);
             sysAdapter.notifyDataSetChanged();
             adapter.notifyDataSetChanged();
-            isFirst = true;
-            labelsBean = lableBo.getSysLabels().get(position);
         });
         flowLayout.setAdapter(sysAdapter);
         if (!lableBo.getSysLabels().isEmpty()) {
@@ -152,11 +158,17 @@ public class LableCustomActivity extends MVPBaseActivity<LableCustomContract.Vie
     private void setMyLableAdapter() {
         adapter = new MyLableAdapter(lableBo.getCustomLabels());
         adapter.setOnItemClickListener(R.id.flow_text, (view, position) -> {
-            adapter.setSelectPosition(position);
+            isFirst = false;
+            if (position == adapter.selectPosition) {
+                adapter.setSelectPosition(-1);
+                customLabelsBean = null;
+            } else {
+                adapter.setSelectPosition(position);
+                customLabelsBean = lableBo.getCustomLabels().get(position);
+            }
+            sysAdapter.setSelectPosition(-1);
             adapter.notifyDataSetChanged();
             sysAdapter.notifyDataSetChanged();
-            isFirst = false;
-            customLabelsBean = lableBo.getCustomLabels().get(position);
         });
         adapter.setOnItemClickListener(R.id.flow_delete, (view, position) ->
                 new AlertDialog(LableCustomActivity.this).builder().setGone().setMsg("是否确定删除标签？")
@@ -206,7 +218,7 @@ public class LableCustomActivity extends MVPBaseActivity<LableCustomContract.Vie
             super(dataList);
         }
 
-        int selectPosition = 0;
+        int selectPosition = -1;
 
         void setSelectPosition(int selectPosition) {
             this.selectPosition = selectPosition;

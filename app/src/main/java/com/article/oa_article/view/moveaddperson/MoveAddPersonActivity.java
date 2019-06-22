@@ -187,16 +187,26 @@ public class MoveAddPersonActivity extends MVPBaseActivity<MoveAddPersonContract
                 buMenFlowBO = (BuMenFlowBO) data.getSerializableExtra("bumen");
                 if (buMenFlowBO != null) {
                     bumenName.setText(buMenFlowBO.getName());
+                } else {
+                    bumenName.setText("");
                 }
                 break;
             case 0x22:
                 isFirst = data.getBooleanExtra("isFirst", true);
                 if (isFirst) {
                     labelsBean = (LableBo.SysLabelsBean) data.getSerializableExtra("lable");
-                    waibuFlowName.setText(labelsBean.getName());
+                    if (labelsBean != null) {
+                        waibuFlowName.setText(labelsBean.getName());
+                    } else {
+                        waibuFlowName.setText("");
+                    }
                 } else {
                     customLabelsBean = (LableBo.CustomLabelsBean) data.getSerializableExtra("lable");
-                    waibuFlowName.setText(customLabelsBean.getName());
+                    if (customLabelsBean != null) {
+                        waibuFlowName.setText(customLabelsBean.getName());
+                    } else {
+                        waibuFlowName.setText("");
+                    }
                 }
                 break;
         }

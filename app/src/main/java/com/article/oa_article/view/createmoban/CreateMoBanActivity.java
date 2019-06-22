@@ -176,8 +176,8 @@ public class CreateMoBanActivity extends MVPBaseActivity<CreateMoBanContract.Vie
 //            bean.setName(infoBean.getNickName());
             list.add(bean);
         }
-        if (list.isEmpty()) {
-            showToast("请添加任务模板！");
+        if(list.isEmpty()){
+            showToast("请添加执行人！");
             return;
         }
         templeteBo.setTaskTemplateDetails(list);

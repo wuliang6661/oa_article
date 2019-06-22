@@ -76,7 +76,7 @@ public class PopSwitchLable extends PopupWindow {
     }
 
 
-    public PopSwitchLable(Fragment fragment){
+    public PopSwitchLable(Fragment fragment) {
         super(fragment.getActivity());
 
         this.activity = fragment.getActivity();
@@ -117,7 +117,6 @@ public class PopSwitchLable extends PopupWindow {
     }
 
 
-
     /***
      * 显示时将屏幕置为透明
      */
@@ -129,8 +128,12 @@ public class PopSwitchLable extends PopupWindow {
 
 
     public void setFlow(BuMenFlowBO buMenFlowBO) {
-        this.buMenFlowBO = buMenFlowBO;
-        bumenText.setText(buMenFlowBO.getName());
+        if (buMenFlowBO != null) {
+            this.buMenFlowBO = buMenFlowBO;
+            bumenText.setText(buMenFlowBO.getName());
+        } else {
+            bumenText.setText("");
+        }
     }
 
     public void setText(PersonBO personBO) {

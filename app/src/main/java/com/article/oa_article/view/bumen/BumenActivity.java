@@ -70,9 +70,14 @@ public class BumenActivity extends MVPBaseActivity<BumenContract.View, BumenPres
     public void getBumenFlows(List<BuMenFlowBO> buMenFlowBOS) {
         FlowAdapter adapter = new FlowAdapter(buMenFlowBOS);
         adapter.setOnItemClickListener(R.id.flow_text, (view, position) -> {
-            adapter.setSelectPosition(position);
+            if (adapter.selectPosition == position) {
+                adapter.setSelectPosition(-1);
+                buMenFlowBO = null;
+            } else {
+                adapter.setSelectPosition(position);
+                buMenFlowBO = buMenFlowBOS.get(position);
+            }
             adapter.notifyDataSetChanged();
-            buMenFlowBO = buMenFlowBOS.get(position);
         });
         tagRecycle.setAdapter(adapter);
         if (!buMenFlowBOS.isEmpty()) {
