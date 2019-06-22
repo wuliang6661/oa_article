@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.article.oa_article.R;
 import com.article.oa_article.bean.BuMenFlowBO;
+import com.article.oa_article.bean.PersonBO;
 import com.article.oa_article.mvp.MVPBaseActivity;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
@@ -35,6 +36,9 @@ public class BumenActivity extends MVPBaseActivity<BumenContract.View, BumenPres
     @BindView(R.id.tag_recycle)
     RecyclerView tagRecycle;
 
+    private int type = 0;   //默认选择部门，1未修改联系人部门
+    private PersonBO personBO;
+
     @Override
     protected int getLayout() {
         return R.layout.act_bumen_flow;
@@ -50,14 +54,28 @@ public class BumenActivity extends MVPBaseActivity<BumenContract.View, BumenPres
         GridLayoutManager manager = new GridLayoutManager(this, 3);
         tagRecycle.setLayoutManager(manager);
         mPresenter.getBumenList();
+
+        type = getIntent().getIntExtra("type", 0);
+        if (type == 1) {
+            personBO = (PersonBO) getIntent().getSerializableExtra("person");
+        }
     }
 
     @OnClick(R.id.next_button)
     public void commit() {
-        Intent intent = new Intent();
-        intent.putExtra("bumen", buMenFlowBO);
-        setResult(0x11, intent);
-        finish();
+        if (type == 0) {
+            Intent intent = new Intent();
+            intent.putExtra("bumen", buMenFlowBO);
+            setResult(0x11, intent);
+            finish();
+        } else {
+            if (buMenFlowBO != null) {
+                mPresenter.updateDeart(personBO.getId(), Integer.parseInt(buMenFlowBO.getId()));
+            } else {
+                finish();
+            }
+        }
+
     }
 
 
@@ -83,6 +101,11 @@ public class BumenActivity extends MVPBaseActivity<BumenContract.View, BumenPres
         if (!buMenFlowBOS.isEmpty()) {
             buMenFlowBO = buMenFlowBOS.get(0);
         }
+    }
+
+    @Override
+    public void updateDeats() {
+        finish();
     }
 
 

@@ -363,8 +363,11 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
         showToast(msg);
     }
 
+    private TaskNumBO taskNumBO;
+
     @Override
     public void getTaskNum(TaskNumBO taskNumBO) {
+        this.taskNumBO = taskNumBO;
         tab1.setText(taskNumBO.getAll() + "\n已接受");
         tab2.setText(taskNumBO.getMy() + "\n自己做");
         tab3.setText(taskNumBO.getICreate() + "\n派人做");

@@ -503,7 +503,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                         taskWay.setChecked(true);
                     } else if ("5".equals(request.getTaskType())) {   //已取消
                         taskOff.setChecked(true);
-                    } else {                        //已完成
+                    } else if ("2".equals(request.getTaskType())) {  //已完成
                         lastRadio.setChecked(true);
                     }
                     break;
@@ -523,7 +523,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                         taskWay.setChecked(true);
                     } else if ("5".equals(request.getTaskType())) {   //已取消
                         taskOff.setChecked(true);
-                    } else {                        //已完成
+                    } else if ("2".equals(request.getTaskType())) {  //已完成
                         lastRadio.setChecked(true);
                     }
                     break;
@@ -661,7 +661,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                     request.setTaskType("4");
                 } else if ("2".equals(taskRadio)) {   //已取消
                     request.setTaskType("5");
-                } else {                        //已完成
+                } else if("3".equals(taskRadio)){                        //已完成
                     request.setTaskType("2");
                 }
                 break;
@@ -681,7 +681,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                     request.setTaskType("4");
                 } else if ("2".equals(taskRadio)) {   //已取消
                     request.setTaskType("5");
-                } else {                        //已完成
+                } else if("3".equals(taskRadio)){                        //已完成
                     request.setTaskType("2");
                 }
                 break;

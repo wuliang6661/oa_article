@@ -234,10 +234,10 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 if (tasks.size() == 0) {
                     taskRightButton.setVisibility(View.GONE);
                     addTaskLayout.setVisibility(View.VISIBLE);
+                    isShunYan = true;
                 } else {
                     taskRightButton.setVisibility(View.VISIBLE);
                 }
-
 //                addTaskLayout.setVisibility(View.VISIBLE);
             } else {
                 taskRightButton.setVisibility(View.GONE);
@@ -271,6 +271,10 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 tasks.add(bean);
             }
             isTaskEdit = false;
+            isEdit(type);
+            if (type == 0 && tasks.size() == 0) {
+                isShunYan = true;
+            }
             if (type == 0 && adapter == null && isShunYan) {   //可编辑
                 setSwipeMenu();
             }
@@ -360,7 +364,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 if (StringUtils.isEmpty(s.getUnit())) {
                     holder.setText(R.id.task_jihua_num, s.getPlanNum() == 0 ? "--" : s.getPlanNum() + "");
                 } else {
-                    holder.setText(R.id.task_jihua_num, s.getPlanNum() + "");//+ " / " + s.getUnit()
+                    holder.setText(R.id.task_jihua_num, s.getPlanNum() + (StringUtils.isEmpty(s.getUnit()) ? "" : " / " + s.getUnit()));
                 }
                 if (StringUtils.isEmpty(s.getPlanCompleteDate())) {
                     holder.setText(R.id.task_date, "--");

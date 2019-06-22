@@ -27,9 +27,9 @@ import com.article.oa_article.bean.PersonBO;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.addusers.AddUsersActivity;
+import com.article.oa_article.view.bumen.BumenActivity;
 import com.article.oa_article.view.moveaddperson.MoveAddPersonActivity;
 import com.article.oa_article.view.person_details.Person_detailsActivity;
-import com.article.oa_article.view.personmanager.PopSwitchLable;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.bumptech.glide.Glide;
 
@@ -97,13 +97,13 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
         params.width = ScreenUtils.getScreenWidth() / 2;
         line.setLayoutParams(params);
 
-        popSwitchLable = new PopSwitchLable(this);
-        popSwitchLable.setListener((personBO, text) -> {
-            editName.setText("");
-            if (text != null) {
-                mPresenter.updateDeart(personBO.getId(), Integer.parseInt(text.getId()));
-            }
-        });
+//        popSwitchLable = new PopSwitchLable(this);
+//        popSwitchLable.setListener((personBO, text) -> {
+//            editName.setText("");
+//            if (text != null) {
+//                mPresenter.updateDeart(personBO.getId(), Integer.parseInt(text.getId()));
+//            }
+//        });
         request = new IdRequest();
         mPresenter.getNeiUsers(request);
 
@@ -280,7 +280,7 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
         unbinder.unbind();
     }
 
-    PopSwitchLable popSwitchLable;
+    //    PopSwitchLable popSwitchLable;
     private BuMenFlowBO buMenFlowBO;
 
     @Override
@@ -288,8 +288,12 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
         this.bumenBOS = bumenBOS;
         ExpandAdapter expandAdapter = new ExpandAdapter(getActivity(), bumenBOS, false);
         expandAdapter.setListener((groupPosition, childPosition) -> {
-            popSwitchLable.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
-            popSwitchLable.setText(bumenBOS.get(groupPosition).getUser().get(childPosition));
+//            popSwitchLable.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+//            popSwitchLable.setText(bumenBOS.get(groupPosition).getUser().get(childPosition));
+            Intent intent = new Intent(getActivity(), BumenActivity.class);
+            intent.putExtra("type", 1);
+            intent.putExtra("person", bumenBOS.get(groupPosition).getUser().get(childPosition));
+            startActivityForResult(intent, 0x11);
         });
         expandList.setAdapter(expandAdapter);
         for (int i = 0; i < bumenBOS.size(); i++) {
@@ -304,9 +308,9 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
         switch (resultCode) {
             case 0x11:
                 buMenFlowBO = (BuMenFlowBO) data.getSerializableExtra("bumen");
-                if (buMenFlowBO != null) {
-                    popSwitchLable.setFlow(buMenFlowBO);
-                }
+//                if (buMenFlowBO != null) {
+//                    popSwitchLable.setFlow(buMenFlowBO);
+//                }
                 break;
         }
     }

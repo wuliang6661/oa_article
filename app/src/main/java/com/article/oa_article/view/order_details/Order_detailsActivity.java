@@ -273,7 +273,7 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
             taskIsEdit = 1;
         }
         fragment.setTaskList(taskIsEdit, taskBOS);
-        fragment.isEdit(taskIsEdit);
+//        fragment.isEdit(taskBOS, taskIsEdit);
     }
 
 

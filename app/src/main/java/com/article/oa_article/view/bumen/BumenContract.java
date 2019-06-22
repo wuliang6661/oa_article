@@ -15,6 +15,8 @@ public class BumenContract {
     interface View extends BaseRequestView {
 
         void getBumenFlows(List<BuMenFlowBO> buMenFlowBOS);
+
+        void updateDeats();
     }
 
     interface Presenter extends BasePresenter<View> {

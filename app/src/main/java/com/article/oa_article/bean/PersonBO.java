@@ -1,6 +1,8 @@
 package com.article.oa_article.bean;
 
-public class PersonBO {
+import java.io.Serializable;
+
+public class PersonBO implements Serializable {
 
 
     /**
