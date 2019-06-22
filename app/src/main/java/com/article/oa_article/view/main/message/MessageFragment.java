@@ -173,7 +173,7 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
             msgNum.setVisibility(View.GONE);
         } else {
             msgNum.setVisibility(View.VISIBLE);
-            msgNum.setText(notNum + "");
+            msgNum.setText(notNum > 999 ? "..." : notNum + "");
         }
         EventBus.getDefault().post(new MsgFragmentEvent(notNum));
     }
@@ -188,6 +188,7 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
 
     @Override
     public void readSuress() {
+        adapter.selectList.clear();
         mPresenter.getMessageList(Integer.parseInt(MyApplication.getCommonId()));
         mPresenter.getReadCount(Integer.parseInt(MyApplication.getCommonId()));
         if (!isClick) {

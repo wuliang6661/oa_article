@@ -34,6 +34,8 @@ public class MyApplication extends Application {
 
     public static int selectComplan = 0;    //默认选择第一家公司
 
+    public static boolean isSplash = false;  //从引导页进入的指引
+
 
     @Override
     public void onCreate() {

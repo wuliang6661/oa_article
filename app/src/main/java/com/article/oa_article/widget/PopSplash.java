@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 
 import com.article.oa_article.R;
+import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.view.splash.guide.GuiDeAct1;
 
 /**
@@ -33,6 +34,7 @@ public class PopSplash extends PopupWindow {
         cancle.setOnClickListener(v -> dismiss());
         start_btn.setOnClickListener(view -> {
             dismiss();
+            MyApplication.isSplash = true;
             Intent intent = new Intent(activity, GuiDeAct1.class);
             activity.startActivity(intent);
         });
@@ -45,7 +47,7 @@ public class PopSplash extends PopupWindow {
         this.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
         //设置PopupWindow弹出窗体可点击
         this.setFocusable(true);
-        this.setOutsideTouchable(true);
+        this.setOutsideTouchable(false);
         //设置SelectPicPopupWindow弹出窗体动画效果
 //        this.setAnimationStyle(R.style.anim_menu_top);
         //实例化一个ColorDrawable颜色为半透明

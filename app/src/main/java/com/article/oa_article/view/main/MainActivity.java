@@ -824,6 +824,11 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     public void onEvent(MsgFragmentEvent event) {
         if (event.num > 0) {
             todayPoint.setVisibility(View.VISIBLE);
+            if (event.num > 999) {
+                todayPoint.setText("...");
+            } else {
+                todayPoint.setText(event.num + "");
+            }
         } else {
             todayPoint.setVisibility(View.GONE);
         }

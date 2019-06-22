@@ -77,7 +77,6 @@ public class CreateMoBanActivity extends MVPBaseActivity<CreateMoBanContract.Vie
         super.onCreate(savedInstanceState);
 
         goBack();
-        setTitleText("新增模板");
 
         initView();
         setSwipeMenu();
@@ -86,12 +85,15 @@ public class CreateMoBanActivity extends MVPBaseActivity<CreateMoBanContract.Vie
         templeteBO = new TempleteBO();
         templeteBO.setTaskInfo(new ArrayList<>());
         if (!isAdd) {
+            setTitleText("模板详情");
             id = getIntent().getExtras().getInt("id");
 //            mPresenter.getMoBanInfo(id);
             templeteBO = (TempleteBO) getIntent().getExtras().getSerializable("templete");
             editMobanName.setText(templeteBO.getName());
             editRemark.setText(templeteBO.getRemarks());
             setAddAdapter();
+        } else {
+            setTitleText("新增模板");
         }
     }
 
@@ -176,7 +178,7 @@ public class CreateMoBanActivity extends MVPBaseActivity<CreateMoBanContract.Vie
 //            bean.setName(infoBean.getNickName());
             list.add(bean);
         }
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             showToast("请添加执行人！");
             return;
         }

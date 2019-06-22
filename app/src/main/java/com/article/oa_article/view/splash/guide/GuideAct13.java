@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.article.oa_article.R;
@@ -26,8 +25,6 @@ public class GuideAct13 extends BaseActivity {
     LinearLayout back;
     @BindView(R.id.tv_finish)
     Button tvFinish;
-    @BindView(R.id.close)
-    ImageView close;
 
     @Override
     protected int getLayout() {

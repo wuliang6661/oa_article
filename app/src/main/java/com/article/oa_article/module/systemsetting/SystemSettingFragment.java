@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.article.oa_article.R;
+import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.util.AppManager;
 import com.article.oa_article.view.login.LoginActivity;
@@ -77,6 +78,7 @@ public class SystemSettingFragment extends MVPBaseFragment<SystemSettingContract
 
     @OnClick(R.id.xinshou_layout)
     public void xinshou() {
+        MyApplication.isSplash = false;
         gotoActivity(GuiDeAct1.class, false);
     }
 

@@ -58,12 +58,19 @@
 
             <TextView
                 android:id="@+id/today_point"
-                android:layout_width="5dp"
-                android:layout_height="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="23dp"
-                android:background="@drawable/range_red"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/msg_drawable"
+                android:gravity="center"
+                android:paddingLeft="6dp"
+                android:paddingTop="2dp"
+                android:paddingRight="6dp"
+                android:paddingBottom="2dp"
+                android:textColor="#FDFDFB"
+                android:textSize="8sp"
                 android:visibility="gone" />
 
 
