@@ -23,11 +23,16 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
     private List<BumenBO> list;
     private Context context;
     private boolean isWaiBu;
+    private boolean isSelelect = false;   //是否是选择联系人
 
     public ExpandAdapter(Context context, List<BumenBO> bumenBO, boolean isWaiBu) {
         this.context = context;
         this.list = bumenBO;
         this.isWaiBu = isWaiBu;
+    }
+
+    public void setIsSelect(boolean isSelect) {
+        this.isSelelect = isSelect;
     }
 
     @Override
@@ -140,7 +145,7 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
         } else {
             holder.lableText.setVisibility(View.GONE);
             holder.bumenText.setText(personBO.getDepart());
-            if (MyApplication.getCommon().getIsAdmin() == 1) {
+            if (MyApplication.getCommon().getIsAdmin() == 1 && !isSelelect) {
                 holder.editImage.setVisibility(View.VISIBLE);
             }
         }

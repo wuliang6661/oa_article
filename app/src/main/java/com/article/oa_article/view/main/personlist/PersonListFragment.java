@@ -287,6 +287,7 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
     public void getPersonListByNeiBu(List<BumenBO> bumenBOS) {
         this.bumenBOS = bumenBOS;
         ExpandAdapter expandAdapter = new ExpandAdapter(getActivity(), bumenBOS, false);
+        expandAdapter.setIsSelect(isSelectPerson);
         expandAdapter.setListener((groupPosition, childPosition) -> {
 //            popSwitchLable.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
 //            popSwitchLable.setText(bumenBOS.get(groupPosition).getUser().get(childPosition));
