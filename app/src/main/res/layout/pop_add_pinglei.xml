@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="增加品类"
+            android:text="增加品类详情"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
@@ -49,7 +49,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="品类名称"
+            android:text="自定义名称"
             android:textColor="@color/white"
             android:textSize="15sp" />
 
@@ -61,7 +61,7 @@
             android:layout_weight="2"
             android:background="@null"
             android:gravity="center_vertical"
-            android:hint="请输入品类名称"
+            android:hint="请输入自定义名称"
             android:maxLength="4"
             android:singleLine="true"
             android:textColor="@color/white"

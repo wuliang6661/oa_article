@@ -175,6 +175,7 @@ public class CreateMoBanActivity extends MVPBaseActivity<CreateMoBanContract.Vie
             AddTempleteBo.TaskTemplateDetailsBean bean = new AddTempleteBo.TaskTemplateDetailsBean();
             bean.setName(infoBean.getTaskName());
             bean.setUserId(infoBean.getUserId());
+            bean.setId(infoBean.getId());
 //            bean.setName(infoBean.getNickName());
             list.add(bean);
         }

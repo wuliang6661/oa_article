@@ -57,6 +57,8 @@ public class AcceptedTaskActivity extends BaseActivity {
     FrameLayout acceptTask;
     @BindView(R.id.back)
     LinearLayout back;
+    @BindView(R.id.order_num)
+    TextView orderNum;
 
     private int taskId;
 
@@ -109,6 +111,8 @@ public class AcceptedTaskActivity extends BaseActivity {
             @Override
             public void onSuccess(OrderInfoBo orderInfoBo) {
                 setTitleText(orderInfoBo.getOrderInfo().getCompanyOrderName());
+                orderNum.setText(orderInfoBo.getOrderInfo().getClientOrderNum());
+                orderNum.setVisibility(View.VISIBLE);
                 detailsFragment.setOrderInfo(orderInfoBo);
             }
 
