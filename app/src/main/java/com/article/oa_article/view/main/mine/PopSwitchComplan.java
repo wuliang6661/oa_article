@@ -71,6 +71,7 @@ public class PopSwitchComplan extends PopupWindow {
         DividerItemDecoration itemDecoration = new DividerItemDecoration(activity, DividerItemDecoration.VERTICAL);
         itemDecoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(activity, R.drawable.divider_inset)));
         recyclerView.addItemDecoration(itemDecoration);
+        recyclerView.setNestedScrollingEnabled(false);
 
         add_complan = dialogView.findViewById(R.id.add_complan);
         applyComplan = dialogView.findViewById(R.id.apply_complan);

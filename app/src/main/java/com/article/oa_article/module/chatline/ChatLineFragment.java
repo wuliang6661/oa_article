@@ -307,6 +307,9 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
             mPresenter.addOutPut(request);
         });
         dialog.showAtLocation(getActivity().getWindow().getDecorView());
+        if (chartBOS != null) {
+            dialog.setData(chartBOS);
+        }
     }
 
     /**
@@ -535,8 +538,11 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
         getChartData();
     }
 
+    List<ChartBO> chartBOS;
+
     @Override
     public void getBiaoData(List<ChartBO> chartBOS) {
+        this.chartBOS = chartBOS;
         setRecycleAdapter(chartBOS);
     }
 

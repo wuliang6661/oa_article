@@ -11,8 +11,11 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
+import com.article.oa_article.bean.ChartBO;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
+
+import java.util.List;
 
 /**
  * author : wuliang
@@ -73,6 +76,22 @@ public class PopJiHuaNumDialog extends PopupWindow {
         ten_month = dialogView.findViewById(R.id.ten_month);
         shiyiNum = dialogView.findViewById(R.id.shiyi_month);
         shierNum = dialogView.findViewById(R.id.shier_month);
+    }
+
+
+    public void setData(List<ChartBO> s) {
+        oneNum.setText(s.get(0).getJihuaNum() + "");
+        twoNum.setText(s.get(1).getJihuaNum() + "");
+        threeNum.setText(s.get(2).getJihuaNum() + "");
+        fourNum.setText(s.get(3).getJihuaNum() + "");
+        fiveNum.setText(s.get(4).getJihuaNum() + "");
+        sixNum.setText(s.get(5).getJihuaNum() + "");
+        sevenNum.setText(s.get(6).getJihuaNum() + "");
+        eightNum.setText(s.get(7).getJihuaNum() + "");
+        nineNum.setText(s.get(8).getJihuaNum() + "");
+        ten_month.setText(s.get(9).getJihuaNum() + "");
+        shiyiNum.setText(s.get(10).getJihuaNum() + "");
+        shierNum.setText(s.get(11).getJihuaNum() + "");
     }
 
 
