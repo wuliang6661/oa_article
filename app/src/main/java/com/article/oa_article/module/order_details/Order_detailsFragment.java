@@ -1,10 +1,12 @@
 package com.article.oa_article.module.order_details;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,11 +24,13 @@ import com.article.oa_article.bean.OrderInfoBo;
 import com.article.oa_article.module.create_order.ImageBO;
 import com.article.oa_article.module.create_order.PingLeiBO;
 import com.article.oa_article.mvp.MVPBaseFragment;
+import com.article.oa_article.view.BigPicutreActivity;
 import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 import com.blankj.utilcode.util.TimeUtils;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -187,6 +191,19 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
                 holder.getView(R.id.edit_image_name).setVisibility(View.INVISIBLE);
             }
         };
+        adapter.setOnItemClickListener(R.id.image, (view, position) -> {
+            Intent intent = new Intent(getActivity(), BigPicutreActivity.class);
+            intent.putExtra("imageBos", (Serializable) imageBOS);
+            intent.putExtra("selectPosition", position);
+//            startActivity(intent);
+            // 添加跳转动画
+            startActivity(intent,
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(
+                            getActivity(),
+                            view,
+                            getActivity().getString(R.string.share_pic_str))
+                            .toBundle());
+        });
         imageRecycle.setAdapter(adapter);
     }
 

@@ -229,6 +229,14 @@
             android:name=".view.addcomplan.SuressActivity"
             android:screenOrientation="portrait" />
 
+        <!--查看大图-->
+        <activity
+            android:name=".view.BigPicutreActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/BigImageTranslateTheme" />
+
+
         <!--扫一扫-->
         <activity android:name="com.article.oa_article.zxing.activity.CaptureActivity" />
 

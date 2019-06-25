@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -53,6 +53,13 @@
         <item name="android:progressDrawable">@drawable/ratting_bg</item>
         <item name="android:minHeight">20dip</item>
         <item name="android:maxHeight">20dip</item>
+    </style>
+
+    <!--转场动画-->
+    <style name="BigImageTranslateTheme" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
 

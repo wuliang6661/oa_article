@@ -38,6 +38,7 @@ import com.article.oa_article.R;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.ClientOrderBo;
 import com.article.oa_article.bean.OrderInfoBo;
+import com.article.oa_article.bean.event.UpdateOrderEvent;
 import com.article.oa_article.bean.request.CreateOrderBO;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.UpdateOrderRequest;
@@ -54,6 +55,8 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.guoqi.actionsheet.ActionSheet;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -654,6 +657,7 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     public void updateSuress() {
         stopProgress();
         showToast("修改成功！");
+        EventBus.getDefault().post(new UpdateOrderEvent());
         getActivity().finish();
     }
 

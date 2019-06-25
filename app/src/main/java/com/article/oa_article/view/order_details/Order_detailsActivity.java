@@ -17,6 +17,7 @@ import com.article.oa_article.api.HttpServerImpl;
 import com.article.oa_article.bean.OrderInfoBo;
 import com.article.oa_article.bean.PenPaiTaskBO;
 import com.article.oa_article.bean.TaskDetails;
+import com.article.oa_article.bean.event.UpdateOrderEvent;
 import com.article.oa_article.bean.event.UpdateTaskEvent;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.IdTypeRequest;
@@ -282,6 +283,11 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         mPresenter.getTaskList(request);
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateOrderInfo(UpdateOrderEvent event) {
+        mPresenter.getOrderInfo(request);
+    }
 
     @Override
     protected void onDestroy() {
