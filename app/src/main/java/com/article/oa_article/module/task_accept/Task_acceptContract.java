@@ -12,6 +12,8 @@ public class Task_acceptContract {
     interface View extends BaseRequestView {
 
         void sourss(int type);
+
+        void asseptSourss();
     }
 
     interface Presenter extends BasePresenter<View> {

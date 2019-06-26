@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -51,13 +52,14 @@ public class BigPicutreActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
 
-        back.setOnClickListener(view -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                finishAfterTransition();
-            } else {
-                finish();
-            }
-        });
+//        back.setOnClickListener(view -> {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                finishAfterTransition();
+//            } else {
+//                finish();
+//            }
+//        });
+        goBack();
         imageBOS = (List<ImageBO>) getIntent().getSerializableExtra("imageBos");
         selectPosition = getIntent().getIntExtra("selectPosition", 0);
 
@@ -118,16 +120,20 @@ public class BigPicutreActivity extends BaseActivity {
 
         @Override
         public Object instantiateItem(ViewGroup view, int position) {
-            ImageView imageView = new ImageView(BigPicutreActivity.this);
-//            ViewGroup.LayoutParams params = imageView.getLayoutParams();
-//            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-//            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
-//            imageView.setLayoutParams(params);
-
-            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+//            ImageView imageView = new ImageView(BigPicutreActivity.this);
+////            ViewGroup.LayoutParams params = imageView.getLayoutParams();
+////            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+////            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+////            imageView.setLayoutParams(params);
+//
+//            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+//            Glide.with(BigPicutreActivity.this).load(imageBOS.get(position).url).into(imageView);
+//            view.addView(imageView);
+            View groupView = LayoutInflater.from(BigPicutreActivity.this).inflate(R.layout.act_big_img, null);
+            ImageView imageView = groupView.findViewById(R.id.iv_big_image);
             Glide.with(BigPicutreActivity.this).load(imageBOS.get(position).url).into(imageView);
-            view.addView(imageView);
-            return imageView;
+            view.addView(groupView);
+            return groupView;
         }
 
     }

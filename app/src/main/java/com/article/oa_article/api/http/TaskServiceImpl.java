@@ -124,4 +124,13 @@ public class TaskServiceImpl {
         return getService().taskCanEdit(request).compose(RxResultHelper.httpRusult());
     }
 
+    /**
+     * 接受任务
+     */
+    public static Observable<String> acceptTask(int id) {
+        IdRequest request = new IdRequest();
+        request.setToken(MyApplication.token);
+        request.setId(id);
+        return getService().acceptTask(request).compose(RxResultHelper.httpRusult());
+    }
 }

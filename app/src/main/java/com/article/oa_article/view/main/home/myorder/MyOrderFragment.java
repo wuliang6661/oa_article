@@ -283,8 +283,12 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                         holder.getView(R.id.cancle_img).setVisibility(View.VISIBLE);
                         holder.setImageResurce(R.id.cancle_img, R.drawable.yi_cancle);
                         break;
-                    default:
+                    case 4:
                         holder.setText(R.id.order_type, "未分派");
+                        orderType.setTextColor(Color.parseColor("#F4CA40"));
+                        break;
+                    default:
+                        holder.setText(R.id.order_type, "已删除");
                         break;
                 }
                 TextView surplus_time = (TextView) holder.getView(R.id.surplus_time);
@@ -315,6 +319,14 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
         };
         adapter.setOnItemClickListener(R.id.item_layout, (view, i) -> {
             MyOrderBO orderBO = s.get(i);
+            if (orderBO.getStatus() == 4) {   //未分派状态
+                Bundle bundle = new Bundle();
+                bundle.putInt("taskId", orderBO.getId());
+                bundle.putBoolean("isHome", true);
+                bundle.putBoolean("isNoPai", true);
+                gotoActivity(AcceptedTaskActivity.class, bundle, false);
+                return;
+            }
             if (orderBO.getIsMe() == 0) {   //分派给我的
                 if (orderBO.getStatus() == 0) {  //待接受
                     Bundle bundle = new Bundle();

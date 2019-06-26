@@ -82,4 +82,10 @@ public interface TaskService {
     @POST("industry_webservice/app/orderTask/taskCanEdit")
     Observable<BaseResult<CanEditTaskBO>> taskCanEdit(@Body IdTypeRequest request);
 
+    /**
+     * 接受任务
+     */
+    @POST("industry_webservice/app/orderTask/acceptTask")
+    Observable<BaseResult<String>> acceptTask(@Body IdRequest request);
+
 }

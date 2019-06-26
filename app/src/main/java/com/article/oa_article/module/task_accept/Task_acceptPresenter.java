@@ -37,4 +37,25 @@ public class Task_acceptPresenter extends BasePresenterImpl<Task_acceptContract.
         });
     }
 
+
+    /**
+     * 接受任务
+     */
+    public void asseptTask(int id) {
+        TaskServiceImpl.acceptTask(id).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if (mView != null) {
+                    mView.asseptSourss();
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
 }

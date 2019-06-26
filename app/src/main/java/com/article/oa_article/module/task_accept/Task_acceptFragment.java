@@ -14,13 +14,13 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.TimeUtils;
 import com.article.oa_article.R;
 import com.article.oa_article.bean.TaskDetails;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.MyOrderActivity;
 import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.article.oa_article.widget.AlertDialog;
+import com.blankj.utilcode.util.TimeUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Objects;
@@ -100,8 +100,7 @@ public class Task_acceptFragment extends MVPBaseFragment<Task_acceptContract.Vie
      */
     @OnClick(R.id.next_button)
     public void acceptTask() {
-        nextButton.setVisibility(View.GONE);
-        buttomLayout.setVisibility(View.VISIBLE);
+        mPresenter.asseptTask(taskBean.getTaskInfo().getId());
     }
 
 
@@ -171,5 +170,13 @@ public class Task_acceptFragment extends MVPBaseFragment<Task_acceptContract.Vie
             bundle.putBoolean("isOrder", false);
             gotoActivity(Order_detailsActivity.class, bundle, true);
         }
+    }
+
+    @Override
+    public void asseptSourss() {
+        new Handler().post(() -> {
+            nextButton.setVisibility(View.GONE);
+            buttomLayout.setVisibility(View.VISIBLE);
+        });
     }
 }

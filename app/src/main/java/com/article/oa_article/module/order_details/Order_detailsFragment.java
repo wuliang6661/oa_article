@@ -195,14 +195,14 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
             Intent intent = new Intent(getActivity(), BigPicutreActivity.class);
             intent.putExtra("imageBos", (Serializable) imageBOS);
             intent.putExtra("selectPosition", position);
-//            startActivity(intent);
+            startActivity(intent);
             // 添加跳转动画
-            startActivity(intent,
-                    ActivityOptionsCompat.makeSceneTransitionAnimation(
-                            getActivity(),
-                            view,
-                            getActivity().getString(R.string.share_pic_str))
-                            .toBundle());
+//            startActivity(intent,
+//                    ActivityOptionsCompat.makeSceneTransitionAnimation(
+//                            getActivity(),
+//                            view,
+//                            "图片")
+//                            .toBundle());
         });
         imageRecycle.setAdapter(adapter);
     }

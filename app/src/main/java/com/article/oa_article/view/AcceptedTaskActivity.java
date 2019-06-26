@@ -69,7 +69,7 @@ public class AcceptedTaskActivity extends BaseActivity {
     TaskDetails parentTask;
 
     private boolean isHome;   //是否从我的任务跳入
-
+    private boolean isNoPai;   //是否未分派
 
     @Override
     protected int getLayout() {
@@ -86,12 +86,16 @@ public class AcceptedTaskActivity extends BaseActivity {
 
         taskId = getIntent().getExtras().getInt("taskId");
         isHome = getIntent().getExtras().getBoolean("isHome", false);
+        isNoPai = getIntent().getExtras().getBoolean("isNoPai", false);
         detailsFragment = new Order_detailsFragment();
         acceptFragment = new Task_acceptFragment();
         FragmentUtils.replace(getSupportFragmentManager(), detailsFragment, R.id.order_details);
         FragmentUtils.replace(getSupportFragmentManager(), acceptFragment, R.id.accept_task);
         if (isHome) {
             acceptFragment.setIsAccepted(false);
+        }
+        if(isNoPai){
+            acceptFragment.asseptSourss();
         }
 
         IdTypeRequest request = new IdTypeRequest();
