@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class XValues extends ValueFormatter {
 
-    private int type; // 0周表  1：月表  2 年表
+    private int type; // 0季表  1：月表  2 年表
 
     private List<ChartBO> chartBOS;
 
@@ -26,18 +26,24 @@ public class XValues extends ValueFormatter {
 
     @Override
     public String getFormattedValue(float value) {
-//        switch (type) {
-//            case 0:
-//                return chartBOS.get((int) value).getDay();
-//            case 1:
-//                return chartBOS.get((int) value).getDay();
-//            case 2:
-//
-//                break;
-//        }
         if (value >= chartBOS.size()) {
             return "";
         }
-        return chartBOS.get((int) value).getDay();
+        return value+"";
+//        switch (type) {
+//            case 0:
+//                if (value % 4 == 0) {
+//                    return chartBOS.get((int) value).getDay();
+//                }
+//                return "";
+//            case 1:
+//                if (value % 3 == 0) {
+//                    return chartBOS.get((int) value).getDay();
+//                }
+//                return "";
+//            case 2:
+//                return chartBOS.get((int) value).getDay();
+//        }
+//        return "";
     }
 }

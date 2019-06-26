@@ -55,10 +55,10 @@
                 android:id="@+id/msg_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLength="12"
+                android:singleLine="true"
                 android:textColor="@color/f_white"
                 android:textSize="15sp"
-                tools:text="申请添加好友" />
+                tools:text="申请添加好友sssss" />
 
 
             <TextView
@@ -67,18 +67,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/msg_message"
+                android:singleLine="true"
                 android:textColor="#F4CA40"
                 android:textSize="15sp"
                 tools:text="已完成" />
 
 
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+
             <TextView
                 android:id="@+id/order_date"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
-                android:layout_weight="1"
                 android:gravity="right"
+                android:singleLine="true"
                 android:text="昨天18:23"
                 android:textColor="#ACACAC"
                 android:textSize="10sp" />

@@ -287,10 +287,11 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
                     selectList.remove(position);
                 }
             });
+            String content = msgBO.getNickName() + "  " + msgBO.getContent();
             if (msgBO.getMessageType() == 0 || msgBO.getMessageType() == 4) {
-                holder.setText(R.id.msg_message, msgBO.getNickName() + "  " + msgBO.getContent());
+                holder.setText(R.id.msg_message, content.length() > 20 ? content.substring(0, 12) + "..." : content);
             } else {
-                holder.setText(R.id.msg_message, msgBO.getNickName() + "  " + msgBO.getContent());
+                holder.setText(R.id.msg_message, content.length() > 20 ? content.substring(0, 12) + "..." : content);
                 TextView msgType = (TextView) holder.getView(R.id.msg_type);
                 if (msgType != null) {
                     switch (msgBO.getTaskStatus()) {

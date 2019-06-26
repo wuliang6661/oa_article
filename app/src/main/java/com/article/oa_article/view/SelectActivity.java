@@ -263,6 +263,7 @@ public class SelectActivity extends BaseActivity {
                 TextView orderType = (TextView) holder.getView(R.id.order_type);
                 holder.setText(R.id.task_time, myOrderBO.getPlanCompleteDate().replaceAll("-", "/"));
                 orderType.setTextColor(Color.parseColor("#8D8C91"));
+                holder.getView(R.id.cancle_img).setVisibility(View.GONE);
                 switch (myOrderBO.getStatus()) {
                     case 0:
                         holder.setText(R.id.order_type, "未接受");
@@ -273,16 +274,36 @@ public class SelectActivity extends BaseActivity {
                         break;
                     case 2:
                         holder.setText(R.id.order_type, "已完成");
+                        holder.setText(R.id.order_nick_name, "--");
+//                        holder.setText(R.id.task_time, "--");
+                        holder.getView(R.id.cancle_img).setVisibility(View.VISIBLE);
+                        holder.setImageResurce(R.id.cancle_img, R.drawable.order_suress_img);
                         break;
                     case 3:
                         holder.setText(R.id.order_type, "已取消");
+                        holder.setText(R.id.order_nick_name, "--");
+//                        holder.setText(R.id.task_time, "--");
+                        holder.getView(R.id.cancle_img).setVisibility(View.VISIBLE);
+                        holder.setImageResurce(R.id.cancle_img, R.drawable.yi_cancle);
+                        break;
+                    case 4:
+                        holder.setText(R.id.order_type, "未分派");
+                        orderType.setTextColor(Color.parseColor("#F4CA40"));
                         break;
                     default:
-                        holder.setText(R.id.order_type, "未分派");
+                        holder.setText(R.id.order_type, "已删除");
                         break;
                 }
                 TextView surplus_time = (TextView) holder.getView(R.id.surplus_time);
-                if (myOrderBO.getStatus() != 3) {
+                if (myOrderBO.getStatus() == 3) {
+                    surplus_time.setText("--");
+                    surplus_time.setTextColor(Color.parseColor("#8D8C91"));
+                    surplus_time.setTextSize(11);
+                } else if (myOrderBO.getStatus() == 2) {
+                    surplus_time.setText(myOrderBO.getActualCompleteDate().replaceAll("-", "/"));
+                    surplus_time.setTextColor(Color.parseColor("#8D8C91"));
+                    surplus_time.setTextSize(11);
+                } else {
                     if (StringUtils.isEmpty(myOrderBO.getRemainingDate())) {
                         surplus_time.setText(myOrderBO.getPlanCompleteDate().replaceAll("-", "/"));
                         surplus_time.setTextColor(Color.parseColor("#8D8C91"));
@@ -296,19 +317,25 @@ public class SelectActivity extends BaseActivity {
                             surplus_time.setTextColor(Color.parseColor("#E92B2B"));
                         }
                     }
-                } else {
-                    surplus_time.setText("--");
                 }
             }
         };
         adapter.setOnItemClickListener(R.id.item_layout, (view, i) -> {
             MyOrderBO orderBO = s.get(i);
+            if (orderBO.getStatus() == 4) {   //未分派状态
+                Bundle bundle = new Bundle();
+                bundle.putInt("taskId", orderBO.getId());
+                bundle.putBoolean("isHome", true);
+                bundle.putBoolean("isNoPai", true);
+                gotoActivity(AcceptedTaskActivity.class, bundle, false);
+                return;
+            }
             if (orderBO.getIsMe() == 0) {   //分派给我的
                 if (orderBO.getStatus() == 0) {  //待接受
                     Bundle bundle = new Bundle();
-                    bundle.putInt("id", orderBO.getId());
-                    bundle.putBoolean("isOrder", false);
-                    gotoActivity(Order_detailsActivity.class, bundle, false);
+                    bundle.putInt("taskId", orderBO.getId());
+                    bundle.putBoolean("isHome", true);
+                    gotoActivity(AcceptedTaskActivity.class, bundle, false);
                 } else if (orderBO.getStatus() == 1) {  //进行中
                     Bundle bundle = new Bundle();
                     bundle.putInt("taskId", orderBO.getId());
@@ -326,9 +353,9 @@ public class SelectActivity extends BaseActivity {
                     gotoActivity(Order_detailsActivity.class, bundle, false);
                 } else {
                     Bundle bundle = new Bundle();
-                    bundle.putInt("id", orderBO.getId());
-                    bundle.putBoolean("isOrder", false);
-                    gotoActivity(Order_detailsActivity.class, bundle, false);
+                    bundle.putInt("taskId", orderBO.getId());
+                    bundle.putBoolean("isHome", true);
+                    gotoActivity(AcceptedTaskActivity.class, bundle, false);
                 }
             } else {   //已完成的
                 Bundle bundle = new Bundle();

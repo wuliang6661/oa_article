@@ -381,8 +381,8 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
         xAxis.setDrawGridLines(false);//设置x轴上每个点对应的线
         xAxis.setDrawLabels(true);//绘制标签  指x轴上的对应数值
         xAxis.setAvoidFirstLastClipping(true);
-        xAxis.setLabelRotationAngle(40);
-//        xAxis.setLabelCount(12);
+//        xAxis.setLabelRotationAngle(40);
+        xAxis.setLabelCount(12);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//设置x轴的显示位置
 
         // 设置x轴的LimitLine，index是从0开始的
@@ -528,7 +528,7 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
         Log.e(TAG, maxNum + "       " + minNum);
         leftAxis.setAxisMaximum(maxNum + 200);
         leftAxis.setAxisMinimum(0);
-        xAxis.setValueFormatter(new XValues(1, chartBOS));
+        xAxis.setValueFormatter(new XValues(month, chartBOS));
         setData(chartBOS);
     }
 
