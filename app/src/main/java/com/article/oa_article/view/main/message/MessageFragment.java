@@ -23,6 +23,9 @@ import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.MsgBO;
 import com.article.oa_article.bean.event.MsgFragmentEvent;
 import com.article.oa_article.mvp.MVPBaseFragment;
+import com.article.oa_article.view.AcceptedTaskActivity;
+import com.article.oa_article.view.MyOrderActivity;
+import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 import com.blankj.utilcode.util.TimeUtils;
@@ -210,6 +213,35 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
                 isClick = true;
                 gotoActivity(FriendApplyActivity.class, false);
                 mPresenter.setMsgRead(msg.get(position).getId() + "", 1);
+            } else if
+                (msg.get(position).getMessageType() != 2 || msg.get(position).getMessageType() != 3)
+            {
+                switch (msg.get(position).getPage()) {
+                    case 0:   //待接受
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("taskId", msg.get(position).getId());
+                        bundle.putBoolean("isHome", true);
+                        gotoActivity(AcceptedTaskActivity.class, bundle, false);
+                        break;
+                    case 1:   //  我的任务
+                        Bundle bundle1 = new Bundle();
+                        bundle1.putInt("taskId", msg.get(position).getId());
+                        gotoActivity(MyOrderActivity.class, bundle1, false);
+                        break;
+                    case 2:   // 订单详情
+                        if (msg.get(position).getMessageType() == 7 || msg.get(position).getMessageType() == 8) {
+                            Bundle bundle2 = new Bundle();
+                            bundle2.putInt("id", msg.get(position).getId());
+                            bundle2.putBoolean("isOrder", true);
+                            gotoActivity(Order_detailsActivity.class, bundle2, false);
+                        } else {
+                            Bundle bundle2 = new Bundle();
+                            bundle2.putInt("id", msg.get(position).getId());
+                            bundle2.putBoolean("isOrder", false);
+                            gotoActivity(Order_detailsActivity.class, bundle2, false);
+                        }
+                        break;
+                }
             }
         });
         messageRecycle.setAdapter(adapter);
@@ -306,7 +338,7 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
                     }
                 }
                 holder.setText(R.id.msg_order_name, msgBO.getOrderName() + "  " + msgBO.getOrderNum());
-                if (msgBO.getMessageType() == 2 || msgBO.getMessageType() == 3 || msgBO.getMessageType() == 5) {
+                if (msgBO.getMessageType() != 1) {
                     holder.getView(R.id.leave_layout).setVisibility(View.GONE);
                 } else {
                     holder.getView(R.id.leave_layout).setVisibility(View.VISIBLE);

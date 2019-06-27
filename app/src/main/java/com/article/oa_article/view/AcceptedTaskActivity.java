@@ -94,9 +94,6 @@ public class AcceptedTaskActivity extends BaseActivity {
         if (isHome) {
             acceptFragment.setIsAccepted(false);
         }
-        if(isNoPai){
-            acceptFragment.asseptSourss();
-        }
 
         IdTypeRequest request = new IdTypeRequest();
         request.setId(taskId);

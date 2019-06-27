@@ -39,6 +39,15 @@ public class MsgBO {
     private String taskStatus;
     private long createDate;
     private String orderName;
+    private int page;
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
 
     public int getReadStatus() {
         return readStatus;

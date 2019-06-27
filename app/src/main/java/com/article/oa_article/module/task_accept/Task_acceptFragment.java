@@ -134,6 +134,9 @@ public class Task_acceptFragment extends MVPBaseFragment<Task_acceptContract.Vie
         taskDate.setText(TimeUtils.millis2String(taskBean.getTaskInfo().getPlanCompleteDate(),
                 new SimpleDateFormat("yyyy/MM/dd")));
         taskRemart.setText(taskBean.getTaskInfo().getRemark());
+        if (taskBean.getTaskInfo().getStatus() == 4) {
+            asseptSourss();
+        }
     }
 
 
