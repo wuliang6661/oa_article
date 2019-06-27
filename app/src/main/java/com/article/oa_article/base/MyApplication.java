@@ -13,6 +13,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * 作者 by wuliang 时间 16/10/26.
@@ -49,6 +50,9 @@ public class MyApplication extends Application {
         WXapi = WXAPIFactory.createWXAPI(this, Config.WX_APP_ID, true);
         WXapi.registerApp(Config.WX_APP_ID);
         WxShareUtils.get().init();
+
+        JPushInterface.setDebugMode(true);    // 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);            // 初始化 JPush
     }
 
 
