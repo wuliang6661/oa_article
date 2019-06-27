@@ -34,6 +34,7 @@ import com.article.oa_article.view.verificationlogin.VerificationLoginActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 
 
 /**
@@ -173,6 +174,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
             public void onSuccess(UserBo s) {
                 stopProgress();
                 MyApplication.userBo = s;
+                JPushInterface.setAlias(LoginActivity.this, 1, s.getPhone());
                 gotoActivity(MainActivity.class, true);
             }
 
