@@ -215,24 +215,24 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
                 switch (msg.get(position).getPage()) {
                     case 1:   //待接受
                         Bundle bundle = new Bundle();
-                        bundle.putInt("taskId", msg.get(position).getId());
+                        bundle.putInt("taskId", msg.get(position).getObjectId());
                         bundle.putBoolean("isHome", true);
                         gotoActivity(AcceptedTaskActivity.class, bundle, false);
                         break;
                     case 2:   //  我的任务
                         Bundle bundle1 = new Bundle();
-                        bundle1.putInt("taskId", msg.get(position).getId());
+                        bundle1.putInt("taskId", msg.get(position).getObjectId());
                         gotoActivity(MyOrderActivity.class, bundle1, false);
                         break;
                     case 3:   // 订单详情
                         if (msg.get(position).getMessageType() == 7 || msg.get(position).getMessageType() == 8) {
                             Bundle bundle2 = new Bundle();
-                            bundle2.putInt("id", msg.get(position).getId());
+                            bundle2.putInt("id", msg.get(position).getObjectId());
                             bundle2.putBoolean("isOrder", true);
                             gotoActivity(Order_detailsActivity.class, bundle2, false);
                         } else {
                             Bundle bundle2 = new Bundle();
-                            bundle2.putInt("id", msg.get(position).getId());
+                            bundle2.putInt("id", msg.get(position).getObjectId());
                             bundle2.putBoolean("isOrder", false);
                             gotoActivity(Order_detailsActivity.class, bundle2, false);
                         }
