@@ -380,8 +380,6 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
         xAxis.setDrawAxisLine(true);//是否绘制轴线
         xAxis.setDrawGridLines(false);//设置x轴上每个点对应的线
         xAxis.setDrawLabels(true);//绘制标签  指x轴上的对应数值
-        xAxis.setAvoidFirstLastClipping(true);
-//        xAxis.setLabelRotationAngle(40);
         xAxis.setLabelCount(12, false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//设置x轴的显示位置
 

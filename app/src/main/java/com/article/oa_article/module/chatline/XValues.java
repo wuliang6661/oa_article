@@ -29,21 +29,23 @@ public class XValues extends ValueFormatter {
         if (value >= chartBOS.size()) {
             return "";
         }
-        return value+"";
-//        switch (type) {
-//            case 0:
-//                if (value % 4 == 0) {
-//                    return chartBOS.get((int) value).getDay();
-//                }
-//                return "";
-//            case 1:
-//                if (value % 3 == 0) {
-//                    return chartBOS.get((int) value).getDay();
-//                }
-//                return "";
-//            case 2:
-//                return chartBOS.get((int) value).getDay();
-//        }
-//        return "";
+//        return chartBOS.get((int) value).getDay();
+        switch (type) {
+            case 0:
+                if (value % 4 == 0) {
+                    return chartBOS.get((int) value).getDay();
+                }
+                return "";
+            case 1:
+                if (value % 3 == 0) {
+                    return chartBOS.get((int) value).getDay();
+                }
+                return "";
+            case 2:
+                if (value % 2 == 0) {
+                    return chartBOS.get((int) value).getDay();
+                }
+        }
+        return "";
     }
 }

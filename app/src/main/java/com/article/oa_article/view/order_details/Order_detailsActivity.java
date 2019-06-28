@@ -209,6 +209,10 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
     @Override
     public void getOrderInfo(OrderInfoBo orderInfoBo) {
         this.infoBo = orderInfoBo;
+        if (orderInfoBo.getOrderInfo() == null) {
+            showToast("订单信息为空！");
+            return;
+        }
         setTitleText(orderInfoBo.getOrderInfo().getClientOrderName());
         orderNum.setText(orderInfoBo.getOrderInfo().getClientOrderNum());
         orderNum.setVisibility(View.VISIBLE);
@@ -250,6 +254,10 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
     @SuppressLint("SimpleDateFormat")
     @Override
     public void getTaskInfo(TaskDetails details) {
+        if (details.getTaskInfo() == null) {
+            showToast("获取的订单数据为空！");
+            return;
+        }
         if (parentId == 0) {   //当前没有取过父级任务
             if (details.getTaskInfo().getParentId() != 0) {
                 parentId = details.getTaskInfo().getParentId();

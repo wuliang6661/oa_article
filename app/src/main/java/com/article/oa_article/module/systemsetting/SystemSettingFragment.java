@@ -22,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * MVPPlugin
@@ -68,6 +69,7 @@ public class SystemSettingFragment extends MVPBaseFragment<SystemSettingContract
                 new AlertDialog(getActivity()).builder().setGone().setMsg("是否确定退出登录？")
                         .setNegativeButton("取消", null)
                         .setPositiveButton("确定", v -> {
+                            JPushInterface.deleteAlias(getActivity(), 1);
                             AppManager.getAppManager().finishAllActivity();
                             gotoActivity(LoginActivity.class, true);
                         }).show();

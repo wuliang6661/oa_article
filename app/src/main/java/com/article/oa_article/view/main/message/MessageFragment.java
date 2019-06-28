@@ -210,25 +210,21 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
         adapter = new MessageAdapter(msgBOS);
         adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
             if (msg.get(position).getMessageType() == 0 || msg.get(position).getMessageType() == 4) {   //好友申请
-                isClick = true;
                 gotoActivity(FriendApplyActivity.class, false);
-                mPresenter.setMsgRead(msg.get(position).getId() + "", 1);
-            } else if
-                (msg.get(position).getMessageType() != 2 || msg.get(position).getMessageType() != 3)
-            {
+            } else {
                 switch (msg.get(position).getPage()) {
-                    case 0:   //待接受
+                    case 1:   //待接受
                         Bundle bundle = new Bundle();
                         bundle.putInt("taskId", msg.get(position).getId());
                         bundle.putBoolean("isHome", true);
                         gotoActivity(AcceptedTaskActivity.class, bundle, false);
                         break;
-                    case 1:   //  我的任务
+                    case 2:   //  我的任务
                         Bundle bundle1 = new Bundle();
                         bundle1.putInt("taskId", msg.get(position).getId());
                         gotoActivity(MyOrderActivity.class, bundle1, false);
                         break;
-                    case 2:   // 订单详情
+                    case 3:   // 订单详情
                         if (msg.get(position).getMessageType() == 7 || msg.get(position).getMessageType() == 8) {
                             Bundle bundle2 = new Bundle();
                             bundle2.putInt("id", msg.get(position).getId());
@@ -243,6 +239,8 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
                         break;
                 }
             }
+            isClick = true;
+            mPresenter.setMsgRead(msg.get(position).getId() + "", 1);
         });
         messageRecycle.setAdapter(adapter);
     }
