@@ -24,6 +24,7 @@ import com.article.oa_article.module.complanyshili.ComplanyshiliFragment;
 import com.article.oa_article.module.complanyzizhi.ComplanyZizhiFragment;
 import com.article.oa_article.mvp.MVPBaseActivity;
 import com.blankj.utilcode.util.FragmentUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.List;
@@ -223,7 +224,12 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
         userName.setText(inInfoBo.getNickName());
         userPhone.setText(inInfoBo.getPhone());
         complanName.setText(inInfoBo.getCompanyName());
-        userLable.setText(inInfoBo.getDepartName());
+        if (StringUtils.isEmpty(inInfoBo.getDepartName())) {
+            userLable.setVisibility(View.GONE);
+        } else {
+            userLable.setText(inInfoBo.getDepartName());
+            userLable.setVisibility(View.VISIBLE);
+        }
         wanchenglv.setText(inInfoBo.getCompleteRate());
         yuqilv.setText(inInfoBo.getOverdueRate());
         if (inInfoBo.getStatus() == 2) {
