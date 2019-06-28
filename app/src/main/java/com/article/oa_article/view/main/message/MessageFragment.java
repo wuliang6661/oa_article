@@ -225,7 +225,7 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
                         gotoActivity(MyOrderActivity.class, bundle1, false);
                         break;
                     case 3:   // 订单详情
-                        if (msg.get(position).getMessageType() == 7 || msg.get(position).getMessageType() == 8) {
+                        if (msg.get(position).getMessageType() == 8) {
                             Bundle bundle2 = new Bundle();
                             bundle2.putInt("id", msg.get(position).getObjectId());
                             bundle2.putBoolean("isOrder", true);
