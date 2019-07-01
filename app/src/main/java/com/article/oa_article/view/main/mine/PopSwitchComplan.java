@@ -165,6 +165,7 @@ public class PopSwitchComplan extends PopupWindow {
             }
 
             holder.getView(R.id.msg_num).setVisibility(View.VISIBLE);
+            holder.setText(R.id.msg_num, companysBean.getMessageNum() + "");
         }
     }
 

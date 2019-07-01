@@ -70,6 +70,7 @@ public class SystemSettingFragment extends MVPBaseFragment<SystemSettingContract
                         .setNegativeButton("取消", null)
                         .setPositiveButton("确定", v -> {
                             JPushInterface.deleteAlias(getActivity(), 1);
+                            JPushInterface.cleanTags(getActivity(), 1);
                             AppManager.getAppManager().finishAllActivity();
                             gotoActivity(LoginActivity.class, true);
                         }).show();

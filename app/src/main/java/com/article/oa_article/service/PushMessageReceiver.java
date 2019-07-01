@@ -1,12 +1,16 @@
 package com.article.oa_article.service;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.article.oa_article.util.AppManager;
+import com.article.oa_article.util.SystemHelper;
 import com.article.oa_article.view.login.LoginActivity;
 import com.article.oa_article.view.main.MainActivity;
+import com.blankj.utilcode.util.Utils;
 
 import cn.jpush.android.api.CmdMessage;
 import cn.jpush.android.api.CustomMessage;
@@ -27,18 +31,22 @@ public class PushMessageReceiver extends JPushMessageReceiver {
     @Override
     public void onNotifyMessageOpened(Context context, NotificationMessage message) {
         Log.e(TAG, "[onNotifyMessageOpened] " + message);
-        try {
-            //打开自定义的Activity
-            Intent i = new Intent(context, LoginActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString(JPushInterface.EXTRA_NOTIFICATION_TITLE, message.notificationTitle);
-            bundle.putString(JPushInterface.EXTRA_ALERT, message.notificationContent);
-            i.putExtras(bundle);
-            //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            context.startActivity(i);
-        } catch (Throwable throwable) {
+        if (AppManager.getAppManager().curremtActivity() != null) {
+            SystemHelper.setTopApp(Utils.getApp());
+        } else {
+            try {
+                //打开自定义的Activity
+                Intent i = new Intent(context, LoginActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(JPushInterface.EXTRA_NOTIFICATION_TITLE, message.notificationTitle);
+                bundle.putString(JPushInterface.EXTRA_ALERT, message.notificationContent);
+                i.putExtras(bundle);
+                //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                context.startActivity(i);
+            } catch (Throwable throwable) {
 
+            }
         }
     }
 

@@ -213,8 +213,8 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
             showToast("订单信息为空！");
             return;
         }
-        setTitleText(orderInfoBo.getOrderInfo().getClientOrderName());
-        orderNum.setText(orderInfoBo.getOrderInfo().getClientOrderNum());
+        setTitleText(orderInfoBo.getOrderInfo().getCompanyOrderName());
+        orderNum.setText(orderInfoBo.getOrderInfo().getCompanyOrderNum());
         orderNum.setVisibility(View.VISIBLE);
         if (!isEditOrder) {   //显示订单详情
             if (detailsFragment == null) {

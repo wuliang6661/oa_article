@@ -145,8 +145,10 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
         } else {
             holder.lableText.setVisibility(View.GONE);
             holder.bumenText.setText(personBO.getDepart());
-            if (MyApplication.getCommon().getIsAdmin() == 1 && !isSelelect) {
+            if (MyApplication.getCommon().getIsAdmin() == 1 && !isSelelect && i != 0) {
                 holder.editImage.setVisibility(View.VISIBLE);
+            } else {
+                holder.editImage.setVisibility(View.GONE);
             }
         }
         holder.editImage.setOnClickListener(view1 -> {

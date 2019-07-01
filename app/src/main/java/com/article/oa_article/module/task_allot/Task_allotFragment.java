@@ -364,7 +364,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 } else {
                     holder.setText(R.id.task_person_name, s.getNickName());
                 }
-                holder.setText(R.id.task_shiji_num, s.getActualNum() == 0 ? "--" : s.getActualNum() + "");
+                holder.setText(R.id.task_shiji_num, s.getActualNum() == 0 ? "0" : s.getActualNum() + "");
                 if (StringUtils.isEmpty(s.getUnit())) {
                     holder.setText(R.id.task_jihua_num, s.getPlanNum() == 0 ? "--" : s.getPlanNum() + "");
                 } else {

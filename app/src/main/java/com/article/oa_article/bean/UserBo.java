@@ -70,6 +70,15 @@ public class UserBo {
         private String unit;
         private int status;
         private String logo;
+        private int messageNum;
+
+        public int getMessageNum() {
+            return messageNum;
+        }
+
+        public void setMessageNum(int messageNum) {
+            this.messageNum = messageNum;
+        }
 
         public String getLogo() {
             return logo;

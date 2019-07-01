@@ -32,6 +32,8 @@ import com.article.oa_article.view.main.MainActivity;
 import com.article.oa_article.view.register.RegisterActivity;
 import com.article.oa_article.view.verificationlogin.VerificationLoginActivity;
 
+import java.util.TreeSet;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
@@ -175,6 +177,9 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                 stopProgress();
                 MyApplication.userBo = s;
                 JPushInterface.setAlias(LoginActivity.this, 1, s.getPhone());
+                TreeSet<String> treeSet = new TreeSet<>();
+                treeSet.add(s.getPhone());
+                JPushInterface.setTags(LoginActivity.this, 1, treeSet);
                 gotoActivity(MainActivity.class, true);
             }
 

@@ -134,6 +134,8 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     LinearLayout pingleiBar;
     @BindView(R.id.next_button)
     Button nextButton;
+    @BindView(R.id.image_hint)
+    TextView imageHint;
 
     private File cameraSavePath;//拍照照片路径
     private Uri uri;
@@ -425,9 +427,11 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
             case R.id.update_img_bar:
                 if (imageRecycle.getVisibility() == View.VISIBLE) {
                     imageRecycle.setVisibility(View.GONE);
+                    imageHint.setVisibility(View.GONE);
                     imageCheck.setChecked(true);
                 } else {
                     imageRecycle.setVisibility(View.VISIBLE);
+                    imageHint.setVisibility(View.VISIBLE);
                     imageCheck.setChecked(false);
                 }
                 break;
