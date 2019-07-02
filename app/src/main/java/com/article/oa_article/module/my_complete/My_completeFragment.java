@@ -130,10 +130,10 @@ public class My_completeFragment extends MVPBaseFragment<My_completeContract.Vie
     public void setIsEdit(boolean isEdit) {
         if (isEdit) {
             taskNumEdit.setVisibility(View.VISIBLE);
-            nextButton.setVisibility(View.VISIBLE);
+//            nextButton.setVisibility(View.VISIBLE);
         } else {
             taskNumEdit.setVisibility(View.GONE);
-            nextButton.setVisibility(View.GONE);
+//            nextButton.setVisibility(View.GONE);
         }
     }
 

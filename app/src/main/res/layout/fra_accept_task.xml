@@ -272,7 +272,7 @@
         android:text="接受任务"
         android:textColor="@color/text_white"
         android:textSize="18sp"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
 
     <LinearLayout

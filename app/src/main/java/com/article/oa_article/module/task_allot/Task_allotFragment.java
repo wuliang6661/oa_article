@@ -393,6 +393,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                     case 0:   //待接受
                         taskType.setTextColor(Color.parseColor("#F4CA40"));
                         taskType.setText("未接受");
+                        holder.setText(R.id.task_shiji_num, "--");
                         break;
                     case 1:  //已接受
                         taskType.setTextColor(Color.parseColor("#8D8C91"));
@@ -437,10 +438,10 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                     bundle.putInt("taskId", tasks.get(position).getId());
                     gotoActivity(MyOrderActivity.class, bundle, false);
                 } else {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("id", tasks.get(position).getId());
-                    bundle.putBoolean("isOrder", false);
-                    gotoActivity(Order_detailsActivity.class, bundle, false);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putInt("id", tasks.get(position).getId());
+//                    bundle.putBoolean("isOrder", false);
+//                    gotoActivity(Order_detailsActivity.class, bundle, false);
                 }
             }
         });

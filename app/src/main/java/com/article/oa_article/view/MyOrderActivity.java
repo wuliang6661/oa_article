@@ -4,6 +4,7 @@ package com.article.oa_article.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -60,6 +61,8 @@ public class MyOrderActivity extends BaseActivity {
     TextView orderNum;
     @BindView(R.id.back)
     LinearLayout back;
+    @BindView(R.id.next_button)
+    Button nextButton;
 
     private int id;
     My_completeFragment completeFragment;
@@ -171,11 +174,21 @@ public class MyOrderActivity extends BaseActivity {
             isUpdate = false;
             if (details != null && details.getTaskInfo() != null) {
                 completeFragment.setTask(details);
+                if (details.getTaskInfo().getAddButton() == 1) {
+                    nextButton.setVisibility(View.VISIBLE);
+                } else {
+                    nextButton.setVisibility(View.GONE);
+                }
             }
         }
         if (parentId == 0) {   //当前没有取过父级任务
             if (details != null && details.getTaskInfo() != null) {
                 completeFragment.setTask(details);
+                if (details.getTaskInfo().getAddButton() == 1) {
+                    nextButton.setVisibility(View.VISIBLE);
+                } else {
+                    nextButton.setVisibility(View.GONE);
+                }
                 if (details.getTaskInfo().getParentId() != 0) {
                     parentId = details.getTaskInfo().getParentId();
                     getTaskInfo(parentId);
@@ -206,6 +219,13 @@ public class MyOrderActivity extends BaseActivity {
     public void updateTask(UpdateTaskEvent event) {
         isUpdate = true;
         getTaskInfo(id);
+    }
+
+
+    @OnClick(R.id.next_button)
+    public void commitTask() {
+        completeFragment.commitTask();
+
     }
 
 

@@ -16,11 +16,14 @@ import android.widget.TextView;
 
 import com.article.oa_article.R;
 import com.article.oa_article.bean.TaskDetails;
+import com.article.oa_article.bean.event.UpdateButtonEvent;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.MyOrderActivity;
 import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.article.oa_article.widget.AlertDialog;
 import com.blankj.utilcode.util.TimeUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.Objects;
@@ -134,9 +137,6 @@ public class Task_acceptFragment extends MVPBaseFragment<Task_acceptContract.Vie
         taskDate.setText(TimeUtils.millis2String(taskBean.getTaskInfo().getPlanCompleteDate(),
                 new SimpleDateFormat("yyyy/MM/dd")));
         taskRemart.setText(taskBean.getTaskInfo().getRemark());
-        if (taskBean.getTaskInfo().getStatus() == 4) {
-            asseptSourss();
-        }
     }
 
 
@@ -177,9 +177,10 @@ public class Task_acceptFragment extends MVPBaseFragment<Task_acceptContract.Vie
 
     @Override
     public void asseptSourss() {
-        new Handler().post(() -> {
-            nextButton.setVisibility(View.GONE);
-            buttomLayout.setVisibility(View.VISIBLE);
-        });
+//        new Handler().post(() -> {
+//            nextButton.setVisibility(View.GONE);
+//            buttomLayout.setVisibility(View.VISIBLE);
+//        });
+        EventBus.getDefault().post(new UpdateButtonEvent());
     }
 }

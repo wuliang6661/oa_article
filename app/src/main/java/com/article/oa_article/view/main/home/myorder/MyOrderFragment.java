@@ -300,6 +300,10 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                     surplus_time.setText(myOrderBO.getActualCompleteDate().replaceAll("-", "/"));
                     surplus_time.setTextColor(Color.parseColor("#8D8C91"));
                     surplus_time.setTextSize(11);
+                } else if (myOrderBO.getStatus() == 4) {
+                    surplus_time.setText("0天");
+                    surplus_time.setTextColor(Color.parseColor("#71EA45"));
+                    surplus_time.setTextSize(16);
                 } else {
                     if (StringUtils.isEmpty(myOrderBO.getRemainingDate())) {
                         surplus_time.setText(myOrderBO.getPlanCompleteDate().replaceAll("-", "/"));
@@ -308,7 +312,7 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                     } else {
                         surplus_time.setText(myOrderBO.getRemainingDate() + "天");
                         surplus_time.setTextSize(16);
-                        if (Integer.parseInt(myOrderBO.getRemainingDate()) > 0) {
+                        if (Integer.parseInt(myOrderBO.getRemainingDate()) >= 0) {
                             surplus_time.setTextColor(Color.parseColor("#71EA45"));
                         } else {
                             surplus_time.setTextColor(Color.parseColor("#E92B2B"));
@@ -319,6 +323,9 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
         };
         adapter.setOnItemClickListener(R.id.item_layout, (view, i) -> {
             MyOrderBO orderBO = s.get(i);
+            if (orderBO.getStatus() == 0) {
+                return;
+            }
             if (orderBO.getStatus() == 4) {   //未分派状态
                 Bundle bundle = new Bundle();
                 bundle.putInt("taskId", orderBO.getId());

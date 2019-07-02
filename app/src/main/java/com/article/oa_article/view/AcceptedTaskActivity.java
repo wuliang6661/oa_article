@@ -4,6 +4,7 @@ package com.article.oa_article.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -16,6 +17,7 @@ import com.article.oa_article.api.http.TaskServiceImpl;
 import com.article.oa_article.base.BaseActivity;
 import com.article.oa_article.bean.OrderInfoBo;
 import com.article.oa_article.bean.TaskDetails;
+import com.article.oa_article.bean.event.UpdateButtonEvent;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.IdTypeRequest;
 import com.article.oa_article.module.order_details.Order_detailsFragment;
@@ -24,6 +26,9 @@ import com.article.oa_article.util.AppManager;
 import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.TimeUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.text.SimpleDateFormat;
 
@@ -59,6 +64,14 @@ public class AcceptedTaskActivity extends BaseActivity {
     LinearLayout back;
     @BindView(R.id.order_num)
     TextView orderNum;
+    @BindView(R.id.next_button)
+    Button nextButton;
+    @BindView(R.id.my_suress)
+    Button mySuress;
+    @BindView(R.id.task_fenpai)
+    Button taskFenpai;
+    @BindView(R.id.buttom_layout)
+    LinearLayout buttomLayout;
 
     private int taskId;
 
@@ -81,6 +94,7 @@ public class AcceptedTaskActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        EventBus.getDefault().register(this);
         setTitleText("接受任务");
         back.setOnClickListener(view -> AppManager.getAppManager().goHome());
 
@@ -92,7 +106,7 @@ public class AcceptedTaskActivity extends BaseActivity {
         FragmentUtils.replace(getSupportFragmentManager(), detailsFragment, R.id.order_details);
         FragmentUtils.replace(getSupportFragmentManager(), acceptFragment, R.id.accept_task);
         if (isHome) {
-            acceptFragment.setIsAccepted(false);
+            nextButton.setVisibility(View.GONE);
         }
 
         IdTypeRequest request = new IdTypeRequest();
@@ -103,6 +117,32 @@ public class AcceptedTaskActivity extends BaseActivity {
 
     }
 
+    @Subscribe
+    public void onEvent(UpdateButtonEvent event) {
+        nextButton.setVisibility(View.GONE);
+        buttomLayout.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 接受任务
+     */
+    @OnClick(R.id.next_button)
+    public void acceptTask() {
+        acceptFragment.acceptTask();
+    }
+
+
+    @OnClick({R.id.my_suress, R.id.task_fenpai})
+    public void buttonClick(View view) {
+        acceptFragment.buttonClick(view);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     /**
      * 获取订单详情
@@ -172,6 +212,10 @@ public class AcceptedTaskActivity extends BaseActivity {
     public void getTaskInfo(TaskDetails details) {
         if (parentId == 0) {   //当前没有取过父级任务
             acceptFragment.setTask(details);
+            if (details.getTaskInfo().getStatus() == 4) {
+                nextButton.setVisibility(View.GONE);
+                buttomLayout.setVisibility(View.VISIBLE);
+            }
             if (details.getTaskInfo().getParentId() != 0) {
                 parentId = details.getTaskInfo().getParentId();
                 getTaskInfo(parentId);
