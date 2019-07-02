@@ -35,7 +35,6 @@ import com.article.oa_article.util.Constant;
 import com.article.oa_article.view.MyOrderActivity;
 import com.article.oa_article.view.mobanmanager.DataBean;
 import com.article.oa_article.view.mobanmanager.MobanManagerActivity;
-import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.article.oa_article.widget.AlertDialog;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;

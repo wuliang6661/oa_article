@@ -127,12 +127,6 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
-
     @OnClick(R.id.shangji_task_bar)
     public void BarClick() {
         if (shangjiLayout.getVisibility() == View.VISIBLE) {
