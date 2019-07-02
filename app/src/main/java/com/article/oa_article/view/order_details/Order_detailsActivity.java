@@ -252,12 +252,10 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
             showToast("获取的订单数据为空！");
             return;
         }
-        if (parentId == 0) {   //当前没有取过父级任务
-            if (details.getTaskInfo().getParentId() != 0) {
-                parentId = details.getTaskInfo().getParentId();
-                mPresenter.getTaskInfo(parentId);
-            }
-        } else {
+//        if (parentId == 0) {   //当前没有取过父级任务
+        if (details.getTaskInfo().getParentId() != 0) {
+            parentId = details.getTaskInfo().getParentId();
+//                mPresenter.getTaskInfo(parentId);
             shangjiLayout.setVisibility(View.VISIBLE);
             shangjiTaskBar.setVisibility(View.VISIBLE);
             taskName.setText(details.getTaskInfo().getTaskName());
@@ -266,6 +264,9 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
             taskPersonName.setText(details.getTaskInfo().getNickName());
             parentTask = details;
         }
+//        } else {
+
+//        }
     }
 
     @Override

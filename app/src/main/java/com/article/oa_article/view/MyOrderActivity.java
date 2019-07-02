@@ -181,36 +181,43 @@ public class MyOrderActivity extends BaseActivity {
                 }
             }
         }
-        if (parentId == 0) {   //当前没有取过父级任务
-            if (details != null && details.getTaskInfo() != null) {
-                completeFragment.setTask(details);
-                if (details.getTaskInfo().getAddButton() == 1) {
-                    nextButton.setVisibility(View.VISIBLE);
-                } else {
-                    nextButton.setVisibility(View.GONE);
-                }
-                if (details.getTaskInfo().getParentId() != 0) {
-                    parentId = details.getTaskInfo().getParentId();
-                    getTaskInfo(parentId);
-                }
+//        if (parentId == 0) {   //当前没有取过父级任务
+        if (details != null && details.getTaskInfo() != null) {
+            completeFragment.setTask(details);
+            if (details.getTaskInfo().getAddButton() == 1) {
+                nextButton.setVisibility(View.VISIBLE);
             } else {
-                showToast("任务数据为空！请检查订单！");
+                nextButton.setVisibility(View.GONE);
             }
+//            if (details.getTaskInfo().getParentId() != 0) {
+//                parentId = details.getTaskInfo().getParentId();
+////                    getTaskInfo(parentId);
+//                shangjiLayout.setVisibility(View.VISIBLE);
+//                shangjiTaskBar.setVisibility(View.VISIBLE);
+//                taskName.setText(details.getTaskInfo().getTaskName());
+//                taskDate.setText(TimeUtils.millis2String(details.getTaskInfo().getPlanCompleteDate(),
+//                        new SimpleDateFormat("yyyy/MM/dd")));
+//                taskPersonName.setText(details.getTaskInfo().getNickName());
+//                parentTask = details;
+//            }
         } else {
-            if (details == null || details.getTaskInfo() == null) {
-                shangjiLayout.setVisibility(View.GONE);
-                shangjiTaskBar.setVisibility(View.GONE);
-            } else {
-//                completeFragment.setTask(details);
-                shangjiLayout.setVisibility(View.VISIBLE);
-                shangjiTaskBar.setVisibility(View.VISIBLE);
-                taskName.setText(details.getTaskInfo().getTaskName());
-                taskDate.setText(TimeUtils.millis2String(details.getTaskInfo().getPlanCompleteDate(),
-                        new SimpleDateFormat("yyyy/MM/dd")));
-                taskPersonName.setText(details.getTaskInfo().getNickName());
-                parentTask = details;
-            }
+            showToast("任务数据为空！请检查订单！");
         }
+//        } else {
+//            if (details == null || details.getTaskInfo() == null) {
+//                shangjiLayout.setVisibility(View.GONE);
+//                shangjiTaskBar.setVisibility(View.GONE);
+//            } else {
+////                completeFragment.setTask(details);
+//                shangjiLayout.setVisibility(View.VISIBLE);
+//                shangjiTaskBar.setVisibility(View.VISIBLE);
+//                taskName.setText(details.getTaskInfo().getTaskName());
+//                taskDate.setText(TimeUtils.millis2String(details.getTaskInfo().getPlanCompleteDate(),
+//                        new SimpleDateFormat("yyyy/MM/dd")));
+//                taskPersonName.setText(details.getTaskInfo().getNickName());
+//                parentTask = details;
+//            }
+//        }
     }
 
     private boolean isUpdate = false;

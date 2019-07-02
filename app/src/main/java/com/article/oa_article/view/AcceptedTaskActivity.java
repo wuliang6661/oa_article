@@ -210,17 +210,15 @@ public class AcceptedTaskActivity extends BaseActivity {
 
 
     public void getTaskInfo(TaskDetails details) {
-        if (parentId == 0) {   //当前没有取过父级任务
-            acceptFragment.setTask(details);
-            if (details.getTaskInfo().getStatus() == 4) {
-                nextButton.setVisibility(View.GONE);
-                buttomLayout.setVisibility(View.VISIBLE);
-            }
-            if (details.getTaskInfo().getParentId() != 0) {
-                parentId = details.getTaskInfo().getParentId();
-                getTaskInfo(parentId);
-            }
-        } else {
+//        if (parentId == 0) {   //当前没有取过父级任务
+        acceptFragment.setTask(details);
+        if (details.getTaskInfo().getStatus() == 4) {
+            nextButton.setVisibility(View.GONE);
+            buttomLayout.setVisibility(View.VISIBLE);
+        }
+        if (details.getTaskInfo().getParentId() != 0) {
+            parentId = details.getTaskInfo().getParentId();
+//                getTaskInfo(parentId);
             shangjiLayout.setVisibility(View.VISIBLE);
             shangjiTaskBar.setVisibility(View.VISIBLE);
             taskName.setText(details.getTaskInfo().getTaskName());
@@ -229,5 +227,8 @@ public class AcceptedTaskActivity extends BaseActivity {
             taskPersonName.setText(details.getTaskInfo().getNickName());
             parentTask = details;
         }
+//        } else {
+
+//        }
     }
 }
