@@ -15,10 +15,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.blankj.utilcode.util.RegexUtils;
-import com.blankj.utilcode.util.StringUtils;
-import com.tencent.mm.opensdk.modelmsg.SendAuth;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.article.oa_article.BuildConfig;
 import com.article.oa_article.Config;
 import com.article.oa_article.R;
@@ -31,6 +27,10 @@ import com.article.oa_article.view.forword_password.Forword_passwordActivity;
 import com.article.oa_article.view.main.MainActivity;
 import com.article.oa_article.view.register.RegisterActivity;
 import com.article.oa_article.view.verificationlogin.VerificationLoginActivity;
+import com.blankj.utilcode.util.RegexUtils;
+import com.blankj.utilcode.util.StringUtils;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.TreeSet;
 
@@ -69,6 +69,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
 
         goBack();
         setTitleText("登录");
+
         mimaVisiable.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 //如果选中，显示密码

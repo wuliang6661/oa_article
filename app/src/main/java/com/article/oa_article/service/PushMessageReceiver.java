@@ -98,21 +98,25 @@ public class PushMessageReceiver extends JPushMessageReceiver {
 
     @Override
     public void onTagOperatorResult(Context context, JPushMessage jPushMessage) {
+        Log.e(TAG, "[onTagOperatorResult] " + jPushMessage);
         super.onTagOperatorResult(context, jPushMessage);
     }
 
     @Override
     public void onCheckTagOperatorResult(Context context, JPushMessage jPushMessage) {
+        Log.e(TAG, "[onCheckTagOperatorResult] " + jPushMessage);
         super.onCheckTagOperatorResult(context, jPushMessage);
     }
 
     @Override
     public void onAliasOperatorResult(Context context, JPushMessage jPushMessage) {
+        Log.e(TAG, "[onAliasOperatorResult] " + jPushMessage);
         super.onAliasOperatorResult(context, jPushMessage);
     }
 
     @Override
     public void onMobileNumberOperatorResult(Context context, JPushMessage jPushMessage) {
+        Log.e(TAG, "[onMobileNumberOperatorResult] " + jPushMessage);
         super.onMobileNumberOperatorResult(context, jPushMessage);
     }
 
