@@ -217,6 +217,7 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
             }
             detailsFragment.setOrderInfo(orderInfoBo);
             detailsFragment.setIsTask(!isOrder);
+            mPresenter.getTaskList(request);
         } else {    //显示修改订单
             CreateOrderFragment fragment = new CreateOrderFragment();
             FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.order_details);
@@ -229,7 +230,6 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
 //        } else {  //可编辑
 //            taskIsEdit = 0;
 //        }
-        mPresenter.getTaskList(request);
     }
 
     List<PenPaiTaskBO> taskBOS;

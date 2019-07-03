@@ -302,7 +302,7 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                     surplus_time.setTextSize(11);
                 } else if (myOrderBO.getStatus() == 4) {
                     surplus_time.setText("0天");
-                    surplus_time.setTextColor(Color.parseColor("#71EA45"));
+                    surplus_time.setTextColor(Color.parseColor("#E92B2B"));
                     surplus_time.setTextSize(16);
                 } else {
                     if (StringUtils.isEmpty(myOrderBO.getRemainingDate())) {
@@ -312,7 +312,7 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                     } else {
                         surplus_time.setText(myOrderBO.getRemainingDate() + "天");
                         surplus_time.setTextSize(16);
-                        if (Integer.parseInt(myOrderBO.getRemainingDate()) >= 0) {
+                        if (Integer.parseInt(myOrderBO.getRemainingDate()) > 0) {
                             surplus_time.setTextColor(Color.parseColor("#71EA45"));
                         } else {
                             surplus_time.setTextColor(Color.parseColor("#E92B2B"));

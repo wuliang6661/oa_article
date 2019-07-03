@@ -22,6 +22,7 @@ import com.article.oa_article.R;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.MsgBO;
 import com.article.oa_article.bean.event.MsgFragmentEvent;
+import com.article.oa_article.bean.event.RefreshComment;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.AcceptedTaskActivity;
 import com.article.oa_article.view.MyOrderActivity;
@@ -31,6 +32,8 @@ import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 import com.blankj.utilcode.util.TimeUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.List;
@@ -76,6 +79,7 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fra_message, null);
         unbinder = ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
         return view;
     }
 
@@ -157,11 +161,18 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refresh(RefreshComment comment) {
+        mPresenter.getMessageList(Integer.parseInt(MyApplication.getCommonId()));
+        mPresenter.getReadCount(Integer.parseInt(MyApplication.getCommonId()));
+    }
+
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

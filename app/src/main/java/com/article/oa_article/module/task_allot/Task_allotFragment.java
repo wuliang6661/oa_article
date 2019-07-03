@@ -385,7 +385,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                     }
                 } else {
                     surplus_time.setText("0天");
-                    surplus_time.setTextColor(Color.parseColor("#71EA45"));
+                    surplus_time.setTextColor(Color.parseColor("#E92B2B"));
                 }
                 TextView taskType = (TextView) holder.getView(R.id.task_type);
                 switch (s.getStatus()) {
@@ -416,7 +416,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                         taskType.setTextColor(Color.parseColor("#F4CA40"));
                         taskType.setText("未分派");
                         surplus_time.setText("0天");
-                        surplus_time.setTextColor(Color.parseColor("#71EA45"));
+                        surplus_time.setTextColor(Color.parseColor("#E92B2B"));
                         break;
                 }
             }

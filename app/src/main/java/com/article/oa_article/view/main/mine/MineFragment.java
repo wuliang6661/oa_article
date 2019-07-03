@@ -20,6 +20,7 @@ import com.article.oa_article.base.GlideApp;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.LableBo;
 import com.article.oa_article.bean.UserBo;
+import com.article.oa_article.bean.event.RefreshComment;
 import com.article.oa_article.bean.event.UnitEvent;
 import com.article.oa_article.bean.event.UpdateUnitEvent;
 import com.article.oa_article.module.chatline.ChatLineFragment;
@@ -201,6 +202,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
                 isCheckComplan = true;
                 MyApplication.selectComplan = position;
                 mPresenter.getUserInfo();
+                EventBus.getDefault().post(new RefreshComment());
             }
 
             @Override
