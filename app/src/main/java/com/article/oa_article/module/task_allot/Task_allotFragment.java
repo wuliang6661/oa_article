@@ -267,6 +267,8 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 bean.setUnit(task.getUnit());
                 bean.setPlanCompleteDate(TimeUtils.millis2String(task
                         .getPlanCompleteDate(), new SimpleDateFormat("yyyy/MM/dd")));
+                bean.setActualCompleteDate(TimeUtils.millis2String(task
+                        .getActualCompleteDate(), new SimpleDateFormat("yyyy/MM/dd")));
                 tasks.add(bean);
             }
             isTaskEdit = false;
@@ -402,14 +404,18 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                         taskType.setTextColor(Color.parseColor("#8D8C91"));
                         taskType.setText("已完成");
                         surplus_time.setTextColor(Color.parseColor("#8D8C91"));
-                        surplus_time.setText(s.getPlanCompleteDate().replaceAll("-", "/"));
+                        if (!StringUtils.isEmpty(s.getActualCompleteDate())) {
+                            surplus_time.setText(s.getActualCompleteDate().replaceAll("-", "/"));
+                        } else {
+                            surplus_time.setText("");
+                        }
                         surplus_time.setTextSize(11);
                         break;
                     case 3:
                         taskType.setTextColor(Color.parseColor("#8D8C91"));
                         taskType.setText("已取消");
                         surplus_time.setTextColor(Color.parseColor("#8D8C91"));
-                        surplus_time.setText(s.getPlanCompleteDate().replaceAll("-", "/"));
+                        surplus_time.setText("");
                         surplus_time.setTextSize(11);
                         break;
                     default:
