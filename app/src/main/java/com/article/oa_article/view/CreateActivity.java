@@ -64,6 +64,7 @@ public class CreateActivity extends BaseActivity {
             }
             getOrderInfo(request);
             nextButton.setText("保存");
+            nextButton.setVisibility(View.GONE);
         } else {
             boolean isWaiBu = Objects.requireNonNull(getIntent().getExtras()).getBoolean("isWaibu", false);
             if (isWaiBu) {
@@ -120,11 +121,12 @@ public class CreateActivity extends BaseActivity {
             @Override
             public void onSuccess(OrderInfoBo orderInfoBo) {
                 infoBo = orderInfoBo;
-                CreateOrderFragment fragment = new CreateOrderFragment();
+                fragment = new CreateOrderFragment();
                 FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.fragment_container);
                 fragment.setData(2, orderInfoBo);   //编辑订单
                 btnAlbum.setText("取消订单");
                 btnAlbum.setVisibility(View.VISIBLE);
+                nextButton.setVisibility(View.VISIBLE);
             }
 
             @Override
