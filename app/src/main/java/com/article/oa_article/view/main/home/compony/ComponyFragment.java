@@ -281,7 +281,7 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
                 } else {
                     surplus_time.setTextSize(16);
                     surplus_time.setText(myOrderBO.getOrderDate() + "天");
-                    if (Integer.parseInt(myOrderBO.getOrderDate()) >= 0) {
+                    if (Integer.parseInt(myOrderBO.getOrderDate()) > 0) {
                         surplus_time.setTextColor(Color.parseColor("#71EA45"));
                     } else {
                         surplus_time.setTextColor(Color.parseColor("#E92B2B"));
