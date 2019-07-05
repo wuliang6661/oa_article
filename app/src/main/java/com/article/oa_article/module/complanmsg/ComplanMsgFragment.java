@@ -215,7 +215,9 @@ public class ComplanMsgFragment extends MVPBaseFragment<ComplanMsgContract.View,
         FragmentUtils.replace(getFragmentManager(), zizhiFragment, R.id.complan_zizhi);
 
         fragment.setComplanBo(complanBO);
+        fragment.setShow(true);
         zizhiFragment.setComplanBo(complanBO);
+        zizhiFragment.setShow(true);
         shiliFragment.setComplanBo(complanBO);
     }
 

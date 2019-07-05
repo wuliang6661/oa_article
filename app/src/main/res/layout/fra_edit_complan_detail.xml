@@ -110,50 +110,10 @@
         android:layout_marginRight="40dp"
         android:orientation="horizontal">
 
+
         <RelativeLayout
             android:layout_width="131dp"
             android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/card_fanmian"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/image_update_add" />
-
-
-            <ImageView
-                android:id="@+id/delete_fanmian"
-                android:layout_width="17dp"
-                android:layout_height="17dp"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/delete_img"
-                android:visibility="gone" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/card_fanmian"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="8dp"
-                android:background="@null"
-                android:singleLine="true"
-                android:text="正面.jpg"
-                android:textColor="#B8B8B8"
-                android:textSize="12sp" />
-
-
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:layout_width="131dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="13dp">
 
             <ImageView
                 android:id="@+id/card_zhengmian"
@@ -184,12 +144,54 @@
                 android:layout_marginBottom="8dp"
                 android:background="@null"
                 android:singleLine="true"
+                android:text="正面.jpg"
+                android:textColor="#B8B8B8"
+                android:textSize="12sp" />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="131dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp">
+
+            <ImageView
+                android:id="@+id/card_fanmian"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/image_update_add" />
+
+
+            <ImageView
+                android:id="@+id/delete_fanmian"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/delete_img"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_fanmian"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="8dp"
+                android:background="@null"
+                android:singleLine="true"
                 android:text="反面.jpg"
                 android:textColor="#B8B8B8"
                 android:textSize="12sp" />
 
 
         </RelativeLayout>
+
 
     </LinearLayout>
 

@@ -268,4 +268,31 @@
 
     </LinearLayout>
 
+
+    <View
+        android:id="@+id/chang_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/line_default_color" />
+
+
+    <TextView
+        android:id="@+id/chang_text"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginLeft="28dp"
+        android:gravity="center_vertical"
+        android:text="厂房图片"
+        android:textColor="@color/f_white"
+        android:textSize="13sp" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/image_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp" />
+
 </LinearLayout>

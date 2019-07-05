@@ -295,7 +295,9 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
         FragmentUtils.replace(getSupportFragmentManager(), zizhiFragment, R.id.complan_zizhi);
 
         fragment.setComplanBo(complanBO);
+        fragment.setShow(false);
         zizhiFragment.setComplanBo(complanBO);
+        zizhiFragment.setShow(false);
         shiliFragment.setComplanBo(complanBO);
     }
 }

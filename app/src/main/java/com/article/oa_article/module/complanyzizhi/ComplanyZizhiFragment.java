@@ -16,9 +16,13 @@ import android.widget.TextView;
 
 import com.article.oa_article.R;
 import com.article.oa_article.bean.ComplanBO;
+import com.article.oa_article.module.create_order.ImageBO;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,6 +51,12 @@ public class ComplanyZizhiFragment extends MVPBaseFragment<ComplanyZizhiContract
     Unbinder unbinder;
 
     ComplanBO complanBo;
+    @BindView(R.id.chang_line)
+    View changLine;
+    @BindView(R.id.chang_text)
+    TextView changText;
+    @BindView(R.id.image_recycle)
+    RecyclerView imageRecycle;
 
     @Nullable
     @Override
@@ -68,6 +78,10 @@ public class ComplanyZizhiFragment extends MVPBaseFragment<ComplanyZizhiContract
         DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
         itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.divider_inset));
         shebeiRecycle.addItemDecoration(itemDecoration);
+
+        LinearLayoutManager manager1 = new LinearLayoutManager(getActivity());
+        manager1.setOrientation(LinearLayoutManager.HORIZONTAL);
+        imageRecycle.setLayoutManager(manager1);
     }
 
     @Override
@@ -82,6 +96,20 @@ public class ComplanyZizhiFragment extends MVPBaseFragment<ComplanyZizhiContract
         new Handler().post(this::setUIMsg);
     }
 
+    public void setShow(boolean isShow) {
+        new Handler().post(() -> {
+            if (isShow) {
+                changLine.setVisibility(View.VISIBLE);
+                changText.setVisibility(View.VISIBLE);
+                imageRecycle.setVisibility(View.VISIBLE);
+            } else {
+                changLine.setVisibility(View.GONE);
+                changText.setVisibility(View.GONE);
+                imageRecycle.setVisibility(View.GONE);
+            }
+        });
+    }
+
 
     /**
      * 设置页面显示
@@ -94,6 +122,7 @@ public class ComplanyZizhiFragment extends MVPBaseFragment<ComplanyZizhiContract
         xingzhiNum.setText(complanBo.getCompanyInfos().getPlantNature() == 0 ? "自建" : "租赁");
 
         setAdapter();
+        setImageAdapter();
     }
 
 
@@ -112,5 +141,31 @@ public class ComplanyZizhiFragment extends MVPBaseFragment<ComplanyZizhiContract
                     }
                 };
         shebeiRecycle.setAdapter(adapter);
+    }
+
+
+    private void setImageAdapter() {
+        if (complanBo.getCompanyInfos().getPlantImage().isEmpty()) {
+            imageRecycle.setVisibility(View.GONE);
+            changText.setVisibility(View.GONE);
+            changLine.setVisibility(View.GONE);
+        } else {
+            imageRecycle.setVisibility(View.VISIBLE);
+            changText.setVisibility(View.VISIBLE);
+            changLine.setVisibility(View.VISIBLE);
+        }
+        LGRecycleViewAdapter<ImageBO> adapter = new LGRecycleViewAdapter<ImageBO>(complanBo.getCompanyInfos().getPlantImage()) {
+            @Override
+            public int getLayoutId(int viewType) {
+                return R.layout.image_add;
+            }
+
+            @Override
+            public void convert(LGViewHolder holder, ImageBO imageBO, int position) {
+                holder.setImageUrl(getActivity(), R.id.image, imageBO.url);
+                holder.setText(R.id.image_name, imageBO.name);
+            }
+        };
+        imageRecycle.setAdapter(adapter);
     }
 }
