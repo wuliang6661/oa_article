@@ -149,7 +149,7 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
     public void goParent() {
         if (parentId != 0) {
             Bundle bundle = new Bundle();
-            bundle.putInt("id", parentTask.getTaskInfo().getId());
+            bundle.putInt("id", parentTask.getTaskInfo().getParentId());
             bundle.putBoolean("isOrder", false);
             gotoActivity(Order_detailsActivity.class, bundle, false);
         } else {
