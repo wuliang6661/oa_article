@@ -24,6 +24,7 @@ import com.article.oa_article.module.create_order.ImageBO;
 import com.article.oa_article.module.create_order.PingLeiBO;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.BigPicutreActivity;
+import com.article.oa_article.view.CreateActivity;
 import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
@@ -135,11 +136,16 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
 
     @OnClick(R.id.order_edit)
     public void editOrder() {
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("id", infoBo.getOrderInfo().getId());
+//        bundle.putBoolean("isOrder", true);
+//        bundle.putBoolean("isEditOrder", true);
+//        gotoActivity(Order_detailsActivity.class, bundle, false);
         Bundle bundle = new Bundle();
         bundle.putInt("id", infoBo.getOrderInfo().getId());
         bundle.putBoolean("isOrder", true);
         bundle.putBoolean("isEditOrder", true);
-        gotoActivity(Order_detailsActivity.class, bundle, false);
+        gotoActivity(CreateActivity.class, bundle, false);
     }
 
 

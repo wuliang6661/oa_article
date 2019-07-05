@@ -215,6 +215,9 @@ public class AcceptedTaskActivity extends BaseActivity {
         if (details.getTaskInfo().getStatus() == 4) {
             nextButton.setVisibility(View.GONE);
             buttomLayout.setVisibility(View.VISIBLE);
+        } else if (details.getTaskInfo().getStatus() == 0) {
+            nextButton.setVisibility(View.VISIBLE);
+            buttomLayout.setVisibility(View.GONE);
         }
         if (details.getTaskInfo().getParentId() != 0) {
             parentId = details.getTaskInfo().getParentId();

@@ -33,6 +33,15 @@ public class PenPaiTaskBO {
     private int orderId;
     private String remark;
     private int addButton;
+    private long actualCompleteDate;
+
+    public long getActualCompleteDate() {
+        return actualCompleteDate;
+    }
+
+    public void setActualCompleteDate(long actualCompleteDate) {
+        this.actualCompleteDate = actualCompleteDate;
+    }
 
     public int getAddButton() {
         return addButton;

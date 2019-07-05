@@ -189,7 +189,7 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
             adapter.notifyDataSetChanged();
             dialog.dismiss();
             showProgress();
-            mPresenter.getWaiBuOrder(taskId, MyApplication.userBo.getCompanys().get(position).getId());
+            mPresenter.selectComplan(taskId, MyApplication.userBo.getCompanys().get(position).getId());
         });
         recyclerView.setAdapter(adapter);
         dialog.setView(dialogView);
@@ -210,6 +210,16 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
         bundle.putInt("taskId", taskId);
         bundle.putSerializable("client", clientOrderBo);
         gotoActivity(CreateActivity.class, bundle, false);
+    }
+
+    @Override
+    public void selectComplanSouress(int taskId, int complanId) {
+        if (complanId == Integer.parseInt(MyApplication.getCommonId())) {
+            mPresenter.getWaiBuOrder(taskId, complanId);
+        } else {
+            stopProgress();
+            getAsseptOrder();
+        }
     }
 
 
