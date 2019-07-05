@@ -21,6 +21,7 @@ import com.article.oa_article.bean.TempleteInfoBo;
 import com.article.oa_article.bean.UserBo;
 import com.article.oa_article.bean.request.AddTempleteBo;
 import com.article.oa_article.bean.request.AsseptRequest;
+import com.article.oa_article.bean.request.ChoiceRequest;
 import com.article.oa_article.bean.request.ClientInfoRequest;
 import com.article.oa_article.bean.request.ComplayRequest;
 import com.article.oa_article.bean.request.CreateOrderBO;
@@ -402,5 +403,16 @@ public class HttpServerImpl {
         return getService().getTaskByDate(request).compose(RxResultHelper.httpRusult());
     }
 
+
+    /**
+     * 选择公司
+     */
+    public static Observable<String> choiceComplan(int taskId, int complanId) {
+        ChoiceRequest request = new ChoiceRequest();
+        request.setTaskId(taskId);
+        request.setCompanyId(complanId);
+        request.setToken(MyApplication.token);
+        return getService().choiceCompany(request).compose(RxResultHelper.httpRusult());
+    }
 
 }

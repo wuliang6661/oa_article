@@ -37,4 +37,26 @@ public class AcceptedPresenter extends BasePresenterImpl<AcceptedContract.View>
         });
     }
 
+
+    /**
+     * 选择公司
+     */
+    public void selectComplan(int taskId, int complanId) {
+        HttpServerImpl.choiceComplan(taskId, complanId).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if (mView != null) {
+                    mView.selectComplanSouress(taskId,complanId);
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
+
 }

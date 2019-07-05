@@ -21,6 +21,7 @@ import com.article.oa_article.bean.TempleteInfoBo;
 import com.article.oa_article.bean.UserBo;
 import com.article.oa_article.bean.request.AddTempleteBo;
 import com.article.oa_article.bean.request.AsseptRequest;
+import com.article.oa_article.bean.request.ChoiceRequest;
 import com.article.oa_article.bean.request.ClientInfoRequest;
 import com.article.oa_article.bean.request.ComplayRequest;
 import com.article.oa_article.bean.request.CreateOrderBO;
@@ -284,6 +285,12 @@ public interface HttpService {
      */
     @POST("industry_webservice/app/userHoney/getOrderTaskListByDay")
     Observable<BaseResult<List<DateTaskBo>>> getTaskByDate(@Body DateTaskRequest request);
+
+    /**
+     * 接受外部订单是调用接口
+     */
+    @POST("industry_webservice/app/orderTask/choiceCompany")
+    Observable<BaseResult<String>> choiceCompany(@Body ChoiceRequest request);
 
 
 }
