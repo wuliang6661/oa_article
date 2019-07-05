@@ -93,9 +93,15 @@ public class AddTaskRequest {
         private int userId;
         private String nickName;
         private int remainingDate;
+        private int page;
 
+        public int getPage() {
+            return page;
+        }
 
-
+        public void setPage(int page) {
+            this.page = page;
+        }
 
         public int getRemainingDate() {
             return remainingDate;

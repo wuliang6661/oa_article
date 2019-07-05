@@ -25,6 +25,15 @@ public class DateTaskBo {
     private int id;
     private long planCompleteDate;
     private String companyOrderName;
+    private int page;
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
 
     public String getCompanyOrderNum() {
         return companyOrderNum;

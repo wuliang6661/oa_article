@@ -32,9 +32,11 @@ import com.article.oa_article.bean.event.UpdateTaskEvent;
 import com.article.oa_article.bean.request.AddTaskRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.util.Constant;
+import com.article.oa_article.view.AcceptedTaskActivity;
 import com.article.oa_article.view.MyOrderActivity;
 import com.article.oa_article.view.mobanmanager.DataBean;
 import com.article.oa_article.view.mobanmanager.MobanManagerActivity;
+import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.article.oa_article.widget.AlertDialog;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
@@ -265,6 +267,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 bean.setActualNum(task.getActualNum());
                 bean.setPlanNum(task.getPlanNum());
                 bean.setUnit(task.getUnit());
+                bean.setPage(task.getPage());
                 bean.setPlanCompleteDate(TimeUtils.millis2String(task
                         .getPlanCompleteDate(), new SimpleDateFormat("yyyy/MM/dd")));
                 bean.setActualCompleteDate(TimeUtils.millis2String(task
@@ -438,15 +441,34 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 window.setData(position, tasks.get(position));
                 window.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
             } else {
-                if (tasks.get(position).getStatus() != 0) {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("taskId", tasks.get(position).getId());
-                    gotoActivity(MyOrderActivity.class, bundle, false);
-                } else {
+//                if (tasks.get(position).getStatus() != 0) {
 //                    Bundle bundle = new Bundle();
-//                    bundle.putInt("id", tasks.get(position).getId());
-//                    bundle.putBoolean("isOrder", false);
-//                    gotoActivity(Order_detailsActivity.class, bundle, false);
+//                    bundle.putInt("taskId", tasks.get(position).getId());
+//                    gotoActivity(MyOrderActivity.class, bundle, false);
+//                } else {
+////                    Bundle bundle = new Bundle();
+////                    bundle.putInt("id", tasks.get(position).getId());
+////                    bundle.putBoolean("isOrder", false);
+////                    gotoActivity(Order_detailsActivity.class, bundle, false);
+//                }
+                switch (tasks.get(position).getPage()) {
+                    case 1:   //待接受
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("taskId", tasks.get(position).getId());
+                        bundle.putBoolean("isHome", true);
+                        gotoActivity(AcceptedTaskActivity.class, bundle, false);
+                        break;
+                    case 2:   //  我的任务
+                        Bundle bundle1 = new Bundle();
+                        bundle1.putInt("taskId", tasks.get(position).getId());
+                        gotoActivity(MyOrderActivity.class, bundle1, false);
+                        break;
+                    case 3:   // 订单详情
+                        Bundle bundle2 = new Bundle();
+                        bundle2.putInt("id", tasks.get(position).getId());
+                        bundle2.putBoolean("isOrder", false);
+                        gotoActivity(Order_detailsActivity.class, bundle2, false);
+                        break;
                 }
             }
         });

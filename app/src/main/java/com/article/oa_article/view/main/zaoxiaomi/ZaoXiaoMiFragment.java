@@ -21,6 +21,8 @@ import com.article.oa_article.bean.DateShemeBO;
 import com.article.oa_article.bean.DateTaskBo;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.util.DateUtils;
+import com.article.oa_article.view.AcceptedTaskActivity;
+import com.article.oa_article.view.MyOrderActivity;
 import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
@@ -353,10 +355,30 @@ public class ZaoXiaoMiFragment extends MVPBaseFragment<ZaoXiaoMiContract.View, Z
                         + dateTaskBo.getCompanyOrderName());
                 holder.setText(R.id.select_button, "查看");
                 holder.getView(R.id.item_layout).setOnClickListener(view -> {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("id", dateTaskBo.getId());
-                    bundle.putBoolean("isOrder", false);
-                    gotoActivity(Order_detailsActivity.class, bundle, false);
+                    switch (dateTaskBo.getPage()) {
+                        case 1:   //待接受
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("taskId", dateTaskBo.getId());
+                            bundle.putBoolean("isHome", true);
+                            gotoActivity(AcceptedTaskActivity.class, bundle, false);
+                            break;
+                        case 2:   //  我的任务
+                            Bundle bundle1 = new Bundle();
+                            bundle1.putInt("taskId", dateTaskBo.getId());
+                            gotoActivity(MyOrderActivity.class, bundle1, false);
+                            break;
+                        case 3:   // 订单详情
+                            Bundle bundle2 = new Bundle();
+                            bundle2.putInt("id", dateTaskBo.getId());
+                            bundle2.putBoolean("isOrder", false);
+                            gotoActivity(Order_detailsActivity.class, bundle2, false);
+                            break;
+                    }
+//
+//                    Bundle bundle = new Bundle();
+//                    bundle.putInt("id", dateTaskBo.getId());
+//                    bundle.putBoolean("isOrder", false);
+//                    gotoActivity(Order_detailsActivity.class, bundle, false);
                 });
             }
         };

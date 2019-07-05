@@ -34,6 +34,15 @@ public class PenPaiTaskBO {
     private String remark;
     private int addButton;
     private long actualCompleteDate;
+    private int page;
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
 
     public long getActualCompleteDate() {
         return actualCompleteDate;

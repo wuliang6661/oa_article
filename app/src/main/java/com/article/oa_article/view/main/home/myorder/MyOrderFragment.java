@@ -323,49 +323,68 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
         };
         adapter.setOnItemClickListener(R.id.item_layout, (view, i) -> {
             MyOrderBO orderBO = s.get(i);
-            if (orderBO.getStatus() == 0) {
-                return;
-            }
-            if (orderBO.getStatus() == 4) {   //未分派状态
-                Bundle bundle = new Bundle();
-                bundle.putInt("taskId", orderBO.getId());
-                bundle.putBoolean("isHome", true);
-                bundle.putBoolean("isNoPai", true);
-                gotoActivity(AcceptedTaskActivity.class, bundle, false);
-                return;
-            }
-            if (orderBO.getIsMe() == 0) {   //分派给我的
-                if (orderBO.getStatus() == 0) {  //待接受
+            switch (orderBO.getPage()) {
+                case 1:   //待接受
                     Bundle bundle = new Bundle();
                     bundle.putInt("taskId", orderBO.getId());
                     bundle.putBoolean("isHome", true);
                     gotoActivity(AcceptedTaskActivity.class, bundle, false);
-                } else if (orderBO.getStatus() == 1) {  //进行中
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("taskId", orderBO.getId());
-                    gotoActivity(MyOrderActivity.class, bundle, false);
-                } else {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("taskId", orderBO.getId());
-                    gotoActivity(MyOrderActivity.class, bundle, false);
-                }
-            } else if (orderBO.getIsMe() == 1) {   //我分派的
-                if (orderBO.getStatus() != 0) {  //不是待接受
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("id", orderBO.getId());
-                    bundle.putBoolean("isOrder", false);
-                    gotoActivity(Order_detailsActivity.class, bundle, false);
-                } else {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("taskId", orderBO.getId());
-                    bundle.putBoolean("isHome", true);
-                    gotoActivity(AcceptedTaskActivity.class, bundle, false);
-                }
-            } else {   //已完成的
-                Bundle bundle = new Bundle();
-                bundle.putInt("taskId", orderBO.getId());
-                gotoActivity(MyOrderActivity.class, bundle, false);
+                    break;
+                case 2:   //  我的任务
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putInt("taskId", orderBO.getId());
+                    gotoActivity(MyOrderActivity.class, bundle1, false);
+                    break;
+                case 3:   // 订单详情
+                    Bundle bundle2 = new Bundle();
+                    bundle2.putInt("id", orderBO.getId());
+                    bundle2.putBoolean("isOrder", false);
+                    gotoActivity(Order_detailsActivity.class, bundle2, false);
+                    break;
             }
+//            if (orderBO.getStatus() == 0) {
+//                return;
+//            }
+//            if (orderBO.getStatus() == 4) {   //未分派状态
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("taskId", orderBO.getId());
+//                bundle.putBoolean("isHome", true);
+//                bundle.putBoolean("isNoPai", true);
+//                gotoActivity(AcceptedTaskActivity.class, bundle, false);
+//                return;
+//            }
+//            if (orderBO.getIsMe() == 0) {   //分派给我的
+//                if (orderBO.getStatus() == 0) {  //待接受
+//                    Bundle bundle = new Bundle();
+//                    bundle.putInt("taskId", orderBO.getId());
+//                    bundle.putBoolean("isHome", true);
+//                    gotoActivity(AcceptedTaskActivity.class, bundle, false);
+//                } else if (orderBO.getStatus() == 1) {  //进行中
+//                    Bundle bundle = new Bundle();
+//                    bundle.putInt("taskId", orderBO.getId());
+//                    gotoActivity(MyOrderActivity.class, bundle, false);
+//                } else {
+//                    Bundle bundle = new Bundle();
+//                    bundle.putInt("taskId", orderBO.getId());
+//                    gotoActivity(MyOrderActivity.class, bundle, false);
+//                }
+//            } else if (orderBO.getIsMe() == 1) {   //我分派的
+//                if (orderBO.getStatus() != 0) {  //不是待接受
+//                    Bundle bundle = new Bundle();
+//                    bundle.putInt("id", orderBO.getId());
+//                    bundle.putBoolean("isOrder", false);
+//                    gotoActivity(Order_detailsActivity.class, bundle, false);
+//                } else {
+//                    Bundle bundle = new Bundle();
+//                    bundle.putInt("taskId", orderBO.getId());
+//                    bundle.putBoolean("isHome", true);
+//                    gotoActivity(AcceptedTaskActivity.class, bundle, false);
+//                }
+//            } else {   //已完成的
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("taskId", orderBO.getId());
+//                gotoActivity(MyOrderActivity.class, bundle, false);
+//            }
         });
         recycleView.setAdapter(adapter);
     }
