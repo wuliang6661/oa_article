@@ -193,7 +193,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                         }
                         bean.setPlanCompleteDate(bean.getPlanCompleteDate().replaceAll("/", "-"));
                         if (!StringUtils.isEmpty(bean.getActualCompleteDate())) {
-                            bean.setActualCompleteDate(bean.getActualCompleteDate().replaceAll("/", "-"));
+                            bean.setActualCompleteDate(bean.getActualCompleteDate().replaceAll("/", "- "));
                         }
                     }
                     AddTaskRequest request = new AddTaskRequest();
