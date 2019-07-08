@@ -1,6 +1,5 @@
 package com.article.oa_article.service;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.util.Log;
 import com.article.oa_article.util.AppManager;
 import com.article.oa_article.util.SystemHelper;
 import com.article.oa_article.view.login.LoginActivity;
-import com.article.oa_article.view.main.MainActivity;
 import com.blankj.utilcode.util.Utils;
 
 import cn.jpush.android.api.CmdMessage;
@@ -18,6 +16,7 @@ import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.JPushMessage;
 import cn.jpush.android.api.NotificationMessage;
 import cn.jpush.android.service.JPushMessageReceiver;
+import me.leolin.shortcutbadger.ShortcutBadger;
 
 public class PushMessageReceiver extends JPushMessageReceiver {
     private static final String TAG = "PushMessageReceiver";
@@ -31,6 +30,8 @@ public class PushMessageReceiver extends JPushMessageReceiver {
     @Override
     public void onNotifyMessageOpened(Context context, NotificationMessage message) {
         Log.e(TAG, "[onNotifyMessageOpened] " + message);
+        num = 0;
+        ShortcutBadger.removeCount(context); //for 1.1.4+
         if (AppManager.getAppManager().curremtActivity() != null) {
             SystemHelper.setTopApp(Utils.getApp());
         } else {
@@ -71,9 +72,14 @@ public class PushMessageReceiver extends JPushMessageReceiver {
         }
     }
 
+    static int num = 0;
+
     @Override
     public void onNotifyMessageArrived(Context context, NotificationMessage message) {
         Log.e(TAG, "[onNotifyMessageArrived] " + message);
+
+        num++;
+        ShortcutBadger.applyCount(context, num); //for 1.1.4+
     }
 
     @Override

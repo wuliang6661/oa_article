@@ -59,6 +59,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import me.leolin.shortcutbadger.ShortcutBadger;
 import me.yokeyword.fragmentation.SupportFragment;
 
 
@@ -164,7 +165,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                 MyApplication.spUtils.put("isSplash", false);
             }
         });
-
+        ShortcutBadger.removeCount(this); //for 1.1.4+
     }
 
     @Override
