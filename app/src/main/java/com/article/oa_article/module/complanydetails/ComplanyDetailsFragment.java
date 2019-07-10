@@ -24,9 +24,6 @@ import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -170,9 +167,7 @@ public class ComplanyDetailsFragment extends MVPBaseFragment<ComplanyDetailsCont
 
 
     private void setAdapter() {
-        List<ImageBO> imageBOS = new ArrayList<>();
-        imageBOS.add(complanBo.getCompanyInfos().getBusinessLicense());
-        LGRecycleViewAdapter<ImageBO> adapter = new LGRecycleViewAdapter<ImageBO>(imageBOS) {
+        LGRecycleViewAdapter<ImageBO> adapter = new LGRecycleViewAdapter<ImageBO>(complanBo.getCompanyInfos().getPlantImage()) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.item_image;
