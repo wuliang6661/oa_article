@@ -92,7 +92,7 @@ public class AlreadyScopeActivity extends MVPBaseActivity<AlreadyScopeContract.V
                 holder.setText(R.id.scope, alreadyScopeBO.getScore() + "");
             }
         };
-        adapter.setOnItemClickListener(R.id.scope, (view, position) -> {
+        adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
             AlreadyScopeBO alreadyScopeBO = alreadyScopeBOS.get(position);
             ScopePopWindow popWindow = new ScopePopWindow(AlreadyScopeActivity.this,
                     alreadyScopeBO.getServiceAttitudeScore(), alreadyScopeBO.getProductQualityScore(),

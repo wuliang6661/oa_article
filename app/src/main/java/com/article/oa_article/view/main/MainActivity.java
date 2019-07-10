@@ -455,6 +455,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             case 5:    // 待接单
                 threeText.setVisibility(View.GONE);
                 radioGroupTask.setVisibility(View.GONE);
+                fourText.setText("任务来源");
                 fourRadioBt1.setText("公司内部");
                 fourRadioBt2.setText("公司外部");
                 editKeybord.setText(assept.getKeyWord());

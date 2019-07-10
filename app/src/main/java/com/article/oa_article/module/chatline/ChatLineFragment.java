@@ -138,9 +138,9 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
             getChartData();
             unitText.setText(StringUtils.isEmpty(MyApplication.getCommon().getUnit()) ? "请输入单位" :
                     MyApplication.getCommon().getUnit());
-            if (MyApplication.getCommon().getIsAdmin() == 1) {   //管理员
-                editJihua.setVisibility(View.VISIBLE);
-            }
+//            if (MyApplication.getCommon().getIsAdmin() == 1) {   //管理员
+            editJihua.setVisibility(View.VISIBLE);
+//            }
             getBiaoNum();
         }
     }

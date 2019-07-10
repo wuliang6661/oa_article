@@ -597,8 +597,13 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
         } else {
             Bundle bundle = new Bundle();
             bundle.putInt("id", request.getId());
-            bundle.putBoolean("isOrder", true);
             bundle.putBoolean("isCreateOrder", true);
+            bundle.putBoolean("isOrder", true);
+//            if (isWaiBu) {
+//                bundle.putBoolean("isOrder", false);
+//            } else {
+//                bundle.putBoolean("isOrder", true);
+//            }
             gotoActivity(Order_detailsActivity.class, bundle, true);
         }
     }

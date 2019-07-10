@@ -117,7 +117,7 @@ public class ComplanyshiliFragment extends MVPBaseFragment<ComplanyshiliContract
                             @Override
                             public void convert(LGViewHolder holder, ImageBO o, int position) {
                                 holder.setImageUrl(getActivity(), R.id.card_fanmian, o.url);
-                                holder.setText(R.id.image_text, o.name);
+                                holder.setText(R.id.image_text, "证书" + (position + 1) + ".jpg");
                             }
                         });
                     }
@@ -152,7 +152,7 @@ public class ComplanyshiliFragment extends MVPBaseFragment<ComplanyshiliContract
                             @Override
                             public void convert(LGViewHolder holder, ImageBO o, int position) {
                                 holder.setImageUrl(getActivity(), R.id.card_fanmian, o.url);
-                                holder.setText(R.id.image_text, o.name);
+                                holder.setText(R.id.image_text, "荣誉" + (position + 1) + ".jpg");
                             }
                         });
                     }

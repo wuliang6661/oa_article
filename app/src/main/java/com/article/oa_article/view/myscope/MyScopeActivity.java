@@ -12,6 +12,7 @@ import android.view.View;
 import com.article.oa_article.R;
 import com.article.oa_article.bean.ScopeBO;
 import com.article.oa_article.mvp.MVPBaseActivity;
+import com.article.oa_article.widget.ScopePopWindow;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
@@ -83,6 +84,13 @@ public class MyScopeActivity extends MVPBaseActivity<MyScopeContract.View, MySco
                 holder.setText(R.id.order_time, scopeBO.getScore() + "");
             }
         };
+        adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
+            ScopeBO alreadyScopeBO = s.get(position);
+            ScopePopWindow popWindow = new ScopePopWindow(MyScopeActivity.this,
+                    alreadyScopeBO.getServiceAttitudeScore(), alreadyScopeBO.getProductQualityScore(),
+                    alreadyScopeBO.getPunctualityScore(), alreadyScopeBO.getPriceRationalityScore(), alreadyScopeBO.getLogisticsScore(), false);
+            popWindow.showPop(view);
+        });
         recycleView.setAdapter(adapter);
     }
 
