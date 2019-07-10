@@ -89,7 +89,7 @@ public class MyScopeActivity extends MVPBaseActivity<MyScopeContract.View, MySco
             ScopePopWindow popWindow = new ScopePopWindow(MyScopeActivity.this,
                     alreadyScopeBO.getServiceAttitudeScore(), alreadyScopeBO.getProductQualityScore(),
                     alreadyScopeBO.getPunctualityScore(), alreadyScopeBO.getPriceRationalityScore(), alreadyScopeBO.getLogisticsScore(), false);
-            popWindow.showPop(view);
+            popWindow.showPop(view.findViewById(R.id.order_time));
         });
         recycleView.setAdapter(adapter);
     }

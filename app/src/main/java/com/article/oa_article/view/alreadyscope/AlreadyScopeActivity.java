@@ -97,7 +97,7 @@ public class AlreadyScopeActivity extends MVPBaseActivity<AlreadyScopeContract.V
             ScopePopWindow popWindow = new ScopePopWindow(AlreadyScopeActivity.this,
                     alreadyScopeBO.getServiceAttitudeScore(), alreadyScopeBO.getProductQualityScore(),
                     alreadyScopeBO.getPunctualityScore(), alreadyScopeBO.getPriceRationalityScore(), alreadyScopeBO.getLogisticsScore(), false);
-            popWindow.showPop(view);
+            popWindow.showPop(view.findViewById(R.id.scope));
         });
         recycleView.setAdapter(adapter);
     }
