@@ -236,11 +236,6 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
             btnAlbum.setText("取消订单");
             btnAlbum.setVisibility(View.VISIBLE);
         }
-//        if (orderInfoBo.getOrderInfo().getCanEdit() == 0) {  //不可编辑
-//            taskIsEdit = 1;
-//        } else {  //可编辑
-//            taskIsEdit = 0;
-//        }
     }
 
     List<PenPaiTaskBO> taskBOS;
@@ -254,6 +249,11 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         FragmentUtils.replace(getSupportFragmentManager(), fragment, R.id.task_allot);
         fragment.setIsOrder(isOrder, id);
         mPresenter.tashCanEdit(request);
+        if (isOrder) {
+            fragment.setEndTime(infoBo.getOrderInfo().getPlanCompleteDate());
+        } else {
+            fragment.setEndTime(parentTask.getTaskInfo().getPlanCompleteDate());
+        }
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -263,19 +263,12 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
             showToast("获取的订单数据为空！");
             return;
         }
-//        if (parentId == 0) {   //当前没有取过父级任务
-//        if (details.getTaskInfo().getParentId() != 0) {
         parentId = details.getTaskInfo().getParentId();
-//                mPresenter.getTaskInfo(parentId);
         taskName.setText(details.getTaskInfo().getTaskName());
         taskDate.setText(TimeUtils.millis2String(details.getTaskInfo().getPlanCompleteDate(),
                 new SimpleDateFormat("yyyy/MM/dd")));
         taskPersonName.setText(details.getTaskInfo().getNickName());
         parentTask = details;
-//        }
-//        } else {
-
-//        }
     }
 
     @Override
@@ -286,7 +279,6 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
             taskIsEdit = 1;
         }
         fragment.setTaskList(taskIsEdit, taskBOS);
-//        fragment.isEdit(taskBOS, taskIsEdit);
     }
 
 

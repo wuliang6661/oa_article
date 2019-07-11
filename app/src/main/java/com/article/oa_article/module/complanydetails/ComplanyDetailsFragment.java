@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
+import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.ComplanBO;
 import com.article.oa_article.module.create_order.ImageBO;
 import com.article.oa_article.mvp.MVPBaseFragment;
@@ -107,6 +108,14 @@ public class ComplanyDetailsFragment extends MVPBaseFragment<ComplanyDetailsCont
         new Handler().post(() -> {
             if (isShow) {   //企业认证
                 gongsiImgRecycle.setVisibility(View.GONE);
+                if (MyApplication.getCommon().getIsAdmin() == 0) {  //非管理员
+                    cardLayout.setVisibility(View.GONE);
+                    cardText.setVisibility(View.GONE);
+                    cardLine.setVisibility(View.GONE);
+                    zhizhaoLine.setVisibility(View.GONE);
+                    zhizhaoLayout.setVisibility(View.GONE);
+                    return;
+                }
                 cardLayout.setVisibility(View.VISIBLE);
                 cardText.setVisibility(View.VISIBLE);
                 cardLine.setVisibility(View.VISIBLE);

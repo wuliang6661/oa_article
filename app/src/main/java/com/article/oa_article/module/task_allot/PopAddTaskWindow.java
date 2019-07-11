@@ -118,6 +118,12 @@ public class PopAddTaskWindow extends PopupWindow {
         }
     }
 
+    private long endTime;
+
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
+    }
+
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
@@ -158,7 +164,7 @@ public class PopAddTaskWindow extends PopupWindow {
                     activity.startActivity(intent);
                     break;
                 case R.id.select_date:
-                    DateDialog.show(activity, dateText);
+                    DateDialog.show(activity, dateText, endTime);
                     break;
             }
         }

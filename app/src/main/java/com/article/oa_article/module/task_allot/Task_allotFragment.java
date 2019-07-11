@@ -103,6 +103,8 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     private boolean isOrder = true;     //默认是订单下的任务
     View view;
 
+    private long endTime;   //分派任务的结束时间
+
     private LGRecycleViewAdapter<AddTaskRequest.OrderTasksBean> adapter;
 
     @Nullable
@@ -175,6 +177,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 break;
             case R.id.continue_add:    //添加任务(显示添加任务弹窗)
                 PopAddTaskWindow window = getPopWindow();
+                window.setEndTime(endTime);
                 window.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.moban_add:
@@ -252,6 +255,14 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
 
 
     /**
+     * 设置任务分派的结束时间
+     */
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
+    }
+
+
+    /**
      * 设置任务列表
      */
     public void setTaskList(int atype, List<PenPaiTaskBO> taskList) {
@@ -293,28 +304,30 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     private void setSwipeMenu() {
         // 创建菜单：
         SwipeMenuCreator mSwipeMenuCreator = (leftMenu, rightMenu, viewType) -> {
-            if(viewType == 3){  //已取消
-                return;
+//            if(viewType == 3){  //已取消
+//                return;
+//            }
+            if ((type == 0 && isShunYan) || isTaskEdit) {   //编辑状态
+                // 2 删除
+                SwipeMenuItem deleteItem = new SwipeMenuItem(getActivity());
+                if (viewType == 0) {
+                    deleteItem.setText("删除")
+                            .setBackgroundColor(getResources().getColor(R.color.item_delete))
+                            .setTextColor(Color.WHITE) // 文字颜色。
+                            .setTextSize(15) // 文字大小。
+                            .setWidth(SizeUtils.dp2px(63))
+                            .setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+                } else {
+                    deleteItem.setText("取消")
+                            .setBackgroundColor(getResources().getColor(R.color.item_delete))
+                            .setTextColor(Color.WHITE) // 文字颜色。
+                            .setTextSize(15) // 文字大小。
+                            .setWidth(SizeUtils.dp2px(63))
+                            .setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+                }
+                rightMenu.addMenuItem(deleteItem);
+                // 注意：哪边不想要菜单，那么不要添加即可。
             }
-            // 2 删除
-            SwipeMenuItem deleteItem = new SwipeMenuItem(getActivity());
-            if (viewType == 0) {
-                deleteItem.setText("删除")
-                        .setBackgroundColor(getResources().getColor(R.color.item_delete))
-                        .setTextColor(Color.WHITE) // 文字颜色。
-                        .setTextSize(15) // 文字大小。
-                        .setWidth(SizeUtils.dp2px(63))
-                        .setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
-            } else {
-                deleteItem.setText("取消")
-                        .setBackgroundColor(getResources().getColor(R.color.item_delete))
-                        .setTextColor(Color.WHITE) // 文字颜色。
-                        .setTextSize(15) // 文字大小。
-                        .setWidth(SizeUtils.dp2px(63))
-                        .setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
-            }
-            rightMenu.addMenuItem(deleteItem);
-            // 注意：哪边不想要菜单，那么不要添加即可。
         };
         // 设置监听器。
         taskRecycleView.setSwipeMenuCreator(mSwipeMenuCreator);
@@ -340,8 +353,12 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         new AlertDialog(getActivity()).builder().setGone().setMsg("确认删除该任务？")
                 .setNegativeButton("取消", null)
                 .setPositiveButton("确定", v -> {
-                    tasks.remove(position);
-                    setTaskAdapter();
+                    if (tasks.get(position).getId() == 0) {
+                        tasks.remove(position);
+                        setTaskAdapter();
+                    } else {
+                        mPresenter.cancleTask(tasks.get(position).getId(), position);
+                    }
                 }).show();
     }
 
@@ -430,8 +447,8 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                     default:
                         taskType.setTextColor(Color.parseColor("#F4CA40"));
                         taskType.setText("未分派");
-                        surplus_time.setText("0天");
-                        surplus_time.setTextColor(Color.parseColor("#E92B2B"));
+//                        surplus_time.setText("0天");
+//                        surplus_time.setTextColor(Color.parseColor("#E92B2B"));
                         break;
                 }
             }
@@ -445,6 +462,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
             if ((type == 0 && isShunYan) || isTaskEdit) {   //可编辑
                 PopAddTaskWindow window = getPopWindow();
                 window.setData(position, tasks.get(position));
+                window.setEndTime(endTime);
                 window.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
             } else {
 //                if (tasks.get(position).getStatus() != 0) {

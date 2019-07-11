@@ -83,6 +83,8 @@ public class SwitchPop extends PopupWindow {
         recyclerView.addItemDecoration(itemDecoration);
 
         add_complan = dialogView.findViewById(R.id.add_complan);
+        LinearLayout apply_complan = dialogView.findViewById(R.id.apply_complan);
+        apply_complan.setVisibility(View.GONE);
         add_complan.setVisibility(View.GONE);
         setAdapter();
     }

@@ -16,6 +16,7 @@ import com.blankj.utilcode.util.TimeUtils;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class DateDialog {
 
@@ -27,12 +28,16 @@ public class DateDialog {
     /**
      * 时间选择器
      */
-    public static void show(Context context, TextView textView) {
+    public static void show(Context context, TextView textView, long time) {
+        Calendar endTime = Calendar.getInstance();
+        endTime.setTime(new Date(time));
         Calendar startDate = Calendar.getInstance();
+        startDate.set(1990, 1, 1);
         TimePickerView pvTime = new TimePickerBuilder(context, (date, v) -> textView.setText(TimeUtils.date2String(date, format)))
                 .setType(new boolean[]{true, true, true, false, false, false})
                 .isDialog(true) //默认设置false ，内部实现将DecorView 作为它的父控件。
-                .setDate(startDate)
+                .setDate(endTime)
+                .setRangDate(startDate, endTime)
                 .setLineSpacingMultiplier(1.8f)
                 .build();
         Dialog mDialog = pvTime.getDialog();
