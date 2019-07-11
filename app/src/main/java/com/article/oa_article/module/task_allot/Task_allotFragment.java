@@ -32,6 +32,7 @@ import com.article.oa_article.bean.event.UpdateTaskEvent;
 import com.article.oa_article.bean.request.AddTaskRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.util.Constant;
+import com.article.oa_article.util.DateUtils;
 import com.article.oa_article.view.AcceptedTaskActivity;
 import com.article.oa_article.view.MyOrderActivity;
 import com.article.oa_article.view.mobanmanager.DataBean;
@@ -55,6 +56,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -558,6 +560,9 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
             AddTaskRequest.OrderTasksBean bean = new AddTaskRequest.OrderTasksBean();
             bean.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
             bean.setPlanCompleteDate(date.replaceAll("/", "-"));
+            int day = DateUtils.getGapCount(new Date(), new Date(TimeUtils.string2Millis(date,
+                    new SimpleDateFormat("yyyy/MM/dd"))));
+            bean.setRemainingDate(day);
             bean.setPlanNum(Integer.parseInt(num));
             bean.setRemark(remark);
             bean.setTaskName(name);
