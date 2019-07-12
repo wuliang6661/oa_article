@@ -29,7 +29,6 @@ import com.article.oa_article.view.MyOrderActivity;
 import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
-import com.blankj.utilcode.util.TimeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -353,7 +352,8 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
                     holder.getView(R.id.leave_layout).setVisibility(View.VISIBLE);
                     holder.setText(R.id.msg_level, msgBO.getTaskLevel() + "级任务");
                 }
-                holder.setText(R.id.order_date, TimeUtils.getFriendlyTimeSpanByNow(msgBO.getCreateDate()));
+//                holder.setText(R.id.order_date, TimeUtils.getFriendlyTimeSpanByNow(msgBO.getCreateDate()));
+                holder.setText(R.id.order_date, msgBO.getFriendTime());
             }
         }
 

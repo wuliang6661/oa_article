@@ -40,6 +40,15 @@ public class MsgBO {
     private long createDate;
     private String orderName;
     private int page;
+    private String friendTime;
+
+    public String getFriendTime() {
+        return friendTime;
+    }
+
+    public void setFriendTime(String friendTime) {
+        this.friendTime = friendTime;
+    }
 
     public int getPage() {
         return page;
