@@ -29,6 +29,7 @@ import com.article.oa_article.view.MyOrderActivity;
 import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
+import com.blankj.utilcode.util.StringUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -234,18 +235,17 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
                         bundle1.putInt("taskId", msg.get(position).getObjectId());
                         gotoActivity(MyOrderActivity.class, bundle1, false);
                         break;
-                    case 3:   // 订单详情
-                        if (msg.get(position).getMessageType() == 8) {
-                            Bundle bundle2 = new Bundle();
-                            bundle2.putInt("id", msg.get(position).getObjectId());
-                            bundle2.putBoolean("isOrder", true);
-                            gotoActivity(Order_detailsActivity.class, bundle2, false);
-                        } else {
-                            Bundle bundle2 = new Bundle();
-                            bundle2.putInt("id", msg.get(position).getObjectId());
-                            bundle2.putBoolean("isOrder", false);
-                            gotoActivity(Order_detailsActivity.class, bundle2, false);
-                        }
+                    case 3:   // 任务详情
+                        Bundle bundle2 = new Bundle();
+                        bundle2.putInt("id", msg.get(position).getObjectId());
+                        bundle2.putBoolean("isOrder", false);
+                        gotoActivity(Order_detailsActivity.class, bundle2, false);
+                        break;
+                    case 4:  //订单详情
+                        Bundle bundle3 = new Bundle();
+                        bundle3.putInt("id", msg.get(position).getObjectId());
+                        bundle3.putBoolean("isOrder", true);
+                        gotoActivity(Order_detailsActivity.class, bundle3, false);
                         break;
                 }
             }
@@ -346,7 +346,7 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
                     }
                 }
                 holder.setText(R.id.msg_order_name, msgBO.getOrderName() + "  " + msgBO.getOrderNum());
-                if (msgBO.getMessageType() != 1) {
+                if (msgBO.getMessageType() != 1 || StringUtils.isEmpty(msgBO.getTaskLevel())) {
                     holder.getView(R.id.leave_layout).setVisibility(View.GONE);
                 } else {
                     holder.getView(R.id.leave_layout).setVisibility(View.VISIBLE);

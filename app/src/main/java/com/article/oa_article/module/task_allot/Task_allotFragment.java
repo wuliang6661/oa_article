@@ -489,11 +489,17 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                         bundle1.putInt("taskId", tasks.get(position).getId());
                         gotoActivity(MyOrderActivity.class, bundle1, false);
                         break;
-                    case 3:   // 订单详情
+                    case 3:   // 任务详情
                         Bundle bundle2 = new Bundle();
                         bundle2.putInt("id", tasks.get(position).getId());
                         bundle2.putBoolean("isOrder", false);
                         gotoActivity(Order_detailsActivity.class, bundle2, false);
+                        break;
+                    case 4:  //订单详情
+                        Bundle bundle3 = new Bundle();
+                        bundle3.putInt("id", tasks.get(position).getId());
+                        bundle3.putBoolean("isOrder", true);
+                        gotoActivity(Order_detailsActivity.class, bundle3, false);
                         break;
                 }
             }
