@@ -145,7 +145,7 @@ public class PersonServiceImpl {
      */
     public static Observable<List<ChartBO>> getChartData(ChartRequest request) {
         request.setToken(MyApplication.token);
-        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+//        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
         return getService().getOutPutByUserId(request).compose(RxResultHelper.httpRusult());
     }
 

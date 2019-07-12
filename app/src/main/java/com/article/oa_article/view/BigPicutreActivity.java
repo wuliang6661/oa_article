@@ -119,6 +119,11 @@ public class BigPicutreActivity extends BaseActivity {
 
 
         @Override
+        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+            container.removeView((View) object);
+        }
+
+        @Override
         public Object instantiateItem(ViewGroup view, int position) {
 //            ImageView imageView = new ImageView(BigPicutreActivity.this);
 ////            ViewGroup.LayoutParams params = imageView.getLayoutParams();
