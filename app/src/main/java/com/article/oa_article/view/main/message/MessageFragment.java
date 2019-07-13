@@ -346,10 +346,10 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
                     }
                 }
                 holder.setText(R.id.msg_order_name, msgBO.getOrderName() + "  " + msgBO.getOrderNum());
-                if (msgBO.getMessageType() != 1 || StringUtils.isEmpty(msgBO.getTaskLevel())) {
-                    holder.getView(R.id.leave_layout).setVisibility(View.GONE);
+                if (StringUtils.isEmpty(msgBO.getTaskLevel())) {
+                    holder.getView(R.id.msg_level).setVisibility(View.GONE);
                 } else {
-                    holder.getView(R.id.leave_layout).setVisibility(View.VISIBLE);
+                    holder.getView(R.id.msg_level).setVisibility(View.VISIBLE);
                     holder.setText(R.id.msg_level, msgBO.getTaskLevel() + "级任务");
                 }
 //                holder.setText(R.id.order_date, TimeUtils.getFriendlyTimeSpanByNow(msgBO.getCreateDate()));
