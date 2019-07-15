@@ -3,6 +3,7 @@ package com.article.oa_article.view.person_details;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
@@ -24,6 +25,7 @@ import com.article.oa_article.module.complanyshili.ComplanyshiliFragment;
 import com.article.oa_article.module.complanyzizhi.ComplanyZizhiFragment;
 import com.article.oa_article.mvp.MVPBaseActivity;
 import com.blankj.utilcode.util.FragmentUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -94,7 +96,7 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
     private String departName;   //部门名称
 
     private List<UserOutInfo.CompanysBean> outComplans;
-    private int selectPosition = 0;
+    private static int selectPosition = 0;
     UserOutInfo info;
 
 
@@ -113,6 +115,7 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
         isNeiBu = getIntent().getExtras().getBoolean("isNeiBu");
         userId = getIntent().getExtras().getInt("personId");
         departName = getIntent().getExtras().getString("departName");
+        selectPosition = 0;
 
         initView();
         if (isNeiBu) {
@@ -267,6 +270,7 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
      * 根据切换显示不同公司信息
      */
     public void showComplanInfo() {
+        LogUtils.e(info.getCompanys().get(selectPosition).getCompanyId());
         complanName.setText(info.getCompanys().get(selectPosition).getCompanyName());
         wanchenglv.setText(info.getCompanys().get(selectPosition).getCompleteRate());
         yuqilv.setText(info.getCompanys().get(selectPosition).getOverdueRate());
