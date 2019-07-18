@@ -306,9 +306,9 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     private void setSwipeMenu() {
         // 创建菜单：
         SwipeMenuCreator mSwipeMenuCreator = (leftMenu, rightMenu, viewType) -> {
-//            if(viewType == 3){  //已取消
-//                return;
-//            }
+            if (viewType == 3) {  //已取消
+                return;
+            }
             if ((type == 0 && isShunYan) || isTaskEdit) {   //编辑状态
                 // 2 删除
                 SwipeMenuItem deleteItem = new SwipeMenuItem(getActivity());

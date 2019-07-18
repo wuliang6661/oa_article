@@ -650,11 +650,11 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
             CreateOrderFragment.this.taskId = taskId;
             clientKehuLayout.setVisibility(View.VISIBLE);
             editKehuJiancheng.setText(clientOrderBo.getClientName());
-            editKehuJiancheng.setEnabled(false);
+//            editKehuJiancheng.setEnabled(false);
             editKehuOrdername.setText(clientOrderBo.getClientOrderName());
-            editKehuOrdername.setEnabled(false);
+//            editKehuOrdername.setEnabled(false);
             editKehuOrdernum.setText(clientOrderBo.getClientOrderNum());
-            editKehuOrdernum.setEnabled(false);
+//            editKehuOrdernum.setEnabled(false);
             editKehuNum.setText(clientOrderBo.getClientNum() + "");
             editKehuDanwei.setText(clientOrderBo.getClientUnit());
             editKehuClientdate.setText(clientOrderBo.getClientCompleteDate());
