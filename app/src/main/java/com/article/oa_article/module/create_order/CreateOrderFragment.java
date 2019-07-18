@@ -47,6 +47,7 @@ import com.article.oa_article.util.PhotoFromPhotoAlbum;
 import com.article.oa_article.view.EditPhotoNamePop;
 import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.article.oa_article.widget.AlertDialog;
+import com.article.oa_article.widget.DateDialog;
 import com.article.oa_article.widget.EditMsgText;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
@@ -320,6 +321,12 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
             setPingLeiAdapter();
         });
         window.showAtLocation(Objects.requireNonNull(getActivity()).getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+    }
+
+
+    @OnClick(R.id.edit_kehu_clientdate)
+    public void clientDate() {
+        DateDialog.show(getActivity(), editKehuClientdate);
     }
 
 

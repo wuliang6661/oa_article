@@ -74,4 +74,35 @@ public class DateDialog {
     }
 
 
+    public static void show(Context context, TextView textView) {
+        Calendar endTime = Calendar.getInstance();
+        TimePickerView pvTime = new TimePickerBuilder(context, (date, v) -> {
+            textView.setText(TimeUtils.date2String(date, format));
+        })
+                .setType(new boolean[]{true, true, true, false, false, false})
+                .isDialog(true) //默认设置false ，内部实现将DecorView 作为它的父控件。
+                .setDate(endTime)
+//                .setRangDate(startDate, endTime)
+                .setLineSpacingMultiplier(1.8f)
+                .build();
+        Dialog mDialog = pvTime.getDialog();
+        if (mDialog != null) {
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    Gravity.BOTTOM);
+            params.leftMargin = 0;
+            params.rightMargin = 0;
+            pvTime.getDialogContainerLayout().setLayoutParams(params);
+            Window dialogWindow = mDialog.getWindow();
+            if (dialogWindow != null) {
+                dialogWindow.setWindowAnimations(com.bigkoo.pickerview.R.style.picker_view_slide_anim);//修改动画样式
+                dialogWindow.setGravity(Gravity.BOTTOM);//改成Bottom,底部显示
+                dialogWindow.setDimAmount(0.1f);
+            }
+        }
+        pvTime.show();
+    }
+
+
 }
