@@ -552,9 +552,9 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     @Override
     public void cancleSuress(int position, boolean isDelete) {
         if (isDelete) {
-            showToast("删除任务成功！");
+            showToast("任务删除成功！");
         } else {
-            showToast("取消任务成功！");
+            showToast("任务取消成功！");
         }
         EventBus.getDefault().post(new UpdateTaskEvent());
     }
