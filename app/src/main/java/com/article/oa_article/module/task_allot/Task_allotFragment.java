@@ -359,7 +359,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                         tasks.remove(position);
                         setTaskAdapter();
                     } else {
-                        mPresenter.cancleTask(tasks.get(position).getId(), position);
+                        mPresenter.cancleTask(tasks.get(position).getId(), position, true);
                     }
                 }).show();
     }
@@ -371,7 +371,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         new AlertDialog(getActivity()).builder().setGone().setMsg("确认取消该任务？")
                 .setNegativeButton("取消", null)
                 .setPositiveButton("确定", v -> {
-                    mPresenter.cancleTask(tasks.get(position).getId(), position);
+                    mPresenter.cancleTask(tasks.get(position).getId(), position, false);
                 }).show();
     }
 
@@ -550,8 +550,12 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     }
 
     @Override
-    public void cancleSuress(int position) {
-        showToast("任务取消成功！");
+    public void cancleSuress(int position, boolean isDelete) {
+        if (isDelete) {
+            showToast("删除任务成功！");
+        } else {
+            showToast("取消任务成功！");
+        }
         EventBus.getDefault().post(new UpdateTaskEvent());
     }
 

@@ -15,7 +15,7 @@ public class Task_allotContract {
 
         void shunyanSourss();
 
-        void cancleSuress(int position);
+        void cancleSuress(int position, boolean isDelete);
 
     }
 

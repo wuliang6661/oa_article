@@ -58,14 +58,14 @@ public class Task_allotPresenter extends BasePresenterImpl<Task_allotContract.Vi
     }
 
     //取消任务
-    public void cancleTask(int id, int position) {
+    public void cancleTask(int id, int position, boolean isDelete) {
         IdRequest request = new IdRequest();
         request.setId(id);
         TaskServiceImpl.cancleTask(request).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
                 if (mView != null) {
-                    mView.cancleSuress(position);
+                    mView.cancleSuress(position, isDelete);
                 }
             }
 
