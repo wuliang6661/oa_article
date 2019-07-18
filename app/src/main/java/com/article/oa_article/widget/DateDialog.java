@@ -9,9 +9,11 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.article.oa_article.util.DateUtils;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.blankj.utilcode.util.TimeUtils;
+import com.blankj.utilcode.util.ToastUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,11 +35,23 @@ public class DateDialog {
         endTime.setTime(new Date(time));
         Calendar startDate = Calendar.getInstance();
         startDate.set(1990, 1, 1);
-        TimePickerView pvTime = new TimePickerBuilder(context, (date, v) -> textView.setText(TimeUtils.date2String(date, format)))
+        TimePickerView pvTime = new TimePickerBuilder(context, (date, v) -> {
+            if (date.getTime() < DateUtils.getTodayZero()) {
+                ToastUtils.showShort("任务时限不能小于今天!");
+                textView.setText("");
+                return;
+            }
+            if (date.getTime() > time) {
+                ToastUtils.showShort("任务时限不能大于上级任务时限!");
+                textView.setText("");
+                return;
+            }
+            textView.setText(TimeUtils.date2String(date, format));
+        })
                 .setType(new boolean[]{true, true, true, false, false, false})
                 .isDialog(true) //默认设置false ，内部实现将DecorView 作为它的父控件。
                 .setDate(endTime)
-                .setRangDate(startDate, endTime)
+//                .setRangDate(startDate, endTime)
                 .setLineSpacingMultiplier(1.8f)
                 .build();
         Dialog mDialog = pvTime.getDialog();

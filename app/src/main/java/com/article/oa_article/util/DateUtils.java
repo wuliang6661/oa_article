@@ -77,4 +77,13 @@ public class DateUtils {
         return (int) ((toCalendar.getTime().getTime() - fromCalendar.getTime().getTime()) / (1000 * 60 * 60 * 24));
     }
 
+
+    public static long getTodayZero() {
+        Date date = new Date();
+        long l = 24 * 60 * 60 * 1000; //每天的毫秒数
+        //date.getTime()是现在的毫秒数，它 减去 当天零点到现在的毫秒数（ 现在的毫秒数%一天总的毫秒数，取余。），理论上等于零点的毫秒数，不过这个毫秒数是UTC+0时区的。
+        //减8个小时的毫秒值是为了解决时区的问题。
+        return (date.getTime() - (date.getTime() % l) - 8 * 60 * 60 * 1000);
+    }
+
 }
