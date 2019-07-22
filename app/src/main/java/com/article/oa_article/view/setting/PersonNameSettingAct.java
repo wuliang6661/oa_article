@@ -43,8 +43,8 @@ public class PersonNameSettingAct extends BaseActivity {
             showToast("请输入昵称！");
             return;
         }
-        if (name.length() < 4) {
-            showToast("昵称不能少于4位");
+        if (name.length() < 2) {
+            showToast("昵称不能少于2位");
             return;
         }
         updateName(name);

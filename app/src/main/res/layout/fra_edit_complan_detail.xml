@@ -28,8 +28,8 @@
         android:id="@+id/complan_jiancheng"
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_height"
-        app:edit_max_length="4"
-        app:hint_text="请填写4字内企业简称"
+        app:edit_max_length="10"
+        app:hint_text="请填写10字内企业简称"
         app:title_text="公司简称" />
 
 
