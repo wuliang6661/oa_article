@@ -82,7 +82,7 @@ public class MyOrderActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTitleText("我的任务");
+        setTitleText("执行任务");
         back.setOnClickListener(view -> AppManager.getAppManager().goHome());
         EventBus.getDefault().register(this);
 

@@ -65,6 +65,7 @@
             android:gravity="center_vertical"
             android:hint="提示内容"
             android:maxLength="10"
+            android:singleLine="true"
             android:textColor="@color/white"
             android:textColorHint="@color/hint_color"
             android:textSize="15sp" />

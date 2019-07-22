@@ -151,6 +151,13 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
             shiliBar.setVisibility(View.VISIBLE);
             complanShili.setVisibility(View.VISIBLE);
             pingfenLayout.setVisibility(View.VISIBLE);
+
+            complanDetails.setVisibility(View.GONE);
+            kehuOrderCheck.setChecked(true);
+            complanZizhi.setVisibility(View.GONE);
+            gongsiZiyuanCheck.setChecked(true);
+            complanShili.setVisibility(View.GONE);
+            shiliCheck.setChecked(true);
         }
     }
 

@@ -76,7 +76,7 @@ public class PopAddPinleiWindow extends PopupWindow {
                 ToastUtils.showShort("请输入品类名称！");
                 return;
             }
-            if (!StringUtils.isEmpty(strSize) || !StringUtils.isEmpty(strNum) || !StringUtils.isEmpty(strUnit)) {
+            if (!StringUtils.isEmpty(strNum) || !StringUtils.isEmpty(strUnit)) {
                 if (listener != null) {
                     listener.commit(strName, strNum, strSize, strUnit);
                     dismiss();

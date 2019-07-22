@@ -2,6 +2,7 @@ package com.article.oa_article.widget;
 
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
+import android.text.InputFilter;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -96,6 +97,13 @@ public class PopTaskMsg extends PopupWindow {
         this.customLabelsBean = customLabelsBean;
     }
 
+
+    /**
+     * 修改输入框输入长度
+     */
+    public void setLength(int length) {
+        photoName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(length)});
+    }
 
 
     /**

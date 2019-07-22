@@ -221,6 +221,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
 
                     }
                 });
+                popTaskMsg.setLength(50);
                 popTaskMsg.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
             }
 

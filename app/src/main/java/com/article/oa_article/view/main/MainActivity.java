@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
@@ -339,34 +338,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         });
     }
 
-    CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-            switch (compoundButton.getId()) {
-                case R.id.task_unfinish:
-                    taskRadio = "0";
-                    break;
-                case R.id.task_way:
-                    taskRadio = "1";
-                    break;
-                case R.id.task_off:
-                    taskRadio = "2";
-                    break;
-                case R.id.last_radio:
-                    taskRadio = "3";
-                    break;
-                case -1:
-                    taskUnfinish.setChecked(false);
-                    taskWay.setChecked(false);
-                    taskOff.setChecked(false);
-                    lastRadio.setChecked(false);
-                    taskRadio = null;
-                    break;
-            }
-        }
-    };
-
-
     OpenDrawableEvent event;
 
     /**
@@ -663,7 +634,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                     request.setTaskType("4");
                 } else if ("2".equals(taskRadio)) {   //已取消
                     request.setTaskType("5");
-                } else if("3".equals(taskRadio)){                        //已完成
+                } else if ("3".equals(taskRadio)) {                        //已完成
                     request.setTaskType("2");
                 }
                 break;
@@ -683,7 +654,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                     request.setTaskType("4");
                 } else if ("2".equals(taskRadio)) {   //已取消
                     request.setTaskType("5");
-                } else if("3".equals(taskRadio)){                        //已完成
+                } else if ("3".equals(taskRadio)) {                        //已完成
                     request.setTaskType("2");
                 }
                 break;

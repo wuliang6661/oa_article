@@ -274,6 +274,8 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
             orderEdit.setVisibility(View.GONE);
         }
         setImageAdapter();
+        kehuOrderLayout.setVisibility(View.GONE);
+        kehuOrderCheck.setChecked(true);
     }
 
 

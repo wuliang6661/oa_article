@@ -23,7 +23,7 @@
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 android:layout_marginTop="43dp"
-                android:src="@drawable/login_logo" />
+                android:src="@mipmap/ic_launcher" />
 
 
             <LinearLayout
