@@ -150,7 +150,9 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
             taskCheck.setChecked(true);
         } else {
             taskListLayout.setVisibility(View.VISIBLE);
-            addTaskLayout.setVisibility(View.VISIBLE);
+            if (type == 0 && isShunYan) {
+                addTaskLayout.setVisibility(View.VISIBLE);
+            }
             taskCheck.setChecked(false);
         }
     }

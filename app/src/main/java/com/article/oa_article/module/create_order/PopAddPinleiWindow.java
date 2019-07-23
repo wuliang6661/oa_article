@@ -9,9 +9,9 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.article.oa_article.R;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.article.oa_article.R;
 
 public class PopAddPinleiWindow extends PopupWindow {
 
@@ -72,18 +72,15 @@ public class PopAddPinleiWindow extends PopupWindow {
             String strSize = pingleiSize.getText().toString().trim();
             String strUnit = pingleiUnit.getText().toString().trim();
 
-            if (StringUtils.isEmpty(strName)) {
-                ToastUtils.showShort("请输入品类名称！");
+            if (StringUtils.isEmpty(strName) && StringUtils.isEmpty(strNum) && StringUtils.isEmpty(strSize) &&
+                    StringUtils.isEmpty(strUnit)) {
+                ToastUtils.showShort("请完善品类信息！");
                 return;
             }
-            if (!StringUtils.isEmpty(strNum) || !StringUtils.isEmpty(strUnit)) {
-                if (listener != null) {
-                    listener.commit(strName, strNum, strSize, strUnit);
-                    dismiss();
-                }
-                return;
+            if (listener != null) {
+                listener.commit(strName, strNum, strSize, strUnit);
+                dismiss();
             }
-            ToastUtils.showShort("请完善品类信息！");
         });
     }
 

@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
-            android:text="我的任务"
+            android:text="执行任务"
             android:textColor="#b8b8b8"
             android:textSize="15sp" />
 
