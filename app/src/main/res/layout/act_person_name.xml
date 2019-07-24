@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
-                android:text="昵称由4-10位汉字/字母/符号组成，首位不能是符号"
+                android:text="昵称由2-10位汉字/字母/符号组成，首位不能是符号"
                 android:textColor="@color/text_hint_color"
                 android:textSize="11sp" />
         </LinearLayout>

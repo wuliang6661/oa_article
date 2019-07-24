@@ -32,6 +32,17 @@ public class MuBanTaskBO implements Serializable {
 
     private int taskType;
     private String taskName;
+    /**
+     * phone : 15151977426
+     * planCompleteDate : 2019-05-20
+     * planNum : 200
+     * unit : 件
+     */
+
+    private String phone;
+    private String planCompleteDate;
+    private int planNum;
+    private String unit;
 
 
     public String getNickName() {
@@ -120,5 +131,37 @@ public class MuBanTaskBO implements Serializable {
 
     public void setTaskName(String taskName) {
         this.taskName = taskName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPlanCompleteDate() {
+        return planCompleteDate;
+    }
+
+    public void setPlanCompleteDate(String planCompleteDate) {
+        this.planCompleteDate = planCompleteDate;
+    }
+
+    public int getPlanNum() {
+        return planNum;
+    }
+
+    public void setPlanNum(int planNum) {
+        this.planNum = planNum;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

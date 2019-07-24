@@ -202,10 +202,21 @@ public class AcceptedTaskActivity extends BaseActivity {
      */
     @OnClick(R.id.task_right_button)
     public void goParent() {
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", parentTask.getTaskInfo().getId());
-        bundle.putBoolean("isOrder", false);
-        gotoActivity(Order_detailsActivity.class, bundle, false);
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("id", parentTask.getTaskInfo().getId());
+//        bundle.putBoolean("isOrder", false);
+//        gotoActivity(Order_detailsActivity.class, bundle, false);
+        if (parentId != 0) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", parentTask.getTaskInfo().getParentId());
+            bundle.putBoolean("isOrder", false);
+            gotoActivity(Order_detailsActivity.class, bundle, false);
+        } else {
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", parentTask.getTaskInfo().getOrderId());
+            bundle.putBoolean("isOrder", true);
+            gotoActivity(Order_detailsActivity.class, bundle, false);
+        }
     }
 
 
@@ -219,17 +230,17 @@ public class AcceptedTaskActivity extends BaseActivity {
             nextButton.setVisibility(View.VISIBLE);
             buttomLayout.setVisibility(View.GONE);
         }
-        if (details.getTaskInfo().getParentId() != 0) {
-            parentId = details.getTaskInfo().getParentId();
+//        if (details.getTaskInfo().getParentId() != 0) {
+        parentId = details.getTaskInfo().getParentId();
 //                getTaskInfo(parentId);
-            shangjiLayout.setVisibility(View.VISIBLE);
-            shangjiTaskBar.setVisibility(View.VISIBLE);
-            taskName.setText(details.getTaskInfo().getTaskName());
-            taskDate.setText(TimeUtils.millis2String(details.getTaskInfo().getPlanCompleteDate(),
-                    new SimpleDateFormat("yyyy/MM/dd")));
-            taskPersonName.setText(details.getTaskInfo().getNickName());
-            parentTask = details;
-        }
+        shangjiLayout.setVisibility(View.VISIBLE);
+        shangjiTaskBar.setVisibility(View.VISIBLE);
+        taskName.setText(details.getTaskInfo().getTaskName());
+        taskDate.setText(TimeUtils.millis2String(details.getTaskInfo().getPlanCompleteDate(),
+                new SimpleDateFormat("yyyy/MM/dd")));
+        taskPersonName.setText(details.getTaskInfo().getNickName());
+        parentTask = details;
+//        }
 //        } else {
 
 //        }

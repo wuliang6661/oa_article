@@ -24,13 +24,10 @@ import com.article.oa_article.module.order_details.Order_detailsFragment;
 import com.article.oa_article.util.AppManager;
 import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.blankj.utilcode.util.FragmentUtils;
-import com.blankj.utilcode.util.TimeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -91,6 +88,9 @@ public class MyOrderActivity extends BaseActivity {
         completeFragment = new My_completeFragment();
         FragmentUtils.replace(getSupportFragmentManager(), detailsFragment, R.id.order_details);
         FragmentUtils.replace(getSupportFragmentManager(), completeFragment, R.id.my_complete);
+
+        shangjiLayout.setVisibility(View.GONE);
+        shangjiTaskBar.setVisibility(View.GONE);
 
         IdTypeRequest request = new IdTypeRequest();
         request.setType(1);  //任务
