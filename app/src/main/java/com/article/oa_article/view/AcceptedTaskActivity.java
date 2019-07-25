@@ -208,41 +208,43 @@ public class AcceptedTaskActivity extends BaseActivity {
 //        gotoActivity(Order_detailsActivity.class, bundle, false);
         if (parentId != 0) {
             Bundle bundle = new Bundle();
-            bundle.putInt("id", parentTask.getTaskInfo().getParentId());
+            bundle.putInt("id", parentId);
             bundle.putBoolean("isOrder", false);
             gotoActivity(Order_detailsActivity.class, bundle, false);
         } else {
             Bundle bundle = new Bundle();
-            bundle.putInt("id", parentTask.getTaskInfo().getOrderId());
+            bundle.putInt("id", orderId);
             bundle.putBoolean("isOrder", true);
             gotoActivity(Order_detailsActivity.class, bundle, false);
         }
     }
 
+    int orderId;
+
 
     public void getTaskInfo(TaskDetails details) {
-//        if (parentId == 0) {   //当前没有取过父级任务
-        acceptFragment.setTask(details);
-        if (details.getTaskInfo().getStatus() == 4) {
-            nextButton.setVisibility(View.GONE);
-            buttomLayout.setVisibility(View.VISIBLE);
-        } else if (details.getTaskInfo().getStatus() == 0) {
-            nextButton.setVisibility(View.VISIBLE);
-            buttomLayout.setVisibility(View.GONE);
+        if (parentId == 0) {   //当前没有取过父级任务
+            acceptFragment.setTask(details);
+            if (details.getTaskInfo().getStatus() == 4) {
+                nextButton.setVisibility(View.GONE);
+                buttomLayout.setVisibility(View.VISIBLE);
+            } else if (details.getTaskInfo().getStatus() == 0) {
+                nextButton.setVisibility(View.VISIBLE);
+                buttomLayout.setVisibility(View.GONE);
+            }
+            parentId = details.getTaskInfo().getParentId();
+            orderId = details.getTaskInfo().getOrderId();
+            if (details.getTaskInfo().getParentId() != 0) {
+                getTaskInfo(parentId);
+            }
+        } else {
+            shangjiLayout.setVisibility(View.VISIBLE);
+            shangjiTaskBar.setVisibility(View.VISIBLE);
+            taskName.setText(details.getTaskInfo().getTaskName());
+            taskDate.setText(TimeUtils.millis2String(details.getTaskInfo().getPlanCompleteDate(),
+                    new SimpleDateFormat("yyyy/MM/dd")));
+            taskPersonName.setText(details.getTaskInfo().getNickName());
+            parentTask = details;
         }
-//        if (details.getTaskInfo().getParentId() != 0) {
-        parentId = details.getTaskInfo().getParentId();
-//                getTaskInfo(parentId);
-        shangjiLayout.setVisibility(View.VISIBLE);
-        shangjiTaskBar.setVisibility(View.VISIBLE);
-        taskName.setText(details.getTaskInfo().getTaskName());
-        taskDate.setText(TimeUtils.millis2String(details.getTaskInfo().getPlanCompleteDate(),
-                new SimpleDateFormat("yyyy/MM/dd")));
-        taskPersonName.setText(details.getTaskInfo().getNickName());
-        parentTask = details;
-//        }
-//        } else {
-
-//        }
     }
 }

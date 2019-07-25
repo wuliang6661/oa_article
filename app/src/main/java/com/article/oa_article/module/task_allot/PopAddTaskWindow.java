@@ -3,6 +3,7 @@ package com.article.oa_article.module.task_allot;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -61,6 +62,19 @@ public class PopAddTaskWindow extends PopupWindow {
         //设置PopupWindow弹出窗体可点击
         this.setFocusable(true);
         this.setOutsideTouchable(false);
+
+        setTouchInterceptor(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (!isOutsideTouchable()) {
+                    View mView = getContentView();
+                    if (null != mView)
+                        mView.dispatchTouchEvent(event);
+                }
+                return isFocusable() && !isOutsideTouchable();
+            }
+        });
+
         //设置SelectPicPopupWindow弹出窗体动画效果
         this.setAnimationStyle(R.style.anim_menu_bottombar);
         //实例化一个ColorDrawable颜色为半透明

@@ -73,6 +73,12 @@ public class ComplanyDetailsFragment extends MVPBaseFragment<ComplanyDetailsCont
     LinearLayout zhizhaoLayout;
     @BindView(R.id.card_layout)
     LinearLayout cardLayout;
+    @BindView(R.id.logo)
+    ImageView logo;
+    @BindView(R.id.logo_layout)
+    LinearLayout logoLayout;
+    @BindView(R.id.logo_line)
+    View logoLine;
 
     @Nullable
     @Override
@@ -108,12 +114,16 @@ public class ComplanyDetailsFragment extends MVPBaseFragment<ComplanyDetailsCont
         new Handler().post(() -> {
             if (isShow) {   //企业认证
                 gongsiImgRecycle.setVisibility(View.GONE);
+                logoLayout.setVisibility(View.GONE);
+                logoLine.setVisibility(View.GONE);
                 if (MyApplication.getCommon().getIsAdmin() == 0) {  //非管理员
                     cardLayout.setVisibility(View.GONE);
                     cardText.setVisibility(View.GONE);
                     cardLine.setVisibility(View.GONE);
                     zhizhaoLine.setVisibility(View.GONE);
                     zhizhaoLayout.setVisibility(View.GONE);
+                    logoLayout.setVisibility(View.VISIBLE);
+                    logoLine.setVisibility(View.VISIBLE);
                     return;
                 }
                 cardLayout.setVisibility(View.VISIBLE);
@@ -170,6 +180,7 @@ public class ComplanyDetailsFragment extends MVPBaseFragment<ComplanyDetailsCont
         gongsiAddress.setText(complanBo.getCompanyInfos().getCompanyAddress());
         gongsiPhone.setText(complanBo.getCompanyInfos().getContactWay());
         gongsiEmail.setText(complanBo.getCompanyInfos().getCompanyEmail());
+        Glide.with(getActivity()).load(complanBo.getCompanyInfos().getCompanyImage()).into(logo);
 
         setAdapter();
     }

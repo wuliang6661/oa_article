@@ -24,6 +24,7 @@ import com.article.oa_article.R;
 import com.article.oa_article.bean.TaskDetails;
 import com.article.oa_article.bean.event.UpdateTaskEvent;
 import com.article.oa_article.mvp.MVPBaseFragment;
+import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.article.oa_article.widget.AlertDialog;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
@@ -76,6 +77,8 @@ public class My_completeFragment extends MVPBaseFragment<My_completeContract.Vie
     TaskDetails taskBean;
     @BindView(R.id.none_text)
     TextView noneText;
+    @BindView(R.id.task_right_button)
+    TextView taskRightButton;
 
     @Nullable
     @Override
@@ -123,6 +126,21 @@ public class My_completeFragment extends MVPBaseFragment<My_completeContract.Vie
 
     }
 
+    @OnClick(R.id.task_right_button)
+    public void backTask() {
+        if (taskBean.getTaskInfo().getParentId() != 0) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", taskBean.getTaskInfo().getParentId());
+            bundle.putBoolean("isOrder", false);
+            gotoActivity(Order_detailsActivity.class, bundle, false);
+        } else {
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", taskBean.getTaskInfo().getOrderId());
+            bundle.putBoolean("isOrder", true);
+            gotoActivity(Order_detailsActivity.class, bundle, false);
+        }
+    }
+
 
     /**
      * 设置是否可编辑
@@ -161,6 +179,11 @@ public class My_completeFragment extends MVPBaseFragment<My_completeContract.Vie
                 recycleView.setVisibility(View.VISIBLE);
                 noneText.setVisibility(View.GONE);
             }
+//            if (taskBean.getTaskInfo().getParentId() != 0) {
+//                taskRightButton.setVisibility(View.VISIBLE);
+//            } else {
+//                taskRightButton.setVisibility(View.GONE);
+//            }
             setAdapter();
         });
     }
