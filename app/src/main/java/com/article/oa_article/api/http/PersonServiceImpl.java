@@ -24,6 +24,7 @@ import com.article.oa_article.bean.request.AddUsersRequest;
 import com.article.oa_article.bean.request.ApplyComplanRequest;
 import com.article.oa_article.bean.request.BuMenRequest;
 import com.article.oa_article.bean.request.ChartRequest;
+import com.article.oa_article.bean.request.ComplanIdRequest;
 import com.article.oa_article.bean.request.FanKuiRequest;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.KeyRequest;
@@ -182,8 +183,9 @@ public class PersonServiceImpl {
      * 获取已收到的评价列表
      */
     public static Observable<List<ScopeBO>> getScopeList() {
-        TokenRequest request = new TokenRequest();
+        ComplanIdRequest request = new ComplanIdRequest();
         request.token = MyApplication.token;
+        request.companyId = Integer.parseInt(MyApplication.getCommonId());
         return getService().getMyScope(request).compose(RxResultHelper.httpRusult());
     }
 
@@ -191,8 +193,9 @@ public class PersonServiceImpl {
      * 获取已评价列表
      */
     public static Observable<List<AlreadyScopeBO>> getHaveScope() {
-        TokenRequest request = new TokenRequest();
+        ComplanIdRequest request = new ComplanIdRequest();
         request.token = MyApplication.token;
+        request.companyId = Integer.parseInt(MyApplication.getCommonId());
         return getService().getHaveScope(request).compose(RxResultHelper.httpRusult());
     }
 
@@ -200,8 +203,9 @@ public class PersonServiceImpl {
      * 待评价列表
      */
     public static Observable<List<AlreadyScopeBO>> getToScope() {
-        TokenRequest request = new TokenRequest();
+        ComplanIdRequest request = new ComplanIdRequest();
         request.token = MyApplication.token;
+        request.companyId = Integer.parseInt(MyApplication.getCommonId());
         return getService().getToScope(request).compose(RxResultHelper.httpRusult());
     }
 
@@ -210,6 +214,7 @@ public class PersonServiceImpl {
      */
     public static Observable<String> scope(ScopeRequest request) {
         request.setToken(MyApplication.token);
+        request.setEvaluateCompanyId(Integer.parseInt(MyApplication.getCommonId()));
         return getService().addScope(request).compose(RxResultHelper.httpRusult());
     }
 

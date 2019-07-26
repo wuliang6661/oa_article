@@ -40,11 +40,11 @@ public class PersonNameSettingAct extends BaseActivity {
     public void commit() {
         String name = editPersonName.getText().toString().trim();
         if (StringUtils.isEmpty(name)) {
-            showToast("请输入昵称！");
+            showToast("请输入姓名！");
             return;
         }
         if (name.length() < 2) {
-            showToast("昵称不能少于2位");
+            showToast("姓名不能少于2位");
             return;
         }
         updateName(name);

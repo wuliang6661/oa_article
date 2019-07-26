@@ -29,6 +29,15 @@ public class ScopeRequest {
     private int taskId;
     private String token;
     private int userId;
+    private int evaluateCompanyId;
+
+    public int getEvaluateCompanyId() {
+        return evaluateCompanyId;
+    }
+
+    public void setEvaluateCompanyId(int evaluateCompanyId) {
+        this.evaluateCompanyId = evaluateCompanyId;
+    }
 
     public int getLogisticsScore() {
         return logisticsScore;

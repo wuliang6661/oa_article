@@ -14,6 +14,15 @@ public class RegistUserRequest {
     private String password;
     private String phone;
     private int type;
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public String getCode() {
         return code;

@@ -22,6 +22,7 @@ import com.article.oa_article.bean.request.AddUsersRequest;
 import com.article.oa_article.bean.request.ApplyComplanRequest;
 import com.article.oa_article.bean.request.BuMenRequest;
 import com.article.oa_article.bean.request.ChartRequest;
+import com.article.oa_article.bean.request.ComplanIdRequest;
 import com.article.oa_article.bean.request.FanKuiRequest;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.KeyRequest;
@@ -137,19 +138,19 @@ public interface PersonService {
      * 收到的评价列表
      */
     @POST("industry_webservice/app/evaluate/getMyEvaluates")
-    Observable<BaseResult<List<ScopeBO>>> getMyScope(@Body TokenRequest request);
+    Observable<BaseResult<List<ScopeBO>>> getMyScope(@Body ComplanIdRequest request);
 
     /**
      * 已评价列表
      */
     @POST("industry_webservice/app/evaluate/getHaveEvaluates")
-    Observable<BaseResult<List<AlreadyScopeBO>>> getHaveScope(@Body TokenRequest request);
+    Observable<BaseResult<List<AlreadyScopeBO>>> getHaveScope(@Body ComplanIdRequest request);
 
     /**
      * 待评价列表
      */
     @POST("industry_webservice/app/evaluate/getToBeEvaluates")
-    Observable<BaseResult<List<AlreadyScopeBO>>> getToScope(@Body TokenRequest request);
+    Observable<BaseResult<List<AlreadyScopeBO>>> getToScope(@Body ComplanIdRequest request);
 
     /**
      * 评价

@@ -67,18 +67,20 @@ public class ComplanyDetailsFragment extends MVPBaseFragment<ComplanyDetailsCont
     RelativeLayout zhengmianLayout;
     @BindView(R.id.fanmian_layout)
     RelativeLayout fanmianLayout;
+    @BindView(R.id.card_layout)
+    LinearLayout cardLayout;
+
     @BindView(R.id.zhizhao_line)
     View zhizhaoLine;
     @BindView(R.id.zhizhao_layout)
     LinearLayout zhizhaoLayout;
-    @BindView(R.id.card_layout)
-    LinearLayout cardLayout;
-    @BindView(R.id.logo)
-    ImageView logo;
+    @BindView(R.id.complan_logo)
+    ImageView complanLogo;
     @BindView(R.id.logo_layout)
     LinearLayout logoLayout;
-    @BindView(R.id.logo_line)
-    View logoLine;
+    @BindView(R.id.zhizhao_logo_layout)
+    LinearLayout zhizhaoLogoLayout;
+
 
     @Nullable
     @Override
@@ -114,23 +116,20 @@ public class ComplanyDetailsFragment extends MVPBaseFragment<ComplanyDetailsCont
         new Handler().post(() -> {
             if (isShow) {   //企业认证
                 gongsiImgRecycle.setVisibility(View.GONE);
-                logoLayout.setVisibility(View.GONE);
-                logoLine.setVisibility(View.GONE);
+
                 if (MyApplication.getCommon().getIsAdmin() == 0) {  //非管理员
                     cardLayout.setVisibility(View.GONE);
                     cardText.setVisibility(View.GONE);
                     cardLine.setVisibility(View.GONE);
                     zhizhaoLine.setVisibility(View.GONE);
-                    zhizhaoLayout.setVisibility(View.GONE);
-                    logoLayout.setVisibility(View.VISIBLE);
-                    logoLine.setVisibility(View.VISIBLE);
+                    zhizhaoLogoLayout.setVisibility(View.GONE);
                     return;
                 }
                 cardLayout.setVisibility(View.VISIBLE);
                 cardText.setVisibility(View.VISIBLE);
                 cardLine.setVisibility(View.VISIBLE);
                 zhizhaoLine.setVisibility(View.VISIBLE);
-                zhizhaoLayout.setVisibility(View.VISIBLE);
+                zhizhaoLogoLayout.setVisibility(View.VISIBLE);
 
                 String fanmianUrl = complanBo.getCompanyInfos().getIdBackImage().url;
                 if (!StringUtils.isEmpty(fanmianUrl)) {
@@ -159,6 +158,18 @@ public class ComplanyDetailsFragment extends MVPBaseFragment<ComplanyDetailsCont
                     zhizhaoLayout.setVisibility(View.GONE);
                     zhizhaoLine.setVisibility(View.GONE);
                 }
+                String logoUrl = complanBo.getCompanyInfos().getCompanyImage();
+                if (!StringUtils.isEmpty(logoUrl)) {
+                    Glide.with(getActivity()).load(logoUrl).into(complanLogo);
+                    logoLayout.setVisibility(View.VISIBLE);
+                } else {
+                    logoLayout.setVisibility(View.GONE);
+                }
+
+                if (StringUtils.isEmpty(zhizhaoUrl) && StringUtils.isEmpty(logoUrl)) {
+                    zhizhaoLogoLayout.setVisibility(View.GONE);
+                }
+
             } else {  //外部联系人名片
                 gongsiImgRecycle.setVisibility(View.VISIBLE);
                 cardLayout.setVisibility(View.GONE);
@@ -166,6 +177,7 @@ public class ComplanyDetailsFragment extends MVPBaseFragment<ComplanyDetailsCont
                 cardLine.setVisibility(View.GONE);
                 zhizhaoLine.setVisibility(View.GONE);
                 zhizhaoLayout.setVisibility(View.GONE);
+                logoLayout.setVisibility(View.GONE);
             }
         });
     }
@@ -180,7 +192,7 @@ public class ComplanyDetailsFragment extends MVPBaseFragment<ComplanyDetailsCont
         gongsiAddress.setText(complanBo.getCompanyInfos().getCompanyAddress());
         gongsiPhone.setText(complanBo.getCompanyInfos().getContactWay());
         gongsiEmail.setText(complanBo.getCompanyInfos().getCompanyEmail());
-        Glide.with(getActivity()).load(complanBo.getCompanyInfos().getCompanyImage()).into(logo);
+//        Glide.with(getActivity()).load(complanBo.getCompanyInfos().getCompanyImage()).into(complanLogo);
 
         setAdapter();
     }

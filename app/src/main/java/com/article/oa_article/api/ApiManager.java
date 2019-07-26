@@ -2,8 +2,8 @@ package com.article.oa_article.api;
 
 import android.util.Log;
 
-import com.blankj.utilcode.util.StringUtils;
 import com.article.oa_article.util.MD5;
+import com.blankj.utilcode.util.StringUtils;
 
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -48,15 +48,10 @@ public class ApiManager {
         builder = new OkHttpClient.Builder();
         builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         HttpLoggingInterceptor.Level level = HttpLoggingInterceptor.Level.BODY;
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-                Log.i(TAG, "log: " + message);
-            }
-        });
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(message -> Log.i(TAG, "log: " + message));
         loggingInterceptor.setLevel(level);
         builder.addInterceptor(loggingInterceptor);
-       // builder.addNetworkInterceptor(mNetInterceptor);  //添加网络拦截器
+        // builder.addNetworkInterceptor(mNetInterceptor);  //添加网络拦截器
     }
 
     private static class SingletonHolder {

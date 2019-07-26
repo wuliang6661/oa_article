@@ -39,7 +39,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="27dp"
                 android:background="@null"
-                android:hint="请输入新的昵称"
+                android:hint="请输入真实姓名"
                 android:maxLength="10"
                 android:singleLine="true"
                 android:textColor="@color/f_white"
@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
-                android:text="昵称由2-10位汉字/字母/符号组成，首位不能是符号"
+                android:text="姓名由2-10位汉字/字母/符号组成，首位不能是符号"
                 android:textColor="@color/text_hint_color"
                 android:textSize="11sp" />
         </LinearLayout>

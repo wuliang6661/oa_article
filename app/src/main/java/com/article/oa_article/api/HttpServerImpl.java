@@ -109,6 +109,7 @@ public class HttpServerImpl {
         request.setCode(code);
         request.setPhone(phone);
         request.setType(type);
+        request.setToken(MyApplication.token);
         return getService().checkMesCode(request).compose(RxResultHelper.httpRusult());
     }
 
