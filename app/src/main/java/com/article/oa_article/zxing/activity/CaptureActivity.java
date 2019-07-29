@@ -113,7 +113,7 @@ public class CaptureActivity extends BaseActivity implements Callback {
         selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CopyToClipboard("www.xiaomagexiaoamage.com");
+                CopyToClipboard(urlText.getText().toString().trim());
                 showToast("复制成功！");
             }
         });
