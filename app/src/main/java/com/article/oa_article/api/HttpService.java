@@ -293,5 +293,11 @@ public interface HttpService {
     @POST("industry_webservice/app/orderTask/choiceCompany")
     Observable<BaseResult<String>> choiceCompany(@Body ChoiceRequest request);
 
+    /**
+     * 获取电脑上传url
+     */
+    @POST("industry_webservice/app/taskTemplate/getComputerUploadUrl")
+    Observable<BaseResult<String>> getUploadUrl(@Body TokenRequest request);
+
 
 }
