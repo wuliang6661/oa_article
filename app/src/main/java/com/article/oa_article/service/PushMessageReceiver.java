@@ -10,6 +10,7 @@ import com.article.oa_article.bean.event.SwitchHomeEvent;
 import com.article.oa_article.util.AppManager;
 import com.article.oa_article.util.SystemHelper;
 import com.article.oa_article.view.login.LoginActivity;
+import com.article.oa_article.view.splash.SplashActivity;
 import com.blankj.utilcode.util.Utils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -43,7 +44,7 @@ public class PushMessageReceiver extends JPushMessageReceiver {
         } else if (MyApplication.userBo == null) {  //app关闭
             try {
                 //打开自定义的Activity
-                Intent i = new Intent(context, LoginActivity.class);
+                Intent i = new Intent(context, SplashActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(JPushInterface.EXTRA_NOTIFICATION_TITLE, message.notificationTitle);
                 bundle.putString(JPushInterface.EXTRA_ALERT, message.notificationContent);
