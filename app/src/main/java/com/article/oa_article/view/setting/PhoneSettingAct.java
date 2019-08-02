@@ -86,7 +86,7 @@ public class PhoneSettingAct extends BaseActivity {
                 }
             });
         } else {
-            HttpServerImpl.sendMessage(phone, 2).subscribe(new HttpResultSubscriber<String>() {
+            HttpServerImpl.sendMessage(phone, 0).subscribe(new HttpResultSubscriber<String>() {
                 @Override
                 public void onSuccess(String s) {
                     stopProgress();

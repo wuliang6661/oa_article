@@ -416,4 +416,14 @@ public class HttpServerImpl {
         return getService().choiceCompany(request).compose(RxResultHelper.httpRusult());
     }
 
+
+    /**
+     * 获取电脑上传url
+     */
+    public static Observable<String> getUpdateUrl() {
+        TokenRequest request = new TokenRequest();
+        request.token = MyApplication.token;
+        return getService().getUploadUrl(request).compose(RxResultHelper.httpRusult());
+    }
+
 }

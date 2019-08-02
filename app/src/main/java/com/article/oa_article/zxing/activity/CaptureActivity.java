@@ -23,16 +23,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.BinaryBitmap;
-import com.google.zxing.ChecksumException;
-import com.google.zxing.DecodeHintType;
-import com.google.zxing.FormatException;
-import com.google.zxing.NotFoundException;
-import com.google.zxing.Result;
-import com.google.zxing.common.HybridBinarizer;
-import com.google.zxing.qrcode.QRCodeReader;
 import com.article.oa_article.R;
+import com.article.oa_article.api.HttpResultSubscriber;
+import com.article.oa_article.api.HttpServerImpl;
 import com.article.oa_article.base.BaseActivity;
 import com.article.oa_article.util.BitmapUtil;
 import com.article.oa_article.util.Constant;
@@ -42,6 +35,15 @@ import com.article.oa_article.zxing.decoding.CaptureActivityHandler;
 import com.article.oa_article.zxing.decoding.InactivityTimer;
 import com.article.oa_article.zxing.decoding.RGBLuminanceSource;
 import com.article.oa_article.zxing.view.ViewfinderView;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.ChecksumException;
+import com.google.zxing.DecodeHintType;
+import com.google.zxing.FormatException;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.Result;
+import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.qrcode.QRCodeReader;
 
 import java.io.IOException;
 import java.util.Hashtable;
@@ -64,6 +66,8 @@ public class CaptureActivity extends BaseActivity implements Callback {
     TextView shoudianText;
     @BindView(R.id.select_button)
     TextView selectButton;
+    @BindView(R.id.url_text)
+    TextView urlText;
 
     private CaptureActivityHandler handler;
     private ViewfinderView viewfinderView;
@@ -109,11 +113,28 @@ public class CaptureActivity extends BaseActivity implements Callback {
         selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CopyToClipboard("www.xiaomagexiaoamage.com");
+                CopyToClipboard(urlText.getText().toString().trim());
                 showToast("复制成功！");
             }
         });
+        getUrl();
     }
+
+
+    private void getUrl() {
+        HttpServerImpl.getUpdateUrl().subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                urlText.setText(s);
+            }
+
+            @Override
+            public void onFiled(String message) {
+
+            }
+        });
+    }
+
 
     private void CopyToClipboard(String text) {
         ClipboardManager clip = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
