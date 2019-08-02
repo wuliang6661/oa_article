@@ -257,16 +257,16 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
                 if (myOrderBO.getTaskDate() == 0) {
                     task_date.setText("");
                 } else if (myOrderBO.getTaskDate() > 0) {
-                    String taskDate = String.valueOf(myOrderBO.getTaskDate()) ;
+                    String taskDate = String.valueOf(Math.abs(myOrderBO.getTaskDate()));
                     if (myOrderBO.getTaskDate() > 100 || myOrderBO.getTaskDate() < -10) {
-                        taskDate = String.valueOf(myOrderBO.getTaskDate()).substring(0, 2) + "...";
+                        taskDate = String.valueOf(Math.abs(myOrderBO.getTaskDate())).substring(0, 2) + "...";
                     }
                     task_date.setText(taskDate);
                     task_date.setTextColor(Color.parseColor("#71EA45"));
                 } else {
-                    String taskDate = String.valueOf(myOrderBO.getTaskDate());
+                    String taskDate = String.valueOf(Math.abs(myOrderBO.getTaskDate()));
                     if (myOrderBO.getTaskDate() > 100 || myOrderBO.getTaskDate() < -10) {
-                        taskDate = String.valueOf(myOrderBO.getTaskDate()).substring(0, 2) + "...";
+                        taskDate = String.valueOf(Math.abs(myOrderBO.getTaskDate())).substring(0, 2) + "...";
                     }
                     task_date.setText(taskDate);
                     task_date.setTextColor(Color.parseColor("#E92B2B"));

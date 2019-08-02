@@ -38,6 +38,7 @@
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="45dp"
+                android:visibility="gone"
                 android:src="@drawable/guide_back" />
 
 
