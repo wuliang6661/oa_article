@@ -15,7 +15,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.article.oa_article.BuildConfig;
 import com.article.oa_article.Config;
 import com.article.oa_article.R;
 import com.article.oa_article.api.HttpResultSubscriber;
@@ -23,6 +22,7 @@ import com.article.oa_article.api.HttpServerImpl;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.UserBo;
 import com.article.oa_article.mvp.MVPBaseActivity;
+import com.article.oa_article.util.AppManager;
 import com.article.oa_article.view.forword_password.Forword_passwordActivity;
 import com.article.oa_article.view.main.MainActivity;
 import com.article.oa_article.view.register.RegisterActivity;
@@ -70,6 +70,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         goBack();
         setTitleText("登录");
 
+        AppManager.getAppManager().goLogin();
         mimaVisiable.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 //如果选中，显示密码
@@ -80,11 +81,22 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
             }
         });
         requestPermission();
-        if (BuildConfig.DEBUG) {
-            editPhone.setText("15151977426");
-            // 15726818192
-            editPassword.setText("111111");
+        String loginCode = MyApplication.spUtils.getString("loginCode");
+        String passWord = MyApplication.spUtils.getString("password");
+        if (!StringUtils.isEmpty(loginCode) && !StringUtils.isEmpty(passWord)) {
+            editPhone.setText(loginCode);
+            editPassword.setText(passWord);
         }
+//        if (BuildConfig.DEBUG) {
+//            editPhone.setText("15151977426");
+//            // 15726818192
+//            editPassword.setText("111111");
+//        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void requestPermission() {
@@ -156,6 +168,8 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
             @Override
             public void onSuccess(String s) {
                 MyApplication.token = s;
+                MyApplication.spUtils.put("loginCode", phone);
+                MyApplication.spUtils.put("password", password);
                 getUserInfo();
             }
 

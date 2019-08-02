@@ -37,6 +37,7 @@ public class MyApplication extends Application {
 
     public static boolean isSplash = false;  //从引导页进入的指引
 
+    public static boolean AppInBack = false;  //App 是否在后台
 
     @Override
     public void onCreate() {
@@ -53,6 +54,8 @@ public class MyApplication extends Application {
 
         JPushInterface.setDebugMode(true);    // 设置开启日志,发布时请关闭日志
         JPushInterface.init(this);            // 初始化 JPush
+
+        registerActivityLifecycleCallbacks(new AppLifecycleHandler());
     }
 
 

@@ -3,6 +3,7 @@ package com.article.oa_article.util;
 import android.app.Activity;
 
 
+import com.article.oa_article.view.login.LoginActivity;
 import com.article.oa_article.view.main.MainActivity;
 
 import java.util.Stack;
@@ -62,6 +63,15 @@ public class AppManager {
     public void goHome() {
         for (int i = 0, size = activityStack.size(); i < size; i++) {
             if (null != activityStack.get(i) && !(activityStack.get(i) instanceof MainActivity)) {
+                activityStack.get(i).finish();
+            }
+        }
+    }
+
+
+    public void goLogin() {
+        for (int i = 0, size = activityStack.size(); i < size; i++) {
+            if (null != activityStack.get(i) && !(activityStack.get(i) instanceof LoginActivity)) {
                 activityStack.get(i).finish();
             }
         }

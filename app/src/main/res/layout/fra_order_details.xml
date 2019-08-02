@@ -325,8 +325,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/line_height"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/line_height"
                 android:orientation="horizontal">
 
                 <TextView
@@ -342,9 +344,11 @@
                 <TextView
                     android:id="@+id/beizhu"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center_vertical"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
                     android:textColor="#F3F1F1"
                     android:textSize="15sp"
                     tools:text="这个单子很重要哦！" />

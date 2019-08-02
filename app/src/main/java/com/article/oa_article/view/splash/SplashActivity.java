@@ -43,7 +43,7 @@ public class SplashActivity extends BaseActivity {
         if (isFirstUse) {
             gotoActivity(GuideActivity.class, true);
         } else {
-            gotoActivity(LoginActivity.class, true);
+            gotoActivity(StartAct.class, true);
         }
         //存入数据
         MyApplication.spUtils.put("isFirstUse", false);

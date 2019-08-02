@@ -25,6 +25,7 @@ import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.SalesBo;
 import com.article.oa_article.bean.event.MsgFragmentEvent;
 import com.article.oa_article.bean.event.OpenDrawableEvent;
+import com.article.oa_article.bean.event.SwitchHomeEvent;
 import com.article.oa_article.bean.request.AsseptRequest;
 import com.article.oa_article.bean.request.ComplayRequest;
 import com.article.oa_article.bean.request.OrderRequest;
@@ -170,6 +171,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        MyApplication.userBo = null;
         EventBus.getDefault().unregister(this);
     }
 
@@ -247,6 +249,13 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                 buttms[i].setSelectState(false);
             }
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSwitch(SwitchHomeEvent event) {
+        showHideFragment(mFragments[1], mFragments[selectPosition]);
+        selectPosition = 1;
+        setButtom(1);
     }
 
 

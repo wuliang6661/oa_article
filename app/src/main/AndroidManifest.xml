@@ -59,7 +59,8 @@
             android:name="com.article.oa_article.view.splash.SplashActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppStartTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -72,8 +73,12 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.article.oa_article.view.login.LoginActivity"
+            android:name="com.article.oa_article.view.splash.StartAct"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.article.oa_article.view.login.LoginActivity"
+            android:launchMode="singleTask" />
 
         <!--注册页面-->
         <activity

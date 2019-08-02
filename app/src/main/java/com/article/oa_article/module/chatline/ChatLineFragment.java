@@ -156,7 +156,7 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
         monthEndDate = date.getYear() + 1900 + "-12";
         yearBegenDate = date.getYear() + 1900 - 12 + "";
         yearEndDate = date.getYear() + 1900 + "";
-        weekBegenDate = date.getYear() + 1900 - 3 + "-01";
+        weekBegenDate = date.getYear() + 1900 - 2 + "-01";
         weekEndDate = date.getYear() + 1900 + "-12";
         setBar(1);
     }

@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import com.article.oa_article.R;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.mvp.MVPBaseFragment;
-import com.article.oa_article.util.AppManager;
 import com.article.oa_article.view.login.LoginActivity;
 import com.article.oa_article.view.optionsfankui.OptionsFankuiActivity;
 import com.article.oa_article.view.splash.guide.GuiDeAct1;
@@ -71,7 +70,8 @@ public class SystemSettingFragment extends MVPBaseFragment<SystemSettingContract
                         .setPositiveButton("确定", v -> {
                             JPushInterface.deleteAlias(getActivity(), 1);
                             JPushInterface.cleanTags(getActivity(), 1);
-                            AppManager.getAppManager().finishAllActivity();
+                            MyApplication.spUtils.remove("password");
+                            MyApplication.spUtils.remove("loginCode");
                             gotoActivity(LoginActivity.class, true);
                         }).show();
                 break;

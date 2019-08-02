@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.article.oa_article.base.MyApplication;
+import com.article.oa_article.bean.event.SwitchHomeEvent;
 import com.article.oa_article.util.AppManager;
 import com.article.oa_article.util.SystemHelper;
 import com.article.oa_article.view.login.LoginActivity;
 import com.blankj.utilcode.util.Utils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import cn.jpush.android.api.CmdMessage;
 import cn.jpush.android.api.CustomMessage;
@@ -32,9 +36,11 @@ public class PushMessageReceiver extends JPushMessageReceiver {
         Log.e(TAG, "[onNotifyMessageOpened] " + message);
         num = 0;
         ShortcutBadger.removeCount(context); //for 1.1.4+
-        if (AppManager.getAppManager().curremtActivity() != null) {
+        if (MyApplication.AppInBack) {   //App在后台
             SystemHelper.setTopApp(Utils.getApp());
-        } else {
+            AppManager.getAppManager().goHome();
+            EventBus.getDefault().post(new SwitchHomeEvent());
+        } else if (MyApplication.userBo == null) {  //app关闭
             try {
                 //打开自定义的Activity
                 Intent i = new Intent(context, LoginActivity.class);
@@ -46,7 +52,7 @@ public class PushMessageReceiver extends JPushMessageReceiver {
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(i);
             } catch (Throwable throwable) {
-
+                throwable.printStackTrace();
             }
         }
     }
