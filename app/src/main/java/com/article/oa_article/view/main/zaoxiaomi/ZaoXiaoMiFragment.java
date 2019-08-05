@@ -182,7 +182,7 @@ public class ZaoXiaoMiFragment extends MVPBaseFragment<ZaoXiaoMiContract.View, Z
 
             }
         });
-        tabLayout.getTabAt(0).select();
+        tabLayout.post(() -> tabLayout.getTabAt(1).select());
     }
 
 
