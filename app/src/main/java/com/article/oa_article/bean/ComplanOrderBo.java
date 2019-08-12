@@ -30,7 +30,7 @@ public class ComplanOrderBo {
     private String userName;
     private int userId;
     private String taskPlanDate;
-    private int taskDate;
+    private String taskDate;
     private String createId;
     private int id;
     private String taskActualDate;
@@ -113,11 +113,11 @@ public class ComplanOrderBo {
         this.taskPlanDate = taskPlanDate;
     }
 
-    public int getTaskDate() {
+    public String getTaskDate() {
         return taskDate;
     }
 
-    public void setTaskDate(int taskDate) {
+    public void setTaskDate(String taskDate) {
         this.taskDate = taskDate;
     }
 
