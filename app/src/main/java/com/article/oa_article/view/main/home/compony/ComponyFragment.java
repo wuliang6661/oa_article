@@ -341,7 +341,7 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
                 holder.setText(R.id.create_name, complanOrderBo.getCreateName().length() > 3 ?
                         complanOrderBo.getCreateName().substring(0, 3) + "..." : complanOrderBo.getCreateName());
                 holder.setText(R.id.create_nick_name, complanOrderBo.getClientName());
-                holder.setText(R.id.order_time, complanOrderBo.getOrderPlanDate());
+                holder.setText(R.id.order_time, complanOrderBo.getOrderPlanDate().replaceAll("-", "/"));
             }
         };
         adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
