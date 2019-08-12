@@ -254,9 +254,10 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
                     holder.setText(R.id.nike_name_time, myOrderBO.getTaskPlanDate().replaceAll("-", "/"));
                 }
                 TextView task_date = (TextView) holder.getView(R.id.task_date);
-                if (myOrderBO.getTaskDate() == 0) {
-                    task_date.setText("");
-                } else if (myOrderBO.getTaskDate() > 0) {
+//                if (myOrderBO.getTaskDate() == 0) {
+//                    task_date.setText("");
+//                } else
+                if (myOrderBO.getTaskDate() > 0) {
                     String taskDate = String.valueOf(Math.abs(myOrderBO.getTaskDate()));
                     if (myOrderBO.getTaskDate() > 100 || myOrderBO.getTaskDate() < -10) {
                         taskDate = String.valueOf(Math.abs(myOrderBO.getTaskDate())).substring(0, 2) + "...";
