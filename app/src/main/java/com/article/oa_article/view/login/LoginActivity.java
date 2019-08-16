@@ -32,11 +32,8 @@ import com.blankj.utilcode.util.StringUtils;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
-import java.util.TreeSet;
-
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.jpush.android.api.JPushInterface;
 
 
 /**
@@ -191,10 +188,6 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
             public void onSuccess(UserBo s) {
                 stopProgress();
                 MyApplication.userBo = s;
-                JPushInterface.setAlias(LoginActivity.this, 1, s.getPhone());
-                TreeSet<String> treeSet = new TreeSet<>();
-                treeSet.add(s.getPhone());
-                JPushInterface.setTags(LoginActivity.this, 1, treeSet);
                 gotoActivity(MainActivity.class, true);
             }
 

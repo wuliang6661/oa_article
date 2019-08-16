@@ -15,10 +15,6 @@ import com.article.oa_article.view.login.LoginActivity;
 import com.article.oa_article.view.main.MainActivity;
 import com.blankj.utilcode.util.StringUtils;
 
-import java.util.TreeSet;
-
-import cn.jpush.android.api.JPushInterface;
-
 /**
  * author : wuliang
  * e-mail : wuliang6661@163.com
@@ -77,10 +73,6 @@ public class StartAct extends BaseActivity {
             @Override
             public void onSuccess(UserBo s) {
                 MyApplication.userBo = s;
-                JPushInterface.setAlias(StartAct.this, 1, s.getPhone());
-                TreeSet<String> treeSet = new TreeSet<>();
-                treeSet.add(s.getPhone());
-                JPushInterface.setTags(StartAct.this, 1, treeSet);
                 gotoActivity(MainActivity.class, true);
             }
 

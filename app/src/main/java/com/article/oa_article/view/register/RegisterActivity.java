@@ -13,8 +13,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.RegexUtils;
-import com.blankj.utilcode.util.StringUtils;
 import com.article.oa_article.R;
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.HttpServerImpl;
@@ -25,6 +23,8 @@ import com.article.oa_article.mvp.MVPBaseActivity;
 import com.article.oa_article.util.AppManager;
 import com.article.oa_article.util.MD5;
 import com.article.oa_article.view.main.MainActivity;
+import com.blankj.utilcode.util.RegexUtils;
+import com.blankj.utilcode.util.StringUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;

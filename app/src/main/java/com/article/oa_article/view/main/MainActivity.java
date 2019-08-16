@@ -56,9 +56,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.TreeSet;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 import me.leolin.shortcutbadger.ShortcutBadger;
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -166,7 +168,20 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             }
         });
         ShortcutBadger.removeCount(this); //for 1.1.4+
+        registerPush();
     }
+
+
+    /**
+     * 注册极光
+     */
+    private void registerPush() {
+        JPushInterface.setAlias(this, 1, MyApplication.userBo.getPhone());
+        TreeSet<String> treeSet = new TreeSet<>();
+        treeSet.add(MyApplication.userBo.getPhone());
+        JPushInterface.setTags(this, 1, treeSet);
+    }
+
 
     @Override
     protected void onDestroy() {
