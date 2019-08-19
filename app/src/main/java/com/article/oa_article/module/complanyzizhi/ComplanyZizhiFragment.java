@@ -115,9 +115,9 @@ public class ComplanyZizhiFragment extends MVPBaseFragment<ComplanyZizhiContract
      * 设置页面显示
      */
     private void setUIMsg() {
-        guanliNum.setText(complanBo.getCompanyInfos().getAdminNumber() + "个");
-        jishuNum.setText(complanBo.getCompanyInfos().getTechnicalNumber() + "个");
-        pugongNum.setText(complanBo.getCompanyInfos().getOrdinaryNumber() + "个");
+        guanliNum.setText(complanBo.getCompanyInfos().getAdminNumber() + "名");
+        jishuNum.setText(complanBo.getCompanyInfos().getTechnicalNumber() + "名");
+        pugongNum.setText(complanBo.getCompanyInfos().getOrdinaryNumber() + "名");
         mianjiNum.setText(complanBo.getCompanyInfos().getPlantArea() + "㎡");
         xingzhiNum.setText(complanBo.getCompanyInfos().getPlantNature() == 0 ? "自建" : "租赁");
 

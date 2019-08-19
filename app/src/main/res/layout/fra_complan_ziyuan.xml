@@ -52,7 +52,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
-            android:text="个"
+            android:text="名"
             android:textColor="@color/hint_color"
             android:textSize="13sp" />
 
@@ -85,7 +85,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
-            android:text="个"
+            android:text="名"
             android:textColor="@color/hint_color"
             android:textSize="13sp" />
 
@@ -119,7 +119,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
-            android:text="个"
+            android:text="名"
             android:textColor="@color/hint_color"
             android:textSize="13sp" />
 
