@@ -161,8 +161,8 @@ public class PopAddTaskWindow extends PopupWindow {
                         ToastUtils.showShort("请选择任务时限!");
                         return;
                     }
-                    if (StringUtils.isEmpty(strDate)) {
-                        ToastUtils.showShort("请选择任务时限!");
+                    if (personBO == null) {
+                        ToastUtils.showShort("请选择执行人!");
                         return;
                     }
                     if (listener != null) {
