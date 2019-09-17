@@ -611,6 +611,8 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
 //            bean.setActualNum(muBanTaskBO.);
             bean.setPlanCompleteDate(muBanTaskBO.getPlanCompleteDate());
             bean.setPlanNum(muBanTaskBO.getPlanNum());
+            bean.setUnit(muBanTaskBO.getUnit());
+            bean.setRemark(muBanTaskBO.getRemark());
             tasks.add(bean);
         }
         isTaskEdit = true;
