@@ -25,10 +25,11 @@
 
 
         <TextView
+            android:id="@+id/pop_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="增加品类详情"
+            android:text="添加品类详情"
             android:textColor="@color/white"
             android:textSize="18sp" />
 

@@ -167,10 +167,15 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                 MyApplication.spUtils.put("isSplash", false);
             }
         });
-        ShortcutBadger.removeCount(this); //for 1.1.4+
         registerPush();
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ShortcutBadger.removeCount(this); //for 1.1.4+
+    }
 
     /**
      * 注册极光

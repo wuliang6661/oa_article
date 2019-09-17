@@ -22,6 +22,7 @@ public class PopAddPinleiWindow extends PopupWindow {
     private EditText pingleiNum;
     private EditText pingleiUnit;
     private EditText pingleiSize;
+    private TextView pop_title;
 
     PopAddPinleiWindow(Activity activity, String name, String num, String guige, String danwei) {
         super(activity);
@@ -58,8 +59,10 @@ public class PopAddPinleiWindow extends PopupWindow {
         pingleiUnit = dialogView.findViewById(R.id.edit_danwei);
         TextView cancle = dialogView.findViewById(R.id.cancle);
         Button commit = dialogView.findViewById(R.id.next_button);
+        pop_title = dialogView.findViewById(R.id.pop_title);
 
         if (!StringUtils.isEmpty(name)) {
+            pop_title.setText("编辑品类详情");
             pingleiName.setText(name);
             pingleiNum.setText(num);
             pingleiUnit.setText(danwei);

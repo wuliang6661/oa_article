@@ -12,13 +12,13 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.article.oa_article.R;
 import com.article.oa_article.bean.PersonBO;
 import com.article.oa_article.bean.request.AddTaskRequest;
 import com.article.oa_article.view.SelectPersonAct;
 import com.article.oa_article.widget.DateDialog;
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -40,6 +40,7 @@ public class PopAddTaskWindow extends PopupWindow {
     private EditText remark;
     private TextView dateText;
     private TextView personName;
+    private TextView pop_title;
 
     private PersonBO personBO;
     private int position = -1;
@@ -102,6 +103,7 @@ public class PopAddTaskWindow extends PopupWindow {
         remark = dialogView.findViewById(R.id.edit_beizhu);
         dateText = dialogView.findViewById(R.id.date_text);
         personName = dialogView.findViewById(R.id.person_name);
+        pop_title = dialogView.findViewById(R.id.pop_title);
 
         commit.setOnClickListener(clickListener);
         cancle.setOnClickListener(clickListener);
@@ -122,6 +124,7 @@ public class PopAddTaskWindow extends PopupWindow {
         if (bean.getPlanNum() != 0) {
             fenpaiNum.setText(bean.getPlanNum() + "");
         }
+        pop_title.setText("编辑任务");
         danwei.setText(bean.getUnit());
         remark.setText(bean.getRemark());
         personName.setText(personBO.getName());

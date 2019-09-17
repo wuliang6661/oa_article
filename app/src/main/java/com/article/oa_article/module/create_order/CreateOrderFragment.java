@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -53,9 +54,14 @@ import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.guoqi.actionsheet.ActionSheet;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -91,7 +97,7 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     @BindView(R.id.ben_expand_layout)
     LinearLayout benExpandLayout;
     @BindView(R.id.recycle_view)
-    RecyclerView recycleView;
+    SwipeMenuRecyclerView recycleView;
     @BindView(R.id.pinglei_expand_layout)
     LinearLayout pingleiExpandLayout;
     @BindView(R.id.image_recycle)
@@ -187,14 +193,13 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
     private void initView() {
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
-        manager.setSmoothScrollbarEnabled(true);
-        recycleView.setHasFixedSize(true);
         recycleView.setLayoutManager(manager);
         recycleView.setNestedScrollingEnabled(false);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
         itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.divider_inset));
         recycleView.addItemDecoration(itemDecoration);
+        setSwipeMenu();
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         gridLayoutManager.setSmoothScrollbarEnabled(true);
@@ -360,6 +365,35 @@ public class CreateOrderFragment extends MVPBaseFragment<CreateOrderContract.Vie
                     Gravity.BOTTOM, 0, 0);
         });
         recycleView.setAdapter(adapter);
+    }
+
+
+    private void setSwipeMenu() {
+        // 创建菜单：
+        SwipeMenuCreator mSwipeMenuCreator = (leftMenu, rightMenu, viewType) -> {
+            SwipeMenuItem deleteItem = new SwipeMenuItem(getActivity());
+            deleteItem.setText("删除")
+                    .setBackgroundColor(getResources().getColor(R.color.item_delete))
+                    .setTextColor(Color.WHITE) // 文字颜色。
+                    .setTextSize(15) // 文字大小。
+                    .setWidth(SizeUtils.dp2px(63))
+                    .setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+            rightMenu.addMenuItem(deleteItem);
+        };
+        // 设置监听器。
+        recycleView.setSwipeMenuCreator(mSwipeMenuCreator);
+        SwipeMenuItemClickListener mMenuItemClickListener = menuBridge -> {
+            // 任何操作必须先关闭菜单，否则可能出现Item菜单打开状态错乱。
+            menuBridge.closeMenu();
+            new AlertDialog(Objects.requireNonNull(getActivity())).builder().setGone().setMsg("确定删除该品类？")
+                    .setNegativeButton("取消", null)
+                    .setPositiveButton("确定", v -> {
+                        pingLeiBOS.remove(menuBridge.getAdapterPosition());
+                        setPingLeiAdapter();
+                    }).show();
+        };
+        // 菜单点击监听。
+        recycleView.setSwipeMenuItemClickListener(mMenuItemClickListener);
     }
 
 
