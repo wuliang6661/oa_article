@@ -142,20 +142,20 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     }
 
 
-    @OnClick(R.id.task_bar)
-    public void barClick() {
-        if (taskListLayout.getVisibility() == View.VISIBLE) {
-            taskListLayout.setVisibility(View.GONE);
-            addTaskLayout.setVisibility(View.GONE);
-            taskCheck.setChecked(true);
-        } else {
-            taskListLayout.setVisibility(View.VISIBLE);
-            if (type == 0 && isShunYan) {
-                addTaskLayout.setVisibility(View.VISIBLE);
-            }
-            taskCheck.setChecked(false);
-        }
-    }
+//    @OnClick(R.id.task_bar)
+//    public void barClick() {
+//        if (taskListLayout.getVisibility() == View.VISIBLE) {
+//            taskListLayout.setVisibility(View.GONE);
+//            addTaskLayout.setVisibility(View.GONE);
+//            taskCheck.setChecked(true);
+//        } else {
+//            taskListLayout.setVisibility(View.VISIBLE);
+//            if (type == 0 && isShunYan) {
+//                addTaskLayout.setVisibility(View.VISIBLE);
+//            }
+//            taskCheck.setChecked(false);
+//        }
+//    }
 
 
     @OnClick({R.id.task_right_button, R.id.continue_add, R.id.task_suress, R.id.moban_add})

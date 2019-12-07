@@ -37,6 +37,7 @@
             android:layout_marginLeft="5dp"
             android:background="@drawable/bar_check_box"
             android:button="@null"
+            android:visibility="gone"
             android:enabled="false" />
 
         <View
