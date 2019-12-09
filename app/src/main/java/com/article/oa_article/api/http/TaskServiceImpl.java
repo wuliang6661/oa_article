@@ -4,12 +4,14 @@ import com.article.oa_article.api.ApiManager;
 import com.article.oa_article.api.HttpService;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.CanEditTaskBO;
+import com.article.oa_article.bean.MyOrderBO;
 import com.article.oa_article.bean.TaskCenterBo;
 import com.article.oa_article.bean.TaskDetails;
 import com.article.oa_article.bean.request.AddTaskRequest;
 import com.article.oa_article.bean.request.CommitTaskRequest;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.IdTypeRequest;
+import com.article.oa_article.bean.request.OverdueTaskRequest;
 import com.article.oa_article.bean.request.PageRequest;
 import com.article.oa_article.bean.request.ShunYanRequest;
 import com.article.oa_article.bean.request.TaskModeRequest;
@@ -132,5 +134,18 @@ public class TaskServiceImpl {
         request.setToken(MyApplication.token);
         request.setId(id);
         return getService().acceptTask(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取逾期任务
+     */
+    public static Observable<List<MyOrderBO>> getOverdueTask(int userId){
+        OverdueTaskRequest request = new OverdueTaskRequest();
+        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setUserId(userId);
+        request.setToken(MyApplication.token);
+        request.setPageNum(1);
+        request.setPageSize(2000);
+        return getService().getOverdueTask(request).compose(RxResultHelper.httpRusult());
     }
 }

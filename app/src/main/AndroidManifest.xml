@@ -253,6 +253,11 @@
             android:name=".view.addcomplan.SuressActivity"
             android:screenOrientation="portrait" />
 
+        <!--逾期任务-->
+        <activity
+            android:name=".view.overdue_task.Overdue_taskActivity"
+            android:screenOrientation="portrait" />
+
         <!--查看大图-->
         <activity
             android:name=".view.BigPicutreActivity"

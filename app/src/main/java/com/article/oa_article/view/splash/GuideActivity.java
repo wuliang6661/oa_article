@@ -139,4 +139,10 @@ public class GuideActivity extends BaseActivity {
     public void start() {
         gotoActivity(LoginActivity.class, true);
     }
+
+
+    @OnClick(R.id.close)
+    public void close() {
+        gotoActivity(LoginActivity.class, true);
+    }
 }

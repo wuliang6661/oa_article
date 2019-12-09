@@ -7,6 +7,7 @@ import com.article.oa_article.bean.request.AgreeUserRequest;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.MsgTypeRequest;
 import com.article.oa_article.bean.request.PageRequest;
+import com.article.oa_article.bean.request.TokenRequest;
 
 import java.util.List;
 
@@ -54,5 +55,17 @@ public interface MessageService {
      */
     @POST("industry_webservice/app/userMessage/readManyUserMessage")
     Observable<BaseResult<String>> readManyMessage(@Body MsgTypeRequest request);
+
+    /**
+     * 一键已读
+     */
+    @POST("industry_webservice/app/userMessage/readAllUserMessages")
+    Observable<BaseResult<String>> readAllMessage(@Body IdRequest request);
+
+    /**
+     * 一键清空
+     */
+    @POST("industry_webservice/app/userMessage/delAllUserMessages")
+    Observable<BaseResult<String>> delAllMessage(@Body IdRequest request);
 
 }

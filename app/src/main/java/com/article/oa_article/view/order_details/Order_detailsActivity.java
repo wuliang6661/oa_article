@@ -251,8 +251,10 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         mPresenter.tashCanEdit(request);
         if (isOrder) {
             fragment.setEndTime(infoBo.getOrderInfo().getPlanCompleteDate());
+            fragment.setPlanNum(infoBo.getOrderInfo().getNum());
         } else {
             fragment.setEndTime(parentTask.getTaskInfo().getPlanCompleteDate());
+            fragment.setPlanNum(parentTask.getTaskInfo().getPlanNum());
         }
     }
 

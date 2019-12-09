@@ -136,11 +136,17 @@ public class PopAddTaskWindow extends PopupWindow {
     }
 
     private long endTime;
+    private int planNum;
 
     public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
 
+
+    public void setPlanNum(int planNum) {
+        this.planNum = planNum;
+        fenpaiNum.setText(planNum + "");
+    }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override

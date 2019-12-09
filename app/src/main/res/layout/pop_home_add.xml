@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="155dp"
-    android:layout_height="107dp"
+    android:layout_height="53dp"
     android:layout_marginRight="13dp"
     android:background="@color/pop_bg"
     android:orientation="vertical">
@@ -38,7 +38,8 @@
         android:layout_height="1dp"
         android:layout_marginLeft="14dp"
         android:layout_marginRight="14dp"
-        android:background="#FAFAFC" />
+        android:background="#FAFAFC"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/create_moban"
@@ -46,7 +47,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
 
         <ImageView

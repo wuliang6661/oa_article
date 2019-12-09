@@ -112,7 +112,7 @@ public class My_completeFragment extends MVPBaseFragment<My_completeContract.Vie
 
     @OnClick(R.id.task_num_edit)
     public void editNum() {
-        PopTaskNumWindow window = new PopTaskNumWindow(getActivity());
+        PopTaskNumWindow window = new PopTaskNumWindow(getActivity(), taskBean.getTaskInfo().getPlanNum());
         window.setListener(text -> mPresenter.updateNum(taskBean.getTaskInfo().getId(), text));
         window.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
     }
@@ -120,10 +120,21 @@ public class My_completeFragment extends MVPBaseFragment<My_completeContract.Vie
 
     @OnClick(R.id.next_button)
     public void commitTask() {
-        new AlertDialog(Objects.requireNonNull(getActivity())).builder().setGone().setMsg("点击任务完成后无法更改，\n确认是否已完成该任务？")
-                .setNegativeButton("取消", null)
-                .setPositiveButton("确定", v -> mPresenter.commitTask(taskBean.getTaskInfo().getId())).show();
-
+        int allNum = taskBean.getTaskInfo().getActualNum();
+        if (allNum == 0) {
+            showToast("请输入完成数量！");
+            return;
+        }
+        int planNum = taskBean.getTaskInfo().getPlanNum();
+        if (allNum > (planNum + (planNum * 0.1)) || allNum < (planNum - (planNum * 0.1))) {
+            new AlertDialog(Objects.requireNonNull(getActivity())).builder().setGone().setMsg("您输入的数量和目标数差异过大，\n确定要这样输入吗？")
+                    .setNegativeButton("取消", null)
+                    .setPositiveButton("确定", v1 -> mPresenter.commitTask(taskBean.getTaskInfo().getId())).show();
+        } else {
+            new AlertDialog(Objects.requireNonNull(getActivity())).builder().setGone().setMsg("点击任务完成后无法更改，\n确认是否已完成该任务？")
+                    .setNegativeButton("取消", null)
+                    .setPositiveButton("确定", v -> mPresenter.commitTask(taskBean.getTaskInfo().getId())).show();
+        }
     }
 
     @OnClick(R.id.task_right_button)

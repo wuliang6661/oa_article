@@ -113,25 +113,29 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
     }
 
 
-    @OnClick({R.id.edit_mode, R.id.all_select})
+    @OnClick({R.id.edit_mode, R.id.all_select, R.id.clear_mode})
     public void titleClick(View view) {
         switch (view.getId()) {
-            case R.id.edit_mode:
-                if (isEdit) {   //已经是编辑状态,则点击取消
-                    adapter.setEdit(false);
-                    allSelect.setVisibility(View.GONE);
-                    editMode.setText("编辑");
-                    isEdit = false;
-                    operateLayout.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.share_pop_out));
-                    operateLayout.setVisibility(View.GONE);
-                } else {
-                    adapter.setEdit(true);
-                    allSelect.setVisibility(View.VISIBLE);
-                    editMode.setText("取消");
-                    isEdit = true;
-                    operateLayout.setVisibility(View.VISIBLE);
-                    operateLayout.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.share_pop_in));
-                }
+            case R.id.edit_mode:    //已读
+//                if (isEdit) {   //已经是编辑状态,则点击取消
+//                    adapter.setEdit(false);
+//                    allSelect.setVisibility(View.GONE);
+//                    editMode.setText("编辑");
+//                    isEdit = false;
+//                    operateLayout.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.share_pop_out));
+//                    operateLayout.setVisibility(View.GONE);
+//                } else {
+//                    adapter.setEdit(true);
+//                    allSelect.setVisibility(View.VISIBLE);
+//                    editMode.setText("取消");
+//                    isEdit = true;
+//                    operateLayout.setVisibility(View.VISIBLE);
+//                    operateLayout.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.share_pop_in));
+//                }
+                mPresenter.readAllMsg();
+                break;
+            case R.id.clear_mode:   //清空
+                mPresenter.delAllMsg();
                 break;
             case R.id.all_select:
                 adapter.setIsAllSelect();
