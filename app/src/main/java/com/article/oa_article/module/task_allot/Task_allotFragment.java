@@ -106,6 +106,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     View view;
 
     private long endTime;   //分派任务的结束时间
+    private int planNum;
 
     private LGRecycleViewAdapter<AddTaskRequest.OrderTasksBean> adapter;
 
@@ -142,20 +143,20 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     }
 
 
-    @OnClick(R.id.task_bar)
-    public void barClick() {
-        if (taskListLayout.getVisibility() == View.VISIBLE) {
-            taskListLayout.setVisibility(View.GONE);
-            addTaskLayout.setVisibility(View.GONE);
-            taskCheck.setChecked(true);
-        } else {
-            taskListLayout.setVisibility(View.VISIBLE);
-            if (type == 0 && isShunYan) {
-                addTaskLayout.setVisibility(View.VISIBLE);
-            }
-            taskCheck.setChecked(false);
-        }
-    }
+//    @OnClick(R.id.task_bar)
+//    public void barClick() {
+//        if (taskListLayout.getVisibility() == View.VISIBLE) {
+//            taskListLayout.setVisibility(View.GONE);
+//            addTaskLayout.setVisibility(View.GONE);
+//            taskCheck.setChecked(true);
+//        } else {
+//            taskListLayout.setVisibility(View.VISIBLE);
+//            if (type == 0 && isShunYan) {
+//                addTaskLayout.setVisibility(View.VISIBLE);
+//            }
+//            taskCheck.setChecked(false);
+//        }
+//    }
 
 
     @OnClick({R.id.task_right_button, R.id.continue_add, R.id.task_suress, R.id.moban_add})
@@ -182,6 +183,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
             case R.id.continue_add:    //添加任务(显示添加任务弹窗)
                 PopAddTaskWindow window = getPopWindow();
                 window.setEndTime(endTime);
+                window.setPlanNum(planNum);
                 window.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.moban_add:
@@ -263,6 +265,13 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
      */
     public void setEndTime(long endTime) {
         this.endTime = endTime;
+    }
+
+    /**
+     * 设置订单分派数量
+     */
+    public void setPlanNum(int planNum){
+        this.planNum = planNum;
     }
 
 

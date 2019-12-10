@@ -81,6 +81,9 @@ public class AddUsersActivity extends MVPBaseActivity<AddUsersContract.View, Add
         personRecycle.setLayoutManager(manager);
         requestPermission();
         initView();
+        if(!isNeiBu){
+            nextButton.setText("邀请");
+        }
     }
 
 

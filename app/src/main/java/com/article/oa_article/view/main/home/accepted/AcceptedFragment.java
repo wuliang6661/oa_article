@@ -138,7 +138,7 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
                 if (acceptedOrderBo.getIsChoose() == 1) {
                     holder.setText(R.id.select_button, "选择");
                 } else {
-                    holder.setText(R.id.select_button, "查看");
+                    holder.setText(R.id.select_button, "接受");
                 }
                 holder.setText(R.id.order_name, acceptedOrderBo.getCompanyOrderName());
                 holder.setText(R.id.task_name, acceptedOrderBo.getTaskName());

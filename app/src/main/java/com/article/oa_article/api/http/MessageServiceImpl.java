@@ -9,6 +9,7 @@ import com.article.oa_article.bean.request.AgreeUserRequest;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.MsgTypeRequest;
 import com.article.oa_article.bean.request.PageRequest;
+import com.article.oa_article.bean.request.TokenRequest;
 import com.article.oa_article.util.rx.RxResultHelper;
 
 import java.util.List;
@@ -88,6 +89,28 @@ public class MessageServiceImpl {
         request.setToken(MyApplication.token);
         request.setReadStatus(readStatus);
         return getService().readManyMessage(request).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 一键已读
+     */
+    public static Observable<String> readAllMsg() {
+        IdRequest request = new IdRequest();
+        request.setId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setToken(MyApplication.token);
+        return getService().readAllMessage(request).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 一键删除
+     */
+    public static Observable<String> delAllMsg() {
+        IdRequest request = new IdRequest();
+        request.setId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setToken(MyApplication.token);
+        return getService().delAllMessage(request).compose(RxResultHelper.httpRusult());
     }
 
 }

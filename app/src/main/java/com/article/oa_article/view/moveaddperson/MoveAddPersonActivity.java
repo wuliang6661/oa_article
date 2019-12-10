@@ -102,6 +102,9 @@ public class MoveAddPersonActivity extends MVPBaseActivity<MoveAddPersonContract
             editRequest = (AddUserRequest) getIntent().getSerializableExtra("user");
             editPhoneNum.setText(editRequest.getPhone().replaceAll(" ", ""));
         }
+        if(!isNeiBu){
+            nextButton.setText("邀请");
+        }
     }
 
 

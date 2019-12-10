@@ -21,7 +21,9 @@ public class PopTaskNumWindow extends PopupWindow {
     private Button commit;
     private TextView cancle;
 
-    public PopTaskNumWindow(Activity activity) {
+    private int planNum;
+
+    public PopTaskNumWindow(Activity activity,int planNum) {
         super(activity);
 
         this.activity = activity;

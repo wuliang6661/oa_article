@@ -36,11 +36,11 @@ public class DateDialog {
         Calendar startDate = Calendar.getInstance();
         startDate.set(1990, 1, 1);
         TimePickerView pvTime = new TimePickerBuilder(context, (date, v) -> {
-            if (date.getTime() < DateUtils.getTodayZero()) {
-                ToastUtils.showShort("任务时限不能小于今天!");
-                textView.setText("");
-                return;
-            }
+//            if (date.getTime() < DateUtils.getTodayZero()) {
+//                ToastUtils.showShort("任务时限不能小于今天!");
+//                textView.setText("");
+//                return;
+//            }
             if (date.getTime() > time) {
                 ToastUtils.showShort("任务时限不能大于上级任务时限!");
                 textView.setText("");

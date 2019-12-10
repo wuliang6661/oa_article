@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:singleLine="true"
-                android:text="客户名称"
+                android:text="客户简称"
                 android:textColor="@color/f_white"
                 android:textSize="11sp" />
 

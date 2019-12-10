@@ -24,6 +24,7 @@ import com.article.oa_article.module.complanydetails.ComplanyDetailsFragment;
 import com.article.oa_article.module.complanyshili.ComplanyshiliFragment;
 import com.article.oa_article.module.complanyzizhi.ComplanyZizhiFragment;
 import com.article.oa_article.mvp.MVPBaseActivity;
+import com.article.oa_article.view.overdue_task.Overdue_taskActivity;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
@@ -219,6 +220,17 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
         });
         switchPop.setSelect(selectPosition);
         switchPop.showPop(complanNameSwitch);
+    }
+
+
+    @OnClick(R.id.overdue_layout)
+    public void overDue() {
+        if (!isNeiBu) {
+            return;
+        }
+        Bundle bundle = new Bundle();
+        bundle.putInt("userId", userId);
+        gotoActivity(Overdue_taskActivity.class, bundle, false);
     }
 
 

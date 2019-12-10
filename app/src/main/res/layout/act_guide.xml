@@ -7,11 +7,26 @@
     android:orientation="vertical">
 
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_guide"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_guide"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/splash_close" />
+
+    </RelativeLayout>
 
 
     <RelativeLayout

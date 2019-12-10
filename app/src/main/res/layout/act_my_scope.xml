@@ -55,7 +55,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="客户名称"
+                android:text="客户简称"
                 android:textColor="#A9A6A6"
                 android:textSize="13sp" />
 

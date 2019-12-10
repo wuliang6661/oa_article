@@ -2,12 +2,14 @@ package com.article.oa_article.api.http;
 
 import com.article.oa_article.bean.BaseResult;
 import com.article.oa_article.bean.CanEditTaskBO;
+import com.article.oa_article.bean.MyOrderBO;
 import com.article.oa_article.bean.TaskCenterBo;
 import com.article.oa_article.bean.TaskDetails;
 import com.article.oa_article.bean.request.AddTaskRequest;
 import com.article.oa_article.bean.request.CommitTaskRequest;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.IdTypeRequest;
+import com.article.oa_article.bean.request.OverdueTaskRequest;
 import com.article.oa_article.bean.request.PageRequest;
 import com.article.oa_article.bean.request.ShunYanRequest;
 import com.article.oa_article.bean.request.TaskModeRequest;
@@ -87,5 +89,11 @@ public interface TaskService {
      */
     @POST("industry_webservice/app/orderTask/acceptTask")
     Observable<BaseResult<String>> acceptTask(@Body IdRequest request);
+
+    /**
+     * 获取逾期任务
+     */
+    @POST("industry_webservice/app/orderTask/getOverdueTaskList")
+    Observable<BaseResult<List<MyOrderBO>>> getOverdueTask(@Body OverdueTaskRequest request);
 
 }

@@ -2,6 +2,7 @@ package com.article.oa_article.view.main.message;
 
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.http.MessageServiceImpl;
+import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.MsgBO;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.PageRequest;
@@ -77,5 +78,46 @@ public class MessagePresenter extends BasePresenterImpl<MessageContract.View>
             }
         });
     }
+
+
+    public void readAllMsg() {
+        MessageServiceImpl.readAllMsg().subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if (mView != null) {
+                    getMessageList(Integer.parseInt(MyApplication.getCommonId()));
+                    getReadCount(Integer.parseInt(MyApplication.getCommonId()));
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
+
+
+    public void delAllMsg() {
+        MessageServiceImpl.delAllMsg().subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if (mView != null) {
+                    getMessageList(Integer.parseInt(MyApplication.getCommonId()));
+                    getReadCount(Integer.parseInt(MyApplication.getCommonId()));
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
+
 
 }
