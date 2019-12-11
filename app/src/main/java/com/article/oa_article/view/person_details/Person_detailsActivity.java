@@ -3,7 +3,6 @@ package com.article.oa_article.view.person_details;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
@@ -12,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
-import com.article.oa_article.base.GlideApp;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.ComplanBO;
 import com.article.oa_article.bean.UserInInfoBo;
@@ -24,10 +22,10 @@ import com.article.oa_article.module.complanydetails.ComplanyDetailsFragment;
 import com.article.oa_article.module.complanyshili.ComplanyshiliFragment;
 import com.article.oa_article.module.complanyzizhi.ComplanyZizhiFragment;
 import com.article.oa_article.mvp.MVPBaseActivity;
-import com.article.oa_article.view.overdue_task.Overdue_taskActivity;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.List;
@@ -241,7 +239,7 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
 
     @Override
     public void getUserInInfo(UserInInfoBo inInfoBo) {
-        GlideApp.with(this).load(inInfoBo.getImage()).error(R.drawable.person_img_defailt)
+        Glide.with(this).load(inInfoBo.getImage()).error(R.drawable.person_img_defailt)
                 .placeholder(R.drawable.person_img_defailt).into(personImg);
         userName.setText(inInfoBo.getNickName());
         userPhone.setText(inInfoBo.getPhone());
@@ -269,7 +267,7 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
     @Override
     public void getUserOutInfo(UserOutInfo info) {
         this.info = info;
-        GlideApp.with(this).load(info.getImage()).error(R.drawable.person_img_defailt)
+        Glide.with(this).load(info.getImage()).error(R.drawable.person_img_defailt)
                 .placeholder(R.drawable.person_img_defailt).into(personImg);
         userName.setText(info.getNickName());
         userPhone.setText(info.getPhone());

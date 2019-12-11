@@ -10,11 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
-import com.article.oa_article.base.GlideApp;
 import com.article.oa_article.bean.BumenBO;
 import com.article.oa_article.bean.PersonBO;
-import com.article.oa_article.view.main.personlist.ExpandAdapter;
-import com.blankj.utilcode.util.StringUtils;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -121,7 +119,7 @@ public class PersonExpandAdapter extends BaseExpandableListAdapter {
             holder = (ChildHolder) view.getTag();
         }
         PersonBO personBO = list.get(i).getUser().get(i1);
-        GlideApp.with(context).load(personBO.getImage()).error(R.drawable.person_img_defailt)
+        Glide.with(context).load(personBO.getImage()).error(R.drawable.person_img_defailt)
                 .placeholder(R.drawable.person_img_defailt).into(holder.personImg);
         holder.personName.setText(personBO.getName());
         if (getChildrenCount(i) == i1 + 1) {

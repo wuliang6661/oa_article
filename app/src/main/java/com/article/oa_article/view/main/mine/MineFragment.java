@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
-import com.article.oa_article.base.GlideApp;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.LableBo;
 import com.article.oa_article.bean.UserBo;
@@ -35,6 +34,7 @@ import com.article.oa_article.view.addcomplan.AddComplanActivity;
 import com.article.oa_article.view.setting.SettingActivity;
 import com.article.oa_article.widget.PopTaskMsg;
 import com.blankj.utilcode.util.FragmentUtils;
+import com.bumptech.glide.Glide;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -258,7 +258,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
         MyApplication.userBo = userBo;
         personName.setText(userBo.getName());
         personPhone.setText(userBo.getPhone());
-        GlideApp.with(getActivity()).load(userBo.getImage()).error(R.drawable.person_img_defailt)
+        Glide.with(getActivity()).load(userBo.getImage()).error(R.drawable.person_img_defailt)
                 .placeholder(R.drawable.person_img_defailt).into(personImg);
         EventBus.getDefault().post(new UnitEvent());
         if (!MyApplication.isHaveCommon()) {

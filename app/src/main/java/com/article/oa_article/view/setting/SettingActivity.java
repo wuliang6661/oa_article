@@ -19,12 +19,12 @@ import com.article.oa_article.R;
 import com.article.oa_article.api.HttpResultSubscriber;
 import com.article.oa_article.api.HttpServerImpl;
 import com.article.oa_article.api.http.PersonServiceImpl;
-import com.article.oa_article.base.GlideApp;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.UserBo;
 import com.article.oa_article.mvp.MVPBaseActivity;
 import com.article.oa_article.util.PhotoFromPhotoAlbum;
 import com.blankj.utilcode.util.LogUtils;
+import com.bumptech.glide.Glide;
 import com.guoqi.actionsheet.ActionSheet;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -110,7 +110,7 @@ public class SettingActivity extends MVPBaseActivity<SettingContract.View, Setti
                 personName.setText(s.getName());
                 personNameText.setText(s.getName());
                 personPhone.setText(s.getPhone());
-                GlideApp.with(SettingActivity.this).load(s.getImage()).error(R.drawable.person_img_defailt)
+                Glide.with(SettingActivity.this).load(s.getImage()).error(R.drawable.person_img_defailt)
                         .placeholder(R.drawable.person_img_defailt).into(personImg);
             }
 

@@ -1,0 +1,38 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 27
+//    buildToolsVersion '26.0.2'
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 3
+        versionName "3.2.5"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        repositories {
+            jcenter()
+        }
+
+    }
+}
+dependencies {
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.google.android:flexbox:0.3.2'
+    //解决多依赖冲突
+    implementation 'com.android.support:multidex:1.0.0'
+    //glide
+    //    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:glide:4.9.0'
+    compile files('libs/IMKFSDKTX-3.2.5.jar')
+    compile 'com.gyf.immersionbar:immersionbar:2.3.3-beta15'
+}

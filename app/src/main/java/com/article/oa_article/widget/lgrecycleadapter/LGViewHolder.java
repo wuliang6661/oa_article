@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
-import com.article.oa_article.base.GlideApp;
+import com.bumptech.glide.Glide;
 
 
 /**
@@ -66,7 +66,7 @@ public class LGViewHolder extends RecyclerView.ViewHolder {
     public void setImageUrl(Context mContext, int viewId, String url) {
         ImageView view = (ImageView) getView(viewId);
 
-        GlideApp.with(mContext).load(url).error(R.drawable.person_img_defailt).placeholder(R.drawable.person_img_defailt)
+        Glide.with(mContext).load(url).error(R.drawable.person_img_defailt).placeholder(R.drawable.person_img_defailt)
                 .into(view);
     }
 
