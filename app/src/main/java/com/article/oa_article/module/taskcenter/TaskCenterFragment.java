@@ -17,6 +17,7 @@ import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.TaskCenterBo;
 import com.article.oa_article.bean.request.PageRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
+import com.article.oa_article.view.overdue_task.Overdue_taskActivity;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
@@ -102,6 +103,14 @@ public class TaskCenterFragment extends MVPBaseFragment<TaskCenterContract.View,
                 holder.setText(R.id.yuqilv, taskCenterBo.getOverdueRate());
             }
         };
+        adapter.setOnItemClickListener(R.id.item_layout, new LGRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("userId", taskCenterBos.get(position).getUserId());
+                gotoActivity(Overdue_taskActivity.class, bundle, false);
+            }
+        });
         recycleView.setAdapter(adapter);
     }
 

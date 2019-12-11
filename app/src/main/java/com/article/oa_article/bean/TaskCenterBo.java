@@ -23,6 +23,15 @@ public class TaskCenterBo {
     private String overdueRate;
     private String userName;
     private String departName;
+    private int userId;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     public int getTotle() {
         return totle;

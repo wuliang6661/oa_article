@@ -228,9 +228,9 @@ public class Person_detailsActivity extends MVPBaseActivity<Person_detailsContra
         if (!isNeiBu) {
             return;
         }
-        Bundle bundle = new Bundle();
-        bundle.putInt("userId", userId);
-        gotoActivity(Overdue_taskActivity.class, bundle, false);
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("userId", userId);
+//        gotoActivity(Overdue_taskActivity.class, bundle, false);
     }
 
 
