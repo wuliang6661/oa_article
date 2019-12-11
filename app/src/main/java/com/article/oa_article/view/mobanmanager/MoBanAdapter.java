@@ -46,12 +46,27 @@ public class MoBanAdapter extends LGRecycleViewAdapter<TempleteBO> implements It
         Collections.swap(data, fromPosition, toPosition);
         //注意是Moved的刷新
         notifyItemMoved(fromPosition, toPosition);
+//        if (listener != null) {
+//            listener.onMove(fromPosition, toPosition);
+//        }
     }
+
 
     @Override
     public void onItemDissmiss(int position) {
         data.remove(position);
         notifyItemRemoved(position);
+    }
+
+    private OnMoveTemplateListener listener;
+
+    public void setMoveListener(OnMoveTemplateListener listener) {
+        this.listener = listener;
+    }
+
+
+    public interface OnMoveTemplateListener {
+        void onMove(int fromPosition, int toPosition);
     }
 
 }

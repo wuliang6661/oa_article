@@ -20,6 +20,8 @@ public class MobanManagerContract {
         void makeMuBanSoress(List<MuBanTaskBO> muBanTaskBOS);
 
         void deleteSourss();
+
+        void moveSoruss();
     }
 
     interface Presenter extends BasePresenter<View> {

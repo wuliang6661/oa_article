@@ -30,6 +30,7 @@ import com.article.oa_article.bean.request.DateTaskRequest;
 import com.article.oa_article.bean.request.ForwordPassword;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.IdTypeRequest;
+import com.article.oa_article.bean.request.MoveTemplateRequest;
 import com.article.oa_article.bean.request.OrderRequest;
 import com.article.oa_article.bean.request.PhoneRequest;
 import com.article.oa_article.bean.request.RegistUserRequest;
@@ -424,6 +425,17 @@ public class HttpServerImpl {
         TokenRequest request = new TokenRequest();
         request.token = MyApplication.token;
         return getService().getUploadUrl(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 移动模板
+     */
+    public static Observable<String> moveTemplate(int firstId, int scondId) {
+        MoveTemplateRequest request = new MoveTemplateRequest();
+        request.setFirstTemplateId(firstId);
+        request.setSecondTemplateId(scondId);
+        request.setToken(MyApplication.token);
+        return getService().moveTemplate(request).compose(RxResultHelper.httpRusult());
     }
 
 }

@@ -75,5 +75,24 @@ public class MobanManagerPresenter extends BasePresenterImpl<MobanManagerContrac
             }
         });
     }
+
+
+    public void moveTemplate(int firstId, int scondId) {
+        HttpServerImpl.moveTemplate(firstId, scondId).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if (mView != null) {
+                    mView.moveSoruss();
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.onRequestError(message);
+                }
+            }
+        });
+    }
 }
 
