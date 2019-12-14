@@ -1,6 +1,7 @@
 package com.article.oa_article.view.main.personlist;
 
 import com.article.oa_article.bean.BumenBO;
+import com.article.oa_article.bean.ShareBo;
 import com.article.oa_article.mvp.BasePresenter;
 import com.article.oa_article.mvp.BaseRequestView;
 
@@ -19,6 +20,8 @@ public class PersonListContract {
         void getPersonListByWaiBu(List<BumenBO> bumenBOS);
 
         void updateDeats();
+
+        void getShare(int flag, ShareBo shareBo);
     }
 
     interface Presenter extends BasePresenter<View> {

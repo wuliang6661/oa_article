@@ -6,35 +6,53 @@
     android:background="@color/layout_bg"
     android:orientation="vertical">
 
-
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#1a1a1a"
-        android:gravity="center"
-        android:orientation="horizontal"
         android:visibility="gone">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#1a1a1a"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/complany_img"
-            android:layout_width="31dp"
-            android:layout_height="31dp"
-            android:scaleType="fitXY"
-            app:riv_corner_radius="360dp" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/complany_img"
+                android:layout_width="31dp"
+                android:layout_height="31dp"
+                android:scaleType="fitXY"
+                app:riv_corner_radius="360dp" />
+
+            <TextView
+                android:id="@+id/complan_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="公司名称"
+                android:textColor="@color/f_white"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+
 
         <TextView
-            android:id="@+id/complan_name"
+            android:id="@+id/fpply_friend"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="公司名称"
-            android:textColor="@color/f_white"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:paddingRight="15dp"
+            android:text="邀请好友"
+            android:textColor="#5678FF"
             android:textSize="15sp" />
 
-
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <LinearLayout

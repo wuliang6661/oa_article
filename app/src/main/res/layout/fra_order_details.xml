@@ -120,6 +120,40 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
+                    android:text="创建时间"
+                    android:textColor="@color/hint_color"
+                    android:textSize="15sp" />
+
+
+                <TextView
+                    android:id="@+id/create_time"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:textColor="#F3F1F1"
+                    android:textSize="15sp"
+                    tools:text="朱经理" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#2b2b2b" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_height"
+                android:layout_marginLeft="3dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:text="客户简称"
                     android:textColor="@color/hint_color"
                     android:textSize="15sp" />

@@ -3,10 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+
+    <com.m7.imkfsdk.view.TouchImageView
         android:id="@+id/iv_big_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerInside"
-        android:transitionName="图片" />
+        android:layout_height="match_parent" />
+
+
 </android.support.constraint.ConstraintLayout>

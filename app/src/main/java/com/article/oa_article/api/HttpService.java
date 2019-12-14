@@ -225,7 +225,7 @@ public interface HttpService {
     /**
      * 模糊查询模板
      */
-    @POST("industry_webservice/app/taskTemplate/getTemplate")
+    @POST("industry_webservice/app/taskTemplate/getTemplateList")
     Observable<BaseResult<List<TempleteBO>>> getTemplateList(@Body TempleteRequest request);
 
     /**

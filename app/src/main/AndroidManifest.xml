@@ -121,6 +121,12 @@
             android:name="com.article.oa_article.view.SelectActivity"
             android:screenOrientation="portrait" />
 
+        <!--搜索订单页面-->
+        <activity
+            android:name="com.article.oa_article.view.SelectOrderActivity"
+            android:screenOrientation="portrait" />
+
+
         <!--用户协议-->
         <activity
             android:name="com.article.oa_article.view.register.PersonXieyIAct"

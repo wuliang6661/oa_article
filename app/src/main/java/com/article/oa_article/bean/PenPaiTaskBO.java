@@ -35,6 +35,15 @@ public class PenPaiTaskBO {
     private int addButton;
     private long actualCompleteDate;
     private int page;
+    private long createDate;
+
+    public long getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(long createDate) {
+        this.createDate = createDate;
+    }
 
     public int getPage() {
         return page;

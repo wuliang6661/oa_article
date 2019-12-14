@@ -7,12 +7,17 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
 import com.article.oa_article.bean.BuMenFlowBO;
+import com.article.oa_article.bean.LableBo;
 import com.article.oa_article.bean.PersonBO;
 import com.article.oa_article.mvp.MVPBaseActivity;
+import com.article.oa_article.widget.AlertDialog;
+import com.article.oa_article.widget.PopTaskMsg;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 
@@ -79,6 +84,24 @@ public class BumenActivity extends MVPBaseActivity<BumenContract.View, BumenPres
     }
 
 
+    @OnClick(R.id.add_pinglei)
+    public void addBuMen() {
+        PopTaskMsg popTaskMsg = new PopTaskMsg(this, "新增部门", "部门名", "请输入部门名");
+        popTaskMsg.setListener(new PopTaskMsg.onCommitListener() {
+            @Override
+            public void commit(String text) {
+                mPresenter.addBuMen(text);
+            }
+
+            @Override
+            public void update(String text, LableBo.CustomLabelsBean customLabelsBean) {
+
+            }
+        });
+        popTaskMsg.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+    }
+
+
     @Override
     public void onRequestError(String msg) {
         showToast(msg);
@@ -87,6 +110,7 @@ public class BumenActivity extends MVPBaseActivity<BumenContract.View, BumenPres
     @Override
     public void getBumenFlows(List<BuMenFlowBO> buMenFlowBOS) {
         FlowAdapter adapter = new FlowAdapter(buMenFlowBOS);
+
         adapter.setOnItemClickListener(R.id.flow_text, (view, position) -> {
             if (adapter.selectPosition == position) {
                 adapter.setSelectPosition(-1);
@@ -97,9 +121,22 @@ public class BumenActivity extends MVPBaseActivity<BumenContract.View, BumenPres
             }
             adapter.notifyDataSetChanged();
         });
+        adapter.setOnItemClickListener(R.id.flow_delete, (view, position) ->
+                new AlertDialog(BumenActivity.this).builder().setGone().setMsg("是否确认删除部门？")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确定", v -> {
+                            mPresenter.deleteDeart(buMenFlowBOS.get(position).getId());
+                            if (position == adapter.selectPosition) {
+                                adapter.setSelectPosition(-1);
+                                buMenFlowBO = null;
+                            }
+                        }).show()
+        );
         tagRecycle.setAdapter(adapter);
         if (!buMenFlowBOS.isEmpty()) {
             buMenFlowBO = buMenFlowBOS.get(0);
+        } else {
+            buMenFlowBO = null;
         }
     }
 
@@ -130,6 +167,7 @@ public class BumenActivity extends MVPBaseActivity<BumenContract.View, BumenPres
         @Override
         public void convert(LGViewHolder holder, BuMenFlowBO buMenFlowBO, int position) {
             TextView bumenText = (TextView) holder.getView(R.id.flow_text);
+            holder.getView(R.id.flow_delete).setVisibility(View.VISIBLE);
             bumenText.setText(buMenFlowBO.getName());
             if (position == selectPosition) {
                 bumenText.setTextColor(ContextCompat.getColor(BumenActivity.this, R.color.blue_color));

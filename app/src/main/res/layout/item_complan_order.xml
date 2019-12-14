@@ -81,8 +81,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:paddingLeft="16dp">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -105,6 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:paddingLeft="3dp"
                     android:singleLine="true"
                     android:textColor="#E32A2A"
                     android:textSize="11sp"

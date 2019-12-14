@@ -36,6 +36,19 @@
 
 
         <TextView
+            android:id="@+id/cancle_button"
+            android:layout_width="44dp"
+            android:layout_height="21dp"
+            android:layout_marginRight="13dp"
+            android:background="@drawable/cancle_button"
+            android:gravity="center"
+            android:text="拒绝"
+            android:textColor="#F9FAFB"
+            android:textSize="13sp"
+            android:visibility="gone" />
+
+
+        <TextView
             android:id="@+id/select_button"
             android:layout_width="44dp"
             android:layout_height="21dp"

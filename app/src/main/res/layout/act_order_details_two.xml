@@ -1,17 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/layout_bg"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_bar" />
+    <include
+        android:id="@+id/title_layout"
+        layout="@layout/layout_bar" />
 
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/button_bg"
+        android:text="完成"
+        android:textColor="@color/text_white"
+        android:textSize="18sp"
+        android:visibility="gone" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/next_button"
+        android:layout_below="@+id/title_layout">
 
 
         <LinearLayout
@@ -238,6 +255,108 @@
 
 
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#2b2b2b" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line_height"
+                    android:layout_marginLeft="3dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="数量"
+                        android:textColor="@color/hint_color"
+                        android:textSize="15sp" />
+
+
+                    <TextView
+                        android:id="@+id/task_num"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical"
+                        android:textColor="#F3F1F1"
+                        android:textSize="15sp"
+                        tools:text="这个单子很重要哦！" />
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#2b2b2b" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line_height"
+                    android:layout_marginLeft="3dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="创建时间"
+                        android:textColor="@color/hint_color"
+                        android:textSize="15sp" />
+
+
+                    <TextView
+                        android:id="@+id/task_create_time"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical"
+                        android:textColor="#F3F1F1"
+                        android:textSize="15sp"
+                        tools:text="这个单子很重要哦！" />
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#2b2b2b" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line_height"
+                    android:layout_marginLeft="3dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="备注"
+                        android:textColor="@color/hint_color"
+                        android:textSize="15sp" />
+
+
+                    <TextView
+                        android:id="@+id/task_remark"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical"
+                        android:textColor="#F3F1F1"
+                        android:textSize="15sp"
+                        tools:text="这个单子很重要哦！" />
+
+
+                </LinearLayout>
             </LinearLayout>
 
 
@@ -250,4 +369,4 @@
     </android.support.v4.widget.NestedScrollView>
 
 
-</LinearLayout>
+</RelativeLayout>

@@ -27,6 +27,7 @@ import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.CreateActivity;
 import com.article.oa_article.view.FragmentPaerAdapter;
 import com.article.oa_article.view.SelectActivity;
+import com.article.oa_article.view.SelectOrderActivity;
 import com.article.oa_article.view.main.home.accepted.AcceptedFragment;
 import com.article.oa_article.view.main.home.compony.ComponyFragment;
 import com.article.oa_article.view.main.home.myorder.MyOrderFragment;
@@ -79,6 +80,8 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     RelativeLayout unknowOrderLayout;
     @BindView(R.id.msg_text)
     TextView msgText;
+    @BindView(R.id.edit_select)
+    TextView editSelect;
 
 
     @Nullable
@@ -128,6 +131,11 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
 
             @Override
             public void onPageSelected(int i) {
+                if (i == 0 || i == 2) {
+                    editSelect.setText("搜索任务");
+                } else {
+                    editSelect.setText("搜索订单");
+                }
                 setTextStyle(i);
             }
 
@@ -157,21 +165,29 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
             case R.id.my_order:
                 setTextStyle(0);
                 viewPager.setCurrentItem(0);
+                editSelect.setText("搜索任务");
                 break;
             case R.id.gongsi_order:
                 setTextStyle(1);
                 viewPager.setCurrentItem(1);
+                editSelect.setText("搜索订单");
                 break;
             case R.id.unknow_order_layout:
                 setTextStyle(2);
                 viewPager.setCurrentItem(2);
+                editSelect.setText("搜索任务");
                 break;
         }
     }
 
     @OnClick(R.id.select_layout)
     public void goSelect() {
-        gotoActivity(SelectActivity.class, false);
+        int count = viewPager.getCurrentItem();
+        if (count == 0 || count == 2) {
+            gotoActivity(SelectActivity.class, false);
+        } else {
+            gotoActivity(SelectOrderActivity.class, false);
+        }
     }
 
 

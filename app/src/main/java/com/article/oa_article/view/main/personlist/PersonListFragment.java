@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
@@ -24,12 +25,15 @@ import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.BuMenFlowBO;
 import com.article.oa_article.bean.BumenBO;
 import com.article.oa_article.bean.PersonBO;
+import com.article.oa_article.bean.ShareBo;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.addusers.AddUsersActivity;
 import com.article.oa_article.view.bumen.BumenActivity;
 import com.article.oa_article.view.moveaddperson.MoveAddPersonActivity;
 import com.article.oa_article.view.person_details.Person_detailsActivity;
+import com.article.oa_article.widget.PopShare;
+import com.article.oa_article.wxapi.WxShareUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.bumptech.glide.Glide;
 
@@ -67,7 +71,7 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
     @BindView(R.id.complan_name)
     TextView complanName;
     @BindView(R.id.title_layout)
-    LinearLayout titleLayout;
+    RelativeLayout titleLayout;
 
     IdRequest request;
     int selectMenu = 1;   //默认内部联系人
@@ -266,6 +270,29 @@ public class PersonListFragment extends MVPBaseFragment<PersonListContract.View,
             complanName.setText(MyApplication.getCommon().getCompanyName());
             Glide.with(getActivity()).load(MyApplication.getCommon().getLogo()).into(complanyImg);
         });
+    }
+
+
+    @OnClick(R.id.fpply_friend)
+    public void friendManager(){
+        PopShare share = new PopShare(getActivity());
+        share.setListener(new PopShare.onCommitListener() {
+            @Override
+            public void shareFriend() {
+                mPresenter.getShareMsg(0);
+            }
+
+            @Override
+            public void shareMenmens() {
+                mPresenter.getShareMsg(1);
+            }
+        });
+        share.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+    }
+
+    @Override
+    public void getShare(int flag, ShareBo shareBo) {
+        WxShareUtils.get().wechatShare(getActivity(), flag, shareBo);
     }
 
 

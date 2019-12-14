@@ -258,7 +258,9 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                 holder.setText(R.id.order_message, myOrderBO.getTaskName());
                 holder.setText(R.id.order_nick_name, myOrderBO.getNickName());
                 TextView orderType = (TextView) holder.getView(R.id.order_type);
-                holder.setText(R.id.task_time, myOrderBO.getPlanCompleteDate().replaceAll("-", "/"));
+                TextView taskTime = (TextView) holder.getView(R.id.task_time);
+                taskTime.setText(myOrderBO.getPlanCompleteDate().replaceAll("-", "/"));
+                taskTime.setTextColor(Color.parseColor("#8D8C91"));
                 orderType.setTextColor(Color.parseColor("#8D8C91"));
                 holder.getView(R.id.cancle_img).setVisibility(View.GONE);
                 switch (myOrderBO.getStatus()) {
@@ -312,6 +314,7 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                             surplus_time.setTextColor(Color.parseColor("#71EA45"));
                         } else {
                             surplus_time.setTextColor(Color.parseColor("#E92B2B"));
+                            taskTime.setTextColor(Color.parseColor("#E92B2B"));
                         }
                     }
                 }

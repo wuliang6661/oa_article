@@ -34,7 +34,7 @@ public class PopSplash extends PopupWindow {
         cancle.setOnClickListener(v -> dismiss());
         start_btn.setOnClickListener(view -> {
             dismiss();
-            MyApplication.isSplash = true;
+            MyApplication.isSplash = false;
             Intent intent = new Intent(activity, GuiDeAct1.class);
             activity.startActivity(intent);
         });

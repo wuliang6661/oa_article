@@ -156,6 +156,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
         }
         if (!MyApplication.isHaveCommon()) {
             complanName.setText("暂无企业");
+            switchComplan();
         } else {
             complanName.setText(MyApplication.getCommon().getCompanyName());
         }

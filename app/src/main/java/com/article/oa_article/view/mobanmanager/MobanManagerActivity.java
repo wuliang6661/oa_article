@@ -32,7 +32,6 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
-import com.yanzhenjie.recyclerview.swipe.touch.OnItemStateChangedListener;
 
 import java.util.List;
 
@@ -139,6 +138,18 @@ public class MobanManagerActivity extends MVPBaseActivity<MobanManagerContract.V
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
             adapter.onItemDissmiss(viewHolder.getAdapterPosition());
         }
+
+        @Override
+        public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+            super.onSelectedChanged(viewHolder, actionState);
+            switch (actionState) {
+                case ItemTouchHelper.ACTION_STATE_IDLE:
+                    if (firstId != scondId) {
+                        mPresenter.moveTemplate(templeteBOS.get(firstId).getId(), templeteBOS.get(scondId).getId());
+                    }
+                    break;
+            }
+        }
     });
 
 
@@ -176,18 +187,18 @@ public class MobanManagerActivity extends MVPBaseActivity<MobanManagerContract.V
                 mPresenter.getTempleteList(request);
             }
         });
-        recycleView.setOnItemStateChangedListener(new OnItemStateChangedListener() {
-            @Override
-            public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
-                switch (actionState) {
-                    case ItemTouchHelper.ACTION_STATE_IDLE:
-                        if (firstId != scondId) {
-                            mPresenter.moveTemplate(templeteBOS.get(firstId).getId(), templeteBOS.get(scondId).getId());
-                        }
-                        break;
-                }
-            }
-        });
+//        recycleView.setOnItemStateChangedListener(new OnItemStateChangedListener() {
+//            @Override
+//            public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+//                switch (actionState) {
+//                    case ItemTouchHelper.ACTION_STATE_IDLE:
+//                        if (firstId != scondId) {
+//                            mPresenter.moveTemplate(templeteBOS.get(firstId).getId(), templeteBOS.get(scondId).getId());
+//                        }
+//                        break;
+//                }
+//            }
+//        });
     }
 
 

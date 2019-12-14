@@ -28,6 +28,7 @@ import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.MuBanTaskBO;
 import com.article.oa_article.bean.OrderAndTaskInfoBO;
 import com.article.oa_article.bean.PenPaiTaskBO;
+import com.article.oa_article.bean.event.CommitVisableEvent;
 import com.article.oa_article.bean.event.UpdateTaskEvent;
 import com.article.oa_article.bean.request.AddTaskRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
@@ -107,6 +108,8 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
 
     private long endTime;   //分派任务的结束时间
     private int planNum;
+    private String name, unit, remark;
+    private long time;
 
     private LGRecycleViewAdapter<AddTaskRequest.OrderTasksBean> adapter;
 
@@ -175,6 +178,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                     isShunYan = true;
                     taskRightButton.setText("一键顺延");
                     addTaskLayout.setVisibility(View.VISIBLE);
+                    EventBus.getDefault().post(new CommitVisableEvent(1));
                     taskRecycleView.setAdapter(null);
                     setSwipeMenu();
                     setTaskAdapter();
@@ -183,7 +187,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
             case R.id.continue_add:    //添加任务(显示添加任务弹窗)
                 PopAddTaskWindow window = getPopWindow();
                 window.setEndTime(endTime);
-                window.setPlanNum(planNum);
+                window.setPlanNum(planNum, name, unit, time, remark);
                 window.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.moban_add:
@@ -221,6 +225,32 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
 
 
     /**
+     * 完成
+     */
+    public void commitTask() {
+        for (AddTaskRequest.OrderTasksBean bean : tasks) {
+            if (StringUtils.isEmpty(bean.getNickName()) || StringUtils.isEmpty(bean.getPlanCompleteDate())
+                    || bean.getPlanNum() == 0) {
+                showToast("请补全任务数据！");
+                return;
+            }
+            bean.setPlanCompleteDate(bean.getPlanCompleteDate().replaceAll("/", "-"));
+            if (!StringUtils.isEmpty(bean.getActualCompleteDate())) {
+                bean.setActualCompleteDate(bean.getActualCompleteDate().replaceAll("/", "-"));
+            }
+        }
+        AddTaskRequest request = new AddTaskRequest();
+        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setObjectId(orderId);
+        request.setOrderTasks(tasks);
+        if (isOrder) {
+            mPresenter.addTaskByOrder(request);
+        } else {
+            mPresenter.addTaskByTask(request);
+        }
+    }
+
+    /**
      * 设置数据列表
      */
     public void setData(OrderAndTaskInfoBO infoBO) {
@@ -247,6 +277,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
                 if (tasks.size() == 0) {
                     taskRightButton.setVisibility(View.GONE);
                     addTaskLayout.setVisibility(View.VISIBLE);
+                    EventBus.getDefault().post(new CommitVisableEvent(1));
                     isShunYan = true;
                 } else {
                     taskRightButton.setVisibility(View.VISIBLE);
@@ -255,6 +286,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
             } else {
                 taskRightButton.setVisibility(View.GONE);
                 addTaskLayout.setVisibility(View.GONE);
+                EventBus.getDefault().post(new CommitVisableEvent(0));
             }
         });
     }
@@ -270,8 +302,12 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
     /**
      * 设置订单分派数量
      */
-    public void setPlanNum(int planNum){
+    public void setPlanNum(int planNum, String name, String unit, long time, String remark) {
         this.planNum = planNum;
+        this.name = name;
+        this.unit = unit;
+        this.time = time;
+        this.remark = remark;
     }
 
 
@@ -516,17 +552,17 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
             }
         });
         if (type == 0) {
-            if (tasks.size() == 0) {
-                taskRightButton.setVisibility(View.GONE);
-                continueAdd.setText("添加任务");
-                mobanAdd.setVisibility(View.VISIBLE);
-                taskSuress.setText("电脑上传");
-            } else {
-                taskRightButton.setVisibility(View.VISIBLE);
-                continueAdd.setText("继续添加");
-                mobanAdd.setVisibility(View.GONE);
-                taskSuress.setText("完成");
-            }
+//            if (tasks.size() == 0) {
+            taskRightButton.setVisibility(View.GONE);
+            continueAdd.setText("添加任务");
+            mobanAdd.setVisibility(View.VISIBLE);
+            taskSuress.setText("电脑上传");
+//            } else {
+//                taskRightButton.setVisibility(View.VISIBLE);
+//                continueAdd.setText("继续添加");
+//                mobanAdd.setVisibility(View.GONE);
+//                taskSuress.setText("完成");
+//            }
         }
         taskRecycleView.setAdapter(adapter);
     }
@@ -551,6 +587,7 @@ public class Task_allotFragment extends MVPBaseFragment<Task_allotContract.View,
         taskRightButton.setText("编辑");
         taskRightButton.setVisibility(View.VISIBLE);
         addTaskLayout.setVisibility(View.GONE);
+        EventBus.getDefault().post(new CommitVisableEvent(0));
         EventBus.getDefault().post(new UpdateTaskEvent());
     }
 

@@ -122,9 +122,11 @@ public class FriendApplyActivity extends BaseActivity {
                 holder.setImageUrl(FriendApplyActivity.this, R.id.person_img, aggentUserBO.getImage());
                 if (aggentUserBO.getStatus() == 0) {
                     holder.getView(R.id.select_button).setVisibility(View.VISIBLE);
+                    holder.getView(R.id.cancle_button).setVisibility(View.VISIBLE);
                     holder.getView(R.id.type_text).setVisibility(View.GONE);
                 } else {
                     holder.getView(R.id.select_button).setVisibility(View.GONE);
+                    holder.getView(R.id.cancle_button).setVisibility(View.GONE);
                     holder.getView(R.id.type_text).setVisibility(View.VISIBLE);
                 }
             }
@@ -136,6 +138,13 @@ public class FriendApplyActivity extends BaseActivity {
                 agreeComplan(aggents.get(position).getObjectId());
             }
         });
+        adapter.setOnItemClickListener(R.id.cancle_button, (view, position) -> {
+//            if (aggents.get(position).getMessageType() == 0) {
+            resureUser(aggents.get(position).getObjectId());
+//            } else {
+////                agreeComplan(aggents.get(position).getObjectId());
+//            }
+        });
         friendRecycle.setAdapter(adapter);
     }
 
@@ -145,6 +154,25 @@ public class FriendApplyActivity extends BaseActivity {
      */
     private void agreeUser(int id) {
         MessageServiceImpl.agreeUser(id).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                showToast("已同意！");
+                getAggentUser();
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
+
+
+    /**
+     * 拒绝好友申请
+     */
+    private void resureUser(int id) {
+        MessageServiceImpl.resureUser(id).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
                 showToast("已同意！");

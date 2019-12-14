@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,14 @@ import android.widget.Toast;
 
 import com.article.oa_article.R;
 import com.article.oa_article.base.MyApplication;
+import com.article.oa_article.bean.ShareBo;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.login.LoginActivity;
 import com.article.oa_article.view.optionsfankui.OptionsFankuiActivity;
 import com.article.oa_article.view.splash.guide.GuiDeAct1;
 import com.article.oa_article.widget.AlertDialog;
+import com.article.oa_article.widget.PopShare;
+import com.article.oa_article.wxapi.WxShareUtils;
 import com.m7.imkfsdk.KfStartHelper;
 import com.m7.imkfsdk.utils.PermissionUtils;
 import com.moor.imkf.model.entity.CardInfo;
@@ -152,7 +156,6 @@ public class SystemSettingFragment extends MVPBaseFragment<SystemSettingContract
     }
 
 
-
     /**
      * 权限回调
      */
@@ -164,4 +167,32 @@ public class SystemSettingFragment extends MVPBaseFragment<SystemSettingContract
         }
     }
 
+
+    @OnClick(R.id.friends_manager)
+    public void layoutClick(View view) {
+        PopShare share = new PopShare(getActivity());
+        share.setListener(new PopShare.onCommitListener() {
+            @Override
+            public void shareFriend() {
+                mPresenter.getShareMsg(0);
+            }
+
+            @Override
+            public void shareMenmens() {
+                mPresenter.getShareMsg(1);
+            }
+        });
+        share.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+    }
+
+
+    @Override
+    public void getShare(int flag, ShareBo shareBo) {
+        WxShareUtils.get().wechatShare(getActivity(), flag, shareBo);
+    }
+
+    @Override
+    public void onRequestError(String msg) {
+        showToast(msg);
+    }
 }

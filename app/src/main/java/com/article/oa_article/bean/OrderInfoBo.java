@@ -83,7 +83,15 @@ public class OrderInfoBo implements Serializable {
         private List<ImageBO> image;
         private String nickName;
         private int canEdit;
+        private long createDate;
 
+        public long getCreateDate() {
+            return createDate;
+        }
+
+        public void setCreateDate(long createDate) {
+            this.createDate = createDate;
+        }
 
         public String getNickName() {
             return nickName;

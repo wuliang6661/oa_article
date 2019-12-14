@@ -18,11 +18,14 @@ import com.article.oa_article.bean.request.AddTaskRequest;
 import com.article.oa_article.view.SelectPersonAct;
 import com.article.oa_article.widget.DateDialog;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.text.SimpleDateFormat;
 
 public class PopAddTaskWindow extends PopupWindow {
 
@@ -143,9 +146,14 @@ public class PopAddTaskWindow extends PopupWindow {
     }
 
 
-    public void setPlanNum(int planNum) {
+    public void setPlanNum(int planNum, String name, String unit, long time, String remark) {
         this.planNum = planNum;
         fenpaiNum.setText(planNum + "");
+        taskName.setText(name);
+        danwei.setText(unit);
+        this.remark.setText(remark);
+        dateText.setText(TimeUtils.millis2String(time,
+                new SimpleDateFormat("yyyy/MM/dd")));
     }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {

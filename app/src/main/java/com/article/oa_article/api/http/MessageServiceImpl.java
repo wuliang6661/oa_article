@@ -81,6 +81,17 @@ public class MessageServiceImpl {
     }
 
     /**
+     * 拒绝好友请求
+     */
+    public static Observable<String> resureUser(int id) {
+        AgreeUserRequest request = new AgreeUserRequest();
+        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setToken(MyApplication.token);
+        request.setObjectId(id);
+        return getService().refuseFriendUser(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
      * 设置消息已读未读
      */
     public static Observable<String> readMsgType(String ids, int readStatus) {

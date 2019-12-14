@@ -1,9 +1,8 @@
 package com.article.oa_article.module.systemsetting;
 
-import android.content.Context;
-
+import com.article.oa_article.bean.ShareBo;
 import com.article.oa_article.mvp.BasePresenter;
-import com.article.oa_article.mvp.BaseView;
+import com.article.oa_article.mvp.BaseRequestView;
 
 /**
  * MVPPlugin
@@ -11,8 +10,10 @@ import com.article.oa_article.mvp.BaseView;
  */
 
 public class SystemSettingContract {
-    interface View extends BaseView {
-        
+    interface View extends BaseRequestView {
+
+        void getShare(int flag, ShareBo shareBo);
+
     }
 
     interface  Presenter extends BasePresenter<View> {

@@ -17,6 +17,7 @@ import com.article.oa_article.api.HttpServerImpl;
 import com.article.oa_article.bean.OrderInfoBo;
 import com.article.oa_article.bean.PenPaiTaskBO;
 import com.article.oa_article.bean.TaskDetails;
+import com.article.oa_article.bean.event.CommitVisableEvent;
 import com.article.oa_article.bean.event.UpdateOrderEvent;
 import com.article.oa_article.bean.event.UpdateTaskEvent;
 import com.article.oa_article.bean.request.IdRequest;
@@ -80,6 +81,14 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
     LinearLayout back;
     @BindView(R.id.order_num)
     TextView orderNum;
+    @BindView(R.id.task_num)
+    TextView taskNum;
+    @BindView(R.id.task_create_time)
+    TextView taskCreateTime;
+    @BindView(R.id.task_remark)
+    TextView taskRemark;
+    @BindView(R.id.next_button)
+    Button nextButton;
 
     private boolean isOrder = true;   //是否是订单id
     private int id;
@@ -251,10 +260,12 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         mPresenter.tashCanEdit(request);
         if (isOrder) {
             fragment.setEndTime(infoBo.getOrderInfo().getPlanCompleteDate());
-            fragment.setPlanNum(infoBo.getOrderInfo().getNum());
+            fragment.setPlanNum(infoBo.getOrderInfo().getNum(), infoBo.getOrderInfo().getCompanyOrderName(),
+                    infoBo.getOrderInfo().getUnit(), infoBo.getOrderInfo().getPlanCompleteDate(), infoBo.getOrderInfo().getRemark());
         } else {
             fragment.setEndTime(parentTask.getTaskInfo().getPlanCompleteDate());
-            fragment.setPlanNum(parentTask.getTaskInfo().getPlanNum());
+            fragment.setPlanNum(parentTask.getTaskInfo().getPlanNum(), parentTask.getTaskInfo().getTaskName(),
+                    parentTask.getTaskInfo().getUnit(), parentTask.getTaskInfo().getPlanCompleteDate(), parentTask.getTaskInfo().getRemark());
         }
     }
 
@@ -270,6 +281,10 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
         taskDate.setText(TimeUtils.millis2String(details.getTaskInfo().getPlanCompleteDate(),
                 new SimpleDateFormat("yyyy/MM/dd")));
         taskPersonName.setText(details.getTaskInfo().getNickName());
+        taskNum.setText(details.getTaskInfo().getPlanNum() + "");
+        taskCreateTime.setText(TimeUtils.millis2String(details.getTaskInfo().getCreateDate(),
+                new SimpleDateFormat("yyyy/MM/dd")));
+        taskRemark.setText(details.getTaskInfo().getRemark());
         parentTask = details;
     }
 
@@ -293,6 +308,20 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateOrderInfo(UpdateOrderEvent event) {
         mPresenter.getOrderInfo(request);
+    }
+
+    @Subscribe
+    public void updateComit(CommitVisableEvent event) {
+        if (event.visiable == 0) {
+            nextButton.setVisibility(View.GONE);
+        } else {
+            nextButton.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @OnClick(R.id.next_button)
+    public void commit() {
+        fragment.commitTask();
     }
 
     @Override

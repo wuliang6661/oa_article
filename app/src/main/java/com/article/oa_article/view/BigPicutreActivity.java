@@ -16,6 +16,7 @@ import com.article.oa_article.R;
 import com.article.oa_article.base.BaseActivity;
 import com.article.oa_article.module.create_order.ImageBO;
 import com.bumptech.glide.Glide;
+import com.m7.imkfsdk.view.TouchImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class BigPicutreActivity extends BaseActivity {
 
     private int selectPosition;
 
-    List<ImageView> imageViews;
+    List<TouchImageView> imageViews;
 
     @Override
     protected int getLayout() {
@@ -91,12 +92,7 @@ public class BigPicutreActivity extends BaseActivity {
 
     private void initView() {
         for (int i = 0; i < imageBOS.size(); i++) {
-            ImageView imageView = new ImageView(this);
-//            ViewGroup.LayoutParams params = imageView.getLayoutParams();
-//            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-//            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
-//            imageView.setLayoutParams(params);
-
+            TouchImageView imageView = new TouchImageView(this);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             Glide.with(this).load(imageBOS.get(i).url).into(imageView);
             imageViews.add(imageView);
@@ -124,18 +120,10 @@ public class BigPicutreActivity extends BaseActivity {
 
         @Override
         public Object instantiateItem(ViewGroup view, int position) {
-//            ImageView imageView = new ImageView(BigPicutreActivity.this);
-////            ViewGroup.LayoutParams params = imageView.getLayoutParams();
-////            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-////            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
-////            imageView.setLayoutParams(params);
-//
-//            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-//            Glide.with(BigPicutreActivity.this).load(imageBOS.get(position).url).into(imageView);
-//            view.addView(imageView);
             View groupView = LayoutInflater.from(BigPicutreActivity.this).inflate(R.layout.act_big_img, null);
-            ImageView imageView = groupView.findViewById(R.id.iv_big_image);
-            Glide.with(BigPicutreActivity.this).load(imageBOS.get(position).url).into(imageView);
+            TouchImageView imageView = groupView.findViewById(R.id.iv_big_image);
+            Glide.with(BigPicutreActivity.this).load(imageBOS.get(position).url).placeholder(com.m7.imkfsdk.R.drawable.kf_pic_thumb_bg)
+                    .error(com.m7.imkfsdk.R.drawable.kf_image_download_fail_icon).into(imageView);
             view.addView(groupView);
             return groupView;
         }

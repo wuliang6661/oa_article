@@ -261,16 +261,16 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
                     task_date.setText("");
                 } else if (Integer.parseInt(myOrderBO.getTaskDate()) > 0) {
                     String taskDate = String.valueOf(Math.abs(Integer.parseInt(myOrderBO.getTaskDate())));
-                    if (Integer.parseInt(myOrderBO.getTaskDate()) > 1000) {
-                        taskDate = String.valueOf(Math.abs(Integer.parseInt(myOrderBO.getTaskDate()))).substring(0, 2) + "...";
-                    }
+//                    if (Integer.parseInt(myOrderBO.getTaskDate()) > 1000) {
+//                        taskDate = String.valueOf(Math.abs(Integer.parseInt(myOrderBO.getTaskDate()))).substring(0, 2) + "...";
+//                    }
                     task_date.setText(taskDate);
                     task_date.setTextColor(Color.parseColor("#71EA45"));
                 } else {
                     String taskDate = String.valueOf(Math.abs(Integer.parseInt(myOrderBO.getTaskDate())));
-                    if (Integer.parseInt(myOrderBO.getTaskDate()) < -1000) {
-                        taskDate = String.valueOf(Math.abs(Integer.parseInt(myOrderBO.getTaskDate()))).substring(0, 2) + "...";
-                    }
+//                    if (Integer.parseInt(myOrderBO.getTaskDate()) < -1000) {
+//                        taskDate = String.valueOf(Math.abs(Integer.parseInt(myOrderBO.getTaskDate()))).substring(0, 2) + "...";
+//                    }
                     task_date.setText(taskDate);
                     task_date.setTextColor(Color.parseColor("#E92B2B"));
                 }

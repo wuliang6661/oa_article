@@ -7,7 +7,6 @@ import com.article.oa_article.bean.request.AgreeUserRequest;
 import com.article.oa_article.bean.request.IdRequest;
 import com.article.oa_article.bean.request.MsgTypeRequest;
 import com.article.oa_article.bean.request.PageRequest;
-import com.article.oa_article.bean.request.TokenRequest;
 
 import java.util.List;
 
@@ -49,6 +48,14 @@ public interface MessageService {
      */
     @POST("industry_webservice/app/userInfo/agreeAddFriendUser")
     Observable<BaseResult<String>> agreeFriendUser(@Body AgreeUserRequest request);
+
+
+    /**
+     * 拒绝好友申请
+     */
+    @POST("industry_webservice/app/userInfo/refuseAddFriendUser")
+    Observable<BaseResult<String>> refuseFriendUser(@Body AgreeUserRequest request);
+
 
     /**
      * 设置多个消息已读或者未读

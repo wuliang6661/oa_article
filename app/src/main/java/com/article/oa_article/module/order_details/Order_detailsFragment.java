@@ -25,7 +25,6 @@ import com.article.oa_article.module.create_order.PingLeiBO;
 import com.article.oa_article.mvp.MVPBaseFragment;
 import com.article.oa_article.view.BigPicutreActivity;
 import com.article.oa_article.view.CreateActivity;
-import com.article.oa_article.view.order_details.Order_detailsActivity;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 import com.blankj.utilcode.util.TimeUtils;
@@ -87,6 +86,8 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
     View blowLine;
     @BindView(R.id.order_edit)
     TextView orderEdit;
+    @BindView(R.id.create_time)
+    TextView createTime;
 
     private OrderInfoBo infoBo;
 
@@ -241,6 +242,8 @@ public class Order_detailsFragment extends MVPBaseFragment<Order_detailsContract
         orderNum.setText(infoBo.getOrderInfo().getNum() + "");
         orderDate.setText(TimeUtils.millis2String(infoBo.getOrderInfo()
                 .getPlanCompleteDate(), new SimpleDateFormat("yyyy/MM/dd")));
+        createTime.setText(TimeUtils.millis2String(infoBo.getOrderInfo()
+                .getCreateDate(), new SimpleDateFormat("yyyy/MM/dd")));
         beizhu.setText(infoBo.getOrderInfo().getRemark());
         this.pingLeiBOS = infoBo.getOrderSpecifications();
         this.imageBOS = infoBo.getOrderInfo().getImage();
