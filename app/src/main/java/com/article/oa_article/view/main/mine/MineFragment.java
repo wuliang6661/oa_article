@@ -2,6 +2,7 @@ package com.article.oa_article.view.main.mine;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -108,6 +109,14 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
     public void onSupportVisible() {
         super.onSupportVisible();
         mPresenter.getUserInfo();
+        if("暂无企业".equals(complanName.getText().toString())){
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    switchComplan();
+                }
+            });
+        }
     }
 
     /**
@@ -156,7 +165,6 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
         }
         if (!MyApplication.isHaveCommon()) {
             complanName.setText("暂无企业");
-            switchComplan();
         } else {
             complanName.setText(MyApplication.getCommon().getCompanyName());
         }

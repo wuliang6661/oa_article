@@ -141,17 +141,17 @@ public class SystemSettingFragment extends MVPBaseFragment<SystemSettingContract
          */
         String s = "https://wap.boosoo.com.cn/bobishop/goodsdetail?id=10160&mid=36819";
         CardInfo ci = new CardInfo("http://seopic.699pic.com/photo/40023/0579.jpg_wh1200.jpg", "我是一个标题当初读书", "我是name当初读书。", "价格 1000-9999", "https://www.baidu.com");
-        String icon = "https://www.tianxiadengcang.com//index.php?m=Api&c=Goods&a=goodsThumImages&width=200&height=200&goods_id=168";
+        String icon = MyApplication.userBo.getImage();
         String title = "美式北欧吊灯家居灯卧室客厅书房餐厅灯D1-31008-12头";
         String content = "8头/φ520*H350/96W 天下灯仓包装 黑色";
         String rigth3 = " ¥548.00";
         try {
-            ci = new CardInfo(URLEncoder.encode(icon, "utf-8"), URLEncoder.encode(title, "utf-8"), URLEncoder.encode(content, "utf-8"), URLEncoder.encode(rigth3, "utf-8"),
+            ci = new CardInfo(URLEncoder.encode(icon, "utf-8"), URLEncoder.encode(title, "utf-8"), URLEncoder.encode("", "utf-8"), URLEncoder.encode("", "utf-8"),
                     URLEncoder.encode(s, "utf-8"));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        helper.setCard(ci);
+//        helper.setCard(ci);
         helper.initSdkChat("97207a70-1a52-11ea-889d-798f29dfa486", "测试", "123456789");//腾讯云正式
     }
 
