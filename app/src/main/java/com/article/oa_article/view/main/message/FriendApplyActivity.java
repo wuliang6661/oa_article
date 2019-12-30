@@ -120,23 +120,39 @@ public class FriendApplyActivity extends BaseActivity {
             public void convert(LGViewHolder holder, AggentUserBO aggentUserBO, int position) {
                 holder.setText(R.id.user_message, aggentUserBO.getNickName() + "  " + aggentUserBO.getContent());
                 holder.setImageUrl(FriendApplyActivity.this, R.id.person_img, aggentUserBO.getImage());
-                if (aggentUserBO.getStatus() == 0) {
-                    holder.getView(R.id.select_button).setVisibility(View.VISIBLE);
-                    holder.getView(R.id.cancle_button).setVisibility(View.VISIBLE);
-                    holder.getView(R.id.type_text).setVisibility(View.GONE);
-                } else {
-                    holder.getView(R.id.select_button).setVisibility(View.GONE);
-                    holder.getView(R.id.cancle_button).setVisibility(View.GONE);
-                    holder.getView(R.id.type_text).setVisibility(View.VISIBLE);
+                switch (aggentUserBO.getStatus()) {
+                    case 0:   //待接受
+                        holder.getView(R.id.select_button).setVisibility(View.VISIBLE);
+                        holder.getView(R.id.cancle_button).setVisibility(View.VISIBLE);
+                        holder.getView(R.id.type_text).setVisibility(View.GONE);
+                        break;
+                    case 1://待审核
+                        holder.getView(R.id.select_button).setVisibility(View.GONE);
+                        holder.getView(R.id.cancle_button).setVisibility(View.GONE);
+                        holder.getView(R.id.type_text).setVisibility(View.VISIBLE);
+                        holder.setText(R.id.type_text, "待审核");
+                        break;
+                    case 2:   //已接受
+                        holder.getView(R.id.select_button).setVisibility(View.GONE);
+                        holder.getView(R.id.cancle_button).setVisibility(View.GONE);
+                        holder.getView(R.id.type_text).setVisibility(View.VISIBLE);
+                        holder.setText(R.id.type_text, "已同意");
+                        break;
+                    case 3:   //已拒绝
+                        holder.getView(R.id.select_button).setVisibility(View.GONE);
+                        holder.getView(R.id.cancle_button).setVisibility(View.GONE);
+                        holder.getView(R.id.type_text).setVisibility(View.VISIBLE);
+                        holder.setText(R.id.type_text, "已拒绝");
+                        break;
                 }
             }
         };
         adapter.setOnItemClickListener(R.id.select_button, (view, position) -> {
-            if (aggents.get(position).getMessageType() == 0) {
-                agreeUser(aggents.get(position).getObjectId());
-            } else {
-                agreeComplan(aggents.get(position).getObjectId());
-            }
+//            if (aggents.get(position).getMessageType() == 0) {
+            agreeUser(aggents.get(position).getObjectId());
+//            } else {
+//                agreeComplan(aggents.get(position).getObjectId());
+//            }
         });
         adapter.setOnItemClickListener(R.id.cancle_button, (view, position) -> {
 //            if (aggents.get(position).getMessageType() == 0) {
@@ -175,7 +191,7 @@ public class FriendApplyActivity extends BaseActivity {
         MessageServiceImpl.resureUser(id).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
-                showToast("已同意！");
+                showToast("已拒绝！");
                 getAggentUser();
             }
 

@@ -94,6 +94,7 @@ public class TaskCenterFragment extends MVPBaseFragment<TaskCenterContract.View,
                 return R.layout.item_task_center;
             }
 
+
             @Override
             public void convert(LGViewHolder holder, TaskCenterBo taskCenterBo, int position) {
                 holder.setText(R.id.user_name, taskCenterBo.getUserName());
