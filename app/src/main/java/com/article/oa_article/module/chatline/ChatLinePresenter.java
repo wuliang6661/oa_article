@@ -78,8 +78,8 @@ public class ChatLinePresenter extends BasePresenterImpl<ChatLineContract.View>
     }
 
 
-    public void updateUnit(String unit) {
-        PersonServiceImpl.updateUnit(unit).subscribe(new HttpResultSubscriber<String>() {
+    public void updateUnit(int unit) {
+        PersonServiceImpl.updateComplanUnit(unit).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
                if(mView != null){

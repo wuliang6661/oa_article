@@ -34,6 +34,7 @@ import com.article.oa_article.bean.request.PersonPhoneRequest;
 import com.article.oa_article.bean.request.PhoneRequest;
 import com.article.oa_article.bean.request.ScopeRequest;
 import com.article.oa_article.bean.request.TokenRequest;
+import com.article.oa_article.bean.request.UpdateCompanyUnitRequest;
 import com.article.oa_article.bean.request.UpdateDepartRequest;
 import com.article.oa_article.bean.request.UpdateShiliRequest;
 import com.article.oa_article.bean.request.UpdateUnitRequest;
@@ -265,6 +266,12 @@ public interface PersonService {
      */
     @POST("industry_webservice/app/companyInfo/updateUnit")
     Observable<BaseResult<String>> updateUnit(@Body UpdateUnitRequest request);
+
+    /**
+     * 编辑公司单位
+     */
+    @POST("industry_webservice/app/companyInfo/updateCompanyUserUnit")
+    Observable<BaseResult<String>> updateCompanyUserUnit(@Body UpdateCompanyUnitRequest request);
 
     /**
      * 模糊查询公司

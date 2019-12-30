@@ -36,6 +36,7 @@ import com.article.oa_article.bean.request.PersonPhoneRequest;
 import com.article.oa_article.bean.request.PhoneRequest;
 import com.article.oa_article.bean.request.ScopeRequest;
 import com.article.oa_article.bean.request.TokenRequest;
+import com.article.oa_article.bean.request.UpdateCompanyUnitRequest;
 import com.article.oa_article.bean.request.UpdateDepartRequest;
 import com.article.oa_article.bean.request.UpdateShiliRequest;
 import com.article.oa_article.bean.request.UpdateUnitRequest;
@@ -410,6 +411,18 @@ public class PersonServiceImpl {
         request.setToken(MyApplication.token);
         return getService().updateUnit(request).compose(RxResultHelper.httpRusult());
     }
+
+    /**
+     * 编辑公司单位
+     */
+    public static Observable<String> updateComplanUnit(int unitId){
+        UpdateCompanyUnitRequest request = new UpdateCompanyUnitRequest();
+        request.setCompanyId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setCompanyUnitId(unitId);
+        request.setToken(MyApplication.token);
+        return getService().updateCompanyUserUnit(request).compose(RxResultHelper.httpRusult());
+    }
+
 
     /**
      * 删除部门

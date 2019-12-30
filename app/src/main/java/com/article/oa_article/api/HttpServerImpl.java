@@ -18,6 +18,7 @@ import com.article.oa_article.bean.TaskBO;
 import com.article.oa_article.bean.TaskNumBO;
 import com.article.oa_article.bean.TempleteBO;
 import com.article.oa_article.bean.TempleteInfoBo;
+import com.article.oa_article.bean.UnitBO;
 import com.article.oa_article.bean.UserBo;
 import com.article.oa_article.bean.request.AddTempleteBo;
 import com.article.oa_article.bean.request.AsseptRequest;
@@ -436,6 +437,16 @@ public class HttpServerImpl {
         request.setSecondTemplateId(scondId);
         request.setToken(MyApplication.token);
         return getService().moveTemplate(request).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取公司单位
+     */
+    public static Observable<List<UnitBO>> getCompanyUnits() {
+        IdRequest request = new IdRequest();
+        request.setId(Integer.parseInt(MyApplication.getCommonId()));
+        request.setToken(MyApplication.token);
+        return getService().getCompanyUnits(request).compose(RxResultHelper.httpRusult());
     }
 
 }

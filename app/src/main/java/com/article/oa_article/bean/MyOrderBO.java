@@ -30,8 +30,17 @@ public class MyOrderBO {
     private int status;
     private int isMe;
     private int page;
+    private int isOverdue;
 
     private int overdue;
+
+    public int getIsOverdue() {
+        return isOverdue;
+    }
+
+    public void setIsOverdue(int isOverdue) {
+        this.isOverdue = isOverdue;
+    }
 
     public int getOverdue() {
         return overdue;

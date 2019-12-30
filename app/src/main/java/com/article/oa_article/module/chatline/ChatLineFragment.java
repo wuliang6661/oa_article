@@ -10,7 +10,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +17,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.article.oa_article.R;
+import com.article.oa_article.api.HttpResultSubscriber;
+import com.article.oa_article.api.HttpServerImpl;
 import com.article.oa_article.base.MyApplication;
 import com.article.oa_article.bean.ChartBO;
-import com.article.oa_article.bean.LableBo;
+import com.article.oa_article.bean.UnitBO;
 import com.article.oa_article.bean.event.UnitEvent;
 import com.article.oa_article.bean.request.AddOutRequest;
 import com.article.oa_article.bean.request.ChartRequest;
 import com.article.oa_article.mvp.MVPBaseFragment;
-import com.article.oa_article.widget.PopTaskMsg;
 import com.article.oa_article.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.article.oa_article.widget.lgrecycleadapter.LGViewHolder;
 import com.blankj.utilcode.util.StringUtils;
@@ -83,6 +83,8 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
     LinearLayout dateSelectLayout;
     @BindView(R.id.edit_jihua)
     TextView editJihua;
+    @BindView(R.id.unit_layout)
+    LinearLayout unitLayout;
 
     private int userId;
     private int complanId;
@@ -103,6 +105,8 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
 
     private String yearBegenDate;     //默认年开始日期
     private String yearEndDate;       //默认年结束日期
+
+    public static int selectUnitPosition = Integer.MAX_VALUE;
 
     public static ChatLineFragment getInstance(int type) {
         ChatLineFragment fragment = new ChatLineFragment();
@@ -136,8 +140,8 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
             complanId = Integer.parseInt(MyApplication.getCommonId());
             complanBar.setVisibility(View.GONE);
             getChartData();
-            unitText.setText(StringUtils.isEmpty(MyApplication.getCommon().getUnit()) ? "请输入单位" :
-                    MyApplication.getCommon().getUnit());
+            unitText.setText(StringUtils.isEmpty(MyApplication.getCommon().getCompanyUnitName()) ? "选择单位" :
+                    MyApplication.getCommon().getCompanyUnitName());
 //            if (MyApplication.getCommon().getIsAdmin() == 1) {   //管理员
             editJihua.setVisibility(View.VISIBLE);
 //            }
@@ -315,24 +319,54 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
     /**
      * 修改单位
      */
-    @OnClick(R.id.unit_text)
-    public void editUnit() {
+//    @OnClick(R.id.unit_text)
+//    public void editUnit() {
+//
+//        PopTaskMsg popTaskMsg = new PopTaskMsg(getActivity(), "单位", "单位名称", "请输入单位名称");
+//        popTaskMsg.setListener(new PopTaskMsg.onCommitListener() {
+//            @Override
+//            public void commit(String text) {
+//                mPresenter.updateUnit(text);
+//            }
+//
+//            @Override
+//            public void update(String text, LableBo.CustomLabelsBean customLabelsBean) {
+//
+//            }
+//        });
+//        popTaskMsg.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+//    }
+
+
+    /**
+     * 修改单位
+     */
+    @OnClick(R.id.unit_layout)
+    public void unitLayout() {
         if (type != 0) {
             return;
         }
-        PopTaskMsg popTaskMsg = new PopTaskMsg(getActivity(), "单位", "单位名称", "请输入单位名称");
-        popTaskMsg.setListener(new PopTaskMsg.onCommitListener() {
+        HttpServerImpl.getCompanyUnits().subscribe(new HttpResultSubscriber<List<UnitBO>>() {
             @Override
-            public void commit(String text) {
-                mPresenter.updateUnit(text);
+            public void onSuccess(List<UnitBO> s) {
+                PopUnitWindow window = new PopUnitWindow(getActivity(), unitLayout.getWidth());
+                window.setData(s, selectUnitPosition);
+                window.setOnClickItem(new PopUnitWindow.onClickItem() {
+                    @Override
+                    public void commit(UnitBO unitBO) {
+                        window.dismiss();
+                        unitText.setText(unitBO.getName());
+                        mPresenter.updateUnit(unitBO.getId());
+                    }
+                });
+                window.showPop(unitLayout, 0, 0);
             }
 
             @Override
-            public void update(String text, LableBo.CustomLabelsBean customLabelsBean) {
-
+            public void onFiled(String message) {
+                onRequestError(message);
             }
         });
-        popTaskMsg.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
     }
 
 
@@ -482,8 +516,8 @@ public class ChatLineFragment extends MVPBaseFragment<ChatLineContract.View, Cha
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(UnitEvent event) {
-        unitText.setText(StringUtils.isEmpty(MyApplication.getCommon().getUnit()) ? "请输入单位" :
-                MyApplication.getCommon().getUnit());
+        unitText.setText(StringUtils.isEmpty(MyApplication.getCommon().getCompanyUnitName()) ? "请输入单位" :
+                MyApplication.getCommon().getCompanyUnitName());
     }
 
 

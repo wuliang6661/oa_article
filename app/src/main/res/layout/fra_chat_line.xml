@@ -50,19 +50,37 @@
             android:textColor="@color/text_hint_color"
             android:textSize="13sp" />
 
-        <TextView
-            android:id="@+id/unit_text"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/unit_layout"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="13dp"
             android:background="@drawable/person_zhiwei"
+            android:gravity="center_vertical"
             android:paddingLeft="8dp"
             android:paddingTop="3dp"
             android:paddingRight="8dp"
-            android:paddingBottom="3dp"
-            android:textColor="@color/hint_color"
-            android:textSize="12sp"
-            tools:text="件" />
+            android:paddingBottom="3dp">
+
+            <TextView
+                android:id="@+id/unit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/hint_color"
+                android:textSize="12sp"
+                tools:text="请选择单位" />
+
+
+            <ImageView
+                android:layout_width="11dp"
+                android:layout_height="6dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/xiangxia_next" />
+
+        </LinearLayout>
+
 
         <View
             android:layout_width="0dp"

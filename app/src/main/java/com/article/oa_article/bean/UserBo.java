@@ -72,6 +72,16 @@ public class UserBo {
         private String logo;
         private int messageNum;
 
+        private String companyUnitName;
+
+        public String getCompanyUnitName() {
+            return companyUnitName;
+        }
+
+        public void setCompanyUnitName(String companyUnitName) {
+            this.companyUnitName = companyUnitName;
+        }
+
         public int getMessageNum() {
             return messageNum;
         }

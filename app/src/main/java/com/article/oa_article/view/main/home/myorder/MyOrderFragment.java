@@ -302,6 +302,13 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                     surplus_time.setText(myOrderBO.getActualCompleteDate().replaceAll("-", "/"));
                     surplus_time.setTextColor(Color.parseColor("#8D8C91"));
                     surplus_time.setTextSize(11);
+                    if(myOrderBO.getIsOverdue() == 1){
+                        surplus_time.setTextColor(Color.parseColor("#E92B2B"));
+                        taskTime.setTextColor(Color.parseColor("#E92B2B"));
+                    }else{
+                        surplus_time.setTextColor(Color.parseColor("#8D8C91"));
+                        taskTime.setTextColor(Color.parseColor("#8D8C91"));
+                    }
                 } else {
                     if (StringUtils.isEmpty(myOrderBO.getRemainingDate())) {
                         surplus_time.setText(myOrderBO.getPlanCompleteDate().replaceAll("-", "/"));

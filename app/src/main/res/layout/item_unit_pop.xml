@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_layout"
+    android:layout_width="100dp"
+    android:layout_height="41dp"
+    android:background="#000000"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/item_unit_txt"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="#8D8C91"
+        android:textSize="13sp"
+        tools:text="件" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#2B2B2B" />
+
+</LinearLayout>

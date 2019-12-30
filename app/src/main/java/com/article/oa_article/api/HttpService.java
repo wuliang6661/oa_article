@@ -18,6 +18,7 @@ import com.article.oa_article.bean.TaskBO;
 import com.article.oa_article.bean.TaskNumBO;
 import com.article.oa_article.bean.TempleteBO;
 import com.article.oa_article.bean.TempleteInfoBo;
+import com.article.oa_article.bean.UnitBO;
 import com.article.oa_article.bean.UserBo;
 import com.article.oa_article.bean.request.AddTempleteBo;
 import com.article.oa_article.bean.request.AsseptRequest;
@@ -306,5 +307,11 @@ public interface HttpService {
      */
     @POST("industry_webservice/app/taskTemplate/moveTemplate")
     Observable<BaseResult<String>> moveTemplate(@Body MoveTemplateRequest request);
+
+    /**
+     * 获取公司单位
+     */
+    @POST("industry_webservice/app/companyInfo/getCompanyUnits")
+    Observable<BaseResult<List<UnitBO>>> getCompanyUnits(@Body IdRequest request);
 
 }
