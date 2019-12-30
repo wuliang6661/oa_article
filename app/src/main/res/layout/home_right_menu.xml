@@ -170,18 +170,40 @@
 
     </RadioGroup>
 
-    <CheckBox
-        android:id="@+id/last_radio"
-        android:layout_width="68dp"
-        android:layout_height="25dp"
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:background="@drawable/menu_radia_button"
-        android:button="@null"
-        android:gravity="center"
-        android:text="已完成"
-        android:textColor="@drawable/text_select_color"
-        android:textSize="10sp"
-        android:visibility="gone" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/last_one_radio"
+            android:layout_width="68dp"
+            android:layout_height="25dp"
+            android:background="@drawable/menu_radia_button"
+            android:button="@null"
+            android:gravity="center"
+            android:text="已完成"
+            android:textColor="@drawable/text_select_color"
+            android:textSize="10sp"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/last_radio"
+            android:layout_width="68dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="6dp"
+            android:background="@drawable/menu_radia_button"
+            android:button="@null"
+            android:gravity="center"
+            android:text="已完成"
+            android:textColor="@drawable/text_select_color"
+            android:textSize="10sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
 
 
     <TextView

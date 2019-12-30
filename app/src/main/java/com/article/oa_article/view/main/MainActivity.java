@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
@@ -121,6 +122,8 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     TextView todayPoint;
     @BindView(R.id.last_radio)
     CheckBox lastRadio;
+    @BindView(R.id.last_one_radio)
+    CheckBox lastOneRadio;
 
     private int selectPosition = 0;
     private BottmTabItem[] buttms;
@@ -342,12 +345,25 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                     break;
             }
             lastRadio.setChecked(false);
+            lastOneRadio.setChecked(false);
+        });
+        lastOneRadio.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    radioGroupTask.clearCheck();
+                    lastOneRadio.setChecked(true);
+                    lastRadio.setChecked(false);
+                    taskRadio = "3";
+                }
+            }
         });
         lastRadio.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
                 radioGroupTask.clearCheck();
+                lastOneRadio.setChecked(false);
                 lastRadio.setChecked(true);
-                taskRadio = "3";
+                taskRadio = "4";
             }
         });
         fourRadioLayout.setOnCheckedChangeListener((group, checkedId) -> {
@@ -394,13 +410,14 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         fourText.setVisibility(View.VISIBLE);
         fourRadioLayout.setVisibility(View.VISIBLE);
         lastRadio.setVisibility(View.GONE);
+        lastOneRadio.setVisibility(View.GONE);
         switch (type) {
             case 0:// 我的任务（全部）
                 taskUnfinish.setText("未分派");
                 taskWay.setText("进行中");
                 taskOff.setText("已取消");
-                lastRadio.setText("已完成");
-                lastRadio.setVisibility(View.VISIBLE);
+                lastOneRadio.setText("已完成");
+                lastOneRadio.setVisibility(View.VISIBLE);
                 setMenu(all, type);
                 break;
             case 1:   // 我的任务（我自己的）
@@ -411,10 +428,12 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                 break;
             case 2:    //我的任务（我分派的）
                 taskUnfinish.setText("未接受");
-                taskWay.setText("进行中");
-                taskOff.setText("已取消");
+                taskWay.setText("未分派");
+                taskOff.setText("进行中");
+                lastOneRadio.setText("已取消");
                 lastRadio.setText("已完成");
                 lastRadio.setVisibility(View.VISIBLE);
+                lastOneRadio.setVisibility(View.VISIBLE);
                 setMenu(myfenpai, type);
                 break;
             case 3:    //我的任务 （已完成）
@@ -495,6 +514,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         radioGroupTask.clearCheck();
         fourRadioLayout.clearCheck();
         lastRadio.setChecked(false);
+        lastOneRadio.setChecked(false);
         idFlowlayout.onChanged();
         if (!StringUtils.isEmpty(request.getTaskType())) {
             switch (type) {
@@ -506,7 +526,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                     } else if ("5".equals(request.getTaskType())) {   //已取消
                         taskOff.setChecked(true);
                     } else if ("2".equals(request.getTaskType())) {  //已完成
-                        lastRadio.setChecked(true);
+                        lastOneRadio.setChecked(true);
                     }
                     break;
                 case 1:
@@ -519,13 +539,15 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                     }
                     break;
                 case 2:
-                    if ("3".equals(request.getTaskType())) {  //未分派
+                    if ("3".equals(request.getTaskType())) {  //未接受
                         taskUnfinish.setChecked(true);
-                    } else if ("4".equals(request.getTaskType())) {  //进行中
+                    } else if ("1".equals(request.getTaskType())) {  //未分派
                         taskWay.setChecked(true);
-                    } else if ("5".equals(request.getTaskType())) {   //已取消
+                    } else if ("4".equals(request.getTaskType())) {   //进行中
                         taskOff.setChecked(true);
-                    } else if ("2".equals(request.getTaskType())) {  //已完成
+                    } else if ("5".equals(request.getTaskType())) {  //已取消
+                        lastOneRadio.setChecked(true);
+                    } else if ("2".equals(request.getTaskType())) {  // 已完成
                         lastRadio.setChecked(true);
                     }
                     break;
@@ -677,13 +699,15 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                 }
                 break;
             case 2:
-                if ("0".equals(taskRadio)) {  //未分派
+                if ("0".equals(taskRadio)) {  //未接受
                     request.setTaskType("3");
-                } else if ("1".equals(taskRadio)) {  //进行中
+                } else if ("1".equals(taskRadio)) {  //未分派
+                    request.setTaskType("1");
+                } else if ("2".equals(taskRadio)) {   //进行中
                     request.setTaskType("4");
-                } else if ("2".equals(taskRadio)) {   //已取消
+                } else if ("3".equals(taskRadio)) {                        //已取消
                     request.setTaskType("5");
-                } else if ("3".equals(taskRadio)) {                        //已完成
+                } else if ("4".equals(taskRadio)) {                        //已完成
                     request.setTaskType("2");
                 }
                 break;
