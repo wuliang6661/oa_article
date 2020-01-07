@@ -118,11 +118,17 @@ public class AcceptedFragment extends MVPBaseFragment<AcceptedContract.View, Acc
     }
 
 
+    LGRecycleViewAdapter<AcceptedOrderBo> adapter;
+
     /**
      * 未接受订单列表
      */
     private void setAdapter(List<AcceptedOrderBo> s) {
-        LGRecycleViewAdapter<AcceptedOrderBo> adapter = new LGRecycleViewAdapter<AcceptedOrderBo>(s) {
+        if (adapter != null) {
+            adapter.setData(s);
+            return;
+        }
+        adapter = new LGRecycleViewAdapter<AcceptedOrderBo>(s) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.item_asspte_order;

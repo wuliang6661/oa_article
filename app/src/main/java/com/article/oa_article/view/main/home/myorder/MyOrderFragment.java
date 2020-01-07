@@ -240,12 +240,17 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
         }
     }
 
+    LGRecycleViewAdapter<MyOrderBO> adapter;
 
     /**
      * 设置适配器
      */
     private void setAdapter(List<MyOrderBO> s) {
-        LGRecycleViewAdapter<MyOrderBO> adapter = new LGRecycleViewAdapter<MyOrderBO>(s) {
+        if (adapter != null) {
+            adapter.setData(s);
+            return;
+        }
+        adapter = new LGRecycleViewAdapter<MyOrderBO>(s) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.item_myorder;
@@ -302,10 +307,10 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
                     surplus_time.setText(myOrderBO.getActualCompleteDate().replaceAll("-", "/"));
                     surplus_time.setTextColor(Color.parseColor("#8D8C91"));
                     surplus_time.setTextSize(11);
-                    if(myOrderBO.getIsOverdue() == 1){
+                    if (myOrderBO.getIsOverdue() == 1) {
                         surplus_time.setTextColor(Color.parseColor("#E92B2B"));
                         taskTime.setTextColor(Color.parseColor("#E92B2B"));
-                    }else{
+                    } else {
                         surplus_time.setTextColor(Color.parseColor("#8D8C91"));
                         taskTime.setTextColor(Color.parseColor("#8D8C91"));
                     }

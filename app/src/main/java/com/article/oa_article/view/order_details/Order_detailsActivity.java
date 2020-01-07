@@ -175,18 +175,18 @@ public class Order_detailsActivity extends MVPBaseActivity<Order_detailsContract
             new AlertDialog(this).builder().setGone().setMsg("您分派的任务还未保存\n是否确认放弃分派任务？")
                     .setNegativeButton("取消", null)
                     .setPositiveButton("确定", v -> {
-//                        if (isEditOrder) {
-                        finish();
-//                        } else {
-//                            AppManager.getAppManager().goHome();
-//                        }
+                        if (isEditOrder) {
+                            finish();
+                        } else {
+                            AppManager.getAppManager().goHome();
+                        }
                     }).show();
         } else {
-//            if (isEditOrder) {
-            finish();
-//            } else {
-//                AppManager.getAppManager().goHome();
-//            }
+            if (isEditOrder) {
+                finish();
+            } else {
+                AppManager.getAppManager().goHome();
+            }
         }
     }
 

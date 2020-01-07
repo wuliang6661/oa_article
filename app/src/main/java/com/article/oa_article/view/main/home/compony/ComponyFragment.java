@@ -228,12 +228,17 @@ public class ComponyFragment extends MVPBaseFragment<ComponyContract.View, Compo
         getOrderByTask(selePosition);
     }
 
+    LGRecycleViewAdapter<ComplanOrderBo> adapter;
 
     /**
      * 设置适配器
      */
     private void setAdapter(List<ComplanOrderBo> s) {
-        LGRecycleViewAdapter<ComplanOrderBo> adapter = new LGRecycleViewAdapter<ComplanOrderBo>(s) {
+        if (adapter != null) {
+            adapter.setData(s);
+            return;
+        }
+        adapter = new LGRecycleViewAdapter<ComplanOrderBo>(s) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.item_complan_order;
