@@ -293,8 +293,8 @@ public class ComplanMsgEditFragment extends MVPBaseFragment<ComplanMsgEditContra
     }
 
     @Override
-    public void updateSourss() {
-        ToastUtils.showShort("认证正在审核中，请耐心等待");
+    public void updateSourss(String s) {
+        ToastUtils.showShort(s);
         EventBus.getDefault().post(new UpdateComplanEvent());
     }
 

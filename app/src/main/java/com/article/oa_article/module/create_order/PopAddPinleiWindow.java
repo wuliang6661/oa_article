@@ -61,7 +61,7 @@ public class PopAddPinleiWindow extends PopupWindow {
         Button commit = dialogView.findViewById(R.id.next_button);
         pop_title = dialogView.findViewById(R.id.pop_title);
 
-        if (!StringUtils.isEmpty(name)) {
+        if (!StringUtils.isEmpty(num)) {
             pop_title.setText("编辑品类详情");
             pingleiName.setText(name);
             pingleiNum.setText(num);

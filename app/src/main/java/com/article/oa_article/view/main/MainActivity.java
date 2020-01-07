@@ -685,7 +685,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                     request.setTaskType("4");
                 } else if ("2".equals(taskRadio)) {   //已取消
                     request.setTaskType("5");
-                } else if ("3".equals(taskRadio)) {                        //已完成
+                } else if ("3".equals(taskRadio)) {    //已完成
                     request.setTaskType("2");
                 }
                 break;
@@ -705,9 +705,9 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                     request.setTaskType("1");
                 } else if ("2".equals(taskRadio)) {   //进行中
                     request.setTaskType("4");
-                } else if ("3".equals(taskRadio)) {                        //已取消
+                } else if ("3".equals(taskRadio)) {   //已取消
                     request.setTaskType("5");
-                } else if ("4".equals(taskRadio)) {                        //已完成
+                } else if ("4".equals(taskRadio)) {     //已完成
                     request.setTaskType("2");
                 }
                 break;

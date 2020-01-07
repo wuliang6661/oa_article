@@ -60,8 +60,8 @@
                 android:id="@+id/edit_kehu_jiancheng"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/line_height"
-                app:edit_max_length="10"
-                app:hint_text="请输入客户简称（不多于10个字）"
+                app:edit_max_length="15"
+                app:hint_text="请输入客户简称（不多于15个字）"
                 app:title_text="客户简称" />
 
 

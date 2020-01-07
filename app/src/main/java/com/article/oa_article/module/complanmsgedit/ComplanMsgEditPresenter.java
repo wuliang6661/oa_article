@@ -41,7 +41,7 @@ public class ComplanMsgEditPresenter extends BasePresenterImpl<ComplanMsgEditCon
             @Override
             public void onSuccess(String s) {
                 if (mView != null) {
-                    mView.updateSourss();
+                    mView.updateSourss(s);
                 }
             }
 

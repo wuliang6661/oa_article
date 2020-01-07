@@ -28,7 +28,7 @@ public class HomeAddPopWindow extends PopupWindow implements View.OnClickListene
         createMoBan.setOnClickListener(this);
         this.setContentView(window);
         this.setWidth(SizeUtils.dp2px(155));
-        this.setHeight(SizeUtils.dp2px(53));
+        this.setHeight(SizeUtils.dp2px(106));
         this.setFocusable(true);
         //设置宽高
 //        setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(activity, R.color.dialog_bg)));

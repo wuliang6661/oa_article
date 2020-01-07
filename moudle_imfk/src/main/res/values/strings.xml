@@ -6,7 +6,7 @@
     <string name="recorder_recording">松开 手指</string>
     <string name="recorder_want_cancel">松开手指，取消发送</string>
     <string name="investigate">请您对本次服务做出评价, 点击对应选项即可完成评价</string>
-    <string name="logout">注销</string>
+    <string name="logout">返回</string>
     <string name="topeople">转人工</string>
     <string name="send">发送</string>
     <string name="numbers01">当前咨询人数较多,你排在第</string>

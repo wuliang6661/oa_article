@@ -43,7 +43,7 @@ public class ComplanZiyuanEditPresenter extends BasePresenterImpl<ComplanZiyuanE
             @Override
             public void onSuccess(String s) {
                 if (mView != null) {
-                    ToastUtils.showShort("认证正在审核中，请耐心等待");
+                    ToastUtils.showShort(s);
                     EventBus.getDefault().post(new UpdateComplanEvent());
                 }
             }

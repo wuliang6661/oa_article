@@ -13,7 +13,7 @@ public class ComplanMsgEditContract {
 
         void updateSourss(String name, String imageUrl);
 
-        void updateSourss();
+        void updateSourss(String s);
     }
 
     interface Presenter extends BasePresenter<View> {

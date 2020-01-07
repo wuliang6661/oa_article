@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="尺码"
+            android:text="规格"
             android:textColor="@color/hint_color"
             android:textSize="15sp" />
 
