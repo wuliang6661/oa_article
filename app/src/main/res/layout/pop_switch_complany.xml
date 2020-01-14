@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="7dp"
-                android:text="输入企业全称"
+                android:text="请输入企业全称"
                 android:textColor="@color/blue_color"
                 android:textSize="15sp" />
 
