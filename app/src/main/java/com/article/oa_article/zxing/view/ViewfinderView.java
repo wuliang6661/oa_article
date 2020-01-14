@@ -215,19 +215,16 @@ public final class ViewfinderView extends View {
                 laserColor,
                 shadeColor(laserColor),
                 Shader.TileMode.MIRROR);
-
         SweepGradient sweepGradient = new SweepGradient(
                 (float) (frame.left + frame.width() / 2),
                 (float) (scannerStart + SCANNER_LINE_HEIGHT),
                 shadeColor(laserColor),
                 laserColor);
-
         ComposeShader composeShader = new ComposeShader(radialGradient, linearGradient, PorterDuff.Mode.ADD);
-
         paint.setShader(radialGradient);
         if (scannerStart <= scannerEnd) {
             //矩形
-//      canvas.drawRect(frame.left, scannerStart, frame.right, scannerStart + SCANNER_LINE_HEIGHT, paint);
+            //canvas.drawRect(frame.left, scannerStart, frame.right, scannerStart + SCANNER_LINE_HEIGHT, paint);
             //椭圆
             RectF rectF = new RectF(frame.left + 2 * SCANNER_LINE_HEIGHT, scannerStart, frame.right - 2 * SCANNER_LINE_HEIGHT, scannerStart + SCANNER_LINE_HEIGHT);
             canvas.drawOval(rectF, paint);

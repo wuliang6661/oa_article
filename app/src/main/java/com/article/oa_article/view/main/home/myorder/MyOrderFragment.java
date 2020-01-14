@@ -242,10 +242,13 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
 
     LGRecycleViewAdapter<MyOrderBO> adapter;
 
+    List<MyOrderBO> orders;
+
     /**
      * 设置适配器
      */
     private void setAdapter(List<MyOrderBO> s) {
+        this.orders = s;
         if (adapter != null) {
             adapter.setData(s);
             return;
@@ -333,7 +336,7 @@ public class MyOrderFragment extends MVPBaseFragment<MyOrderContract.View, MyOrd
             }
         };
         adapter.setOnItemClickListener(R.id.item_layout, (view, i) -> {
-            MyOrderBO orderBO = s.get(i);
+            MyOrderBO orderBO = orders.get(i);
             switch (orderBO.getPage()) {
                 case 1:   //待接受
                     Bundle bundle = new Bundle();
